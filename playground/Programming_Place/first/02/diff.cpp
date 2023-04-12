@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:57:03 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/12 17:51:42 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:01:50 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,16 @@ int	main()
 	std::cout << "color is [" << color << "]\n"
 		<< "v     is [" << v << "]"
 		<< std::endl;
+	std::cout << std::endl;
+
+	// practice 1
+	// Ansewer print A
+	std::cout << 'A' << std::endl;
+
+	// practice 2
+	Color	colors = (Color)0;
+	colors = (Color)(colors + 1);
+	std::cout << colors << std::endl;
 
 	return (0);
 }
