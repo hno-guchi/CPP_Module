@@ -6,7 +6,7 @@ NAME = string
 CXX = c++
 CXXFLAGS = -std=c++98 -Wall -Wextra -Werror
 
-SRCS = 
+SRCS = string.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 
 OBJS_DIR = ./objs
@@ -15,7 +15,7 @@ OBJS_DIR = ./objs
 # General Rules #
 #################
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re practice
 
 all: $(NAME)
 
@@ -33,5 +33,10 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) practice
 
 re: fclean all
+
+practice: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c practice.cpp -o $(OBJS_DIR)/practice.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/practice.o
