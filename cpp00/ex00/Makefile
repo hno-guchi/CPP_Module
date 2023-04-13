@@ -8,7 +8,6 @@ CXXFLAGS = -std=c++98 -Wall -Wextra -Werror
 
 SRCS = megaphone.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
-
 OBJS_DIR = ./objs
 
 #################
