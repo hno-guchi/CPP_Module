@@ -6,25 +6,22 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:18:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/13 15:22:17 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/13 19:08:21 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <cctype>
 #include <string>
 
-/*
-std::string *str_toupper(char *str)
+static void	str_toupper(std::string *str)
 {
-	std::string	upper_str(str);
-	std::size_t	str_size = upper_str.size();
-
-	for (std::size_t i = 0; i < str_size; i++)
+	const std::string::const_iterator	iter_end = str->end();
+	for (std::string::iterator iter = str->begin(); iter != iter_end; iter++)
 	{
-		if ()
+		*iter = std::toupper(*iter);
 	}
 }
-*/
 
 int	main(int argc, char *argv[])
 {
@@ -36,9 +33,12 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 
+	std::string	str;
 	for (int i = 1; i < argc; i++)
 	{
-		std::cout << argv[i] << std::flush;
+		str = argv[i];
+		str_toupper(&str);
+		std::cout << str << std::flush;
 	}
 	std::cout << std::endl;
 }
