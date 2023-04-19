@@ -12,11 +12,15 @@ OBJS_DIR = ./objs
 # General Rules #
 #################
 
-.PHONY: clean fclean static
+.PHONY: clean fclean static reinterpret
 
 static: $(OBJS_DIR)
 	$(CXX) $(CXXFLAGS) -c Static.cpp -o $(OBJS_DIR)/Static.o
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/Static.o
+
+reinterpret: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c Reinterpret.cpp -o $(OBJS_DIR)/Reinterpret.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/Reinterpret.o
 
 $(OBJS_DIR):
 	mkdir -p $@
@@ -26,3 +30,4 @@ clean:
 
 fclean: clean
 	$(RM) static
+	$(RM) reinterpret

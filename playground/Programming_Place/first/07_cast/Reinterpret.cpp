@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 10:34:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/18 12:28:43 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/18 14:43:50 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,36 @@ reinterpret_cast
 
 #endif
 
+#include <iostream>
+
+void	f(int v)
+{
+	std::cout << v << std::endl;
+}
+
 int	main()
 {
 	// 整数型や列挙型と、ポインタ型との相互変換ができる。（型の大きさは実装依存。）
+	int	a = 100;
+	int	*p = &a;
+	std::cout << p << std::endl;
+
+	unsigned long	ul = reinterpret_cast<unsigned long>(p);
+	std:: cout << std::hex << ul << std::endl;
+
+	p = reinterpret_cast<int *>(ul);
+	std::cout << p << std::endl;
+
+	// 異なる型のポインタ間、または参照間の変換ができる。
+	int	n = 100;
+
+	int		*np = &n;
+	short	*sp = reinterpret_cast<short *>(np);
+	std::cout << *sp << std::endl; // 結果は、保証されない。
+
+	// 異なる型の関数ポインタ間の変換ができる。
+	typedef void(*func_t)(short);
+
+	func_t func = reinterpret_cast<func_t>(f);
+	func(100); // 結果は、保証されない。
 }
