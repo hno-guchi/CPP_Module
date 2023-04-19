@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 10:34:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/18 15:18:58 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/19 11:38:32 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,33 @@ C++のキャストの特徴
 
 キャストの名称<キャスト後の型>(式);
 
-キャストの名称
 const_cast
+// ポインタや参照に付いている、const, volatile を外すことができる。
+   このキャストが使用されている際は、設計的な欠陥がある可能性がある。
 
+// このキャストの妥当な使い方は、
+   非constメンバ関数と、constメンバ関数のオーバーロードを行う際に、
+   その実装の共通化を目的として使用すること。
 
+// const, volatile を付け加えることもできる。（暗黙的に行われる。）
+   使用例）
+   あるメンバ関数が、constメンバ関数 と非constメンバ関数 とでオーバーロードされている時に、
+   強制的に constメンバ関数を呼び出すために使用。
 #endif
+
+#include <iostream>
 
 int	main()
 {
+	int	n = 100;
 
+	// ポインタや参照に付いている、const, volatile を外すことができる。
+	const int	*cp_1 = &n;
+	int			*ip_1 = const_cast<int *>(cp_1);
+	std::cout << *ip_1 << std::endl;
+
+	// const, volatile を付け加えることもできる。（暗黙的に行われる。）
+	int			*ip_2 = &n;
+	const int	*cp_2 = const_cast<const int *>(ip_2);
+	std::cout << *cp_2 << std::endl;
 }
