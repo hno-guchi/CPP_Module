@@ -10,11 +10,23 @@ OBJS_DIR = ./objs
 # General Rules #
 #################
 
-.PHONY: clean fclean
+.PHONY: clean fclean overload scope cast default
 
-: $(OBJS_DIR)
-$(CXX) $(CXXFLAGS) -c .cpp -o $(OBJS_DIR)/.o
-$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/.o
+overload: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c Overload.cpp -o $(OBJS_DIR)/Overload.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/Overload.o
+
+scope: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c Scope.cpp -o $(OBJS_DIR)/Scope.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/Scope.o
+
+cast: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c Cast.cpp -o $(OBJS_DIR)/Cast.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/Cast.o
+
+default: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c Default.cpp -o $(OBJS_DIR)/Default.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/Default.o
 
 $(OBJS_DIR):
 	mkdir -p $@
@@ -23,3 +35,6 @@ clean:
 	$(RM) -r $(OBJS_DIR)
 
 fclean: clean
+	$(RM) overload
+	$(RM) scope
+	$(RM) cast
