@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:18:50 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/19 15:45:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/19 16:13:36 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ https://programming-place.net/ppp/contents/cpp/language/008.html#overload
 default実引数
 関数に実引数を渡さなかった場合に、デフォルトの値が指定されたと見なす機能のこと。
 デフォルトの値は、基本的に定数を設定すること。（一応、関数の戻り値でもできる）
+
+書き方（関数宣言時に記述すること）
+ReturnType	FuncName([Param, ...], Type Name = Value);
 
 デフォルト実引数は、関数オーバーロードで代替できる。（ただし仕組みは異なる。）
 関数オーバーロードの場合
@@ -37,9 +40,6 @@ default実引数
 ex)
 func(int a, int b = 10, int c = 20); // OK
 func(int a, int b = 10, int c);      // NG
-
-書き方（関数宣言時）
-ReturnType	FuncName([Param, ...], Type Name = Value);
 
 #endif
 
