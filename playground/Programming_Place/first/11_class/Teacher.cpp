@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:46:18 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/20 19:20:38 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/21 10:07:58 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,34 @@ void	Teacher::PrintMyStudents()
 		m_StudentList[i]->PrintMember();
 	}
 }
+
+/*
+void	Teacher::SetData(std::string name, int grade)
+{
+	mName = name;
+	mGrade = grade;
+	for (int i = 0; i < SIZE_OF_ARRAY(mChargeStudents); i++)
+	{
+		mChargeStudents[i] = NULL;
+	}
+	mChargeStudentsCount = 0;
+}
+
+void	Teacher::AddChargeStudent(Student *student)
+{
+	if (SIZE_OF_ARRAY(mChargeStudents) < mChargeStudentsCount)
+	{
+		return ;
+	}
+	if (student->GetGrade() != mGrade)
+	{
+		return ;
+	}
+	if (student == NULL)
+	{
+		return ;
+	}
+	mChargeStudents[mChargeStudentsCount] = student;
+	mChargeStudentsCount += 1;
+}
+*/
