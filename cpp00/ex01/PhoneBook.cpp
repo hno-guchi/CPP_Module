@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/26 16:13:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:03:05 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,97 @@ static int	tokenize(std::string *data, std::string *str)
 	return (0);
 }
 
-bool	is_validation(std::string *data)
+bool	is_alpha(const char c)
 {
-	if (20 < data[0].size()) {
+	if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')) {
+		return (true);
+	}
+	return (false);
+}
+
+static bool	is_all_alphabetic(const std::string *data)
+{
+	for (std::string::const_iterator itr = data->begin(); itr != data->end(); itr++) {
+		if (!is_alpha(*itr)) {
+			return (false);
+		}
+	}
+	return (true);
+}
+
+static bool	is_name(const std::string *name)
+{
+	if (20 < name->size()) {
+		error_message(ADD_DATA_NAME_TOO_LONG);
+		return (false);
+	} else if (!is_all_alphabetic(name)) {
+		error_message(ADD_DATA_NAME_NOT_ONLY_ALPHA);
+		return (false);
+	}
+	return (true);
+}
+
+static bool	is_nickname(const std::string *name)
+{
+	if (20 < name->size()) {
+		error_message(ADD_DATA_NAME_TOO_LONG);
+		return (false);
+	}
+	for (std::string::const_iterator itr = name->begin(); itr != name->end(); itr++) {
+		if (!is_alpha(*itr) && *itr != '-' && *itr != '_') {
+			error_message(ADD_DATA_NICKNAME_ERR_VALID);
+			return (false);
+		}
+	}
+	return (true);
+}
+
+bool	is_digit(const char c)
+{
+	if ('0' <= c && c <= '9') {
+		return (true);
+	}
+	return (false);
+}
+
+static bool	is_phone_number(const std::string *number)
+{
+	std::string::const_iterator	itr;
+
+	itr = number->begin();
+	if (*itr != '0') {
+		error_message(ADD_DATA_PHONE_NUMBER_PREFIX_NOT_ZERO);
+		return (false);
+	}
+	if (number->size() != 10 && number->size() != 11) {
+		error_message(ADD_DATA_PHONE_NUMBER_TOO_LONG);
+		return (false);
+	}
+	for (; itr != number->end(); itr++) {
+		if (!is_digit(*itr)) {
+			error_message(ADD_DATA_PHONE_NUMBER_ERR_VALID);
+			return (false);
+		}
+	}
+	return (true);
+}
+
+bool	is_validation(const std::string *data)
+{
+	if (!is_name(&(data[0]))) {
+		return (false);
+	}
+	if (!is_name(&(data[1]))) {
+		return (false);
+	}
+	if (!is_nickname(&(data[2]))) {
+		return (false);
+	}
+	if (!is_phone_number(&(data[3]))) {
+		return (false);
+	}
+	if (data[4].empty() == true) {
+		error_message(ADD_DATA_TOO_FEW);
 		return (false);
 	}
 	return (true);
@@ -80,8 +168,10 @@ void	PhoneBook::add_command()
 		if (!is_validation(data)) {
 			break ;
 		}
-		// check(&temp);
-		// do_add(&temp);
+		// if (!is_submit_add_data(data) {
+		// break ;
+		// }
+		// do_add(data);
 		break ;
 	}
 }

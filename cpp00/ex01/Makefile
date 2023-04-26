@@ -35,6 +35,5 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) contact
 
 re: fclean all
