@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:49:18 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/26 12:37:02 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:56:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ void	error_message(ERROR_TYPE type)
 	if (type == NOT_COMMAND) {
 		std::cout << "Not command.\n"
 			<< "Command is ADD, SEARCH, EXIT only.\n" << std::endl;
-	} else if (type == ADD_DATA_TOO_MANY) {
-		std::cout << "PhoneBook: ADD: Too many data.\n" << std::endl;
+	} else if (type == 	ADD_DATA_TOO_FEW) {
+		std::cout << "PhoneBook: ADD: Too few data.\n" << std::endl;
+	} else if (type == ADD_DATA_STREAM_ERROR) {
+		std::cout << "PhoneBook: ADD: Stream error.\n" << std::endl;
 	} else {
 		std::cout << "Error: Exception Error!!\n" << std::endl;
 	}
