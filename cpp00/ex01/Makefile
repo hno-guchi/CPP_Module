@@ -5,7 +5,7 @@
 NAME = phonebook
 CXX = c++
 CXXFLAGS = -std=c++98 -Wall -Wextra -Werror
-SRCS = main.cpp Phonebook.cpp Contact.cpp
+SRCS = main.cpp PhoneBook.cpp Contact.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 
