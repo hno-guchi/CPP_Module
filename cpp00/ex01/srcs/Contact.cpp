@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/26 09:32:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/27 11:24:01 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	Contact::add_data(int idx, std::string first, std::string last,
 	m_nickname = nick;
 	m_phone_number = phone_num;
 	m_darkest_secret = secret;
+	std::cout << "[ADD] : Success!!" << std::endl;
 }
 
 /*

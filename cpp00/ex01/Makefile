@@ -4,9 +4,13 @@
 
 NAME = phonebook
 CXX = c++
-CXXFLAGS = -std=c++98 -Wall -Wextra -Werror
-SRCS = main.cpp PhoneBook.cpp Contact.cpp
+INCLUDES = -I./includes
+CXXFLAGS = -std=c++98 -Wall -Wextra -Werror $(INCLUDES)
+SRCS = main.cpp error_message.cpp ft_isdigit.cpp \
+	PhoneBook.cpp ft_isalpha.cpp input_data.cpp tokenize.cpp is_validation.cpp do_add.cpp \
+	Contact.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
+SRCS_DIR = ./srcs
 OBJS_DIR = ./objs
 
 #################
@@ -21,14 +25,14 @@ $(NAME): $(OBJS_DIR) $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
 contact: $(OBJS_DIR)
-	$(CXX) $(CXXFLAGS) -c $@.cpp -o $(OBJS_DIR)/$@.o
+	$(CXX) $(CXXFLAGS) -c $(SRCS_DIR)/$@.cpp -o $(OBJS_DIR)/$@.o
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/$@.o
 
 $(OBJS_DIR):
 	mkdir -p $@
 
-$(OBJS_DIR)/%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $(INCLUDES) $< -o $@
 
 clean:
 	$(RM) -r $(OBJS_DIR)
