@@ -6,8 +6,8 @@ NAME = phonebook
 CXX = c++
 INCLUDES = -I./includes
 CXXFLAGS = -std=c++98 -Wall -Wextra -Werror $(INCLUDES)
-SRCS = main.cpp error_message.cpp ft_isdigit.cpp \
-	PhoneBook.cpp ft_isalpha.cpp input_data.cpp tokenize.cpp is_validation.cpp do_add.cpp \
+SRCS = main.cpp error_message.cpp getline_prompt.cpp ft_strlen.cpp ft_isdigit.cpp is_phone_number.cpp begin_message.cpp \
+	PhoneBook.cpp ft_isalpha.cpp tokenize.cpp is_validation.cpp do_add.cpp \
 	Contact.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 SRCS_DIR = ./srcs

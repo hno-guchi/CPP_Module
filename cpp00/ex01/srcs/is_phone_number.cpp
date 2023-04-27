@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Contact.hpp                                        :+:      :+:    :+:   */
+/*   is_phone_number.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 15:29:06 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:47:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTACT_HPP
-# define CONTACT_HPP
+# include "PhoneBook.hpp"
 
-#include <iostream>
-
-class Contact {
-	int			m_index;
-	std::string	m_first_name;
-	std::string	m_last_name;
-	std::string	m_nickname;
-	std::string	m_phone_number;
-	std::string	m_darkest_secret;
-
-public:
-	void	print_data();
-	void	add_data(int idx, std::string first, std::string last,
-				std::string nick, std::string phone_num, std::string secret);
-	std::string	get_phone_number();
-};
-
-#endif
+bool	is_phone_number(const std::string number)
+{
+	if (number[0] != '0') {
+		error_message(ADD_DATA_PHONE_NUMBER_PREFIX_NOT_ZERO);
+		return (false);
+	}
+	if (ft_strlen(number) != 10 && ft_strlen(number) != 11) {
+		error_message(ADD_DATA_PHONE_NUMBER_WRONG_LENGTH);
+		return (false);
+	}
+	for (int i = 0; number[i] != '\0'; i++) {
+		if (!ft_isdigit(number[i])) {
+			error_message(ADD_DATA_PHONE_NUMBER_ERR_VALID);
+			return (false);
+		}
+	}
+	return (true);
+}

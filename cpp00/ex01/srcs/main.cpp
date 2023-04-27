@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:49:18 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 10:28:39 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:20:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,20 @@ int	main()
 	PhoneBook	phonebook;
 	std::string	command;
 
-	for (;;) {
-		std::cout << "PhoneBook: ";
-		std::getline(std::cin, command);
+	begin_message(MAIN);
+	while (1) {
+		if (!getline_prompt("PhoneBook: ", &command)) {
+			break ;
+		}
 		if (command == "") {
 			;
 		} else if (!is_command(command)) {
 			error_message(NOT_COMMAND);
 		} else {
 			do_command(command, &phonebook);
+			if (std::cin.eof() == true || std::cin.fail() == true) {
+				break ;
+			}
 		}
 	}
 }

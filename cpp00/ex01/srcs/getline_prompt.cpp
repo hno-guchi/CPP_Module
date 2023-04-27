@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_data.cpp                                     :+:      :+:    :+:   */
+/*   getline_prompt.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 11:16:12 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:20:20 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "PhoneBook.hpp"
 
-void	input_data(std::string *data)
+bool	getline_prompt(std::string prompt, std::string *line)
 {
-	std::cout << "\n[Add] : "
-		<< "Please enter this format.\n"
-		<< "ex)          : [First name] [Last name] [Nickname] [Phone number] [Darkest secret]\n"
-		<< "[Input data] : ";
-		std::getline(std::cin, *data);
+	std::cout << prompt;
+	std::cin.clear();
+	if (std::getline(std::cin, *line) == false) {
+		if (std::cin.eof() == true || std::cin.fail() == true) {
+			std::cout << "\nlog out." << std::endl;
+		}
+		return (false);
+	}
+	return (true);
 }
