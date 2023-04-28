@@ -9,9 +9,8 @@ CXXFLAGS = -std=c++98 -Wall -Wextra -Werror $(INCLUDES)
 LIBRARIES = -lft -L$(LIBFT_DIR)
 SRCS = main.cpp \
 	error_message.cpp getline_prompt.cpp begin_message.cpp \
-	is_phone_number.cpp is_registered_phone_number.cpp \
 	PhoneBook.cpp \
-	tokenize.cpp is_validation.cpp do_add.cpp \
+	getline_valid.cpp try_add.cpp is_index.cpp my_stoi.cpp \
 	Contact.cpp \
 	print_field.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
@@ -23,7 +22,7 @@ LIBFT_DIR = ./libft
 # General Rules #
 #################
 
-.PHONY: all libft clean fclean re contact
+.PHONY: all libft clean fclean re contact getline_prompt debug
 
 all: libft $(NAME)
 
@@ -32,13 +31,25 @@ $(NAME): $(OBJS_DIR) $(OBJS)
 
 contact: $(OBJS_DIR)
 	$(CXX) $(CXXFLAGS) -c $(SRCS_DIR)/$@.cpp -o $(OBJS_DIR)/$@.o
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/$@.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/$@.o $(LIBRARIES)
+
+getline_prompt: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c $(SRCS_DIR)/$@.cpp -o $(OBJS_DIR)/$@.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/$@.o $(LIBRARIES)
 
 $(OBJS_DIR):
 	mkdir -p $@
 
+ifdef DEBUG
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp
+		$(CXX) $(CXXFLAGS) -c $(INCLUDES) $< -o $@ -DDEBUG
+else
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $(INCLUDES) $< -o $@
+endif
+
+debug: clean
+	make DEBUG=1
 
 libft:
 	make -C $(LIBFT_DIR)

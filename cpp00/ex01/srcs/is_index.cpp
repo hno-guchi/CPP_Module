@@ -1,43 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize.cpp                                       :+:      :+:    :+:   */
+/*   is_index.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 10:47:25 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 15:30:49 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "PhoneBook.hpp"
 
-int	tokenize(std::string *data, std::string *str)
+bool	is_index(std::string str)
 {
-	int					i;
-	std::string			word;
-	std::istringstream	iss_str(*str);
-
-	i = 0;
-	while (iss_str.eof() != true) {
-		if (iss_str.fail()) {
-			error_message(ADD_DATA_STREAM_ERROR);
-			return (-1);
-		}
-		if (i < (CONTACT_DATA_TYPE_COUNT - 1)) {
-			iss_str >> data[i];
-			i += 1;
-		} else if (i == (CONTACT_DATA_TYPE_COUNT - 1)) {
-			iss_str >> word;
-			data[i] += word;
-			if (iss_str.peek() != EOF) {
-				data[i] += ' ';
-			}
-		}
+	if (1 < ft_strlen(str)) {
+		return (false);
 	}
-	if (i != (CONTACT_DATA_TYPE_COUNT - 1)) {
-		error_message(ADD_DATA_TOO_FEW);
-		return (-1);
+	if (!ft_isdigit(str[0])) {
+		return (false);
 	}
-	return (0);
+	if (!('0' <= str[0] && str[0] <= '7')) {
+		return (false);
+	}
+	return (true);
 }

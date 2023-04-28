@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:49:18 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 09:54:54 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:40:11 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main()
 	phonebook.initialize();
 	begin_message(MAIN);
 	while (1) {
-		if (!getline_prompt("PhoneBook: ", &command)) {
+		if (getline_prompt("PhoneBook: ", &command) < 0) {
 			break ;
 		}
 		if (command == "") {
@@ -65,3 +65,7 @@ int	main()
 		}
 	}
 }
+
+// #ifdef DEBUG
+// 		phonebook.print_contact_list();
+// #endif

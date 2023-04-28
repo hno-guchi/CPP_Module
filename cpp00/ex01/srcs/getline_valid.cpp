@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_validation.cpp                                  :+:      :+:    :+:   */
+/*   getline_valid.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 09:31:26 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:26:18 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	is_all_alphabetic(const std::string data)
 	return (true);
 }
 
-static bool	is_name(const std::string name)
+bool	is_name(const std::string name)
 {
 	if (20 < ft_strlen(name)) {
 		error_message(ADD_DATA_NAME_TOO_LONG);
@@ -34,7 +34,7 @@ static bool	is_name(const std::string name)
 	return (true);
 }
 
-static bool	is_nickname(const std::string name)
+bool	is_nickname(const std::string name)
 {
 	if (20 < ft_strlen(name)) {
 		error_message(ADD_DATA_NAME_TOO_LONG);
@@ -49,7 +49,26 @@ static bool	is_nickname(const std::string name)
 	return (true);
 }
 
-static bool	is_darkest_secret(const std::string str)
+bool	is_phone_number(const std::string number)
+{
+	if (number[0] != '0') {
+		error_message(ADD_DATA_PHONE_NUMBER_PREFIX_NOT_ZERO);
+		return (false);
+	}
+	if (ft_strlen(number) != 10 && ft_strlen(number) != 11) {
+		error_message(ADD_DATA_PHONE_NUMBER_WRONG_LENGTH);
+		return (false);
+	}
+	for (int i = 0; number[i] != '\0'; i++) {
+		if (!ft_isdigit(number[i])) {
+			error_message(ADD_DATA_PHONE_NUMBER_ERR_VALID);
+			return (false);
+		}
+	}
+	return (true);
+}
+
+bool	is_darkest_secret(const std::string str)
 {
 	if (str == "") {
 		error_message(ADD_DATA_TOO_FEW);
@@ -68,22 +87,22 @@ static bool	is_darkest_secret(const std::string str)
 	return (true);
 }
 
-bool	is_validation(const std::string *data)
+int	getline_valid(std::string title, std::string *data, bool (*valid_func)(std::string))
 {
-	if (!is_name(data[0])) {
-		return (false);
+	std::string	line;
+
+	while (1) {
+		while (line == "") {
+			if (getline_prompt(title, &line) < 0) {
+				return (-1);
+			}
+		}
+		if (!valid_func(line)) {
+			line = "";
+			continue ;
+		}
+		break ;
 	}
-	if (!is_name(data[1])) {
-		return (false);
-	}
-	if (!is_nickname(data[2])) {
-		return (false);
-	}
-	if (!is_phone_number(data[3])) {
-		return (false);
-	}
-	if (!is_darkest_secret(data[4])) {
-		return (false);
-	}
-	return (true);
+	*data = line;
+	return (0);
 }

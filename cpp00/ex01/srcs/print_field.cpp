@@ -6,11 +6,21 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 12:56:43 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:54:42 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
+
+void	print_field_title()
+{
+	std::cout
+		<< " [index]  " << " | "
+		<< " [first]  " << " | "
+		<< " [last]   " << " | "
+		<< " [nick]   " << " | "
+		<< std::endl;
+}
 
 void	print_field(std::string str)
 {

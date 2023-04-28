@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:49:18 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 10:31:57 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:31:17 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ void	error_message(ERROR_TYPE type)
 	} else if (type == ADD_DATA_PHONE_NUMBER_ERR_VALID) {
 		std::cout << "PhoneBook: ADD: Wrong phone number. Please only number.\n" << std::endl;
 	} else if (type == ADD_DATA_SECRET_TOO_LONG) {
-		std::cout << "PhoneBook: ADD: Too long secret data. Over 200 characters.\n" << std::endl;
+		std::cout << "PhoneBook: ADD: Too long secret data. Over 100 characters.\n" << std::endl;
 	} else if (type == ADD_DATA_SECRET_NOT_USE_CHAR) {
 		std::cout << "PhoneBook: ADD: Exist not use char in secret. Only use alphabet, space(\' \'), (,), (.) .\n" << std::endl;
 	} else if (type == ADD_DATA_REGISTERED_PHONE_NUMBER) {
 		std::cout << "PhoneBook: ADD: Already registered phone number.\n" << std::endl;
-	} else if (type == NOT_REGISTERED_PHONE_NUMBER) {
-		std::cout << "PhoneBook: SEARCH: Not found. Maybe the phone number is different.\n" << std::endl;
+	} else if (type == SEARCH_WARONG_VALUE) {
+		std::cout << "PhoneBook: SEARCH: Wrong value. Only 0 ~ 7.\n" << std::endl;
+	} else if (type == SEARCH_UNREGISTERED_INDEX) {
+		std::cout << "PhoneBook: SEARCH: Not found. Not registered yet.\n" << std::endl;
 	} else {
 		std::cout << "Error: Exception Error!!\n" << std::endl;
 	}

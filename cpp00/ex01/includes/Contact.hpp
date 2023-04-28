@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 12:57:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:55:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ public:
 	std::string	get_phone_number();
 };
 
+void	print_field_title();
 void	print_field(std::string str);
 
 #endif
