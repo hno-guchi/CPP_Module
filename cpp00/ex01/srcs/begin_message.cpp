@@ -6,13 +6,13 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 18:48:44 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:31:13 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "PhoneBook.hpp"
 
-void	print_message_in_main()
+static void	print_message_in_main()
 {
 	std::cout << "Hello. This app can use command ADD, SEARCH and EXIT only.\n\n"
 		<< "ADD    : Add contact data in app.\n"
@@ -21,7 +21,7 @@ void	print_message_in_main()
 		<< std::endl;
 }
 
-void	print_message_in_add()
+static void	print_message_in_add()
 {
 	std::cout << "\n[Add] : "
 		<< "Please enter this format.\n"
@@ -29,7 +29,7 @@ void	print_message_in_add()
 		<< std::endl;
 }
 
-void	print_message_in_search()
+static void	print_message_in_search()
 {
 	std::cout << "\n[SEARCH] : "
 		<< "Pleas enter phone number. (Only number. Not use hyphen(-).)"

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.cpp                                     :+:      :+:    :+:   */
+/*   ft_strlen.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 10:32:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:35:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "PhoneBook.hpp"
+# include "libft.hpp"
 
-bool	ft_isalpha(const char c)
+size_t	ft_strlen(const std::string str)
 {
-	if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')) {
-		return (true);
-	}
-	return (false);
+	size_t	len;
+
+	for (len = 0; str[len] != '\0'; len++)
+		;
+	return (len);
 }

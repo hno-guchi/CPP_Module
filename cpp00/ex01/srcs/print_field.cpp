@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.cpp                                     :+:      :+:    :+:   */
+/*   print_field.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 10:43:03 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:56:43 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "PhoneBook.hpp"
+#include "Contact.hpp"
 
-bool	ft_isdigit(const char c)
+void	print_field(std::string str)
 {
-	if ('0' <= c && c <= '9') {
-		return (true);
+	std::string	output_str;
+
+	if (10 <= ft_strlen(str)) {
+		for (int i = 0; i < 9; i++) {
+			output_str += str[i];
+		}
+		output_str += '.';
+	} else {
+		output_str = str;
 	}
-	return (false);
+	std::cout << std::right << std::setw(10)
+		<< output_str << " | "
+		<< std::flush;
 }

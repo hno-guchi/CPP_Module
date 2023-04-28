@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 15:28:40 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:56:30 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	Contact::print_data()
 {
-	std::cout
+	std::cout << std::right << std::setw(10)
 		<< m_index << " | "
-		<< m_first_name << " | "
-		<< m_last_name << " | "
-		<< m_nickname
-		<< std::endl;
+		<< std::flush;
+	print_field(m_first_name);
+	print_field(m_last_name);
+	print_field(m_nickname);
+	std::cout << std::endl;
 }
 
 void	Contact::add_data(int idx, std::string first, std::string last,

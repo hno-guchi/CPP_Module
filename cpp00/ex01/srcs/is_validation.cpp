@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 18:42:55 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 09:31:26 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ static bool	is_darkest_secret(const std::string str)
 {
 	if (str == "") {
 		error_message(ADD_DATA_TOO_FEW);
+		return (false);
+	}
+	if (100 < ft_strlen(str)) {
+		error_message(ADD_DATA_SECRET_TOO_LONG);
 		return (false);
 	}
 	for (int i = 0; str[i] != '\0'; i++) {

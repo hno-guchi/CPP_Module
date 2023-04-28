@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/27 20:17:08 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:01:58 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,30 @@ int	PhoneBook::get_contact_count()
 	return (m_contact_count);
 }
 
-Contact	*PhoneBook::get_contact_list(int index)
+Contact	*PhoneBook::get_contact_from_index(int index)
 {
 	if (index < 0 || MAX_CONTACTS <= index) {
 		return (NULL);
 	}
 	return (&(m_contact_list[index]));
+}
+
+Contact	*PhoneBook::get_contact_from_phone_number(std::string phone_number)
+{
+	int		count;
+	Contact	*target;
+
+	count = this->get_contact_count();
+	if (count == 0) {
+		return (NULL);
+	}
+	for (int i = 0; i < count; i++) {
+		target = this->get_contact_from_index(i);
+		if (phone_number == target->get_phone_number()) {
+			return (target);
+		}
+	}
+	return (NULL);
 }
 
 void	PhoneBook::increment_contact_count()
@@ -37,24 +55,6 @@ void	PhoneBook::increment_contact_count()
 	} else {
 		m_contact_count += 1;
 	}
-}
-
-bool	is_registered_phone_number(PhoneBook *phonebook, std::string *number)
-{
-	int		count;
-	Contact	*target;
-
-	count = phonebook->get_contact_count();
-	if (count == 0) {
-		return (false);
-	}
-	for (int i = 0; i < count; i++) {
-		target = phonebook->get_contact_list(i);
-		if (*number == target->get_phone_number()) {
-			return (true);
-		}
-	}
-	return (false);
 }
 
 void	PhoneBook::add_command()
@@ -83,6 +83,7 @@ void	PhoneBook::add_command()
 
 void	PhoneBook::search_command()
 {
+	Contact		*target;
 	std::string	phone_number;
 
 	begin_message(SEARCH);
@@ -91,18 +92,19 @@ void	PhoneBook::search_command()
 			return ;
 		}
 	}
-	if (is_phone_number(phone_number)) {
+	if (!is_phone_number(phone_number)) {
 		return ;
 	}
-	if (!is_registered_phone_number(this, &phone_number)) {
+	target = this->get_contact_from_phone_number(phone_number);
+	if (target == NULL) {
 		error_message(NOT_REGISTERED_PHONE_NUMBER);
-			return ;
+		return ;
 	}
-	//TODO
-	std::cout << "SEARCH command\n" << std::endl;
+	target->print_data();
 }
 
 void	PhoneBook::exit_command()
 {
-	std::cout << "EXIT command\n" << std::endl;
+	std::cin.setstate(std::ios::eofbit);
+	std::cout << "exit" << std::endl;
 }

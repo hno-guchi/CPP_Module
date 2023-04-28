@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Contact.hpp                                        :+:      :+:    :+:   */
+/*   is_registered_phone_number.cpp                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 12:57:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:57:03 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTACT_HPP
-# define CONTACT_HPP
+# include "PhoneBook.hpp"
 
-#include "libft.hpp"
-#include <iostream>
-#include <iomanip>
+bool	is_registered_phone_number(PhoneBook *phonebook, std::string *number)
+{
+	int		count;
+	Contact	*target;
 
-class Contact {
-	int			m_index;
-	std::string	m_first_name;
-	std::string	m_last_name;
-	std::string	m_nickname;
-	std::string	m_phone_number;
-	std::string	m_darkest_secret;
-
-public:
-	void	print_data();
-	void	add_data(int idx, std::string first, std::string last,
-				std::string nick, std::string phone_num, std::string secret);
-	std::string	get_phone_number();
-};
-
-void	print_field(std::string str);
-
-#endif
+	count = phonebook->get_contact_count();
+	if (count == 0) {
+		return (false);
+	}
+	for (int i = 0; i < count; i++) {
+		target = phonebook->get_contact_from_index(i);
+		if (*number == target->get_phone_number()) {
+			return (true);
+		}
+	}
+	return (false);
+}
