@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 20:10:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:11:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	PhoneBook::initialize()
 	m_contact_count = 0;
 	m_next_add_index = 0;
 	for (int i = 0; i < MAX_CONTACTS; i++) {
-		this->get_contact(i)->add_data(0, "", "", "", "", "");
+		this->set_data_contact(i, "", "", "", "", "");
 	}
 }
 
@@ -31,12 +31,23 @@ int	PhoneBook::get_next_add_index()
 	return (m_next_add_index);
 }
 
-Contact	*PhoneBook::get_contact(int index)
+Contact	PhoneBook::get_data_contact(int index)
 {
-	if (index < 0 || MAX_CONTACTS <= index) {
-		return (NULL);
+	return (m_contact_list[index]);
+}
+
+void	PhoneBook::set_data_contact(int idx, std::string first, std::string last,
+			std::string nick, std::string phone_num, std::string secret)
+{
+	if (idx < 0 || MAX_CONTACTS <= idx) {
+		return ;
 	}
-	return (&(m_contact_list[index]));
+	this->m_contact_list[idx].m_index = idx;
+	this->m_contact_list[idx].m_first_name = first;
+	this->m_contact_list[idx].m_last_name = last;
+	this->m_contact_list[idx].m_nickname = nick;
+	this->m_contact_list[idx].m_phone_number = phone_num;
+	this->m_contact_list[idx].m_darkest_secret = secret;
 }
 
 void	PhoneBook::increment_contact_count()
@@ -86,7 +97,7 @@ void	PhoneBook::add_command()
 
 void	PhoneBook::search_command()
 {
-	Contact		*target;
+	Contact		target;
 	std::string	index;
 
 	begin_message(SEARCH);
@@ -103,13 +114,9 @@ void	PhoneBook::search_command()
 		error_message(SEARCH_UNREGISTERED_INDEX);
 		return ;
 	}
-	target = this->get_contact(my_stoi(index));
-	if (target == NULL) {
-		error_message(SEARCH_UNREGISTERED_INDEX);
-		return ;
-	}
+	target = this->get_data_contact(my_stoi(index));
 	print_field_title();
-	target->print_data();
+	target.print_data();
 }
 
 void	PhoneBook::exit_command()
@@ -122,6 +129,6 @@ void	PhoneBook::print_contact_list()
 {
 	print_field_title();
 	for (int i = 0; i < MAX_CONTACTS; i++) {
-		this->get_contact(i)->print_data();
+		this->get_data_contact(i).print_data();
 	}
 }

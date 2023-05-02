@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 20:11:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:09:00 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,6 @@ void	Contact::print_data()
 	print_field(m_last_name);
 	print_field(m_nickname);
 	std::cout << std::endl;
-}
-
-void	Contact::add_data(int idx, std::string first, std::string last,
-			std::string nick, std::string phone_num, std::string secret)
-{
-	m_index = idx;
-	m_first_name = first;
-	m_last_name = last;
-	m_nickname = nick;
-	m_phone_number = phone_num;
-	m_darkest_secret = secret;
 }
 
 std::string	Contact::get_phone_number()

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 19:48:45 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/02 11:58:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,23 @@ enum SITUATION {
 };
 
 class PhoneBook {
-	int		m_contact_count;
-	int		m_next_add_index;
-	Contact	m_contact_list[MAX_CONTACTS];
-
 public:
 	void	initialize();
 	int		get_contact_count();
 	int		get_next_add_index();
-	Contact	*get_contact(int index);
+	Contact	get_data_contact(int index);
+	void	set_data_contact(int idx, std::string first, std::string last, std::string nick, std::string phone_num, std::string secret);
 	void	print_contact_list();
 	void	increment_contact_count();
 	void	increment_next_add_index();
 	void	add_command();
 	void	search_command();
 	void	exit_command();
+
+private:
+	int		m_contact_count;
+	int		m_next_add_index;
+	Contact	m_contact_list[MAX_CONTACTS];
 };
 
 // commmon
