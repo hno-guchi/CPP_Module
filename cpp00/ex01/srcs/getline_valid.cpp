@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 18:26:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:56:49 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,18 @@ bool	is_nickname(const std::string name)
 
 bool	is_phone_number(const std::string number)
 {
+	std::locale	l = std::locale::classic();
+
 	if (number[0] != '0') {
 		error_message(ADD_DATA_PHONE_NUMBER_PREFIX_NOT_ZERO);
 		return (false);
 	}
-	if (ft_strlen(number) != 10 && ft_strlen(number) != 11) {
+	if (number.length() != 10 && number.length() != 11) {
 		error_message(ADD_DATA_PHONE_NUMBER_WRONG_LENGTH);
 		return (false);
 	}
 	for (int i = 0; number[i] != '\0'; i++) {
-		if (!ft_isdigit(number[i])) {
+		if (!std::isdigit(number[i], l)) {
 			error_message(ADD_DATA_PHONE_NUMBER_ERR_VALID);
 			return (false);
 		}
@@ -70,16 +72,18 @@ bool	is_phone_number(const std::string number)
 
 bool	is_darkest_secret(const std::string str)
 {
+	std::locale	l = std::locale::classic();
+
 	if (str == "") {
 		error_message(ADD_DATA_TOO_FEW);
 		return (false);
 	}
-	if (100 < ft_strlen(str)) {
+	if (100 < str.length()) {
 		error_message(ADD_DATA_SECRET_TOO_LONG);
 		return (false);
 	}
 	for (int i = 0; str[i] != '\0'; i++) {
-		if (!ft_isalpha(str[i]) && str[i] != ' ' && str[i] != '\'' && str[i] != ',' && str[i] != '.') {
+		if (!std::isalpha(str[i], l) && str[i] != ' ' && str[i] != '\'' && str[i] != ',' && str[i] != '.') {
 			error_message(ADD_DATA_SECRET_NOT_USE_CHAR);
 			return (false);
 		}

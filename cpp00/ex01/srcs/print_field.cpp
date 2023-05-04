@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/04/28 19:54:42 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:52:43 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_field(std::string str)
 {
 	std::string	output_str;
 
-	if (10 <= ft_strlen(str)) {
+	if (10 <= str.length()) {
 		for (int i = 0; i < 9; i++) {
 			output_str += str[i];
 		}

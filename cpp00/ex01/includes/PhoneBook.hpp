@@ -6,17 +6,17 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/02 11:58:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/04 10:20:27 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
+#include "Contact.hpp"
 #include <iostream>
 #include <sstream>
-#include "libft.hpp"
-#include "Contact.hpp"
+#include <locale>
 
 # define COMMAND_COUNT 3
 # define CONTACT_DATA_TYPE_COUNT 5
@@ -37,13 +37,13 @@ enum ERROR_TYPE {
 	ADD_DATA_SECRET_NOT_USE_CHAR,
 	ADD_DATA_REGISTERED_PHONE_NUMBER,
 	SEARCH_WARONG_VALUE,
-	SEARCH_UNREGISTERED_INDEX,
+	SEARCH_UNREGISTERED_INDEX
 };
 
 enum SITUATION {
 	MAIN,
 	ADD,
-	SEARCH,
+	SEARCH
 };
 
 class PhoneBook {
@@ -78,7 +78,8 @@ bool	is_name(const std::string name);
 bool	is_nickname(const std::string name);
 bool	is_phone_number(const std::string number);
 bool	is_darkest_secret(const std::string str);
-int		try_add(PhoneBook *phonebook, std::string first, std::string last, std::string nick, std::string phone_number, std::string secret);
+bool	is_registered_phone_number(PhoneBook *phonebook, std::string number);
+// int		try_add(PhoneBook *phonebook, std::string first, std::string last, std::string nick, std::string phone_number, std::string secret);
 
 // PhoneBook::search_command();
 bool	is_index(std::string str);
