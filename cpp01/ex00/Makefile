@@ -7,7 +7,7 @@ CXX = c++
 INCLUDES = -I./includes
 CXXFLAGS = -std=c++98 -pedantic -Wall -Wextra -Werror $(INCLUDES)
 SRCS = main.cpp \
-	Zombie.cpp
+	Zombie.cpp newZombie.cpp randomChump.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 
