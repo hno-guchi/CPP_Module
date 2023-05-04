@@ -6,11 +6,21 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/02 18:40:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:56:27 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
+
+Contact::Contact()
+{
+	this->m_index = 0;
+	this->m_first_name = "";
+	this->m_last_name = "";
+	this->m_nickname = "";
+	this->m_phone_number = "";
+	this->m_darkest_secret = "";
+}
 
 std::string	Contact::get_phone_number()
 {
@@ -56,4 +66,26 @@ void	Contact::print_data()
 	print_field(this->m_last_name);
 	print_field(this->m_nickname);
 	std::cout << std::endl;
+}
+
+// Debug
+void	Contact::print_debug_data()
+{
+	std::cout
+ 		<< std::left << std::setw(10)
+		<< this->m_index << " | "
+ 		<< std::left << std::setw(20)
+		<< this->m_first_name << " | "
+ 		<< std::left << std::setw(20)
+		<< this->m_last_name << " | "
+ 		<< std::left << std::setw(20)
+		<< this->m_nickname << " | "
+ 		<< std::left << std::setw(11)
+		<< this->m_phone_number << " | "
+ 		<< std::left << std::setw(100)
+		<< this->m_darkest_secret << std::endl;
+}
+
+Contact::~Contact()
+{
 }

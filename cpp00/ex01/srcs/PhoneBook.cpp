@@ -6,23 +6,18 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/02 18:41:16 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:55:35 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "PhoneBook.hpp"
 
-void	PhoneBook::initialize()
+PhoneBook::PhoneBook()
 {
-	m_contact_count = 0;
-	m_next_add_index = 0;
+	this->m_contact_count = 0;
+	this->m_next_add_index = 0;
 	for (int i = 0; i < MAX_CONTACTS; i++) {
 		this->m_contact_list[i].set_index(i);
-		this->m_contact_list[i].set_first_name("");
-		this->m_contact_list[i].set_last_name("");
-		this->m_contact_list[i].set_nickname("");
-		this->m_contact_list[i].set_phone_number("");
-		this->m_contact_list[i].set_darkest_secret("");
 	}
 }
 
@@ -113,7 +108,7 @@ void	PhoneBook::search_command()
 	std::string	index;
 
 	begin_message(SEARCH);
-	while (index == "") {
+	while (index.empty() == true) {
 		if (getline_prompt("[index]  : ", &index) < 0) {
 			return ;
 		}
@@ -137,10 +132,28 @@ void	PhoneBook::exit_command()
 	std::cout << "exit" << std::endl;
 }
 
-void	PhoneBook::print_contact_list()
+PhoneBook::~PhoneBook()
 {
-	print_field_title();
+}
+
+// Debug
+void	PhoneBook::print_debug_contact_list()
+{
+	std::cout
+		<< std::left << std::setw(10)
+		<< "[Index]" << " | "
+		<< std::left << std::setw(20)
+		<< "[First]" << " | "
+		<< std::left << std::setw(20)
+		<< "[Last]" << " | "
+		<< std::left << std::setw(20)
+		<< "[Nick]" << " | "
+		<< std::left << std::setw(11)
+		<< "[Phone]" << " | "
+		<< std::left << std::setw(100)
+		<< "[Secret]" << std::endl;
+
 	for (int i = 0; i < MAX_CONTACTS; i++) {
-		this->get_data_contact(i).print_data();
+		this->get_data_contact(i).print_debug_data();
 	}
 }

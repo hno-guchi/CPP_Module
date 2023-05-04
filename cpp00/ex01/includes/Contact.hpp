@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/02 18:51:02 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:45:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 class Contact {
 public:
-	// void	add_data(int idx, std::string first, std::string last, std::string nick, std::string phone_num, std::string secret);
+	Contact();
 	std::string	get_phone_number();
 	void		set_index(int idx);
 	void		set_first_name(std::string name);
@@ -27,6 +27,8 @@ public:
 	void		set_phone_number(std::string number);
 	void		set_darkest_secret(std::string str);
 	void		print_data();
+	void		print_debug_data();
+	~Contact();
 
 private:
 	int			m_index;

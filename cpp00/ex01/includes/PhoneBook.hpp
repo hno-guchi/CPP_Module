@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/04 10:20:27 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:44:55 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,18 @@ enum SITUATION {
 
 class PhoneBook {
 public:
-	void	initialize();
+	PhoneBook();
 	int		get_contact_count();
 	int		get_next_add_index();
 	Contact	get_data_contact(int index);
 	void	set_data_contact(int idx, std::string first, std::string last, std::string nick, std::string phone_num, std::string secret);
-	void	print_contact_list();
 	void	increment_contact_count();
 	void	increment_next_add_index();
 	void	add_command();
 	void	search_command();
 	void	exit_command();
+	void	print_debug_contact_list();
+	~PhoneBook();
 
 private:
 	int		m_contact_count;
@@ -79,7 +80,6 @@ bool	is_nickname(const std::string name);
 bool	is_phone_number(const std::string number);
 bool	is_darkest_secret(const std::string str);
 bool	is_registered_phone_number(PhoneBook *phonebook, std::string number);
-// int		try_add(PhoneBook *phonebook, std::string first, std::string last, std::string nick, std::string phone_number, std::string secret);
 
 // PhoneBook::search_command();
 bool	is_index(std::string str);

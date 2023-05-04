@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:13:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/02 18:56:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:18:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static bool	is_all_alphabetic(const std::string data)
 {
+	std::locale	l = std::locale::classic();
+
 	for (int i = 0; data[i] != '\0'; i++) {
-		if (!ft_isalpha(data[i])) {
+		if (!std::isalpha(data[i], l)) {
 			return (false);
 		}
 	}
@@ -24,7 +26,7 @@ static bool	is_all_alphabetic(const std::string data)
 
 bool	is_name(const std::string name)
 {
-	if (20 < ft_strlen(name)) {
+	if (20 < name.length()) {
 		error_message(ADD_DATA_NAME_TOO_LONG);
 		return (false);
 	} else if (!is_all_alphabetic(name)) {
@@ -36,12 +38,14 @@ bool	is_name(const std::string name)
 
 bool	is_nickname(const std::string name)
 {
-	if (20 < ft_strlen(name)) {
+	std::locale	l = std::locale::classic();
+
+	if (20 < name.length()) {
 		error_message(ADD_DATA_NAME_TOO_LONG);
 		return (false);
 	}
 	for (int i = 0; name[i] != '\0'; i++) {
-		if (!ft_isalpha(name[i]) && name[i] != '-' && name[i] != '_') {
+		if (!std::isalpha(name[i], l) && name[i] != '-' && name[i] != '_') {
 			error_message(ADD_DATA_NICKNAME_ERR_VALID);
 			return (false);
 		}
@@ -74,7 +78,7 @@ bool	is_darkest_secret(const std::string str)
 {
 	std::locale	l = std::locale::classic();
 
-	if (str == "") {
+	if (str.empty() == true) {
 		error_message(ADD_DATA_TOO_FEW);
 		return (false);
 	}
@@ -96,7 +100,7 @@ int	getline_valid(std::string title, std::string *data, bool (*valid_func)(std::
 	std::string	line;
 
 	while (1) {
-		while (line == "") {
+		while (line.empty() == true) {
 			if (getline_prompt(title, &line) < 0) {
 				return (-1);
 			}
