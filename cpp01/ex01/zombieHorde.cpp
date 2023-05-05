@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:25 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/05 12:57:54 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:53:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ Zombie*	zombieHorde(int N, std::string name)
 	try
 	{
 		Zombie	*zombies = new Zombie[N];
+
 		for (int i = 0; i < N; i++) {
-			zombies[i] = Zombie(name);
+			zombies[i].setName(name);
 		}
 		return (zombies);
 	}

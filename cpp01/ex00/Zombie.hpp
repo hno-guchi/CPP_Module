@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:14:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/05 11:38:28 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:34:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 class	Zombie
 {
 public:
-	Zombie(std::string name);
-	void	announce();
+	Zombie();
+	void				announce();
+	void				setName(std::string name);
+	const std::string	&getName();
 	~Zombie();
 
 private:
