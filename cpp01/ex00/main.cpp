@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:22:55 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/05 11:45:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/05 12:18:03 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,15 @@ int	main(void)
 	std::cout << std::endl;
 	std::cout << RED << "== [HEAP]  ===============================" << END << std::endl;
 	Zombie	*heap_zombie_0 = newZombie("heap_zombie");
-	if (heap_zombie_0 == NULL) {
-		return (1);
-	}
-
 	// Zombie	*heap_zombie_1 = newZombie();
-
 	Zombie	*heap_zombie_2 = newZombie("");
-	if (heap_zombie_2 == NULL) {
-		delete heap_zombie_0;
-		return (1);
-	}
-
 	Zombie	*heap_zombie_3 = newZombie("cccccccccccccccccccc");
-	if (heap_zombie_3 == NULL) {
-		delete heap_zombie_0;
-		delete heap_zombie_2;
-		return (1);
-	}
 	Zombie	*heap_zombie_4 = newZombie("ddddddddddddddddddddd");
-	if (heap_zombie_4 == NULL) {
+	if (heap_zombie_0 == NULL || heap_zombie_2 == NULL || heap_zombie_3 == NULL || heap_zombie_4 == NULL) {
 		delete heap_zombie_0;
 		delete heap_zombie_2;
 		delete heap_zombie_3;
+		delete heap_zombie_4;
 		return (1);
 	}
 
