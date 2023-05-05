@@ -6,12 +6,11 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:23:44 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/05 15:00:46 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/05 15:36:56 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
-#include "color.hpp"
 
 int	main()
 {
