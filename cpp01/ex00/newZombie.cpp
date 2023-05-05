@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:25 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/04 16:06:02 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/05 12:03:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 Zombie*	newZombie(std::string name)
 {
-	Zombie	*zombie = new Zombie(name);
-
-	return (zombie);
+	try
+	{
+		Zombie	*zombie = new Zombie(name);
+		return (zombie);
+	}
+	catch (const std::bad_alloc& e)
+	{
+		std::cerr << e.what() << std::endl;
+		return (NULL);
+	}
 }

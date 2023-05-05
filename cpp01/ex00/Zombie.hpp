@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:14:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/04 18:27:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:38:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <new>
 
 class	Zombie
 {

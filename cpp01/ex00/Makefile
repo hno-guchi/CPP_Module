@@ -4,12 +4,13 @@
 
 NAME = ex00
 CXX = c++
-INCLUDES = -I./includes
-CXXFLAGS = -std=c++98 -pedantic -Wall -Wextra -Werror $(INCLUDES)
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
+OVERFLOWFLAGS = -g -fsanitize=integer -fsanitize=address
 SRCS = main.cpp \
 	Zombie.cpp newZombie.cpp randomChump.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
+DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
 
 #################
 # General Rules #
@@ -25,21 +26,22 @@ $(NAME): $(OBJS_DIR) $(OBJS)
 $(OBJS_DIR):
 	mkdir -p $@
 
-ifdef DEBUG
-$(OBJS_DIR)/%.o: %.cpp
-		$(CXX) $(CXXFLAGS) -c $(INCLUDES) $< -o $@ -DDEBUG
-else
-$(OBJS_DIR)/%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $(INCLUDES) $< -o $@
-endif
-
-debug: clean
-	make DEBUG=1
+$(OBJS_DIR)/%.o:%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
+	$(RM) -r *.dSYM
 	$(RM) -r $(OBJS_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+over_flow: CXXFLAGS += $(OVERFLOWFLAGS)
+over_flow: re
+
+leaks: CXXFLAGS += -DLEAKS
+leaks: re
+
+-include $(DEPENDS)
