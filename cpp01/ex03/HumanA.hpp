@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 15:23:09 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/09 09:41:56 by hnoguchi         ###   ########.fr       */
+/*   Created: 2023/05/09 12:04:46 by hnoguchi          #+#    #+#             */
+/*   Updated: 2023/05/09 12:13:58 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#ifndef HUMANA_HPP
+# define HUMANA_HPP
 
-int	main()
-{
-	std::string	str("HI THIS IS BRAIN");
-	std::string	*stringPTR = &str;
-	std::string	&stringREF = str;
+#include "Weapon.hpp"
 
-	std::cout
-		<< "&str      = [" << std::hex << &str << "]; [" << str << "];\n"
-		<< "stringPTR = [" << std::hex << stringPTR << "]; [" << *stringPTR << "];\n"
-		<< "stringREF = [" << std::hex << &stringREF << "]; [" << stringREF << "];\n"
-		<< std::flush;
-}
+class	HumanA {
+	public:
+		HumanA();
+		void	attack();
+
+	private:
+		std::string	name;
+		Weapon		weapon;
+};
+
+#endif

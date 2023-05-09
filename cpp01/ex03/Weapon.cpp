@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Weapon.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 15:23:09 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/09 09:41:56 by hnoguchi         ###   ########.fr       */
+/*   Created: 2023/05/09 10:10:58 by hnoguchi          #+#    #+#             */
+/*   Updated: 2023/05/09 12:04:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "Weapon.hpp"
 
-int	main()
+Weapon::Weapon(std::string type)
 {
-	std::string	str("HI THIS IS BRAIN");
-	std::string	*stringPTR = &str;
-	std::string	&stringREF = str;
+	this->type = type;
+}
 
-	std::cout
-		<< "&str      = [" << std::hex << &str << "]; [" << str << "];\n"
-		<< "stringPTR = [" << std::hex << stringPTR << "]; [" << *stringPTR << "];\n"
-		<< "stringREF = [" << std::hex << &stringREF << "]; [" << stringREF << "];\n"
-		<< std::flush;
+Weapon::~Weapon()
+{
+	std::cout << "Weapon: Call Destructor." << std::endl;
+}
+
+const std::string	&Weapon::getType()
+{
+	return (this->type);
+}
+
+void	Weapon::setType(std::string type)
+{
+	this->type = type;
 }
