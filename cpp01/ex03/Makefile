@@ -7,7 +7,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors
 OVERFLOWFLAGS = -g -fsanitize=integer -fsanitize=address
 SRCS = main.cpp \
-	Weapon.cpp
+	Weapon.cpp HumanA.cpp HumanB.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -35,6 +35,8 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) weapon
+	$(RM) weapon_leaks
 
 re: fclean all
 
@@ -43,5 +45,16 @@ over_flow: re
 
 leaks: CXXFLAGS += -DLEAKS
 leaks: re
+
+weapon: CXXFLAGS += $(OVERFLOWFLAGS)
+weapon: CXXFLAGS += -DWEAPON
+weapon: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c Weapon.cpp -o $(OBJS_DIR)/Weapon.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/Weapon.o
+
+weapon_leaks: CXXFLAGS += -DWEAPON -DLEAKS
+weapon_leaks: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c Weapon.cpp -o $(OBJS_DIR)/Weapon.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/Weapon.o
 
 -include $(DEPENDS)
