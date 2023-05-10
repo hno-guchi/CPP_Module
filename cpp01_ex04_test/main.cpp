@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 11:14:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/10 16:34:20 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:21:13 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	do_replace(std::ifstream &inputFd, std::ofstream &outputFd, char *ar
 
 	while (std::getline(inputFd, line, '\n')) {
 		if (inputFd.fail() == true) {
+			// std::cerr << "Error: Failed getline." << std::endl;
 			throw std::runtime_error("Error: Failed getline.");
 			break ;
 		}

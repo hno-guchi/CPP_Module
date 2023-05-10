@@ -30,6 +30,7 @@ $(OBJS_DIR)/%.o:%.cpp
 
 clean:
 	$(RM) -r *.dSYM
+	$(RM) *.replace
 	$(RM) -r $(OBJS_DIR)
 
 fclean: clean
