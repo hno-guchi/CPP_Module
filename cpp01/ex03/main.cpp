@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:03:06 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/09 19:19:57 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:07:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,25 @@
 
 int main()
 {
-	Weapon	club = Weapon("crude spiked club");
-
-	HumanA	bob("Bob", club);
+	Weapon	clubA = Weapon("crude spiked clubA");
+	HumanA	bob("Bob", clubA);
 	bob.attack();
 
-	club.setType("some other type of club");
+	clubA.setType("some other type of clubA");
 	bob.attack();
 
-	// Weapon	club = Weapon("crude spiked club");
+	// Compile error
+	// HumanB	B1();
+	// Segmentation fault
+	// HumanB	jim(NULL);
 
+	Weapon	clubB = Weapon("crude spiked clubB");
 	HumanB	jim("Jim");
-	jim.setWeapon(club);
-	// 	jim.attack();
-	// 	club.setType("some other type of club");
-	// 	jim.attack();
-	// }
+	jim.setWeapon(clubB);
+	jim.attack();
+
+	clubB.setType("some other type of clubB");
+	jim.attack();
 #ifdef LEAKS
 	system("leaks -q ex03");
 #endif // LEAKS

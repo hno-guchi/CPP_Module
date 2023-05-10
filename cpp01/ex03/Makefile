@@ -46,6 +46,9 @@ over_flow: re
 leaks: CXXFLAGS += -DLEAKS
 leaks: re
 
+lldb: CXXFLAGS += -g -O0
+lldb: re
+
 weapon: CXXFLAGS += $(OVERFLOWFLAGS)
 weapon: CXXFLAGS += -DWEAPON
 weapon: $(OBJS_DIR)

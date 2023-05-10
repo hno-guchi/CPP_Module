@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:10:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/09 19:19:13 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:05:07 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,19 @@ Weapon::Weapon(std::string type)
 	else if (100 < type.length()) {
 		this->type = type.substr(0, 100);
 	}
-	else
-	{
+	else {
 		this->type = type;
 	}
 }
 
 Weapon::~Weapon()
 {
-	std::cout << "Weapon: Call Destructor." << std::endl;
+	std::cout
+		<< UNDERLINE << this->getType() << END
+		<< std::flush;
+	std::cout
+		<< ": Call Destructor."
+		<< std::endl;
 }
 
 const std::string	&Weapon::getType()
@@ -43,12 +47,10 @@ void	Weapon::setType(std::string type)
 			<< RED << "Weapon: Not type." << END
 			<< std::endl;
 		return ;
-	}
-	else if (100 < type.length()) {
+	} else if (100 < type.length()) {
 		this->type = type.substr(0, 100);
 	}
-	else
-	{
+	else {
 		this->type = type;
 	}
 }

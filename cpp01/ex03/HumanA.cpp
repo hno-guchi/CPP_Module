@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:52:43 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/09 17:56:17 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:59:26 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ HumanA::HumanA(std::string name, Weapon &weapon) :
 
 HumanA::~HumanA()
 {
+	std::cout
+		<< std::right << std::setw(10) << UNDERLINE
+		<< this->name << END
+		<< std::flush;
+	std::cout
+		<< ": Call Destructor." << std::endl;
 }
 
 void	HumanA::attack()
