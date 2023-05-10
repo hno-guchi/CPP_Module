@@ -2,12 +2,11 @@
 # General #
 ###########
 
-NAME = ex03
+NAME = ex04
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors
 OVERFLOWFLAGS = -g -fsanitize=integer -fsanitize=address
-SRCS = main.cpp \
-	Weapon.cpp HumanA.cpp HumanB.cpp
+SRCS = main.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -16,7 +15,7 @@ DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
 # General Rules #
 #################
 
-.PHONY: all clean fclean re weapon weapon_leaks
+.PHONY: all clean fclean re debug
 
 all: $(NAME)
 
@@ -35,8 +34,6 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) weapon
-	$(RM) weapon_leaks
 
 re: fclean all
 
