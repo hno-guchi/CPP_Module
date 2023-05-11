@@ -4,7 +4,7 @@
 
 NAME = ex01
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 OVERFLOWFLAGS = -g -fsanitize=integer -fsanitize=address
 SRCS = main.cpp \
 	Zombie.cpp zombieHorde.cpp
