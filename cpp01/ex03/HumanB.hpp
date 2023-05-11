@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:04:46 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/09 19:20:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:27:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class	HumanB {
 	public:
 		HumanB(std::string name);
 		~HumanB();
-		void	setWeapon(Weapon weapon);
+		void	setWeapon(Weapon &weapon);
 		void	attack();
 
 	private:

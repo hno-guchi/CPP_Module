@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:52:43 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/10 10:59:38 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:27:15 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ HumanB::~HumanB()
 		<< ": Call Destructor." << std::endl;
 }
 
-void	HumanB::setWeapon(Weapon weapon)
+void	HumanB::setWeapon(Weapon &weapon)
 {
 	// std::string	&typeRef = const_cast<std::string&>(weapon.getType());
 	// std::string	type = typeRef;
