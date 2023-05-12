@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:35:01 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/11 21:26:08 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:45:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define HARL_HPP
 
 #include <iostream>
+#include <iomanip>
+#include <stdexcept>
 #include <string>
 
 # define END             "\033[0m"
@@ -23,28 +25,32 @@
 # define YELLOW          "\033[33m"
 # define MAGENTA         "\033[35m"
 
-typedef enum eLevel	tLevel;
-
-class	Harl {
-	public:
-		Harl();
-		~Harl();
-		void		complain(std::string level);
-		const void	(*getLevelFunction(tLevel level))();
-
-	private:
-		void	debug();
-		void	info();
-		void	warning();
-		void	error();
-};
-
 enum eLevel {
 	DEBUG,
 	INFO,
 	WARNING,
 	ERROR,
 	NOT
+};
+
+class	Harl {
+	public:
+		Harl();
+		~Harl();
+
+		void			executeFunction(eLevel level);
+		void			complain(std::string level);
+
+	private:
+		void			debug();
+		void			info();
+		void			warning();
+		void			error();
+		typedef void	(Harl::*funcPtr)();
+		void			executeDebug();
+		void			executeInfo();
+		void			executeWarning();
+		void			executeError();
 };
 
 #endif
