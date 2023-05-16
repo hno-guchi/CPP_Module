@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:38:00 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/16 18:21:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:32:32 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,22 @@ void	Harl::executeError()
 	(this->*ptr)();
 }
 
+void	Harl::harlFilter(unsigned int level)
+{
+	static funcPtr		ptrList[] = {
+		&Harl::executeDebug,
+		&Harl::executeInfo,
+		&Harl::executeWarning,
+		&Harl::executeError,
+	};
+
+	while (level < LEVEL_MAX_COUNT) {
+		(this->*ptrList[level])();
+		std::cout << std::endl;
+		level += 1;
+	}
+}
+
 void	Harl::complain(std::string level)
 {
 	unsigned int		i(0);
@@ -98,12 +114,6 @@ void	Harl::complain(std::string level)
 		"ERROR",
 		"",
 	};
-	static funcPtr		ptrList[] = {
-		&Harl::executeDebug,
-		&Harl::executeInfo,
-		&Harl::executeWarning,
-		&Harl::executeError,
-	};
 
 	while (level != levelList[i] && levelList[i] != "") {
 		i += 1;
@@ -111,16 +121,16 @@ void	Harl::complain(std::string level)
 	try {
 		switch (i) {
 			case 0:
-				(this->*ptrList[i])();
+				this->harlFilter(i);
 				break ;
 			case 1:
-				(this->*ptrList[i])();
+				this->harlFilter(i);
 				break ;
 			case 2:
-				(this->*ptrList[i])();
+				this->harlFilter(i);
 				break ;
 			case 3:
-				(this->*ptrList[i])();
+				this->harlFilter(i);
 				break ;
 			default:
 				throw std::runtime_error("[ Probably complaining about insignificant problems ]");

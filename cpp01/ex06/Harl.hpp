@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:35:01 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/16 18:33:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:32:44 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@
 # define GREEN           "\033[32m"
 # define YELLOW          "\033[33m"
 # define MAGENTA         "\033[35m"
+# define LEVEL_MAX_COUNT 4
 
 class	Harl {
 	public:
 		Harl();
 		~Harl();
 
+		void			harlFilter(unsigned int level);
 		void			complain(std::string level);
 
 	private:
