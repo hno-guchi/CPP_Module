@@ -2,11 +2,12 @@
 # General #
 ###########
 
-NAME = ex01
+NAME = ex00
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors
 OVERFLOWFLAGS = -g -fsanitize=integer -fsanitize=address
-SRCS = main.cpp
+SRCS = main.cpp \
+	Fixed.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
