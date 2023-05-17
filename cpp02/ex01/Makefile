@@ -2,7 +2,7 @@
 # General #
 ###########
 
-NAME = ex00
+NAME = ex01
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors
 OVERFLOWFLAGS = -g -fsanitize=integer -fsanitize=address
@@ -16,7 +16,7 @@ DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
 # General Rules #
 #################
 
-.PHONY: all clean fclean re debug
+.PHONY: all clean fclean re debug sample
 
 all: $(NAME)
 
@@ -46,5 +46,8 @@ leaks: re
 
 lldb: CXXFLAGS += -g -O0
 lldb: re
+
+sample: CXXFLAGS += -DSAMPLE
+sample: re
 
 -include $(DEPENDS)
