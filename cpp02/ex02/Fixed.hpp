@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:53:53 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/18 19:43:03 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:58:08 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ class Fixed {
 		Fixed(const Fixed& src);
 
 		Fixed& operator=(const Fixed& rhs);
+		Fixed& operator==(const Fixed& rhs);
+		Fixed& operator!=(const Fixed& rhs);
 
 		~Fixed();
 

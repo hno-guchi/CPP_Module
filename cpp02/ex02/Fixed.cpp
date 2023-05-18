@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:18:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/18 19:30:55 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:58:03 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,20 @@ Fixed::Fixed(const Fixed& src) :
 	writeMessage(COPY_CONSTRUCT_MESSAGE);
 }
 
-Fixed& Fixed::operator=(const Fixed& rhs)
+Fixed&	Fixed::operator=(const Fixed& rhs)
 {
 	writeMessage(COPY_OPERATOR_MESSAGE);
 	this->fixedPointNumber_ = rhs.fixedPointNumber_;
+	return (*this);
+}
+
+bool	Fixed::operator==(const Fixed& rhs)
+{
+	return (*this);
+}
+
+bool	Fixed::operator!=(const Fixed& rhs)
+{
 	return (*this);
 }
 
