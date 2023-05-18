@@ -6,95 +6,73 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:18:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/18 11:46:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:07:50 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-const int	Fixed::numberOfFractionalBits = 8;
+const int	Fixed::numberOfFractionalBits_ = 8;
+
+static void	write_message(std::string message)
+{
+	std::cout << message << std::endl;
+}
 
 Fixed::Fixed() :
-	fixedPointNumber(0)
+	fixedPointNumber_(0)
 {
-	std::cout
-		<< DEFAULT_CONSTRUCT_MESSAGE
-		<< std::endl;
+	write_message(DEFAULT_CONSTRUCT_MESSAGE);
 }
 
 Fixed::Fixed(const int number) :
-	fixedPointNumber(number)
+	fixedPointNumber_(number * (1 << this->numberOfFractionalBits_))
 {
-	std::cout
-		<< INT_CONSTRUCT_MESSAGE
-		<< std::endl;
+	write_message(INT_CONSTRUCT_MESSAGE);
 }
 
 Fixed::Fixed(const float number) :
-	fixedPointNumber(static_cast<int>(number))
+	fixedPointNumber_(static_cast<int>(number * (1 << this->numberOfFractionalBits_)))
 {
-	std::cout
-		<< FLOAT_CONSTRUCT_MESSAGE
-		<< std::endl;
+	write_message(FLOAT_CONSTRUCT_MESSAGE);
 }
 
 Fixed::Fixed(const Fixed& src) :
-	fixedPointNumber(src.fixedPointNumber)
+	fixedPointNumber_(src.fixedPointNumber_)
 {
-	std::cout
-		<< COPY_CONSTRUCT_MESSAGE
-		<< std::endl;
-}
-
-Fixed::~Fixed()
-{
-	std::cout
-		<< DESTRUCT_MESSAGE
-		<< std::endl;
+	write_message(COPY_CONSTRUCT_MESSAGE);
 }
 
 Fixed& Fixed::operator=(const Fixed& rhs)
 {
-	std::cout
-		<< COPY_OPERATOR_MESSAGE
-		<< std::endl;
-	this->fixedPointNumber = rhs.fixedPointNumber;
+	write_message(COPY_OPERATOR_MESSAGE);
+	this->fixedPointNumber_ = rhs.fixedPointNumber_;
 	return (*this);
 }
 
-// TODO
-Fixed& Fixed::operator<<(const Fixed& rhs)
+Fixed::~Fixed()
 {
-	(void)rhs;
-	return (*this);
+	write_message(DESTRUCT_MESSAGE);
 }
 
 int	Fixed::getRawBits(void) const
 {
-	std::cout
-		<< GETRAWBITS_FUNC_MESSAGE
-		<< std::endl;
-	return (this->fixedPointNumber);
+	write_message(GETRAWBITS_FUNC_MESSAGE);
+	return (this->fixedPointNumber_);
 }
 
 void	Fixed::setRawBits(int const raw)
 {
-	std::cout
-		<< SETRAWBITS_FUNC_MESSAGE
-		<< std::endl;
-	this->fixedPointNumber = raw;
+	write_message(SETRAWBITS_FUNC_MESSAGE);
+	this->fixedPointNumber_ = raw;
 }
 
-// TODO
-// converts the fixed-point value to a floating-point value.
 float	Fixed::toFloat(void) const
 {
-	return (static_cast<float>(fixedPointNumber));
+	return (static_cast<float>(this->fixedPointNumber_) / (1 << 8));
 }
 
-// TODO
-// converts the fixed-point value to an integer value.
 int	Fixed::toInt(void) const
 {
-	return (fixedPointNumber);
+	return (this->fixedPointNumber_ / (1 << 8));
 }

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:53:53 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/18 11:45:08 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:07:15 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,19 @@ class Fixed {
 		Fixed(const int number);
 		Fixed(const float number);
 		Fixed(const Fixed& src);
-		~Fixed();
 
 		Fixed& operator=(const Fixed& rhs);
-		Fixed& operator<<(const Fixed& rhs);
+
+		~Fixed();
 
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);
-		// converts the fixed-point value to a floating-point value.
 		float	toFloat(void) const;
-		// converts the fixed-point value to an integer value.
 		int		toInt(void) const;
 
 	private:
-		int					fixedPointNumber;
-		static const int	numberOfFractionalBits;
+		static const int	numberOfFractionalBits_;
+		int					fixedPointNumber_;
 };
 
 #endif
