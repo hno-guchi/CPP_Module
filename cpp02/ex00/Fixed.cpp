@@ -6,58 +6,51 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:18:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/17 10:27:29 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:14:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-const int	Fixed::numberOfFractionalBits = 8;
+const int	Fixed::numberOfFractionalBits_ = 8;
+
+static void	write_message(std::string message)
+{
+	std::cout << message << std::endl;
+}
 
 Fixed::Fixed() :
-	fixedPointNumber(0)
+	fixedPointNumber_(0)
 {
-	std::cout
-		<< DEFAULT_CONSTRUCT_MESSAGE
-		<< std::endl;
+	write_message(DEFAULT_CONSTRUCT_MESSAGE);
 }
 
 Fixed::Fixed(const Fixed& src) :
-	fixedPointNumber(src.fixedPointNumber)
+	fixedPointNumber_(src.fixedPointNumber_)
 {
-	std::cout
-		<< COPY_CONSTRUCT_MESSAGE
-		<< std::endl;
+	write_message(COPY_CONSTRUCT_MESSAGE);
 }
 
 Fixed::~Fixed()
 {
-	std::cout
-		<< DESTRUCT_MESSAGE
-		<< std::endl;
+	write_message(DESTRUCT_MESSAGE);
 }
 
 Fixed& Fixed::operator=(const Fixed& rhs)
 {
-	std::cout
-		<< COPY_OPERATOR_MESSAGE
-		<< std::endl;
-	this->fixedPointNumber = rhs.fixedPointNumber;
+	write_message(COPY_OPERATOR_MESSAGE);
+	this->fixedPointNumber_ = rhs.fixedPointNumber_;
 	return (*this);
 }
 
 int	Fixed::getRawBits(void) const
 {
-	std::cout
-		<< GETRAWBITS_FUNC_MESSAGE
-		<< std::endl;
-	return (this->fixedPointNumber);
+	write_message(GETRAWBITS_FUNC_MESSAGE);
+	return (this->fixedPointNumber_);
 }
 
 void	Fixed::setRawBits(int const raw)
 {
-	std::cout
-		<< SETRAWBITS_FUNC_MESSAGE
-		<< std::endl;
-	this->fixedPointNumber = raw;
+	write_message(SETRAWBITS_FUNC_MESSAGE);
+	this->fixedPointNumber_ = raw;
 }
