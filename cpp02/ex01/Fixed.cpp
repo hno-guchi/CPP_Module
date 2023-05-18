@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:18:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/17 12:07:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:46:19 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ Fixed::Fixed(const int number) :
 		<< std::endl;
 }
 
-// Fixed::Fixed(const float number)
-// {
-// 	std::cout
-// 		<< FLOAT_CONSTRUCT_MESSAGE
-// 		<< std::endl;
-// }
+Fixed::Fixed(const float number) :
+	fixedPointNumber(static_cast<int>(number))
+{
+	std::cout
+		<< FLOAT_CONSTRUCT_MESSAGE
+		<< std::endl;
+}
 
 Fixed::Fixed(const Fixed& src) :
 	fixedPointNumber(src.fixedPointNumber)
@@ -61,6 +62,13 @@ Fixed& Fixed::operator=(const Fixed& rhs)
 	return (*this);
 }
 
+// TODO
+Fixed& Fixed::operator<<(const Fixed& rhs)
+{
+	(void)rhs;
+	return (*this);
+}
+
 int	Fixed::getRawBits(void) const
 {
 	std::cout
@@ -75,4 +83,18 @@ void	Fixed::setRawBits(int const raw)
 		<< SETRAWBITS_FUNC_MESSAGE
 		<< std::endl;
 	this->fixedPointNumber = raw;
+}
+
+// TODO
+// converts the fixed-point value to a floating-point value.
+float	Fixed::toFloat(void) const
+{
+	return (static_cast<float>(fixedPointNumber));
+}
+
+// TODO
+// converts the fixed-point value to an integer value.
+int	Fixed::toInt(void) const
+{
+	return (fixedPointNumber);
 }

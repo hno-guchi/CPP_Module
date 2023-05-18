@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:56:07 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/17 16:58:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:52:13 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,27 @@ int	main(void) {
 int	main()
 {
 	float	fp_num = 42.42f;
-	int		intger_part = static_cast<int>(roundf(fp_num));
-	float	fractional_part = fp_num - intger_part;
-	int		fractional_part_intger = static_cast<int>(fractional_part);
-	if (errno != 0) {
-		std::cout << "error: roundf(); [" << errno << "]" << std::endl;
-		return (1);
-	}
+	int		fixed = static_cast<int>(roundf(fp_num * (1 << 8)));
 
 	std::cout << "Floating point number    : [" << fp_num << "]" << std::endl;
-	std::cout << "Intger part number       : [" << intger_part << "]" << std::endl;
-	std::cout << "Fractional part number   : [" << fractional_part << "]" << std::endl;
-	std::cout << "Fractional part (intger) : [" << fractional_part_intger << "]" << std::endl;
+	std::cout << "fp_num * (1 << 8)        : [" << fp_num * (1 << 8) << "]" << std::endl;
+	std::cout << "Fixed point number       : [" << fixed << "]" << std::endl;
+
+	// float	fp_num = 42.42f;
+	// int		intger_part = static_cast<int>(roundf(fp_num));
+	// float	fractional_part = fp_num - intger_part;
+	// int		fractional_part_intger = static_cast<int>(fractional_part);
+	// if (errno != 0) {
+	// 	std::cout << "error: roundf(); [" << errno << "]" << std::endl;
+	// 	return (1);
+	// }
+
+	// std::cout << "Floating point number    : [" << fp_num << "]" << std::endl;
+	// std::cout << "Intger part number       : [" << intger_part << "]" << std::endl;
+	// std::cout << "Fractional part number   : [" << fractional_part << "]" << std::endl;
+	// std::cout << "Fractional part (intger) : [" << fractional_part_intger << "]" << std::endl;
 #ifdef LEAKS
-	system("leaks -q ex00");
+	system("leaks -q ex01");
 #endif
 }
 
