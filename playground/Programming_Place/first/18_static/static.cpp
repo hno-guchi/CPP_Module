@@ -20,16 +20,31 @@ staticメンバ変数
 クラスでの宣言と実体となる定義の２つの記述が必要。
 ただし「const 整数型」、「const 列挙型」に限り、宣言と同時に初期化子を与えることができる。
 
+staticメンバ関数
+staticメンバ関数は、constメンバ関数にできない。
+staticメンバ関数と、非staticメンバ関数の関数オーバーロードはできない（staticメンバ関数同士の関数オーバーロードは可能。）
+staticメンバ関数は、クラスに属すので、オブジェクトを生成しなくとも実行できる。
+また、オブジェクトから呼び出さないので、thisポインタを使用することはできない。
+staticメンバ関数から、非staticメンバ関数へのアクセスはできない。逆は可能。
+
 
 #endif
 
 class classA {
+	public:
+		static int	getValue();
+
 	private:
-		static const int	value1 = 0;
-		static const double	value2;
+		static const int	value1_ = 0;
+		static const double	value2_;
 };
 
-static const double	classA::value2 = 10.4;
+const double	classA::value2_ = 10.4;
+
+int	classA::getValue()
+{
+	return this->value1_;
+}
 
 int	main()
 {
