@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:18:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/19 14:53:01 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:54:18 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,39 @@ const Fixed	Fixed::operator--(int)
 Fixed::~Fixed()
 {
 	writeMessage(DESTRUCT_MESSAGE);
+}
+
+
+Fixed&	Fixed::min(Fixed& a, Fixed& b)
+{
+	if (b.getRawBits() < a.getRawBits()) {
+		return (b);
+	}
+	return (a);
+}
+
+Fixed&	Fixed::min(const Fixed& a, const Fixed& b)
+{
+	if (b.getRawBits() < a.getRawBits()) {
+		return (const_cast<Fixed&>(b));
+	}
+	return (const_cast<Fixed&>(a));
+}
+
+Fixed&	Fixed::max(Fixed& a, Fixed& b)
+{
+	if (a.getRawBits() < b.getRawBits()) {
+		return (b);
+	}
+	return (a);
+}
+
+Fixed&	Fixed::max(const Fixed& a, const Fixed& b)
+{
+	if (a.getRawBits() < b.getRawBits()) {
+		return (const_cast<Fixed&>(b));
+	}
+	return (const_cast<Fixed&>(a));
 }
 
 int	Fixed::getRawBits(void) const

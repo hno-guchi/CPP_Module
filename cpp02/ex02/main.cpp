@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:56:07 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/19 15:01:05 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:13:30 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(void) {
 	std::cout << a++ << std::endl;
 	std::cout << a << std::endl;
 	std::cout << b << std::endl;
-	// std::cout << Fixed::max( a, b ) << std::endl;
+	std::cout << Fixed::max(a, b) << std::endl;
 	colorMessage(yellow, "=======================");
 
 	colorMessage(red,    "===== DESTRUCTOR ======");
@@ -75,6 +75,10 @@ int	main()
 	Fixed		resultMlt3(small * zero);
 	Fixed		resultDiv1(large / divNum);
 	Fixed		resultDiv2(large / large);
+	Fixed		resultMin1(Fixed::min(resultSub, resultAdd));
+	Fixed		resultMin2(Fixed::min(large, large));
+	Fixed		resultMax1(Fixed::max(resultSub, resultAdd));
+	Fixed		resultMax2(Fixed::max(large, large));
 
 
 	colorMessage(yellow, "===== OPERATOR [==], [!=] ==");
@@ -137,6 +141,12 @@ int	main()
 	std::cout << --dicZero << std::endl;
 	std::cout << dicZero-- << std::endl;
 	std::cout << dicZero << std::endl;
+	colorMessage(yellow, "\n===== Fixed::min(); ========");
+	std::cout << "Fixed::min(" << resultSub << ", " << resultAdd << "); -> [" << resultMin1 << "]" << std::endl;
+	std::cout << "Fixed::min(" << large << ", " << large << "); -> [" << resultMin2 << "]" << std::endl;
+	colorMessage(yellow, "\n===== Fixed::max(); ========");
+	std::cout << "Fixed::min(" << resultSub << ", " << resultAdd << "); -> [" << resultMax1 << "]" << std::endl;
+	std::cout << "Fixed::min(" << large << ", " << large << "); -> [" << resultMax2 << "]" << std::endl;
 
 	colorMessage(red,    "\n===== DESTRUCTOR ==========");
 }
