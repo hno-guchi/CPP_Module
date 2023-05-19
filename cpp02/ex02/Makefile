@@ -16,7 +16,7 @@ DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
 # General Rules #
 #################
 
-.PHONY: all clean fclean re over_flow sample lldb
+.PHONY: all clean fclean re over_flow sample my_test lldb
 
 all: $(NAME)
 
@@ -35,14 +35,20 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) sample
 
 re: fclean all
 
 over_flow: CXXFLAGS += $(OVERFLOWFLAGS)
 over_flow: re
 
-sample: CXXFLAGS += -DSAMPLE
-sample: over_flow
+sample: CXXFLAGS += $(OVERFLOWFLAGS)
+sample: $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c $@.cpp -o $(OBJS_DIR)/$@.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS_DIR)/$@.o
+
+my_test: CXXFLAGS += -DTEST
+my_test: over_flow
 
 lldb: CXXFLAGS += -g -O0
 lldb: re

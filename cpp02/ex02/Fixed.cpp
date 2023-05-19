@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:18:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/19 12:23:01 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:53:01 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,43 @@ const Fixed	Fixed::operator*(const Fixed& rhs) const
 	temp.fixedPointNumber_ = this->fixedPointNumber_ * rhs.fixedPointNumber_;
 	temp.fixedPointNumber_ = temp.fixedPointNumber_ / (1 << 8);
 	return (temp);
+}
+
+const Fixed	Fixed::operator/(const Fixed& rhs) const
+{
+	Fixed	temp;
+
+	temp.fixedPointNumber_ = this->fixedPointNumber_ / rhs.fixedPointNumber_;
+	temp.fixedPointNumber_ = temp.fixedPointNumber_ * (1 << 8);
+	return (temp);
+}
+
+Fixed&	Fixed::operator++()
+{
+	++this->fixedPointNumber_;
+	return (*this);
+}
+
+const Fixed	Fixed::operator++(int)
+{
+	const Fixed	old(*this);
+
+	++(*this);
+	return (old);
+}
+
+Fixed&	Fixed::operator--()
+{
+	--this->fixedPointNumber_;
+	return (*this);
+}
+
+const Fixed	Fixed::operator--(int)
+{
+	const Fixed	old(*this);
+
+	--(*this);
+	return (old);
 }
 
 Fixed::~Fixed()
