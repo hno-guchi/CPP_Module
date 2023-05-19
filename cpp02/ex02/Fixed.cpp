@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:18:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/18 19:58:03 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/19 12:23:01 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,59 @@ Fixed&	Fixed::operator=(const Fixed& rhs)
 	return (*this);
 }
 
-bool	Fixed::operator==(const Fixed& rhs)
+bool	Fixed::operator==(const Fixed& rhs) const
 {
-	return (*this);
+	return (this->fixedPointNumber_ == rhs.fixedPointNumber_);
 }
 
-bool	Fixed::operator!=(const Fixed& rhs)
+bool	Fixed::operator!=(const Fixed& rhs) const
 {
-	return (*this);
+	return (!(*this == rhs));
+}
+
+bool	Fixed::operator<(const Fixed& rhs) const
+{
+	return (this->fixedPointNumber_ < rhs.fixedPointNumber_);
+}
+
+bool	Fixed::operator>=(const Fixed& rhs) const
+{
+	return (!(*this < rhs));
+}
+
+bool	Fixed::operator>(const Fixed& rhs) const
+{
+	return (this->fixedPointNumber_ > rhs.fixedPointNumber_);
+}
+
+bool	Fixed::operator<=(const Fixed& rhs) const
+{
+	return (!(*this > rhs));
+}
+
+const Fixed	Fixed::operator+(const Fixed& rhs) const
+{
+	Fixed	temp;
+
+	temp.fixedPointNumber_ = this->fixedPointNumber_ + rhs.fixedPointNumber_;
+	return (temp);
+}
+
+const Fixed	Fixed::operator-(const Fixed& rhs) const
+{
+	Fixed	temp;
+
+	temp.fixedPointNumber_ = this->fixedPointNumber_ - rhs.fixedPointNumber_;
+	return (temp);
+}
+
+const Fixed	Fixed::operator*(const Fixed& rhs) const
+{
+	Fixed	temp;
+
+	temp.fixedPointNumber_ = this->fixedPointNumber_ * rhs.fixedPointNumber_;
+	temp.fixedPointNumber_ = temp.fixedPointNumber_ / (1 << 8);
+	return (temp);
 }
 
 Fixed::~Fixed()

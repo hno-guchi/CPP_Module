@@ -5,7 +5,7 @@
 NAME = ex02
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
-OVERFLOWFLAGS = -g -fsanitize=integer -fsanitize=address -fsanitize=undefined
+OVERFLOWFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
 SRCS = main.cpp \
 	Fixed.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))

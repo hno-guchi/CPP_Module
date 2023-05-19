@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:53:53 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/18 19:58:08 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/19 12:25:12 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FIXED_HPP
 
 #include <iostream>
+#include <limits>
 #include <cmath>
 
 # define END	"\033[0m"
@@ -38,9 +39,16 @@ class Fixed {
 		Fixed(const float number);
 		Fixed(const Fixed& src);
 
-		Fixed& operator=(const Fixed& rhs);
-		Fixed& operator==(const Fixed& rhs);
-		Fixed& operator!=(const Fixed& rhs);
+		Fixed&		operator=(const Fixed& rhs);
+		bool		operator==(const Fixed& rhs) const;
+		bool		operator!=(const Fixed& rhs) const;
+		bool		operator<(const Fixed& rhs) const;
+		bool		operator>=(const Fixed& rhs) const;
+		bool		operator>(const Fixed& rhs) const;
+		bool		operator<=(const Fixed& rhs) const;
+		const Fixed	operator+(const Fixed& rhs) const;
+		const Fixed	operator-(const Fixed& rhs) const;
+		const Fixed	operator*(const Fixed& rhs) const;
 
 		~Fixed();
 
