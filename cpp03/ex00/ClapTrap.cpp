@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/19 19:29:05 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:39:12 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ClapTrap::setName(const std::string& name)
 
 void	ClapTrap::setHitPoint(const int& amount)
 {
-	if (amount < 0 || DEFAULT_HIT_POINT < amount) {
+	if (amount < 1 || DEFAULT_HIT_POINT < amount) {
 		std::cout << RED << "Error: Wrong amount.(Over 0 and under 10)" << END << std::endl;
 		return ;
 	}
@@ -82,7 +82,7 @@ void	ClapTrap::setHitPoint(const int& amount)
 
 void	ClapTrap::setEnergyPoint(const int& amount)
 {
-	if (amount < 0 || DEFAULT_ENERGY_POINT < amount) {
+	if (amount < 1 || DEFAULT_ENERGY_POINT < amount) {
 		std::cout << RED << "Error: Wrong amount.(Over 0 and under 10)" << END << std::endl;
 		return ;
 	}
@@ -91,7 +91,7 @@ void	ClapTrap::setEnergyPoint(const int& amount)
 
 void	ClapTrap::setAttackPoint(const int& amount)
 {
-	if (amount < 0 || MAX_ATTACK_POINT < amount) {
+	if (amount < 1 || MAX_ATTACK_POINT < amount) {
 		std::cout << RED << "Error: Wrong amount.(Over 0 and under 10)" << END << std::endl;
 		return ;
 	}
@@ -100,8 +100,12 @@ void	ClapTrap::setAttackPoint(const int& amount)
 
 void	ClapTrap::attack(const std::string& target)
 {
+	if (this->hitPoint_ == 0) {
+		std::cout << RED << this->name_ << " was died... Not attacks..." << END << std::endl;
+		return ;
+	}
 	if (this->energyPoint_ == 0) {
-		std::cout << this->name_ << " energyPoint is 0... Not attacks..." << std::endl;
+		std::cout << RED << this->name_ << " energyPoint is 0... Not attacks..." << END << std::endl;
 		return ;
 	}
 	std::cout << this->name_ << " attacks " << target << ", causing " << this->attackPoint_ << " points of damage!" << std::endl;
@@ -110,24 +114,32 @@ void	ClapTrap::attack(const std::string& target)
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
+	if (this->hitPoint_ == 0) {
+		std::cout << RED << this->name_ << " was died..." << END << std::endl;
+		return ;
+	}
 	if (MAX_ATTACK_POINT < amount) {
 		std::cout << RED << "Error: Wrong amount.(under 10)" << END << std::endl;
 		return ;
 	}
 	std::cout << this->name_ << " is attacked, causing " << amount << " points of damage!" << std::endl;
-	this->hitPoint_ -= amount;
+	this->hitPoint_ -= static_cast<int>(amount);
 	if (this->hitPoint_ < 1) {
-		std::cout << this->name_ << " is died... " << std::endl;
-		ClapTrap::~ClapTrap();
+		this->hitPoint_ = 0;
+		std::cout << RED << this->name_ << " is died... " << END << std::endl;
 	}
 }
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
+	if (this->hitPoint_ == 0) {
+		std::cout << RED << this->name_ << " was died..." << END << std::endl;
+		return ;
+	}
 	if ((DEFAULT_HIT_POINT - this->hitPoint_) < static_cast<int>(amount)) {
 		amount = DEFAULT_HIT_POINT - this->hitPoint_;
 	}
-	std::cout << this->name_ << " was repaired, causing " << amount << " points of repaire!" << std::endl;
+	std::cout << this->name_ << " is repaired, causing " << amount << " points of repaire!" << std::endl;
 	this->hitPoint_ += amount;
 }
 
