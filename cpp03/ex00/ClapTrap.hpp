@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/20 18:16:57 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:52:14 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@
 # define COPY_OPERATOR_MESSAGE "Copy assignment operator called"
 
 # define MAX_NAME_SIZE 20
-# define DEFAULT_HIT_POINT 10
-# define DEFAULT_ENERGY_POINT 10
-# define MAX_ATTACK_POINT 10
+# define MAX_HIT_POINT 100
+# define MAX_ENERGY_POINT 100
+# define MAX_ATTACK_POINT 100
+
+# define CT_DEFAULT_HIT_POINT 10
+# define CT_DEFAULT_ENERGY_POINT 10
+# define CT_MAX_ATTACK_POINT 10
 
 class ClapTrap {
 	public:
@@ -35,7 +39,8 @@ class ClapTrap {
 		ClapTrap&	operator=(const ClapTrap& rhs);
 
 		std::string	getName();
-		int			getHitPoint();
+		const int&	getHitPoint();
+		const int&	getMaxHitPoint();
 		int			getEnergyPoint();
 		int			getAttackPoint();
 		void		setName(const std::string& name);
@@ -46,11 +51,12 @@ class ClapTrap {
 		void		takeDamage(unsigned int amount);
 		void		beRepaired(unsigned int amount);
 
-		~ClapTrap();
+		virtual ~ClapTrap();
 
 	private:
 		std::string	name_;
 		int			hitPoint_;
+		int			maxHitPoint_;
 		int			energyPoint_;
 		int			attackPoint_;
 };
@@ -61,5 +67,7 @@ enum eColor {
 	red,
 	NOT
 };
+
+void	writeMessage(std::string message);
 
 #endif
