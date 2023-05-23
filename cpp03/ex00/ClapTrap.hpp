@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/23 12:52:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:38:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,27 @@ class ClapTrap {
 
 		ClapTrap&	operator=(const ClapTrap& rhs);
 
-		std::string	getName();
-		const int&	getHitPoint();
-		const int&	getMaxHitPoint();
-		int			getEnergyPoint();
-		int			getAttackPoint();
-		void		setName(const std::string& name);
-		void		setHitPoint(const int& amount);
-		void		setEnergyPoint(const int& amount);
-		void		setAttackPoint(const int& amount);
-		void		attack(const std::string& target);
-		void		takeDamage(unsigned int amount);
-		void		beRepaired(unsigned int amount);
+		std::string		getName() const;
+		unsigned int	getHitPoint() const;
+		unsigned int	getMaxHitPoint() const;
+		unsigned int	getEnergyPoint() const;
+		unsigned int	getAttackPoint() const;
+		void			setName(const std::string& name);
+		void			setHitPoint(const int& amount);
+		void			setEnergyPoint(const int& amount);
+		void			setAttackPoint(const int& amount);
+		void			attack(const std::string& target);
+		void			takeDamage(unsigned int amount);
+		void			beRepaired(unsigned int amount);
 
 		virtual ~ClapTrap();
 
 	private:
-		std::string	name_;
-		int			hitPoint_;
-		int			maxHitPoint_;
-		int			energyPoint_;
-		int			attackPoint_;
+		std::string		name_;
+		unsigned int	hitPoint_;
+		unsigned int	maxHitPoint_;
+		unsigned int	energyPoint_;
+		unsigned int	attackPoint_;
 };
 
 enum eColor {

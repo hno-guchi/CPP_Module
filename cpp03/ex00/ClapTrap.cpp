@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/23 12:52:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:42:06 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,33 @@ ClapTrap&	ClapTrap::operator=(const ClapTrap& rhs)
 	writeMessage(COPY_OPERATOR_MESSAGE);
 	this->name_ = rhs.name_;
 	this->hitPoint_ = rhs.hitPoint_;
-	this->maxHitPoint_ = rhs.getMaxHitPoint_;
+	this->maxHitPoint_ = rhs.maxHitPoint_;
 	this->energyPoint_ = rhs.energyPoint_;
 	this->attackPoint_ = rhs.attackPoint_;
 	return (*this);
 }
 
-std::string	ClapTrap::getName()
+std::string	ClapTrap::getName() const
 {
 	return (this->name_);
 }
 
-int	ClapTrap::getHitPoint()
+unsigned int	ClapTrap::getHitPoint() const
 {
 	return (this->hitPoint_);
 }
 
-const int&	ClapTrap::getMaxHitPoint()
+unsigned int	ClapTrap::getMaxHitPoint() const
 {
 	return (this->maxHitPoint_);
 }
 
-int	ClapTrap::getEnergyPoint()
+unsigned int	ClapTrap::getEnergyPoint() const
 {
 	return (this->energyPoint_);
 }
 
-int	ClapTrap::getAttackPoint()
+unsigned int	ClapTrap::getAttackPoint() const
 {
 	return (this->attackPoint_);
 }
@@ -144,7 +144,7 @@ void	ClapTrap::takeDamage(unsigned int amount)
 		return ;
 	}
 	std::cout << "ClapTrap : " << this->name_ << " is attacked, causing " << amount << " points of damage!" << std::endl;
-	this->hitPoint_ -= static_cast<int>(amount);
+	this->hitPoint_ -= amount;
 	if (this->hitPoint_ < 1) {
 		this->hitPoint_ = 0;
 		std::cout << RED << this->name_ << " is died... " << END << std::endl;
@@ -161,7 +161,7 @@ void	ClapTrap::beRepaired(unsigned int amount)
 		std::cout << RED << this->name_ << " energyPoint is 0... Not be repaired..." << END << std::endl;
 		return ;
 	}
-	if ((this->maxHitPoint_ - this->hitPoint_) < static_cast<int>(amount)) {
+	if ((this->maxHitPoint_ - this->hitPoint_) < amount) {
 		amount = this->maxHitPoint_ - this->hitPoint_;
 	}
 	std::cout << "ClapTrap : " << this->name_ << " is repaired, causing " << amount << " points of repaire!" << std::endl;
