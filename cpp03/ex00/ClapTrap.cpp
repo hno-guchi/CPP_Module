@@ -6,45 +6,36 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/23 12:52:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 08:03:37 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-void	writeMessage(std::string message)
-{
-	std::cout << message << std::endl;
-}
-
 ClapTrap::ClapTrap() :
 	name_(""), hitPoint_(CT_DEFAULT_HIT_POINT), maxHitPoint_(CT_DEFAULT_HIT_POINT), energyPoint_(CT_DEFAULT_ENERGY_POINT), attackPoint_(0)
 {
-	std::cout << "ClapTrap : " << std::flush;
-	writeMessage(DEFAULT_CONSTRUCT_MESSAGE);
+	debugMessage("ClapTrap", DEFAULT_CONSTRUCT);
 }
 
 ClapTrap::ClapTrap(const std::string& name) :
 	name_(name), hitPoint_(CT_DEFAULT_HIT_POINT), maxHitPoint_(CT_DEFAULT_HIT_POINT), energyPoint_(CT_DEFAULT_ENERGY_POINT), attackPoint_(0)
 {
-	std::cout << "ClapTrap : " << std::flush;
-	writeMessage(DEFAULT_CONSTRUCT_MESSAGE);
+	debugMessage("ClapTrap", DEFAULT_CONSTRUCT);
 }
 
 ClapTrap::ClapTrap(const ClapTrap& src) :
 	name_(src.name_), hitPoint_(src.hitPoint_), maxHitPoint_(src.maxHitPoint_), energyPoint_(src.energyPoint_), attackPoint_(src.attackPoint_)
 {
-	std::cout << "ClapTrap : " << std::flush;
-	writeMessage(COPY_CONSTRUCT_MESSAGE);
+	debugMessage("ClapTrap", COPY_CONSTRUCT);
 }
 
 ClapTrap&	ClapTrap::operator=(const ClapTrap& rhs)
 {
-	std::cout << "ClapTrap : " << std::flush;
-	writeMessage(COPY_OPERATOR_MESSAGE);
+	debugMessage("ClapTrap", COPY_OPERATOR);
 	this->name_ = rhs.name_;
 	this->hitPoint_ = rhs.hitPoint_;
-	this->maxHitPoint_ = rhs.getMaxHitPoint_;
+	this->maxHitPoint_ = rhs.MaxHitPoint_;
 	this->energyPoint_ = rhs.energyPoint_;
 	this->attackPoint_ = rhs.attackPoint_;
 	return (*this);
@@ -170,6 +161,5 @@ void	ClapTrap::beRepaired(unsigned int amount)
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << "ClapTrap : " << std::flush;
-	writeMessage(DESTRUCT_MESSAGE);
+	debugMessage("ClapTrap", DESTRUCT);
 }

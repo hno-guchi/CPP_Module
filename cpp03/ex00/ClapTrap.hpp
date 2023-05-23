@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/23 12:52:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 08:00:27 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 
 #include <iostream>
 #include "color.hpp"
-
-# define DEFAULT_CONSTRUCT_MESSAGE "Default constructor called"
-# define COPY_CONSTRUCT_MESSAGE "Copy constructor called"
-# define DESTRUCT_MESSAGE "Destructor called"
-# define COPY_OPERATOR_MESSAGE "Copy assignment operator called"
+#include "debugMessage.hpp"
 
 # define MAX_NAME_SIZE 20
 # define MAX_HIT_POINT 100
@@ -61,13 +57,11 @@ class ClapTrap {
 		int			attackPoint_;
 };
 
-enum eColor {
+typedef enum eColor {
 	green,
 	yellow,
 	red,
-	NOT
-};
-
-void	writeMessage(std::string message);
+	not_coloer
+}	tColor;
 
 #endif
