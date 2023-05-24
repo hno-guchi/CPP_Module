@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:53:53 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/19 15:54:20 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:00:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ class Fixed {
 		static const int	numberOfFractionalBits_;
 		int					fixedPointNumber_;
 };
+
+std::ostream&	operator<<(std::ostream& lhs, const Fixed& rhs);
 
 enum eColor {
 	green,

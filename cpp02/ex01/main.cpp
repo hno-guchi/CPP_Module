@@ -6,19 +6,13 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:56:07 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/18 19:07:44 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:57:48 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SAMPLE
 
 #include "Fixed.hpp"
-
-std::ostream&	operator<<(std::ostream& lhs, const Fixed& rhs)
-{
-	lhs << rhs.toFloat();
-	return (lhs);
-}
 
 int	main(void) {
 	std::cout

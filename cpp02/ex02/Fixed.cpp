@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:18:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/19 15:54:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:00:27 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,4 +200,10 @@ float	Fixed::toFloat(void) const
 int	Fixed::toInt(void) const
 {
 	return (this->fixedPointNumber_ / (1 << 8));
+}
+
+std::ostream&	operator<<(std::ostream& lhs, const Fixed& rhs)
+{
+	lhs << rhs.toFloat();
+	return (lhs);
 }

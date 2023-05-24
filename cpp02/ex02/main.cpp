@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:56:07 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/19 16:13:30 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:00:12 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ static void	colorMessage(eColor color, std::string message)
 		default:
 			std::cout << message << std::endl;
 	}
-}
-
-std::ostream&	operator<<(std::ostream& lhs, const Fixed& rhs)
-{
-	lhs << rhs.toFloat();
-	return (lhs);
 }
 
 #ifndef TEST
