@@ -1,51 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.cpp                                       :+:      :+:    :+:   */
+/*   FragTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:58:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 18:12:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:43:45 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-ScavTrap::ScavTrap() :
+FragTrap::FragTrap() :
 	ClapTrap()
 {
 	this->setName("");
-	this->setHitPoint(ST_DEFAULT_HIT_POINT);
-	this->setEnergyPoint(ST_DEFAULT_ENERGY_POINT);
-	this->setAttackPoint(ST_DEFAULT_ATTACK_POINT);
-	debugMessage("ScavTrap", DEFAULT_CONSTRUCT);
+	this->setHitPoint(FT_DEFAULT_HIT_POINT);
+	this->setEnergyPoint(FT_DEFAULT_ENERGY_POINT);
+	this->setAttackPoint(FT_DEFAULT_ATTACK_POINT);
+	debugMessage("FragTrap", DEFAULT_CONSTRUCT);
 }
 
-ScavTrap::ScavTrap(const std::string& name) :
+FragTrap::FragTrap(const std::string& name) :
 	ClapTrap(name)
 {
 	this->setName(name);
-	this->setHitPoint(ST_DEFAULT_HIT_POINT);
-	this->setEnergyPoint(ST_DEFAULT_ENERGY_POINT);
-	this->setAttackPoint(ST_DEFAULT_ATTACK_POINT);
-	debugMessage("ScavTrap", DEFAULT_CONSTRUCT);
+	this->setHitPoint(FT_DEFAULT_HIT_POINT);
+	this->setEnergyPoint(FT_DEFAULT_ENERGY_POINT);
+	this->setAttackPoint(FT_DEFAULT_ATTACK_POINT);
+	debugMessage("FragTrap", DEFAULT_CONSTRUCT);
 }
 
-ScavTrap::ScavTrap(const ScavTrap& src) :
+FragTrap::FragTrap(const FragTrap& src) :
 	ClapTrap(src)
 {
-	debugMessage("ScavTrap", COPY_CONSTRUCT);
+	debugMessage("FragTrap", COPY_CONSTRUCT);
 }
 
-ScavTrap&	ScavTrap::operator=(const ScavTrap& rhs)
+FragTrap&	FragTrap::operator=(const FragTrap& rhs)
 {
 	ClapTrap::operator=(rhs);
-	debugMessage("ScavTrap", COPY_OPERATOR);
+	debugMessage("FragTrap", COPY_OPERATOR);
 	return (*this);
 }
 
-void	ScavTrap::attack(const std::string& target)
+void	FragTrap::attack(const std::string& target)
 {
 	if (this->getHitPoint() == 0) {
 		std::cout << RED << this->getName() << " was died... Not attacks..." << END << std::endl;
@@ -54,22 +54,22 @@ void	ScavTrap::attack(const std::string& target)
 		std::cout << RED << this->getName() << " energyPoint is 0... Not attacks..." << END << std::endl;
 	}
 	else {
-		debugMessageAttack("ScavTrap", this->getName(), target, this->getAttackPoint());
+		debugMessageAttack("FragTrap", this->getName(), target, this->getAttackPoint());
 		this->setEnergyPoint(this->getEnergyPoint() - 1);
 	}
 }
 
-void	ScavTrap::guardGate()
+void	FragTrap::guardGate()
 {
 	if (this->getHitPoint() == 0) {
 		std::cout << RED << this->getName() << " was died... Not guard gate mode..." << END << std::endl;
 	}
 	else {
-		debugMessageGuardGate("ScavTrap", this->getName());
+		debugMessageGuardGate("FragTrap", this->getName());
 	}
 }
 
-ScavTrap::~ScavTrap()
+FragTrap::~FragTrap()
 {
-	debugMessage("ScavTrap", DESTRUCT);
+	debugMessage("FragTrap", DESTRUCT);
 }

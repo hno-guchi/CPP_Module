@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 11:14:33 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/10 16:34:20 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 08:51:01 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	const std::string	replaceFileName(getReplaceFileName(argv[1]));
-	std::ofstream		replaceFileFd(replaceFileName);
+	// std::ofstream		replaceFileFd(replaceFileName); // (std::string str); c++11
+	std::ofstream		replaceFileFd(replaceFileName.c_str()); // (std::string str); c++98
 	if (replaceFileFd.is_open() == false) {
 		std::cerr << "Error: Failed open(replaceFileFd)." << std::endl;
 		sourceFileFd.close();

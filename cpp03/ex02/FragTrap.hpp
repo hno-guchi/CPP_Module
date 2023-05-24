@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:46:16 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 17:33:10 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:39:03 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_HPP
-# define SCAVTRAP_HPP
+#ifndef FRAGTRAP_HPP
+# define FRAGTRAP_HPP
 
 #include "ClapTrap.hpp"
 #include "debugMessage.hpp"
 
-# define ST_DEFAULT_HIT_POINT 100
-# define ST_DEFAULT_ENERGY_POINT 50
-# define ST_DEFAULT_ATTACK_POINT 20
+# define FT_DEFAULT_HIT_POINT 100
+# define FT_DEFAULT_ENERGY_POINT 100
+# define FT_DEFAULT_ATTACK_POINT 30
 
-class ScavTrap : public ClapTrap {
+class FragTrap : public ClapTrap {
 	public:
 		// CONSTRUCTER
-		ScavTrap();
-		ScavTrap(const std::string& name);
-		ScavTrap(const ScavTrap& src);
+		FragTrap();
+		FragTrap(const std::string& name);
+		FragTrap(const FragTrap& src);
 
 		// OPERATOR
-		ScavTrap&	operator=(const ScavTrap& rhs);
+		FragTrap&	operator=(const FragTrap& rhs);
 
 		// SUBJECT FUNC
 		void	attack(const std::string& target);
 		void	guardGate();
 
 		// DESTRUCTER
-		virtual ~ScavTrap();
+		virtual ~FragTrap();
 };
 
 #endif
