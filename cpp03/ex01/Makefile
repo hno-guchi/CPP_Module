@@ -2,12 +2,12 @@
 # General #
 ###########
 
-NAME = ex00
+NAME = ex01
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 OVERFLOWFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
 SRCS = main.cpp \
-	debugMessage.cpp ClapTrap.cpp
+	debugMessage.cpp ClapTrap.cpp ScavTrap.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -47,6 +47,10 @@ over_flow: re
 .PHONY: boundary
 boundary: CXXFLAGS += -DBOUNDARY
 boundary: over_flow
+
+.PHONY: leaks
+leaks: CXXFLAGS += -DLEAKS
+leaks: re
 
 .PHONY: lldb
 lldb: CXXFLAGS += -g -O0

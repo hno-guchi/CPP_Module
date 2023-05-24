@@ -6,11 +6,11 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:26:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 11:06:05 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:02:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 static void	colorMessage(tColor color, std::string message)
 {
@@ -29,7 +29,7 @@ static void	colorMessage(tColor color, std::string message)
 	}
 }
 
-static void	writeData(const std::string& objectName, const ClapTrap& rhs)
+static void	writeData(const std::string& objectName, const ScavTrap& rhs)
 {
 	std::cout << objectName << " | " << std::flush;
 	std::cout << "Name[ " << MAGENTA << rhs.getName() << END << " ] | ";
@@ -41,9 +41,9 @@ static void	writeData(const std::string& objectName, const ClapTrap& rhs)
 int	main()
 {
 	colorMessage(green,  "===== CONSTRUCT =======");
-	ClapTrap	player_0;
-	ClapTrap	player_1("hnoguchi");
-	ClapTrap	player_2(player_1);
+	ScavTrap	player_0;
+	ScavTrap	player_1("hnoguchi");
+	ScavTrap	player_2(player_1);
 
 	player_0 = player_2;
 	colorMessage(green,  "=======================");
