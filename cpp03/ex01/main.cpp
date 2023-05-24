@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:26:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 12:02:22 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:33:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,82 +47,20 @@ int	main()
 
 	player_0 = player_2;
 	colorMessage(green,  "=======================");
-#ifdef BOUNDARY
-	colorMessage(green,  "\n===== BOUNDARY ========");
-	std::cout << "----------------------------------------------------------------" << std::endl;
-	writeData("player_0", player_0);
-	std::cout << "----------------------------------------------------------------\n" << std::endl;
-
-	player_0.setName("ChangedName");
-
-	// Error (Under)
-	player_0.setHitPoint(0);
-	player_0.setEnergyPoint(0);
-	player_0.setAttackPoint(0);
 
 	std::cout << "----------------------------------------------------------------" << std::endl;
 	writeData("player_0", player_0);
+	writeData("player_1", player_1);
+	writeData("player_2", player_2);
 	std::cout << "----------------------------------------------------------------\n" << std::endl;
 
-	// Error (Over)
-	player_0.setHitPoint(101);
-	player_0.setEnergyPoint(101);
-	player_0.setAttackPoint(101);
-
-	std::cout << "----------------------------------------------------------------" << std::endl;
-	writeData("player_0", player_0);
-	std::cout << "----------------------------------------------------------------\n" << std::endl;
-
-	// Empty EnergyPoint - attack()
-	player_0.setHitPoint(2);
-	player_0.setEnergyPoint(1);
-	player_0.setAttackPoint(1);
-
-	std::cout << "----------------------------------------------------------------" << std::endl;
-	writeData("player_0", player_0);
-	std::cout << "----------------------------------------------------------------\n" << std::endl;
-
-	player_0.attack("changedName");
-	player_0.takeDamage(player_0.getAttackPoint());
-
-	std::cout << "----------------------------------------------------------------" << std::endl;
-	writeData("player_0", player_0);
-	std::cout << "----------------------------------------------------------------\n" << std::endl;
-
-	player_0.attack("changedName");
-
-	std::cout << "----------------------------------------------------------------" << std::endl;
-	writeData("player_0", player_0);
-	std::cout << "----------------------------------------------------------------\n" << std::endl;
-
-	// Empty EnergyPoint - beRepaired()
-	player_0.beRepaired(player_0.getAttackPoint());
-
-	std::cout << "----------------------------------------------------------------" << std::endl;
-	writeData("player_0", player_0);
-	std::cout << "----------------------------------------------------------------\n" << std::endl;
-
-	// hitPoint is zero - takeDamage() - beRepaired(); - attack();
-	player_0.takeDamage(player_0.getAttackPoint());
-	player_0.setEnergyPoint(1);
-
-	std::cout << "----------------------------------------------------------------" << std::endl;
-	writeData("player_0", player_0);
-	std::cout << "----------------------------------------------------------------\n" << std::endl;
-
-	player_0.attack("changedName");
-	player_0.takeDamage(player_0.getAttackPoint());
-	player_0.beRepaired(player_0.getAttackPoint());
-
-	colorMessage(green,  "=======================");
-#else
 	colorMessage(green,  "\n===== FUNCTIONS =====");
 	player_0.setName("p0");
 	player_1.setName("p1");
 	player_2.setName("p2");
-	player_0.setAttackPoint(3);
-	player_1.setAttackPoint(5);
-	player_2.setAttackPoint(1);
+	player_0.setAttackPoint(30);
+	player_1.setAttackPoint(50);
+	player_2.setAttackPoint(10);
 	std::cout << "----------------------------------------------------------------" << std::endl;
 	writeData("player_0", player_0);
 	writeData("player_1", player_1);
@@ -172,6 +110,10 @@ int	main()
 	std::cout << "----------------------------------------------------------------" << std::endl;
 	writeData("player_2", player_2);
 	std::cout << "----------------------------------------------------------------\n" << std::endl;
+
+	player_0.guardGate();
+	player_1.guardGate();
+	player_2.guardGate();
+
 	colorMessage(green,  "=======================");
-#endif
 }
