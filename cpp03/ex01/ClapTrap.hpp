@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 11:24:44 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:56:44 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ class ClapTrap {
 		virtual ~ClapTrap();
 
 	private:
-		// SUBJECT MEMBER
+		// SUBJECT ATTRIBUTE
 		std::string		name_;
 		unsigned int	hitPoint_;
 		unsigned int	energyPoint_;
 		unsigned int	attackPoint_;
 
-		// MY MEMBER
+		// MY ATTRIBUTE
 		unsigned int	upperLimitHitPoint_;
 };
 
