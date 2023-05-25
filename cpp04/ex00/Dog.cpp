@@ -1,38 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/25 17:16:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:19:36 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#include "Dog.hpp"
 
-#include "Animal.hpp"
+// CONSTRUCTER
+Dog::Dog() :
+	Animal()
+{
+	this->type_ = "Dog";
+	debugMessage("Dog", DEFAULT_CONSTRUCT);
+}
 
-class Dog : public Animal {
-	public:
-		// CONSTRUCTER
-		Dog();
-		Dog(const std::string& type);
-		Dog(const Dog& src);
+Dog::Dog(const std::string& type) :
+	Animal(type)
+{
+	this->type_ = "Dog";
+	debugMessage("Dog", DEFAULT_CONSTRUCT);
+}
 
-		// OPERATOR
-		Dog&	operator=(const Dog& rhs);
+Dog::Dog(const Dog& src)
+{
+	debugMessage("Dog", COPY_CONSTRUCT);
+	this->operator=(src);
+}
 
-		// SETTER
-		virtual void	setType(const std::string& type);
+// OPERATOR
+Dog&	Dog::operator=(const Dog& rhs)
+{
+	Animal::operator=(rhs);
+	debugMessage("Dog", COPY_OPERATOR);
+	return (*this);
+}
 
-		// SUBJECT FUNC
-		virtual void	makeSound() const;
+// GETTER
 
-		// DESTRUCTER
-		virtual ~Dog();
-};
+// SETTER
 
-#endif
+// SUBJECT FUNC
+
+// DESTRUCTER
+Dog::~Dog()
+{
+	debugMessage("Dog", DESTRUCT);
+}
