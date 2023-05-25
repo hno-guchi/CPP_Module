@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:18:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 17:48:39 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 11:18:24 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void	Fixed::setRawBits(int const raw)
 
 float	Fixed::toFloat(void) const
 {
-	return (static_cast<float>(this->fixedPointNumber_) / (1 << 8));
+	return (static_cast<float>(this->fixedPointNumber_) / (1 << this->numberOfFractionalBits_));
 }
 
 int	Fixed::toInt(void) const
 {
-	return (this->fixedPointNumber_ / (1 << 8));
+	return (this->fixedPointNumber_ / (1 << this->numberOfFractionalBits_));
 }
 
 std::ostream&	operator<<(std::ostream& lhs, const Fixed& rhs)

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:56:07 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/18 18:18:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:10:50 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,21 @@
 #ifndef TEST
 
 int	main(void) {
-	std::cout
-		<< GREEN << "====== CONSTRUCT =====" << END
-		<< std::endl;
+	std::cout << GREEN << "====== CONSTRUCT =====" << END << std::endl;
 	Fixed	a;
 	Fixed	b(a);
 	Fixed	c;
 
 	c = b;
-	std::cout
-		<< GREEN << "======================" << END
-		<< "\n"
-		<< std::endl;
+	std::cout << GREEN << "======================" << END << "\n" << std::endl;
 
-	std::cout
-		<< YELLOW << "====== DO FUNCTION =====" << END
-		<< std::endl;
+	std::cout << YELLOW << "====== DO FUNCTION =====" << END << std::endl;
 	std::cout << a.getRawBits() << std::endl;
 	std::cout << b.getRawBits() << std::endl;
 	std::cout << c.getRawBits() << std::endl;
-	std::cout
-		<< YELLOW << "======================" << END
-		<< "\n"
-		<< std::endl;
+	std::cout << YELLOW << "======================" << END << "\n" << std::endl;
 
-	std::cout
-		<< RED << "====== DESTRUCTOR =====" << END
-		<< std::endl;
+	std::cout << RED << "====== DESTRUCTOR =====" << END << std::endl;
 }
 
 #else
