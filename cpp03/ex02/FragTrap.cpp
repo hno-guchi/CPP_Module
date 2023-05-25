@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:58:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/25 09:03:00 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:04:06 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,6 @@ FragTrap&	FragTrap::operator=(const FragTrap& rhs)
 	ClapTrap::operator=(rhs);
 	debugMessage("FragTrap", COPY_OPERATOR);
 	return (*this);
-}
-
-void	FragTrap::attack(const std::string& target)
-{
-	if (this->getHitPoint() == 0) {
-		std::cout << RED << this->getName() << " was died... Not attacks..." << END << std::endl;
-	}
-	else if (this->getEnergyPoint() == 0) {
-		std::cout << RED << this->getName() << " energyPoint is 0... Not attacks..." << END << std::endl;
-	}
-	else {
-		debugMessageAttack("FragTrap", this->getName(), target, this->getAttackPoint());
-		this->setEnergyPoint(this->getEnergyPoint() - 1);
-	}
 }
 
 void	FragTrap::highFivesGuys()

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:46:16 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 17:33:10 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:15:25 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class ScavTrap : public ClapTrap {
 		ScavTrap&	operator=(const ScavTrap& rhs);
 
 		// SUBJECT FUNC
-		void	attack(const std::string& target);
+		virtual void	attack(const std::string& target);
 		void	guardGate();
 
 		// DESTRUCTER
