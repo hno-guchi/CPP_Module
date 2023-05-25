@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 18:11:44 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:00:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	debugMessageAttack(const std::string& className, const std::string& name, c
 void	debugMessageTakeDamage(const std::string& className, const std::string& name, const unsigned int& amount);
 void	debugMessageBeRepaired(const std::string& className, const std::string& name, const unsigned int& amount);
 void	debugMessageGuardGate(const std::string& className, const std::string& name);
+void	debugMessageHighFivesGuys(const std::string& className, const std::string& name);
 
 #endif

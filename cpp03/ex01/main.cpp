@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:26:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 17:33:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:20:37 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ int	main()
 {
 	colorMessage(green,  "===== CONSTRUCT =======");
 	ScavTrap	player_0;
+	std::cout << std::endl;
 	ScavTrap	player_1("hnoguchi");
+	std::cout << std::endl;
 	ScavTrap	player_2(player_1);
+	std::cout << std::endl;
 
 	player_0 = player_2;
 	colorMessage(green,  "=======================");

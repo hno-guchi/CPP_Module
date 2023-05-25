@@ -6,11 +6,11 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:26:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 17:33:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:02:13 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 static void	colorMessage(tColor color, std::string message)
 {
@@ -29,7 +29,7 @@ static void	colorMessage(tColor color, std::string message)
 	}
 }
 
-static void	writeData(const std::string& objectName, const ScavTrap& rhs)
+static void	writeData(const std::string& objectName, const FragTrap& rhs)
 {
 	std::cout << objectName << " | " << std::flush;
 	std::cout << "Name[ " << MAGENTA << rhs.getName() << END << " ] | ";
@@ -41,9 +41,9 @@ static void	writeData(const std::string& objectName, const ScavTrap& rhs)
 int	main()
 {
 	colorMessage(green,  "===== CONSTRUCT =======");
-	ScavTrap	player_0;
-	ScavTrap	player_1("hnoguchi");
-	ScavTrap	player_2(player_1);
+	FragTrap	player_0;
+	FragTrap	player_1("hnoguchi");
+	FragTrap	player_2(player_1);
 
 	player_0 = player_2;
 	colorMessage(green,  "=======================");
@@ -111,9 +111,9 @@ int	main()
 	writeData("player_2", player_2);
 	std::cout << "----------------------------------------------------------------\n" << std::endl;
 
-	player_0.guardGate();
-	player_1.guardGate();
-	player_2.guardGate();
+	player_0.highFivesGuys();
+	player_1.highFivesGuys();
+	player_2.highFivesGuys();
 
 	colorMessage(green,  "=======================");
 }

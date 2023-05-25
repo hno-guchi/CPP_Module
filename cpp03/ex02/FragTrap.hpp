@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:46:16 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 18:39:03 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:03:56 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class FragTrap : public ClapTrap {
 
 		// SUBJECT FUNC
 		void	attack(const std::string& target);
-		void	guardGate();
+		void	highFivesGuys();
 
 		// DESTRUCTER
 		virtual ~FragTrap();

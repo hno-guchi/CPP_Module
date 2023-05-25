@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:58:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 18:12:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:21:21 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ ScavTrap::ScavTrap(const ScavTrap& src) :
 
 ScavTrap&	ScavTrap::operator=(const ScavTrap& rhs)
 {
-	ClapTrap::operator=(rhs);
+	this->ClapTrap::operator=(rhs);
 	debugMessage("ScavTrap", COPY_OPERATOR);
 	return (*this);
 }

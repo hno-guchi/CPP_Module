@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 17:41:12 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:25:13 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ ClapTrap::ClapTrap(const std::string& name) :
 	debugMessage("ClapTrap", DEFAULT_CONSTRUCT);
 }
 
-ClapTrap::ClapTrap(const ClapTrap& src) :
-	name_(src.name_), hitPoint_(src.hitPoint_), energyPoint_(src.energyPoint_), attackPoint_(src.attackPoint_), upperLimitHitPoint_(src.upperLimitHitPoint_)
+ClapTrap::ClapTrap(const ClapTrap& src)
 {
 	debugMessage("ClapTrap", COPY_CONSTRUCT);
+	this->operator=(src);
 }
 
 ClapTrap&	ClapTrap::operator=(const ClapTrap& rhs)
 {
 	debugMessage("ClapTrap", COPY_OPERATOR);
-	this->name_ = rhs.name_;
-	this->hitPoint_ = rhs.hitPoint_;
-	this->upperLimitHitPoint_ = rhs.upperLimitHitPoint_;
-	this->energyPoint_ = rhs.energyPoint_;
-	this->attackPoint_ = rhs.attackPoint_;
+	this->name_ = rhs.getName();
+	this->hitPoint_ = rhs.getHitPoint();
+	this->energyPoint_ = rhs.getEnergyPoint();
+	this->attackPoint_ = rhs.getAttackPoint();
+	this->upperLimitHitPoint_ = rhs.getUpperLimitHitPoint();
 	return (*this);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:58:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 18:43:45 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:03:00 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ void	FragTrap::attack(const std::string& target)
 	}
 }
 
-void	FragTrap::guardGate()
+void	FragTrap::highFivesGuys()
 {
 	if (this->getHitPoint() == 0) {
-		std::cout << RED << this->getName() << " was died... Not guard gate mode..." << END << std::endl;
+		std::cout << RED << this->getName() << " was died... Do not high five..." << END << std::endl;
 	}
 	else {
-		debugMessageGuardGate("FragTrap", this->getName());
+		debugMessageHighFivesGuys("FragTrap", this->getName());
 	}
 }
 

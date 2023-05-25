@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 18:08:36 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:00:27 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,9 @@ void	debugMessageBeRepaired(const std::string& className, const std::string& nam
 void	debugMessageGuardGate(const std::string& className, const std::string& name)
 {
 	std::cout << className << ": " << name << " became Gate keeper mode." << std::endl;
+}
+
+void	debugMessageHighFivesGuys(const std::string& className, const std::string& name)
+{
+	std::cout << className << ": " << name << " : Give me five!" << std::endl;
 }
