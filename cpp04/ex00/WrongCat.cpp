@@ -1,66 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/25 18:37:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 19:06:26 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "WrongCat.hpp"
 
 // CONSTRUCTER
-Dog::Dog() :
-	Animal()
+WrongCat::WrongCat() :
+	WrongAnimal()
 {
-	this->type_ = "Dog";
-	debugMessage("Dog", DEFAULT_CONSTRUCT);
+	this->type_ = "Cat";
+	debugMessage("WrongCat", DEFAULT_CONSTRUCT);
 }
 
-Dog::Dog(const std::string& type) :
-	Animal(type)
+WrongCat::WrongCat(const std::string& type) :
+	WrongAnimal(type)
 {
-	this->type_ = "Dog";
-	debugMessage("Dog", DEFAULT_CONSTRUCT);
+	this->type_ = "Cat";
+	debugMessage("WrongCat", DEFAULT_CONSTRUCT);
 }
 
-Dog::Dog(const Dog& src)
+WrongCat::WrongCat(const WrongCat& src) :
+	WrongAnimal(src)
 {
-	debugMessage("Dog", COPY_CONSTRUCT);
-	this->operator=(src);
+	debugMessage("WrongCat", COPY_CONSTRUCT);
 }
 
 // OPERATOR
-Dog&	Dog::operator=(const Dog& rhs)
+WrongCat&	WrongCat::operator=(const WrongCat& rhs)
 {
-	Animal::operator=(rhs);
-	debugMessage("Dog", COPY_OPERATOR);
+	WrongAnimal::operator=(rhs);
+	debugMessage("WrongCat", COPY_OPERATOR);
 	return (*this);
 }
 
 // GETTER
 
 // SETTER
-void	Dog::setType(const std::string& type)
+void	WrongCat::setType(const std::string& type)
 {
-	if (type != "Dog") {
+	if (type != "Cat") {
 		std::cout << RED << "Error : Wrong type." << END << std::endl;
 		return ;
 	}
-	this->Animal::setType("Dog");
+	this->WrongAnimal::setType("WrongCat");
 }
 
 // SUBJECT FUNC
-void	Dog::makeSound() const
+void	WrongCat::makeSound() const
 {
-	std::cout << this->getType() << ": Wan Wan Wa Wa Wa--n Wan Wan Wa Wa Wa--n." << std::endl;
+	std::cout << this->getType() << ": Wagahai ha Warui Neko de aru." << std::endl;
 }
 
 // DESTRUCTER
-Dog::~Dog()
+WrongCat::~WrongCat()
 {
-	debugMessage("Dog", DESTRUCT);
+	debugMessage("WrongCat", DESTRUCT);
 }

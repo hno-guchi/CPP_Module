@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/25 17:14:23 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/25 18:37:54 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ Cat&	Cat::operator=(const Cat& rhs)
 	debugMessage("Cat", COPY_OPERATOR);
 	return (*this);
 }
+
+// GETTER
 
 // SETTER
 void	Cat::setType(const std::string& type)

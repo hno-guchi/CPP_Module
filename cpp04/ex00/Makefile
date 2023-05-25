@@ -7,7 +7,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 OVERFLOWFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
 SRCS = main.cpp debugMessage.cpp \
-	Animal.cpp Cat.cpp
+	Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -51,6 +51,18 @@ animal: over_flow
 .PHONY: cat
 cat: CXXFLAGS += -DCAT
 cat: over_flow
+
+.PHONY: dog
+dog: CXXFLAGS += -DDOG
+dog: over_flow
+
+.PHONY: wrong
+wrong: CXXFLAGS += -DWRONG
+wrong: over_flow
+
+.PHONY: leaks
+leaks: CXXFLAGS += -DLEAKS
+leaks: re
 
 .PHONY: lldb
 lldb: CXXFLAGS += -g -O0
