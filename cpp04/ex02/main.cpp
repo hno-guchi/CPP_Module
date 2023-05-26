@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:03:10 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 18:04:23 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:24:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,16 +119,21 @@ int main()
 	// const Animal*	wrong = new Animal(); std::cout << std::endl;
 	const Animal*	j = new Dog(); std::cout << std::endl;
 	const Animal*	i = new Cat(); std::cout << std::endl;
-	Animal*			animals[10];
+	Animal*			animals[10]; std::cout << std::endl;
 
+	std::cout << "----- animals construct --------\n" << std::endl;
 	int	index = 0;
 	while (index < (10 / 2)) {
+		std::cout << GREEN << "[" << index << "]" << END << std::endl;
 		animals[index] = new Dog();
 		index += 1;
+		std::cout << std::endl;
 	}
 	while (index < 10) {
+		std::cout << GREEN << "[" << index << "]" << END << std::endl;
 		animals[index] = new Cat();
 		index += 1;
+		std::cout << std::endl;
 	}
 	std::cout << GREEN << "========================" << END << "\n" << std::endl;
 
