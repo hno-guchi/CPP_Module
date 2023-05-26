@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CanonicalFormTemp.hpp                              :+:      :+:    :+:   */
+/*   CanonicalForm.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/25 10:48:35 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:39:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _HPP
-# define _HPP
+#define _HPP
 
-class CanonicalFormTemp {
+#include "debugMessage.hpp"
+
+class CanonicalForm {
 	public:
 		// CONSTRUCTER
-		CanonicalFormTemp();
-		CanonicalFormTemp(const std::string& type);
-		CanonicalFormTemp(const CanonicalFormTemp& src);
+		CanonicalForm();
+		CanonicalForm(const std::string& type);
+		CanonicalForm(const CanonicalForm& src);
 
 		// OPERATOR
-		CanonicalFormTemp&	operator=(const CanonicalFormTemp& rhs);
+		CanonicalForm&	operator=(const CanonicalForm& rhs);
 
 		// GETTER
 
@@ -30,7 +32,7 @@ class CanonicalFormTemp {
 		// SUBJECT FUNC
 
 		// DESTRUCTER
-		virtual ~CanonicalFormTemp();
+		virtual ~CanonicalForm();
 
 	protected:
 		// SUBJECT ATTRIBUTE

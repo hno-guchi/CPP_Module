@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CanonicalFormTemp.cpp                              :+:      :+:    :+:   */
+/*   CanonicalForm.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/25 11:34:46 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:39:03 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CanonicalFormTemp.hpp"
+#include "CanonicalForm.hpp"
 
 // CONSTRUCTER
-CanonicalFormTemp::CanonicalFormTemp()
+CanonicalForm::CanonicalForm()
 {
-	debugMessage("CanonicalFormTemp", DEFAULT_CONSTRUCT);
+	debugMessage("CanonicalForm", DEFAULT_CONSTRUCT);
 }
 
-CanonicalFormTemp::CanonicalFormTemp() :
+CanonicalForm::CanonicalForm() :
 {
-	debugMessage("CanonicalFormTemp", DEFAULT_CONSTRUCT);
+	debugMessage("CanonicalForm", DEFAULT_CONSTRUCT);
 }
 
-CanonicalFormTemp::CanonicalFormTemp(const CanonicalFormTemp& src)
+CanonicalForm::CanonicalForm(const CanonicalForm& src)
 {
-	debugMessage("CanonicalFormTemp", COPY_CONSTRUCT);
+	debugMessage("CanonicalForm", COPY_CONSTRUCT);
 	this->operator=(src);
 }
 
 // OPERATOR
-CanonicalFormTemp&	CanonicalFormTemp::operator=(const CanonicalFormTemp& rhs)
+CanonicalForm&	CanonicalForm::operator=(const CanonicalForm& rhs)
 {
-	debugMessage("CanonicalFormTemp", COPY_OPERATOR);
+	debugMessage("CanonicalForm", COPY_OPERATOR);
 	return (*this);
 }
 
@@ -43,7 +43,7 @@ CanonicalFormTemp&	CanonicalFormTemp::operator=(const CanonicalFormTemp& rhs)
 // SUBJECT FUNC
 
 // DESTRUCTER
-CanonicalFormTemp::~CanonicalFormTemp()
+CanonicalForm::~CanonicalForm()
 {
-	debugMessage("CanonicalFormTemp", DESTRUCT);
+	debugMessage("CanonicalForm", DESTRUCT);
 }
