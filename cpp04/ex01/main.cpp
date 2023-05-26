@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:03:10 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 16:53:07 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:58:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 static void	testMemberFunction(const std::string& prefix, const Brain& object)
 {
 	std::cout \
-		<< "===== " << GREEN << prefix << END << "=====\n" \
-		<< "ideasSize    : [" << object.getIdeaArraySize() << "]\n" \
-		<< "currentindex : [" << object.getLastIndex() << "]\n" \
-		<< "ideas[" << object.getLastIndex() << "]     :" \
+		<< "\n===== " << GREEN << prefix << END << " ========\n" \
+		<< "ideasSize    : [" << object.getIdeaArraySize() << "]  |\n" \
+		<< "currentindex : [" << object.getLastIndex() << "]  |\n" \
+		<< "ideas[" << object.getLastIndex() << "]     : " \
 		<< std::endl;
 		for (unsigned int i = 0; i < object.getLastIndex(); i++) {
 			std::cout << "[" << i << "] : [" << object.getIdea(i) << "]" << std::endl;
 		}
-	std::cout << GREEN << "==============================" << END << std::endl;
+	std::cout << "=====================" << std::endl;
 }
 
 int	main()

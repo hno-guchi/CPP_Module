@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 17:13:20 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:02:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ Animal::Animal() :
 Animal::Animal(const std::string& type) :
 	type_(type)
 {
-	debugMessage("Animal", DEFAULT_CONSTRUCT);
+	debugMessage("Animal", HAS_ARGS_CONSTRUCT);
 }
 
 Animal::Animal(const Animal& src)

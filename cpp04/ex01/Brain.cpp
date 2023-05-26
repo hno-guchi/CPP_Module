@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 11:28:56 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:52:58 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Brain::Brain()
 
 Brain::Brain(const std::string& idea)
 {
-	debugMessage("Brain", DEFAULT_CONSTRUCT);
+	debugMessage("Brain", HAS_ARGS_CONSTRUCT);
 	this->ideas_[0] = idea;
 	for (int i = 1; i < IDEARS_SIZE; i++) {
 		this->ideas_[i] = "";

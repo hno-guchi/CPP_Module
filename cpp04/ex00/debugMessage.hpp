@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/25 10:56:56 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:47:21 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 #include <iostream>
 
 # define DEFAULT_CONSTRUCT_MESSAGE "Default constructor called"
+# define HAS_ARGS_CONSTRUCT_MESSAGE "Has args constructor called"
 # define COPY_CONSTRUCT_MESSAGE "Copy constructor called"
 # define COPY_OPERATOR_MESSAGE "Copy assignment operator called"
 # define DESTRUCT_MESSAGE "Destructor called"
 
 typedef enum eMessageType {
 	DEFAULT_CONSTRUCT,
+	HAS_ARGS_CONSTRUCT,
 	COPY_CONSTRUCT,
 	COPY_OPERATOR,
 	DESTRUCT,

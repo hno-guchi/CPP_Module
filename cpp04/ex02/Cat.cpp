@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 11:49:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:02:48 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Cat::Cat(const std::string& type) :
 	Animal(type)
 {
 	this->brain_ = new Brain();
-	debugMessage("Cat", DEFAULT_CONSTRUCT);
+	debugMessage("Cat", HAS_ARGS_CONSTRUCT);
 	this->type_ = "Cat";
 }
 

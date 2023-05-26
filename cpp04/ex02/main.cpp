@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:03:10 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 17:19:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:04:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main()
 
 	std::cout << RED << "====== DESTRUCTOR =====" << END << std::endl;
 
-	system("leaks -q ex01");
+	system("leaks -q ex02");
 }
 
 #elif DOG

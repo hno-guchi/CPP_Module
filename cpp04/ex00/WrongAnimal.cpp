@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/25 18:55:38 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:48:26 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ WrongAnimal::WrongAnimal() :
 WrongAnimal::WrongAnimal(const std::string& type) :
 	type_(type)
 {
-	debugMessage("WrongAnimal", DEFAULT_CONSTRUCT);
+	debugMessage("WrongAnimal", HAS_ARGS_CONSTRUCT);
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal& src)
