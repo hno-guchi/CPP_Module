@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:03:10 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 12:04:43 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:53:07 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,26 +158,32 @@ int main()
 {
 	std::cout << GREEN << "====== CONSTRUCT =======" << END << std::endl;
 	const Animal*	j = new Dog(); std::cout << std::endl;
-	const Animal*	i = new Cat();
+	const Animal*	i = new Cat(); std::cout << std::endl;
 	Animal*			animals[10];
 
-	&(animals[0]) = new Dog[5];
-	&(animals[5]) = new Cat[5];
-	// int	index = 0;
-	// while (index < (ANIMALS_SIZE / 2)) {
-	// 	animals[index] = new Dog();
-	// 	index += 1;
-	// }
-	// while (index < ANIMALS_SIZE) {
-	// 	animals[index] = new Cat();
-	// 	index += 1;
-	// }
+	int	index = 0;
+	while (index < (10 / 2)) {
+		animals[index] = new Dog();
+		index += 1;
+	}
+	while (index < 10) {
+		animals[index] = new Cat();
+		index += 1;
+	}
 	std::cout << GREEN << "========================" << END << "\n" << std::endl;
 
 	std::cout << RED << "====== DESTRUCTOR =====" << END << std::endl;
-	delete i;
-	delete j;
-	// delete[] animals[];
+	delete i; std::cout << std::endl;
+	delete j; std::cout << std::endl;
+
+	// Compile error : error: cannot delete expression of type 'Animal *[10]'
+	// delete[] animals;
+
+	std::cout << "\n----- animals destruc -----\n" << std::endl;
+	for (int idx = 0; idx < 10; idx++) {
+		std::cout << RED << "[" << idx << "]" << END << std::endl;
+		delete animals[idx]; std::cout << std::endl;
+	}
 
 #ifdef LEAKS
 	system("leaks -q ex01");
