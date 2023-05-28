@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 18:03:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/28 17:20:05 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@
 Dog::Dog() :
 	Animal()
 {
-	this->brain_ = new Brain();
 	debugMessage("Dog", DEFAULT_CONSTRUCT);
+	this->brain_ = new Brain();
 	this->type_ = "Dog";
 }
 
 Dog::Dog(const std::string& type) :
 	Animal(type)
 {
-	this->brain_ = new Brain();
 	debugMessage("Dog", HAS_ARGS_CONSTRUCT);
+	this->brain_ = new Brain();
 	this->type_ = "Dog";
 }
 
 Dog::Dog(const Dog& src) :
 	Animal(src)
 {
+	debugMessage("Dog", COPY_CONSTRUCT);
 	// this->brain_ = new Brain(*src.brain_);
 	this->brain_ = new Brain();
 	*this->brain_ = *src.brain_;
-	debugMessage("Dog", COPY_CONSTRUCT);
 }
 
 // OPERATOR
@@ -43,6 +43,7 @@ Dog&	Dog::operator=(const Dog& rhs)
 {
 	Animal::operator=(rhs);
 
+	debugMessage("Dog", COPY_OPERATOR);
 	// Brain*	newBrain = new Brain(*rhs.brain_);
 	Brain*	newBrain = new Brain();
 
@@ -50,7 +51,6 @@ Dog&	Dog::operator=(const Dog& rhs)
 
 	delete this->brain_;
 	this->brain_ = newBrain;
-	debugMessage("Dog", COPY_OPERATOR);
 	return (*this);
 }
 
@@ -100,6 +100,6 @@ void	Dog::makeSound() const
 // DESTRUCTER
 Dog::~Dog()
 {
-	debugMessage("Dog", DESTRUCT);
 	delete this->brain_;
+	debugMessage("Dog", DESTRUCT);
 }

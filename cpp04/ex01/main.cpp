@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:03:10 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/28 10:59:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/28 17:17:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main()
 		cat0.setBrainIdea("cat0 idea.");
 		cat1.setBrainIdea("cat1 idea.");
 
-		Brain*	cat2_brain = new Brain("cat2 idea.");
+		Brain*	cat2_brain = new Brain("cat2 idea."); std::cout << std::endl;
 		Cat		cat2 = Cat(cat0);
 		std::cout << GREEN << "========================" << END << "\n" << std::endl;
 
@@ -139,7 +139,7 @@ int	main()
 		dog0.setBrainIdea("dog0 idea.");
 		dog1.setBrainIdea("dog1 idea.");
 
-		Brain*	dog2_brain = new Brain("dog2 idea.");
+		Brain*	dog2_brain = new Brain("dog2 idea."); std::cout << std::endl;
 		Dog		dog2 = Dog(dog0);
 		std::cout << GREEN << "========================" << END << "\n" << std::endl;
 

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 18:02:48 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/28 17:19:17 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@
 Cat::Cat() :
 	Animal()
 {
-	this->brain_ = new Brain();
 	debugMessage("Cat", DEFAULT_CONSTRUCT);
+	this->brain_ = new Brain();
 	this->type_ = "Cat";
 }
 
 Cat::Cat(const std::string& type) :
 	Animal(type)
 {
-	this->brain_ = new Brain();
 	debugMessage("Cat", HAS_ARGS_CONSTRUCT);
+	this->brain_ = new Brain();
 	this->type_ = "Cat";
 }
 
 Cat::Cat(const Cat& src) :
 	Animal(src)
 {
+	debugMessage("Cat", COPY_CONSTRUCT);
 	// this->brain_ = new Brain(*src.brain_);
 	this->brain_ = new Brain();
 	*this->brain_ = *src.brain_;
-	debugMessage("Cat", COPY_CONSTRUCT);
 }
 
 // OPERATOR
@@ -43,6 +43,7 @@ Cat&	Cat::operator=(const Cat& rhs)
 {
 	Animal::operator=(rhs);
 
+	debugMessage("Cat", COPY_OPERATOR);
 	// Brain*	newBrain = new Brain(*rhs.brain_);
 	Brain*	newBrain = new Brain();
 
@@ -50,7 +51,6 @@ Cat&	Cat::operator=(const Cat& rhs)
 
 	delete this->brain_;
 	this->brain_ = newBrain;
-	debugMessage("Cat", COPY_OPERATOR);
 	return (*this);
 }
 
@@ -100,6 +100,6 @@ void	Cat::makeSound() const
 // DESTRUCTER
 Cat::~Cat()
 {
-	debugMessage("Cat", DESTRUCT);
 	delete this->brain_;
+	debugMessage("Cat", DESTRUCT);
 }
