@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 17:52:58 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/28 10:01:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ Brain::Brain(const std::string& idea)
 		this->ideas_[i] = "";
 	}
 	if (!idea.empty()) {
-		this->ideasSize_ = 1;
+		this->currentIndex_ = 1;
 	}
 	else {
-		this->ideasSize_ = 0;
+		this->currentIndex_ = 0;
 	}
-	this->currentIndex_ = 0;
+	this->ideasSize_ = IDEARS_SIZE;
 }
 
 Brain::Brain(const Brain& src)

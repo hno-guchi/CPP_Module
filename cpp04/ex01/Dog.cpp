@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 17:53:43 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/28 09:53:15 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ Dog::Dog(const std::string& type) :
 Dog::Dog(const Dog& src) :
 	Animal(src)
 {
+	// this->brain_ = new Brain(*src.brain_);
 	this->brain_ = new Brain();
+	*this->brain_ = *src.brain_;
 	debugMessage("Dog", COPY_CONSTRUCT);
 }
 
@@ -41,9 +43,11 @@ Dog&	Dog::operator=(const Dog& rhs)
 {
 	Animal::operator=(rhs);
 
+	// Brain*	newBrain = new Brain(*rhs.brain_);
 	Brain*	newBrain = new Brain();
 
 	*newBrain = *rhs.brain_;
+
 	delete this->brain_;
 	this->brain_ = newBrain;
 	debugMessage("Dog", COPY_OPERATOR);
@@ -69,6 +73,17 @@ void	Dog::setType(const std::string& type)
 		return ;
 	}
 	this->Animal::setType("Dog");
+}
+
+void	Dog::setBrain(const Brain& brain)
+{
+	// Brain*	newBrain = new Brain(brain);
+	Brain*	newBrain = new Brain();
+
+	*newBrain = brain;
+
+	delete this->brain_;
+	this->brain_ = newBrain;
 }
 
 void	Dog::setBrainIdea(const std::string& idea)
