@@ -32,7 +32,9 @@ Cat::Cat(const std::string& type) :
 Cat::Cat(const Cat& src) :
 	Animal(src)
 {
+	// this->brain_ = new Brain(*src.brain_);
 	this->brain_ = new Brain();
+	*this->brain_ = *src.brain_;
 	debugMessage("Cat", COPY_CONSTRUCT);
 }
 
@@ -41,12 +43,13 @@ Cat&	Cat::operator=(const Cat& rhs)
 {
 	Animal::operator=(rhs);
 
+	// Brain*	newBrain = new Brain(*rhs.brain_);
 	Brain*	newBrain = new Brain();
 
 	*newBrain = *rhs.brain_;
+
 	delete this->brain_;
 	this->brain_ = newBrain;
-
 	debugMessage("Cat", COPY_OPERATOR);
 	return (*this);
 }
@@ -70,6 +73,17 @@ void	Cat::setType(const std::string& type)
 		return ;
 	}
 	this->Animal::setType("Cat");
+}
+
+void	Cat::setBrain(const Brain& brain)
+{
+	// Brain*	newBrain = new Brain(brain);
+	Brain*	newBrain = new Brain();
+
+	*newBrain = brain;
+
+	delete this->brain_;
+	this->brain_ = newBrain;
 }
 
 void	Cat::setBrainIdea(const std::string& idea)

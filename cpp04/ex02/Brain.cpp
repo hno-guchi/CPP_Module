@@ -31,12 +31,12 @@ Brain::Brain(const std::string& idea)
 		this->ideas_[i] = "";
 	}
 	if (!idea.empty()) {
-		this->ideasSize_ = 1;
+		this->currentIndex_ = 1;
 	}
 	else {
-		this->ideasSize_ = 0;
+		this->currentIndex_ = 0;
 	}
-	this->currentIndex_ = 0;
+	this->ideasSize_ = IDEARS_SIZE;
 }
 
 Brain::Brain(const Brain& src)

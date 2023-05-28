@@ -24,18 +24,19 @@ class Dog : public Animal {
 		Dog(const Dog& src);
 
 		// OPERATOR
-		Dog&	operator=(const Dog& rhs);
+		Dog&				operator=(const Dog& rhs);
 
 		// GETTER
 		const Brain*		getBrain() const;
 		const std::string	getBrainIdea(const unsigned int& index) const;
 
 		// SETTER
-		virtual void	setType(const std::string& type);
-		void			setBrainIdea(const std::string& idea);
+		virtual void		setType(const std::string& type);
+		void				setBrain(const Brain& brain);
+		void				setBrainIdea(const std::string& idea);
 
 		// SUBJECT FUNC
-		virtual void	makeSound() const;
+		virtual void		makeSound() const;
 
 		// DESTRUCTER
 		virtual ~Dog();

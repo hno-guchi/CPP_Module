@@ -48,14 +48,6 @@ over_flow: re
 leaks: CXXFLAGS += -DLEAKS
 leaks: re
 
-.PHONY: cat
-cat: CXXFLAGS += -DCAT
-cat: leaks
-
-.PHONY: dog
-dog: CXXFLAGS += -DDOG
-dog: leaks
-
 .PHONY: lldb
 lldb: CXXFLAGS += -g -O0
 lldb: re
