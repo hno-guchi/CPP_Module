@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/31 12:34:25 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:08:41 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ class Character : public ICharacter {
 	private:
 		// SUBJECT ATTRIBUTE
 		// The Character possesses an inventory of 4 slots, which means 4 Materias at most.
-		AMateria*	inventory[MAX_INVENTORY_SIZE];
+		AMateria*	inventory_[MAX_INVENTORY_SIZE];
 
 		// MY ATTRIBUTE
-		std::string	name;
+		std::string	name_;
 
 };
 

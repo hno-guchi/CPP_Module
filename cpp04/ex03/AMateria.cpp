@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/31 12:48:42 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:10:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ AMateria::AMateria() :
 AMateria::AMateria(const std::string& type) :
 	type_(type)
 {
-	debugMessage("AMateria", DEFAULT_CONSTRUCT);
+	debugMessage("AMateria", HAS_ARGS_CONSTRUCT);
 }
 
 AMateria::AMateria(const AMateria& src)

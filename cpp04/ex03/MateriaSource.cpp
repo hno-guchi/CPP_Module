@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CanonicalForm.cpp                                  :+:      :+:    :+:   */
+/*   MateriaSource.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/31 14:09:21 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:45:12 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CanonicalForm.hpp"
+#include "MateriaSource.hpp"
 
 // CONSTRUCTER
-CanonicalForm::CanonicalForm()
+MateriaSource::MateriaSource()
 {
-	debugMessage("CanonicalForm", DEFAULT_CONSTRUCT);
+	debugMessage("MateriaSource", DEFAULT_CONSTRUCT);
+	for (int i = 0; i < MAX_INVENTORY_SIZE; i++) {
+		this->inventory_[i] = NULL;
+	}
+	this->oldestIndex_ = "";
 }
 
-CanonicalForm::CanonicalForm() :
+MateriaSource::MateriaSource(const MateriaSource& src)
 {
-	debugMessage("CanonicalForm", HAS_ARGS_CONSTRUCT);
-}
-
-CanonicalForm::CanonicalForm(const CanonicalForm& src)
-{
-	debugMessage("CanonicalForm", COPY_CONSTRUCT);
+	debugMessage("MateriaSource", COPY_CONSTRUCT);
 	this->operator=(src);
 }
 
 // OPERATOR
-CanonicalForm&	CanonicalForm::operator=(const CanonicalForm& rhs)
+MateriaSource&	MateriaSource::operator=(const MateriaSource& rhs)
 {
-	debugMessage("CanonicalForm", COPY_OPERATOR);
+	debugMessage("MateriaSource", COPY_OPERATOR);
+	for (int i = 0; i < MAX_INVENTORY_SIZE; i++) {
+		this->inventory_[i] = NULL;
+	}
+	this->oldestIndex_ = rhs.getOldestIndex();
 	return (*this);
 }
 
@@ -43,7 +46,7 @@ CanonicalForm&	CanonicalForm::operator=(const CanonicalForm& rhs)
 // SUBJECT FUNC
 
 // DESTRUCTER
-CanonicalForm::~CanonicalForm()
+MateriaSource::~MateriaSource()
 {
-	debugMessage("CanonicalForm", DESTRUCT);
+	debugMessage("MateriaSource", DESTRUCT);
 }
