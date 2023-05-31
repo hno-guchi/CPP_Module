@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 17:47:47 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:53:01 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 Cat::Cat() :
 	Animal()
 {
-	this->type_ = "Cat";
 	debugMessage("Cat", DEFAULT_CONSTRUCT);
+	this->type_ = "Cat";
 }
 
 Cat::Cat(const std::string& type) :
 	Animal(type)
 {
-	this->type_ = "Cat";
 	debugMessage("Cat", HAS_ARGS_CONSTRUCT);
+	this->type_ = "Cat";
 }
 
 Cat::Cat(const Cat& src) :

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/28 17:14:02 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:55:38 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ Dog::Dog() :
 	Animal()
 {
 	debugMessage("Dog", DEFAULT_CONSTRUCT);
-	this->brain_ = new Brain();
 	this->type_ = "Dog";
+	this->brain_ = new Brain();
 }
 
 Dog::Dog(const std::string& type) :
 	Animal(type)
 {
 	debugMessage("Dog", HAS_ARGS_CONSTRUCT);
-	this->brain_ = new Brain();
 	this->type_ = "Dog";
+	this->brain_ = new Brain();
 }
 
 Dog::Dog(const Dog& src) :

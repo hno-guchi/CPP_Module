@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/28 17:47:10 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:34:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 # define ICHARACTER_HPP
 
 #include "debugMessage.hpp"
+#include "Cure.hpp"
+// #include "Ice.hpp"
 
 class ICharacter {
 	public:
 		// CONSTRUCTER
 		ICharacter();
-		ICharacter(const ICharacter& src);
+		// ICharacter(const ICharacter& src);
 
 		// OPERATOR
 		// ICharacter&	operator=(const ICharacter& rhs);
@@ -36,12 +38,6 @@ class ICharacter {
 
 		// DESTRUCTER
 		virtual						~ICharacter() {}
-
-	private:
-		// SUBJECT ATTRIBUTE
-
-		// MY ATTRIBUTE
-
 };
 
 #endif

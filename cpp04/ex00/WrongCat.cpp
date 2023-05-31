@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/26 17:48:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:53:40 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 WrongCat::WrongCat() :
 	WrongAnimal()
 {
-	this->type_ = "Cat";
 	debugMessage("WrongCat", DEFAULT_CONSTRUCT);
+	this->type_ = "Cat";
 }
 
 WrongCat::WrongCat(const std::string& type) :
 	WrongAnimal(type)
 {
-	this->type_ = "Cat";
 	debugMessage("WrongCat", HAS_ARGS_CONSTRUCT);
+	this->type_ = "Cat";
 }
 
 WrongCat::WrongCat(const WrongCat& src) :
