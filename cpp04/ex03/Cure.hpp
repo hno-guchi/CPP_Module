@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/31 12:36:17 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:06:56 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ class Cure : public AMateria {
 		// SETTER
 
 		// SUBJECT FUNC
-		// While assigning a Materia to another, copying the type doesn’t make sense.
 		virtual AMateria*	clone() const;
 
 		// The use(ICharacter&) member function will display

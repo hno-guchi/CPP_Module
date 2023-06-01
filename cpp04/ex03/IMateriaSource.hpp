@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/31 18:07:44 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/06/01 12:26:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "debugMessage.hpp"
 #include "AMateria.hpp"
 
-// In a nutshell, your MateriaSource must be able to learn "templates" of Materias to create them when needed.
-// Then, you will be able to generate a new Materia using just a string that identifies its type.
 class IMateriaSource {
 	public:
 		// CONSTRUCTER
@@ -33,15 +31,7 @@ class IMateriaSource {
 		// SETTER
 
 		// SUBJECT FUNC
-		// Copies the Materia passed as a parameter and store it in memory so it can be cloned later.
-		// Like the Character, the MateriaSource can know at most 4 Materias.
-		// They are not necessarily unique.
 		virtual void		learnMateria(AMateria*) = 0;
-
-
-		// Returns a new Materia.
-		// The latter is a copy of the Materia previously learned by the MateriaSource whose type equals the one passed as parameter.
-		// Returns 0 if the type is unknown.
 		virtual AMateria*	createMateria(std::string const & type) = 0;
 
 		// DESTRUCTER
