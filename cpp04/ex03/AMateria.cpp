@@ -6,10 +6,11 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/31 14:10:22 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:03:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ICharacter.hpp"
 #include "AMateria.hpp"
 
 // CONSTRUCTER
@@ -40,7 +41,6 @@ AMateria&	AMateria::operator=(const AMateria& rhs)
 }
 
 // GETTER
-//Returns the materia type
 std::string const &	AMateria::getType() const
 {
 	return (this->type_);
@@ -55,12 +55,9 @@ void	AMateria::setType(const std::string& type)
 // SUBJECT FUNC
 // AMateria*	AMateria::clone() const = 0;
 
-// TODO:
-// void	AMateria::use(ICharacter& target)
-void	AMateria::use()
+void	AMateria::use(ICharacter& target)
 {
-	// std::cout << target.getName() << ": " << "Default use() message..." << std::endl;
-	std::cout << MAGENTA << "<NAME>" << END << ": " << "Default use() message..." << std::endl;
+	std::cout << MAGENTA << target.getName() << END << ": Default use() message..." << std::endl;
 }
 
 // DESTRUCTER

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/31 12:58:34 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:13:10 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include <iostream>
 #include "debugMessage.hpp"
 #include "color.hpp"
-// #include "Character.hpp"
 
-// Complete the definition of the following AMateria class and implement the necessary member functions.
+class ICharacter;
+
 class AMateria {
 	public:
 		// CONSTRUCTER
@@ -38,9 +38,7 @@ class AMateria {
 
 		// SUBJECT FUNC
 		virtual AMateria*	clone() const = 0;
-		// TODO:
-		// virtual void		use(ICharacter& target);
-		virtual void		use();
+		virtual void		use(ICharacter& target);
 
 		// DESTRUCTER
 		virtual ~AMateria();

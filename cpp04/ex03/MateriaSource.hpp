@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/06/01 12:07:36 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:35:15 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class MateriaSource : public IMateriaSource {
 		MateriaSource(const MateriaSource& src);
 
 		// OPERATOR
-		MateriaSource&	operator=(const MateriaSource& rhs);
+		MateriaSource&		operator=(const MateriaSource& rhs);
 
 		// GETTER
 
@@ -37,12 +37,10 @@ class MateriaSource : public IMateriaSource {
 
 		// SUBJECT FUNC
 		virtual void		learnMateria(AMateria* materia);
-
-		// Returns a new Materia.
 		virtual AMateria*	createMateria(std::string const & type);
 
 		// DEBUG
-		void	printLearnedList();
+		void				printLearnedList();
 
 		// DESTRUCTER
 		virtual ~MateriaSource();

@@ -56,12 +56,10 @@ AMateria*	Ice::clone() const
 	return (dup);
 }
 
-// TODO:
-// void	Ice::use(ICharacter& target)
-void	Ice::use()
+void	Ice::use(ICharacter& target)
 {
 	std::cout << "* shoots an ice bolt at " \
-		<< MAGENTA << "<name>" << END
+		<< MAGENTA << target.getName() << END
 		<< " *" << std::endl;
 }
 

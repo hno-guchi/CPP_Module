@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/31 14:14:41 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:06:52 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,10 @@ AMateria*	Cure::clone() const
 	return (dup);
 }
 
-// TODO:
-// void	Cure::use(ICharacter& target)
-void	Cure::use()
+void		Cure::use(ICharacter& target)
 {
 	std::cout << "* heals " \
-		<< MAGENTA << "<name>" << END \
+		<< MAGENTA << target.getName() << END \
 		<< "’s wounds *" << std::endl;
 }
 
