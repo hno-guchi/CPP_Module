@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:23:39 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/06/01 17:50:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/06/02 16:42:11 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ int	main()
 	std::cout << "cure3[" << &cure3 << "]" << std::endl;
 	std::cout << "cure4[" << cure4 << "]" << std::endl;
 
-	cure2.use();
-	cure5->use();
+	Character	character1("hnoguchi");	std::cout << std::endl;
+
+	cure2.use(character1);
+	cure5->use(character1);
 	std::cout << YELLOW << "========================" << END << "\n" << std::endl;
 
 	std::cout << RED << "====== DESTRUCTOR =====" << END << std::endl;
@@ -50,6 +52,7 @@ int	main()
 
 #elif M_SOURCE
 
+#include "Character.hpp"
 #include "MateriaSource.hpp"
 #include "Cure.hpp"
 #include "Ice.hpp"
@@ -86,13 +89,15 @@ int	main()
 	AMateria*	ice1 = mSource1.createMateria("ice");
 	AMateria*	wrong = mSource1.createMateria("wrong");
 
-	cure1->use();
-	ice1->use();
+	Character	character1("hnoguchi");	std::cout << std::endl;
+
+	cure1->use(character1);
+	ice1->use(character1);
 	if (wrong == NULL) {
 		std::cout << "wrong Address: [" << &wrong << "]" << std::endl;
 	}
 	else {
-		wrong->use(); // Segmentation fault
+		wrong->use(character1); // Segmentation fault
 	}
 	std::cout << YELLOW << "========================" << END << "\n" << std::endl;
 

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/06/01 15:01:32 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:14:50 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,21 @@ MateriaSource::MateriaSource()
 MateriaSource::MateriaSource(const MateriaSource& src)
 {
 	debugMessage("MateriaSource", COPY_CONSTRUCT);
+	for (int i = 0; i < MAX_LEARNED_LIST_SIZE; i++) {
+		this->learnedList_[i] = NULL;
+	}
 	this->operator=(src);
 }
 
 // OPERATOR
 MateriaSource&	MateriaSource::operator=(const MateriaSource& rhs)
 {
-	const std::string&	type = "";
-
 	debugMessage("MateriaSource", COPY_OPERATOR);
 	for (int i = 0; i < MAX_LEARNED_LIST_SIZE; i++) {
-		delete this->learnedList_[i];
-		this->learnedList_[i] = NULL;
+		if (this->learnedList_[i] != NULL) {
+			delete this->learnedList_[i];
+			this->learnedList_[i] = NULL;
+		}
 		if (rhs.learnedList_[i] != NULL) {
 			this->learnedList_[i] = rhs.learnedList_[i]->clone();
 		}

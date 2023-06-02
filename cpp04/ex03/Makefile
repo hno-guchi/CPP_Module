@@ -68,6 +68,10 @@ materia_over_flow: over_flow
 m_source: CXXFLAGS += -DM_SOURCE
 m_source: leaks
 
+.PHONY: m_source_lldb
+m_source_lldb: CXXFLAGS += -DM_SOURCE
+m_source_lldb: lldb
+
 .PHONY: m_source_over_flow
 m_source_over_flow: CXXFLAGS += -DM_SOURCE
 m_source_over_flow: over_flow
@@ -76,6 +80,11 @@ m_source_over_flow: over_flow
 character: fclean
 character: CXXFLAGS += -DCHARACTER
 character: leaks
+
+.PHONY: character_lldb
+character_lldb: fclean
+character_lldb: CXXFLAGS += -DCHARACTER
+character_lldb: lldb
 
 .PHONY: character_over_flow
 character_over_flow: CXXFLAGS += -DCHARACTER
