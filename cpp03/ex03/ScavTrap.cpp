@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:58:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/08/01 09:59:52 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:24:10 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ ScavTrap::ScavTrap(const std::string& name) :
 	this->setHitPoint(ST_DEFAULT_HIT_POINT);
 	this->setEnergyPoint(ST_DEFAULT_ENERGY_POINT);
 	this->setAttackPoint(ST_DEFAULT_ATTACK_POINT);
-	debugMessage("ScavTrap", HAS_ARGS_CONSTRUCT_MESSAGE);
+	debugMessage("ScavTrap", HAS_ARGS_CONSTRUCT);
 }
 
 ScavTrap::ScavTrap(const ScavTrap& src) :

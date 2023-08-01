@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:58:05 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/08/01 10:00:30 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:24:12 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ FragTrap::FragTrap(const std::string& name) :
 	this->setHitPoint(FT_DEFAULT_HIT_POINT);
 	this->setEnergyPoint(FT_DEFAULT_ENERGY_POINT);
 	this->setAttackPoint(FT_DEFAULT_ATTACK_POINT);
-	debugMessage("FragTrap", HAS_ARGS_CONSTRUCT_MESSAGE);
+	debugMessage("FragTrap", HAS_ARGS_CONSTRUCT);
 }
 
 FragTrap::FragTrap(const FragTrap& src) :

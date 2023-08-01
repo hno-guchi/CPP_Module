@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:26:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/08/01 09:56:03 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:58:08 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,31 @@ static void	colorMessage(tColor color, std::string message)
 	}
 }
 
-// static void	writeData(const std::string& objectName, const FragTrap& rhs)
-// {
-// 	std::cout << objectName << " | " << std::flush;
-// 	std::cout << "Name[ " << MAGENTA << rhs.getName() << END << " ] | ";
-// 	std::cout << "Hit[ " << MAGENTA << rhs.getHitPoint() << END << "/" << MAGENTA << rhs.getUpperLimitHitPoint() << END " ] | ";
-// 	std::cout << "Energy[ " << MAGENTA << rhs.getEnergyPoint() << END << " ] | ";
-// 	std::cout << "Attack[ " << MAGENTA << rhs.getAttackPoint() << END << " ] | " << std::endl;
-// }
+static void	writeData(const std::string& objectName, const FragTrap& rhs)
+{
+	std::cout << objectName << " | " << std::flush;
+	std::cout << "Name[ " << MAGENTA << rhs.getName() << END << " ] | ";
+	std::cout << "Hit[ " << MAGENTA << rhs.getHitPoint() << END << "/" << MAGENTA << rhs.getUpperLimitHitPoint() << END " ] | ";
+	std::cout << "Energy[ " << MAGENTA << rhs.getEnergyPoint() << END << " ] | ";
+	std::cout << "Attack[ " << MAGENTA << rhs.getAttackPoint() << END << " ] | " << std::endl;
+}
 
 int	main()
 {
 	colorMessage(green,  "===== CONSTRUCT =======");
 	// FragTrap	player_0;
 	DiamondTrap	player_0 = DiamondTrap();
-	// FragTrap	player_1("hnoguchi");
+	DiamondTrap	player_1("hnoguchi");
 	// FragTrap	player_2(player_1);
 
 	// player_0 = player_2;
 	colorMessage(green,  "=======================");
 
-	// std::cout << "----------------------------------------------------------------" << std::endl;
-	// writeData("player_0", player_0);
-	// writeData("player_1", player_1);
+	std::cout << "----------------------------------------------------------------" << std::endl;
+	writeData("player_0", player_0);
+	writeData("player_1", player_1);
 	// writeData("player_2", player_2);
-	// std::cout << "----------------------------------------------------------------\n" << std::endl;
+	std::cout << "----------------------------------------------------------------\n" << std::endl;
 
 	// colorMessage(green,  "\n===== FUNCTIONS =====");
 	// player_0.setName("p0");
