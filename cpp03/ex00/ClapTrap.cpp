@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/25 09:14:26 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:05:52 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ ClapTrap::ClapTrap() :
 ClapTrap::ClapTrap(const std::string& name) :
 	name_(name), hitPoint_(CT_DEFAULT_HIT_POINT), energyPoint_(CT_DEFAULT_ENERGY_POINT), attackPoint_(CT_DEFAULT_ATTACK_POINT), upperLimitHitPoint_(CT_DEFAULT_HIT_POINT)
 {
-	debugMessage("ClapTrap", DEFAULT_CONSTRUCT);
+	debugMessage("ClapTrap", HAS_ARGS_CONSTRUCT);
 }
 
 ClapTrap::ClapTrap(const ClapTrap& src)
