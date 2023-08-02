@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:26:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/08/02 14:10:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:21:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,20 @@ int	main()
 	player_3.whoAmI();
 	std::cout << "----------------------------------------------------------------\n" << std::endl;
 
-	// colorMessage(green,  "\n===== FUNCTIONS =====");
-	// player_0.setName("p0");
-	// player_1.setName("p1");
-	// player_2.setName("p2");
+	colorMessage(green,  "\n===== FUNCTIONS =====");
+	player_0.setName("p0");
+	player_1.setName("p1");
+	player_2.setName("p2");
 	// player_0.setAttackPoint(30);
 	// player_1.setAttackPoint(50);
 	// player_2.setAttackPoint(10);
-	// std::cout << "----------------------------------------------------------------" << std::endl;
-	// writeData("player_0", player_0);
-	// writeData("player_1", player_1);
-	// writeData("player_2", player_2);
-	// std::cout << "----------------------------------------------------------------\n" << std::endl;
+	std::cout << "----------------------------------------------------------------" << std::endl;
+	writeData("player_0", player_0);
+	writeData("player_1", player_1);
+	writeData("player_2", player_2);
+	std::cout << "----------------------------------------------------------------\n" << std::endl;
 
-	// player_0.attack("p1");
+	player_0.attack("p1");
 	// player_1.takeDamage(player_0.getAttackPoint());
 	// std::cout << "----------------------------------------------------------------" << std::endl;
 	// writeData("player_0", player_0);

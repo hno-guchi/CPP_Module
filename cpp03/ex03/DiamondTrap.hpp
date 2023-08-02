@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:25:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/08/02 14:15:48 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:38:48 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ class DiamondTrap : public ScavTrap, public FragTrap {
 
 		// SETTER
 		void			setName(const std::string& name);
+
 		// SUBJECT FUNC
-		// virtual void	attack(const std::string& target); // ScavTrap
 		void	whoAmI();
+
 		// DESTRUCTER
 		virtual	~DiamondTrap();
 	
