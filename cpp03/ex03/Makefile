@@ -6,6 +6,7 @@ NAME = ex03
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 OVERFLOWFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
+SHADOWFLAGS = -Wshadow
 SRCS = main.cpp \
 	debugMessage.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
@@ -20,7 +21,7 @@ DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
 all: $(NAME)
 
 $(NAME): $(OBJS_DIR) $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+	$(CXX) -o $@ $(OBJS)
 
 $(OBJS_DIR):
 	mkdir -p $@
@@ -44,9 +45,9 @@ re: fclean all
 over_flow: CXXFLAGS += $(OVERFLOWFLAGS)
 over_flow: re
 
-.PHONY: boundary
-boundary: CXXFLAGS += -DBOUNDARY
-boundary: over_flow
+.PHONY: shadow
+shadow: CXXFLAGS += $(SHADOWFLAGS)
+shadow: re
 
 .PHONY: leaks
 leaks: CXXFLAGS += -DLEAKS
