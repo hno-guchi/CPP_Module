@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:45 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/24 11:24:44 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:15:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ class ClapTrap {
 		void			setAttackPoint(const unsigned int& amount);
 
 		// SUBJECT FUNC
-		void			attack(const std::string& target);
+		virtual void	attack(const std::string& target);
 		void			takeDamage(unsigned int amount);
 		void			beRepaired(unsigned int amount);
 
