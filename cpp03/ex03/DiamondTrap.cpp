@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 09:25:59 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/08/01 10:58:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:38:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 // CONSTRUCTER
 DiamondTrap::DiamondTrap()
 {
-	this->name_ = "";
+	this->setName("");
+	this->ClapTrap::setName("");
 	this->setHitPoint(FT_DEFAULT_HIT_POINT);
 	this->setEnergyPoint(ST_DEFAULT_ENERGY_POINT);
 	this->setAttackPoint(FT_DEFAULT_ATTACK_POINT);
@@ -24,11 +25,7 @@ DiamondTrap::DiamondTrap()
 
 DiamondTrap::DiamondTrap(const std::string& name)
 {
-	std::string	clap_name = name;
-
-	clap_name += "_clap_name";
-	this->name_ = name;
-	this->setName(clap_name);
+	this->setName(name);
 	this->setHitPoint(FT_DEFAULT_HIT_POINT);
 	this->setEnergyPoint(ST_DEFAULT_ENERGY_POINT);
 	this->setAttackPoint(FT_DEFAULT_ATTACK_POINT);
@@ -44,16 +41,36 @@ DiamondTrap::DiamondTrap(const DiamondTrap& src)
 // OPERATOR
 DiamondTrap&	DiamondTrap::operator=(const DiamondTrap& rhs)
 {
+	ClapTrap::operator=(rhs);
+	this->name_ = rhs.getName();
 	debugMessage("DiamondTrap", COPY_OPERATOR);
-	this->name_ = rhs.name_;
 	return (*this);
 }
 
 // GETTER
+std::string		DiamondTrap::getName() const
+{
+	return (this->name_);
+}
 
 // SETTER
+void	DiamondTrap::setName(const std::string& name)
+{
+	if (MAX_NAME_SIZE < name.length()) {
+		std::cout << RED << "Error: setName: To long name." << END << std::endl;
+		return ;
+	}
+	std::string	clap_name = name + "_clap_name";
+	this->name_ = name;
+	this->ClapTrap::setName(clap_name);
+}
 
 // SUBJECT FUNC
+void	DiamondTrap::whoAmI()
+{
+	std::cout << "DiamondTrap::name_ : [" << this->getName() << "]" << std::endl;
+	std::cout << "   ClapTrap::name_ : [" << this->ClapTrap::getName() << "]" << std::endl;
+}
 
 // DESTRUCTER
 DiamondTrap::~DiamondTrap()
