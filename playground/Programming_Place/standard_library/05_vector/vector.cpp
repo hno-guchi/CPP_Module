@@ -25,7 +25,21 @@ capacity();, size();¸メンバ関数の戻り値は、std::vector::size_type型
 テンプレート実引数が同一であれば、代入演算子を使用してコピーができる。
 また、assign();メンバ関数を使用することも可能。
 
+追加・挿入
+insert();を使用した場合、要素が途中に割り込んでくるので、後続の要素のメモリアドレスが変化する。
+挿入位置より後ろの値は、改めて入れ直す必要がある。
 
+削除
+コンテナから要素を削除することとは、管理領域から外すこと。
+外部でnew演算子を用いて確保された領域を持つオブジェクトを入れるコンテナでは、
+明示的にdeleteする必要がある。
+また、deleteする際はコンテナの要素から削除する前に行うこと。
+
+erase();
+その位置より後方にあった要素のメモリアドレスが変わり得るため、
+それらの要素を指していた、ポインタ、参照、イテレータが無効になることに注意。
+要素（サイズ）が減っても容量（キャパシティ）は減らない。
+削除された要素の次の有効な要素を指すイテレータが返される。
 
 メンバ関数
 サイズの最大値を取得する
@@ -181,7 +195,26 @@ int	main() {
 		iter = vector_2.insert(vector_2.end() - 1, 0);	// 末尾に０を挿入
 		PrintVector(vector_2);
 
-		vector_2.insert(iter, 3, 99);	// 
-		
+		vector_2.insert(iter, 3, 99);	// 0の手前に99を３個挿入
+		PrintVector(vector_2);
 
+		const int	a[] = {10, 11, 12};
+		vector_2.insert(vector_2.begin(), a, a + 3);	// ある範囲から先頭へ挿入
+		PrintVector(vector_2);
+	}
+
+	// Delete
+	{
+		// pop_back();
+		std::vector<int *>	vector;
+
+		vector.push_back(new int(10));
+		delete vector.back();
+		vector.pop_back();
+	}
+
+	// Delete
+	{
+		// erase();
+	}
 }
