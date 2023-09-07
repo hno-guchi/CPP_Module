@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/09/01 17:14:44 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/09/07 10:44:50 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ public:
 	Bureaucrat(const std::string& name, const unsigned int& grade);
 	Bureaucrat(const Bureaucrat& src);
 
+	// DESTRUCTER
+	virtual ~Bureaucrat();
+
 	// OPERATOR
 	Bureaucrat&			operator=(const Bureaucrat& rhs);
-	const Bureaucrat&	operator<<(const Bureaucrat& rhs) const;
+	// const Bureaucrat&	operator<<(const Bureaucrat& rhs) const;
 
 	// GETTER
 	const std::string&	getName() const;
@@ -52,9 +55,6 @@ public:
 	// SUBJECT FUNC
 	void	incrementGrade(const unsigned int& range);
 	void	decrementGrade(const unsigned int& range);
-
-	// DESTRUCTER
-	virtual ~Bureaucrat();
 
 private:
 	// SUBJECT ATTRIBUTE
