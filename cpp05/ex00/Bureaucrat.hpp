@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/09/08 14:06:37 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/02 12:24:54 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,24 @@
 # define LOWEST_RANGE 150
 # define HIGHEST_RANGE 1
 
-// class Bureaucrat;
-// 
-// class Bureaucrat::GradeTooHighException : public std::exception {
-// public:
-// 	virtual const char*	what();
-// };
-// 
-// class Bureaucrat::GradeTooLowException : public std::exception {
-// public:
-// 	virtual const char*	what();
-// };
+class GradeTooHighException : public std::exception {
+public:
+	virtual const char*	what();
+};
+
+class GradeTooLowException : public std::exception {
+public:
+	virtual const char*	what();
+};
 
 class Bureaucrat {
+private:
+	// SUBJECT ATTRIBUTE
+	const std::string	name_;
+	unsigned int		grade_;
+
+	// MY ATTRIBUTE
+
 public:
 	// CONSTRUCTER
 	Bureaucrat();
@@ -55,13 +60,6 @@ public:
 	// SUBJECT FUNC
 	void	incrementGrade(const unsigned int& range);
 	void	decrementGrade(const unsigned int& range);
-
-private:
-	// SUBJECT ATTRIBUTE
-	const std::string	name_;
-	unsigned int		grade_;
-
-	// MY ATTRIBUTE
 };
 
 #endif
