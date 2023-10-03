@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 13:25:20 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:39:26 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,6 @@
 # define GRADE_TOO_HIGH_MESSAGE "Grade is too high."
 # define GRADE_TOO_LOW_MESSAGE "Grade is too low."
 
-class GradeTooHighException : public std::exception {
-private:
-	std::string	message_;
-
-public:
-	GradeTooHighException() throw();
-	~GradeTooHighException() throw();
-	const char*	what() const throw();
-};
-
-class GradeTooLowException : public std::exception {
-private:
-	std::string	message_;
-
-public:
-	GradeTooLowException() throw();
-	~GradeTooLowException() throw();
-	const char*	what() const throw();
-};
-
 class Bureaucrat {
 private:
 	// SUBJECT ATTRIBUTE
@@ -55,24 +35,39 @@ public:
 	Bureaucrat();
 	Bureaucrat(const std::string& name, const unsigned int& grade);
 	Bureaucrat(const Bureaucrat& src);
-
 	// DESTRUCTER
 	virtual ~Bureaucrat();
-
 	// OPERATOR
 	Bureaucrat&			operator=(const Bureaucrat& rhs);
 	// const Bureaucrat&	operator<<(const Bureaucrat& rhs) const;
-
 	// GETTER
 	const std::string&	getName() const;
 	const unsigned int&	getGrade() const;
-
 	// SETTER
 
 	// SUBJECT FUNC
 	void	incrementGrade();
 	void	decrementGrade();
-	// const std::string&	GradeTooHighException() const;
+	// EXCEPTION
+	class GradeTooHighException : public std::exception {
+	private:
+		std::string	message_;
+	
+	public:
+		GradeTooHighException() throw();
+		~GradeTooHighException() throw();
+		const char*	what() const throw();
+	};
+	
+	class GradeTooLowException : public std::exception {
+	private:
+		std::string	message_;
+	
+	public:
+		GradeTooLowException() throw();
+		~GradeTooLowException() throw();
+		const char*	what() const throw();
+	};
 };
 
 #endif
