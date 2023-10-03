@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 16:20:02 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:41:41 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ Bureaucrat::Bureaucrat(const std::string& name, const unsigned int& grade) :
 	}
 	catch (std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;
-		// throw;
+		throw;
 	}
 }
 
