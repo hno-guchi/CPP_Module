@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 15:32:57 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:55:14 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "debugMessage.hpp"
 #include "color.hpp"
+#include "Form.hpp"
 #include <iostream>
 #include <exception>
 
@@ -22,6 +23,8 @@
 # define HIGHEST_RANGE 1
 # define GRADE_TOO_HIGH_MESSAGE "Grade is too high."
 # define GRADE_TOO_LOW_MESSAGE "Grade is too low."
+
+class Form;
 
 class Bureaucrat {
 private:
@@ -48,6 +51,7 @@ public:
 	// SUBJECT FUNC
 	void	incrementGrade();
 	void	decrementGrade();
+	void	signForm(Form& rhs);
 	// EXCEPTION
 	class GradeTooHighException : public std::exception {
 	private:
