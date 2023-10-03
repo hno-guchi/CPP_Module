@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 15:46:08 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:37:32 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main()
 		Bureaucrat	obj_0;
 		Bureaucrat	obj_1("name_1", 100);
 		Bureaucrat	obj_2(obj_1);
+		Bureaucrat	obj_3("", 100);
 
 		std::cout << std::endl;
 		std::cout << obj_0 << std::endl;
@@ -49,9 +50,18 @@ int	main()
 	{
 		Bureaucrat	obj_0("name_0", 1);
 		Bureaucrat	obj_1("name_1", 150);
-		Bureaucrat	obj_2("name_2", 0);
-		Bureaucrat	obj_3("name_3", 151);
-
+		// try {
+			Bureaucrat	obj_2("name_2", 0);
+		// }
+		// catch (std::exception& e) {
+		// 	std::cerr << RED << e.what() << END << std::endl;
+		// }
+		// try {
+			Bureaucrat	obj_3("name_3", 151);
+		// }
+		// catch (std::exception& e) {
+		// 	std::cerr << RED << e.what() << END << std::endl;
+		// }
 		std::cout << std::endl;
 		std::cout << obj_0 << std::endl;
 		std::cout << obj_1 << std::endl;

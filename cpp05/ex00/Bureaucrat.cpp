@@ -6,14 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 16:42:22 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:38:56 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat() :
-	name_(), grade_(150)
+	name_(DEFAULT_NAME), grade_(150)
 {
 	debugMessage("Bureaucrat", DEFAULT_CONSTRUCT);
 }
@@ -23,6 +23,9 @@ Bureaucrat::Bureaucrat(const std::string& name, const unsigned int& grade) :
 {
 	debugMessage("Bureaucrat", HAS_ARGS_CONSTRUCT);
 	try {
+		if (name.empty() == true) {
+			throw Bureaucrat::EmptyNameException();
+		}
 		if (grade < HIGHEST_RANGE) {
 			this->grade_ = HIGHEST_RANGE;
 			throw Bureaucrat::GradeTooHighException();
@@ -35,7 +38,7 @@ Bureaucrat::Bureaucrat(const std::string& name, const unsigned int& grade) :
 	}
 	catch (std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;
-		throw;
+		// throw;
 	}
 }
 
@@ -76,9 +79,7 @@ void	Bureaucrat::incrementGrade()
 	if (this->grade_ == HIGHEST_RANGE) {
 		throw Bureaucrat::GradeTooHighException();
 	}
-	else {
-		this->grade_ -= 1;
-	}
+	this->grade_ -= 1;
 }
 
 void	Bureaucrat::decrementGrade()
@@ -86,9 +87,7 @@ void	Bureaucrat::decrementGrade()
 	if (this->grade_ == LOWEST_RANGE) {
 		throw Bureaucrat::GradeTooLowException();
 	}
-	else {
-		this->grade_ += 1;
-	}
+	this->grade_ += 1;
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException() throw()
@@ -119,6 +118,22 @@ Bureaucrat::GradeTooLowException::~GradeTooLowException() throw()
 }
 
 const char*	Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return (this->message_.c_str());
+}
+
+Bureaucrat::EmptyNameException::EmptyNameException() throw()
+	: message_(EMPTY_NAME_MESSAGE)
+{
+	debugMessage("EmptyNameException", DEFAULT_CONSTRUCT);
+}
+
+Bureaucrat::EmptyNameException::~EmptyNameException() throw()
+{
+	debugMessage("EmptyNameException", DESTRUCT);
+}
+
+const char*	Bureaucrat::EmptyNameException::what() const throw()
 {
 	return (this->message_.c_str());
 }
