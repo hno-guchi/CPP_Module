@@ -6,14 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 13:53:00 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:45:50 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat() :
-	name_(""), grade_(150)
+	name_(), grade_(150)
 {
 	debugMessage("Bureaucrat", DEFAULT_CONSTRUCT);
 }
@@ -32,7 +32,7 @@ Bureaucrat::Bureaucrat(const std::string& name, const unsigned int& grade) :
 		this->grade_ = grade;
 	}
 	catch (std::exception& e) {
-		std::cerr << e.what() << std::endl;
+		std::cerr << RED << e.what() << END << std::endl;
 	}
 }
 
@@ -71,17 +71,21 @@ const unsigned int&	Bureaucrat::getGrade() const
 void	Bureaucrat::incrementGrade()
 {
 	if (this->grade_ == HIGHEST_RANGE) {
-		throw GradeTooHighException();
+		throw Bureaucrat::GradeTooHighException();
 	}
-	this->grade_ -= 1;
+	else {
+		this->grade_ -= 1;
+	}
 }
 
 void	Bureaucrat::decrementGrade()
 {
 	if (this->grade_ == LOWEST_RANGE) {
-		throw GradeTooLowException();
+		throw Bureaucrat::GradeTooLowException();
 	}
-	this->grade_ += 1;
+	else {
+		this->grade_ += 1;
+	}
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException() throw()
