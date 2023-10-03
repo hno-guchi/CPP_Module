@@ -6,40 +6,36 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 16:27:10 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:58:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-// static void	printData(const std::string& name, const Bureaucrat& rhs)
-// {
-// 	std::cout
-// 		<< "----- " << name << " -----\n" \
-// 		<< "[name]  : " << rhs.getName() << "\n" \
-// 		<< "[grade] : " << rhs.getGrade() << "\n" \
-// 		<< "-----------------\n" << std::endl;
-// }
-
 int	main()
 {
 	std::cout << GREEN << "++++++++++ Test Member Function. ++++++++++" << END << std::endl;
 	{
-		Bureaucrat	obj_0;
-		Bureaucrat	obj_1("name_1", 100);
-		Bureaucrat	obj_2(obj_1);
+		Bureaucrat	obj_0("name_0", 100);
+		Form		form_0;
+		Form		form_1("form_1", 100);
+		Form		form_2(form_1);
 
 		std::cout << std::endl;
 		std::cout << obj_0 << std::endl;
-		std::cout << obj_1 << std::endl;
-		std::cout << obj_2 << std::endl;
+		std::cout << form_0 << std::endl;
+		std::cout << form_1 << std::endl;
+		std::cout << form_2 << std::endl;
+		std::cout << std::endl;
 
-		obj_1.incrementGrade(); obj_1.incrementGrade();
-		obj_2.decrementGrade(); obj_2.decrementGrade();
+		obj_0.signForm(form_1);
+		obj_0.incrementGrade();
+		obj_0.signForm(form_2);
 
 		std::cout << std::endl;
-		std::cout << obj_1 << std::endl;
-		std::cout << obj_2 << std::endl;
+		std::cout << obj_0 << std::endl;
+		std::cout << form_1 << std::endl;
+		std::cout << form_2 << std::endl;
 		std::cout << std::endl;
 	}
 
@@ -47,41 +43,51 @@ int	main()
 
 	std::cout << GREEN << "++++++++++ Test Constructer exception. ++++++++++" << END << std::endl;
 	{
-		Bureaucrat	obj_0("name_0", 1);
-		Bureaucrat	obj_1("name_1", 150);
-		Bureaucrat	obj_2("name_2", 0);
-		Bureaucrat	obj_3("name_3", 151);
+		Form	form_0("form_0", 1);
+		Form	form_1("form_1", 150);
+		Form	form_2("", 150);
+		Form	form_3("form_3", 0);
+		Form	form_4("form_4", 151);
 
 		std::cout << std::endl;
-		std::cout << obj_0 << std::endl;
-		std::cout << obj_1 << std::endl;
-		std::cout << obj_2 << std::endl;
-		std::cout << obj_3 << std::endl;
+		std::cout << form_0 << std::endl;
+		std::cout << form_1 << std::endl;
+		std::cout << form_2 << std::endl;
+		std::cout << form_3 << std::endl;
+		std::cout << form_4 << std::endl;
 		std::cout << std::endl;
 	}
 
 	std::cout << std::endl;
 
-	std::cout << GREEN << "++++++++++ Test incremet / decrement. ++++++++++" << END << std::endl;
+	std::cout << GREEN << "++++++++++ Test signForm();. ++++++++++" << END << std::endl;
 	{
-		Bureaucrat	obj_0("name_0", 1);
-		Bureaucrat	obj_1("name_1", 150);
+		Form		form_0("form_0", 75);
+		Form		form_1("form_1", 75);
+		Form		form_2("form_2", 75);
+		Bureaucrat	obj_0("obj_0", 75);
 
+		obj_0.signForm(form_0);
 		try {
 			obj_0.incrementGrade();
 		}
 		catch (std::exception& e) {
 			std::cerr << RED << e.what() << END << std::endl;
 		}
+		obj_0.signForm(form_1);
+		obj_0.signForm(form_0);
 		try {
-			obj_1.decrementGrade();
+			obj_0.decrementGrade();
+			obj_0.decrementGrade();
 		}
 		catch (std::exception& e) {
 			std::cerr << RED << e.what() << END << std::endl;
 		}
+		obj_0.signForm(form_2);
 		std::cout << std::endl;
-		std::cout << obj_0 << std::endl;
-		std::cout << obj_1 << std::endl;
+		std::cout << form_0 << std::endl;
+		std::cout << form_1 << std::endl;
+		std::cout << form_2 << std::endl;
 		std::cout << std::endl;
 	}
 #ifdef LEAKS
