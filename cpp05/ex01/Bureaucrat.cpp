@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 16:41:41 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:14:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,37 @@ void	Bureaucrat::decrementGrade()
 	}
 	else {
 		this->grade_ += 1;
+	}
+}
+
+static void	signedMessage(const std::string& name, const std::string& target)
+{
+	std::cout \
+		<< YELLOW << name << END \
+		<< " signed " \
+		<< YELLOW << target << END \
+		<< std::endl;
+}
+
+static void	notSignedMessage(const std::string& name, const std::string& target)
+{
+	std::cerr \
+		<< YELLOW << name << END \
+		<< "couldn’t sign " \
+		<< YELLOW << target << END \
+		<< " because " \
+		<< std::endl;
+}
+
+void	Bureaucrat::signForm(Form& rhs)
+{
+	try {
+		rhs.beSigned(*this);
+		signedMessage(this->getName(), rhs.getName());
+	}
+	catch (std::exception& e) {
+		notSignedMessage(this->getName(), rhs.getName());
+		std::cerr << RED << e.what() << END << std::endl;
 	}
 }
 

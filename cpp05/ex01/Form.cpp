@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 16:24:39 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:16:37 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ Form::Form(const std::string& name, const unsigned int& grade) :
 	}
 	catch (std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;
-		// throw;
+		throw;
 	}
 }
 
@@ -78,8 +78,21 @@ const unsigned int&	Form::getGrade() const
 }
 
 // SETTER
+void	Form::setSign(const bool& sign)
+{
+	this->sign_ = sign;
+}
 
 // SUBJECT FUNC
+void	Form::beSigned(const Bureaucrat& rhs)
+{
+	if (this->getGrade() < rhs.getGrade()) {
+		throw Form::GradeTooLowException();
+	}
+	else {
+		this->setSign(true);
+	}
+}
 
 // EXCEPTION
 Form::GradeTooHighException::GradeTooHighException() throw()

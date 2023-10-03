@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 16:14:31 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:16:07 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "debugMessage.hpp"
 #include "color.hpp"
+#include "Bureaucrat.hpp"
 #include <iostream>
 #include <exception>
 
@@ -23,11 +24,13 @@
 # define GRADE_TOO_HIGH_MESSAGE "Grade is too high."
 # define GRADE_TOO_LOW_MESSAGE "Grade is too low."
 
+class Bureaucrat;
+
 class Form {
 private:
 	// SUBJECT ATTRIBUTE
 	const std::string	name_;
-	bool				sign_; // construct(false)
+	bool				sign_;
 	const unsigned int	grade_;
 
 	// MY ATTRIBUTE
@@ -46,9 +49,9 @@ public:
 	const bool&			getSign() const;
 	const unsigned int&	getGrade() const;
 	// SETTER
-
+	void				setSign(const bool& sign);
 	// SUBJECT FUNC
-
+	void	beSigned(const Bureaucrat& rhs);
 	// EXCEPTION
 	class GradeTooHighException : public std::exception {
 	private:
