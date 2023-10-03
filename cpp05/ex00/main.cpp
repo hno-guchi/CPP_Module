@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 14:48:21 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:22:18 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	printData(const std::string& name, const Bureaucrat& rhs)
 
 int	main()
 {
-	// Test Member Function
+	std::cout << GREEN << "++++++++++ Test Member Function. ++++++++++" << END << std::endl;
 	{
 		Bureaucrat	obj_0;
 		Bureaucrat	obj_1("name_1", 100);
@@ -42,7 +42,7 @@ int	main()
 
 	std::cout << std::endl;
 
-	// Test Constructer exception.
+	std::cout << GREEN << "++++++++++ Test Constructer exception. ++++++++++" << END << std::endl;
 	{
 		Bureaucrat	obj_0("name_0", 1);
 		Bureaucrat	obj_1("name_1", 150);
@@ -57,7 +57,7 @@ int	main()
 
 	std::cout << std::endl;
 
-	// Test incremet / decrement
+	std::cout << GREEN << "++++++++++ Test incremet / decrement. ++++++++++" << END << std::endl;
 	{
 		Bureaucrat	obj_0("name_0", 1);
 		Bureaucrat	obj_1("name_1", 150);
