@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 14:39:56 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:32:57 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ public:
 	virtual ~Bureaucrat();
 	// OPERATOR
 	Bureaucrat&			operator=(const Bureaucrat& rhs);
-	// const Bureaucrat&	operator<<(const Bureaucrat& rhs) const;
 	// GETTER
 	const std::string&	getName() const;
 	const unsigned int&	getGrade() const;
@@ -70,5 +69,7 @@ public:
 		const char*	what() const throw();
 	};
 };
+
+std::ostream&	operator<<(std::ostream& lhs, const Bureaucrat& rhs);
 
 #endif
