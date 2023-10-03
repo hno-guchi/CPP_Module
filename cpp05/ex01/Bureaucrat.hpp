@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 16:55:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:39:38 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 
 # define LOWEST_RANGE 150
 # define HIGHEST_RANGE 1
+# define DEFAULT_NAME "John Doe"
 # define GRADE_TOO_HIGH_MESSAGE "Grade is too high."
 # define GRADE_TOO_LOW_MESSAGE "Grade is too low."
+# define EMPTY_NAME_MESSAGE "Name is empty."
 
 class Form;
 
@@ -70,6 +72,15 @@ public:
 	public:
 		GradeTooLowException() throw();
 		~GradeTooLowException() throw();
+		const char*	what() const throw();
+	};
+	class EmptyNameException : public std::exception {
+	private:
+		std::string	message_;
+	
+	public:
+		EmptyNameException() throw();
+		~EmptyNameException() throw();
 		const char*	what() const throw();
 	};
 };

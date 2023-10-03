@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 17:16:37 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:43:56 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // CONSTRUCTER
 Form::Form() :
-	name_(""), sign_(false), grade_(150)
+	name_(DEFAULT_FORM_NAME), sign_(false), grade_(150)
 {
 	debugMessage("Form", DEFAULT_CONSTRUCT);
 }
@@ -24,6 +24,9 @@ Form::Form(const std::string& name, const unsigned int& grade) :
 {
 	debugMessage("Form", HAS_ARGS_CONSTRUCT);
 	try {
+		if (name.empty() == true) {
+			throw Form::EmptyNameException();
+		}
 		if (grade < HIGHEST_RANGE) {
 			throw Form::GradeTooHighException();
 		}
@@ -33,7 +36,7 @@ Form::Form(const std::string& name, const unsigned int& grade) :
 	}
 	catch (std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;
-		throw;
+		// throw;
 	}
 }
 
@@ -89,9 +92,10 @@ void	Form::beSigned(const Bureaucrat& rhs)
 	if (this->getGrade() < rhs.getGrade()) {
 		throw Form::GradeTooLowException();
 	}
-	else {
-		this->setSign(true);
+	if (this->getSign() == true){
+		throw Form::AlreadySignedException();
 	}
+	this->setSign(true);
 }
 
 // EXCEPTION
@@ -127,9 +131,40 @@ const char*	Form::GradeTooLowException::what() const throw()
 	return (this->message_.c_str());
 }
 
+Form::AlreadySignedException::AlreadySignedException() throw()
+	: message_(ALREADY_SIGNED_MESSAGE)
+{
+	debugMessage("AlreadySignedException", DEFAULT_CONSTRUCT);
+}
+
+Form::AlreadySignedException::~AlreadySignedException() throw()
+{
+	debugMessage("AlreadySignedException", DESTRUCT);
+}
+
+const char*	Form::AlreadySignedException::what() const throw()
+{
+	return (this->message_.c_str());
+}
+
+Form::EmptyNameException::EmptyNameException() throw()
+	: message_(EMPTY_NAME_MESSAGE)
+{
+	debugMessage("EmptyNameException", DEFAULT_CONSTRUCT);
+}
+
+Form::EmptyNameException::~EmptyNameException() throw()
+{
+	debugMessage("EmptyNameException", DESTRUCT);
+}
+
+const char*	Form::EmptyNameException::what() const throw()
+{
+	return (this->message_.c_str());
+}
+
 std::ostream&	operator<<(std::ostream& lhs, const Form& rhs)
 {
-	// std::string	message = rhs.getName();
 	lhs << YELLOW << rhs.getName() << END \
 		<< ", Form sign " \
 		<< YELLOW << rhs.getSign() << END \
