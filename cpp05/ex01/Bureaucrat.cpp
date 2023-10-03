@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 15:42:01 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:20:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ const char*	Bureaucrat::GradeTooLowException::what() const throw()
 
 std::ostream&	operator<<(std::ostream& lhs, const Bureaucrat& rhs)
 {
-	// std::string	message = rhs.getName();
 	lhs << YELLOW << rhs.getName() << END \
 		<< ", bureaucrat grade " \
 		<< YELLOW << rhs.getGrade() << END \

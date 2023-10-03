@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 15:46:08 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:27:10 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ int	main()
 		std::cout << std::endl;
 	}
 #ifdef LEAKS
-	system("leaks -q ex00");
+	system("leaks -q ex01");
 #endif
 }

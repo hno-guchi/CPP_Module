@@ -2,11 +2,12 @@
 # General #
 ###########
 
-NAME = ex00
+NAME = ex01
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 OVERFLOWFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
-SRCS = main.cpp Bureaucrat.cpp debugMessage.cpp
+SRCS = main.cpp debugMessage.cpp \
+	   Bureaucrat.cpp Form.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
