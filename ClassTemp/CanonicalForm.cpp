@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/31 14:09:21 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:23:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,18 @@ CanonicalForm::CanonicalForm(const CanonicalForm& src)
 	this->operator=(src);
 }
 
+// DESTRUCTER
+CanonicalForm::~CanonicalForm()
+{
+	debugMessage("CanonicalForm", DESTRUCT);
+}
+
 // OPERATOR
 CanonicalForm&	CanonicalForm::operator=(const CanonicalForm& rhs)
 {
+	if (this == &rhs) {
+		return (*this);
+	}
 	debugMessage("CanonicalForm", COPY_OPERATOR);
 	return (*this);
 }
@@ -42,8 +51,3 @@ CanonicalForm&	CanonicalForm::operator=(const CanonicalForm& rhs)
 
 // SUBJECT FUNC
 
-// DESTRUCTER
-CanonicalForm::~CanonicalForm()
-{
-	debugMessage("CanonicalForm", DESTRUCT);
-}

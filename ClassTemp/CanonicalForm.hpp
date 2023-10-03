@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/05/28 15:13:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:09:11 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,27 @@
 #include "debugMessage.hpp"
 
 class CanonicalForm {
-	public:
-		// CONSTRUCTER
-		CanonicalForm();
-		CanonicalForm(const std::string& type);
-		CanonicalForm(const CanonicalForm& src);
+private:
+	// SUBJECT ATTRIBUTE
 
-		// OPERATOR
-		CanonicalForm&	operator=(const CanonicalForm& rhs);
+	// MY ATTRIBUTE
 
-		// GETTER
+public:
+	// CONSTRUCTER
+	CanonicalForm();
+	CanonicalForm(const std::string& type);
+	CanonicalForm(const CanonicalForm& src);
+	// DESTRUCTER
+	virtual ~CanonicalForm();
 
-		// SETTER
+	// OPERATOR
+	CanonicalForm&	operator=(const CanonicalForm& rhs);
 
-		// SUBJECT FUNC
+	// GETTER
 
-		// DESTRUCTER
-		virtual ~CanonicalForm();
+	// SETTER
 
-	private:
-		// SUBJECT ATTRIBUTE
-
-		// MY ATTRIBUTE
+	// SUBJECT FUNC
 
 };
 
