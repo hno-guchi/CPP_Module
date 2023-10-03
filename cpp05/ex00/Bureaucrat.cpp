@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 14:45:50 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:17:41 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ Bureaucrat::Bureaucrat(const std::string& name, const unsigned int& grade) :
 	debugMessage("Bureaucrat", HAS_ARGS_CONSTRUCT);
 	try {
 		if (grade < HIGHEST_RANGE) {
+			this->grade_ = HIGHEST_RANGE;
 			throw Bureaucrat::GradeTooHighException();
 		}
 		if (LOWEST_RANGE < grade) {
+			this->grade_ = LOWEST_RANGE;
 			throw Bureaucrat::GradeTooLowException();
 		}
 		this->grade_ = grade;
 	}
 	catch (std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;
+		// throw;
 	}
 }
 
