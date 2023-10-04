@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 17:36:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:57:33 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ RobotomyRequestForm::RobotomyRequestForm() :
 	std::srand(static_cast<unsigned>(std::time(0)));
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string& name) :
-	AForm(name, RR_SIGN_GRADE, RR_EXEC_GRADE)
+RobotomyRequestForm::RobotomyRequestForm(const std::string& target) :
+	AForm(target, RR_SIGN_GRADE, RR_EXEC_GRADE)
 {
 	debugMessage("RobotomyRequestForm", HAS_ARGS_CONSTRUCT);
 	std::srand(static_cast<unsigned>(std::time(0)));

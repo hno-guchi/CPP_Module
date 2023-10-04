@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
+/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 17:53:29 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:58:59 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ROBOTOMYREQUESTFORM_HPP
-# define ROBOTOMYREQUESTFORM_HPP
+#ifndef PRESIDENTIALPARDONFORM_HPP
+# define PRESIDENTIALPARDONFORM_HPP
 
 #include "debugMessage.hpp"
 #include "color.hpp"
 #include "AForm.hpp"
-#include <random>
 
-# define RR_SIGN_GRADE 72
-# define RR_EXEC_GRADE 45
-# define FAILED_REQUEST_ROBOTOMY_MESSAGE "Failed request robotomy."
+# define PP_SIGN_GRADE 25
+# define PP_EXEC_GRADE 5
 
-class AForm;
-
-class RobotomyRequestForm : public AForm {
+class PresidentialPardonForm : public AForm {
 private:
 	// SUBJECT ATTRIBUTE
 
@@ -32,31 +28,22 @@ private:
 
 public:
 	// CONSTRUCTER
-	RobotomyRequestForm();
-	RobotomyRequestForm(const std::string& target);
-	RobotomyRequestForm(const RobotomyRequestForm& src);
+	PresidentialPardonForm();
+	PresidentialPardonForm(const std::string& target);
+	PresidentialPardonForm(const PresidentialPardonForm& src);
 	// DESTRUCTER
-	virtual ~RobotomyRequestForm();
+	virtual ~PresidentialPardonForm();
 
 	// OPERATOR
-	RobotomyRequestForm&	operator=(const RobotomyRequestForm& rhs);
+	PresidentialPardonForm&	operator=(const PresidentialPardonForm& rhs);
 
 	// GETTER
 
 	// SETTER
 
 	// SUBJECT FUNC
-	void	randomRequestRobotomy();
-	// EXCEPTION
-	class FailedRequestRobotomyException : public std::exception {
-	private:
-		std::string	message_;
-	
-	public:
-		FailedRequestRobotomyException() throw();
-		~FailedRequestRobotomyException() throw();
-		const char*	what() const throw();
-	};
+	void	informPardoned();
+
 };
 
 #endif
