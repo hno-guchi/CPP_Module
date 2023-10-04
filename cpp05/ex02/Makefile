@@ -7,7 +7,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 OVERFLOWFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
 SRCS = debugMessage.cpp \
-	   Bureaucrat.cpp AForm.cpp
+	   Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
