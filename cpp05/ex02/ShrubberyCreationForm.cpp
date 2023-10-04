@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 15:02:47 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:34:34 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ ShrubberyCreationForm::ShrubberyCreationForm() :
 	debugMessage("ShrubberyCreationForm", DEFAULT_CONSTRUCT);
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string& name) :
-	AForm(name, SBC_SIGN_GRADE, SBC_EXEC_GRADE)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) :
+	AForm(target, SBC_SIGN_GRADE, SBC_EXEC_GRADE)
 {
 	debugMessage("ShrubberyCreationForm", HAS_ARGS_CONSTRUCT);
 }
@@ -106,10 +106,10 @@ static const std::string	getFileName(const std::string& target)
 	return (fileName);
 }
 
-void	ShrubberyCreationForm::createAsciiTree(const std::string& target)
+void	ShrubberyCreationForm::createAsciiTree()
 {
 	try {
-		const std::string	fileName(getFileName(target));
+		const std::string	fileName(getFileName(this->getName()));
 		std::ofstream		fileFd(fileName.c_str()); // (std::string str); c++98
 
 		if (fileFd.is_open() == false) {
@@ -119,7 +119,7 @@ void	ShrubberyCreationForm::createAsciiTree(const std::string& target)
 		fileFd.close();
 	}
 	catch (std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			std::cerr << RED << e.what() << END << std::endl;
 	}
 }
 
