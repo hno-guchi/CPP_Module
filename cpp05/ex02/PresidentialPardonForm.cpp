@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 17:58:58 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:04:27 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ PresidentialPardonForm&	PresidentialPardonForm::operator=(const PresidentialPard
 // SETTER
 
 // SUBJECT FUNC
-void	PresidentialPardonForm::informPardoned()
+void	PresidentialPardonForm::action() const
 {
 	std::cout \
 		<< BLUE << this->getName() << " has been pardoned by Zaphod Beeblebrox." << END \

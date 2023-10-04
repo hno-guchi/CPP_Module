@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 17:58:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:04:37 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ public:
 	// SETTER
 
 	// SUBJECT FUNC
-	void	informPardoned();
+	void	action() const;
 
 };
 

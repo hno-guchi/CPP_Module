@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 17:34:34 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:07:49 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static const std::string	getFileName(const std::string& target)
 	return (fileName);
 }
 
-void	ShrubberyCreationForm::createAsciiTree()
+void	ShrubberyCreationForm::action() const
 {
 	try {
 		const std::string	fileName(getFileName(this->getName()));
