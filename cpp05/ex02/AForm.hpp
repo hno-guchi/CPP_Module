@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 11:42:43 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 12:02:32 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_HPP
-# define FORM_HPP
+#ifndef AFORM_HPP
+# define AFORM_HPP
 
 #include "debugMessage.hpp"
 #include "color.hpp"
@@ -28,7 +28,7 @@
 
 class Bureaucrat;
 
-class Form {
+class AForm {
 private:
 	// SUBJECT ATTRIBUTE
 	const std::string	name_;
@@ -40,13 +40,13 @@ private:
 
 public:
 	// CONSTRUCTER
-	Form();
-	Form(const std::string& name, const unsigned int& signGrade, const unsigned int& execGrade);
-	Form(const Form& src);
+	AForm();
+	AForm(const std::string& name, const unsigned int& signGrade, const unsigned int& execGrade);
+	AForm(const AForm& src);
 	// DESTRUCTER
-	virtual ~Form();
+	virtual ~AForm();
 	// OPERATOR
-	Form&	operator=(const Form& rhs);
+	AForm&	operator=(const AForm& rhs);
 	// GETTER
 	const std::string&	getName() const;
 	const bool&			getSign() const;
@@ -95,6 +95,6 @@ public:
 	};
 };
 
-std::ostream&	operator<<(std::ostream& lhs, const Form& rhs);
+std::ostream&	operator<<(std::ostream& lhs, const AForm& rhs);
 
 #endif

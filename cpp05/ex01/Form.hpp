@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 11:42:43 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 12:02:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ public:
 	Form(const std::string& name, const unsigned int& signGrade, const unsigned int& execGrade);
 	Form(const Form& src);
 	// DESTRUCTER
-	virtual ~Form();
+	~Form();
 	// OPERATOR
 	Form&	operator=(const Form& rhs);
 	// GETTER

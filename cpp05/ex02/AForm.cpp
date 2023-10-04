@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 11:45:44 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:56:43 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Form.hpp"
+#include "AForm.hpp"
 
 // CONSTRUCTER
-Form::Form() :
+AForm::AForm() :
 	name_(DEFAULT_FORM_NAME), sign_(false), signGrade_(150), executeGrade_(150)
 {
-	debugMessage("Form", DEFAULT_CONSTRUCT);
+	debugMessage("AForm", DEFAULT_CONSTRUCT);
 }
 
-Form::Form(const std::string& name, const unsigned int& signGrade, const unsigned int& execGrade) :
+AForm::AForm(const std::string& name, const unsigned int& signGrade, const unsigned int& execGrade) :
 	name_(name), sign_(false), signGrade_(signGrade), executeGrade_(execGrade)
 {
-	debugMessage("Form", HAS_ARGS_CONSTRUCT);
+	debugMessage("AForm", HAS_ARGS_CONSTRUCT);
 	try {
 		if (name.empty() == true) {
-			throw Form::EmptyNameException();
+			throw AForm::EmptyNameException();
 		}
 		if (signGrade < HIGHEST_RANGE || execGrade < HIGHEST_RANGE) {
-			throw Form::GradeTooHighException();
+			throw AForm::GradeTooHighException();
 		}
 		if (LOWEST_RANGE < signGrade || LOWEST_RANGE < execGrade) {
-			throw Form::GradeTooLowException();
+			throw AForm::GradeTooLowException();
 		}
 	}
 	catch (std::exception& e) {
@@ -40,135 +40,135 @@ Form::Form(const std::string& name, const unsigned int& signGrade, const unsigne
 	}
 }
 
-Form::Form(const Form& src) :
+AForm::AForm(const AForm& src) :
 	name_(src.getName()), signGrade_(src.getSignGrade()), executeGrade_(src.getExecuteGrade())
 {
-	debugMessage("Form", COPY_CONSTRUCT);
+	debugMessage("AForm", COPY_CONSTRUCT);
 	this->operator=(src);
 }
 
 // DESTRUCTER
-Form::~Form()
+AForm::~AForm()
 {
-	debugMessage("Form", DESTRUCT);
+	debugMessage("AForm", DESTRUCT);
 }
 
 // OPERATOR
-Form&	Form::operator=(const Form& rhs)
+AForm&	AForm::operator=(const AForm& rhs)
 {
 	if (this == &rhs) {
 		return (*this);
 	}
-	debugMessage("Form", COPY_OPERATOR);
+	debugMessage("AForm", COPY_OPERATOR);
 	this->sign_ = rhs.getSign();
 	return (*this);
 }
 
 // GETTER
-const std::string&	Form::getName() const
+const std::string&	AForm::getName() const
 {
 	return (this->name_);
 }
 
-const bool&		Form::getSign() const
+const bool&		AForm::getSign() const
 {
 	return (this->sign_);
 }
 
-const unsigned int&	Form::getSignGrade() const
+const unsigned int&	AForm::getSignGrade() const
 {
 	return (this->signGrade_);
 }
 
-const unsigned int&	Form::getExecuteGrade() const
+const unsigned int&	AForm::getExecuteGrade() const
 {
 	return (this->executeGrade_);
 }
 
 // SETTER
-void	Form::setSign(const bool& sign)
+void	AForm::setSign(const bool& sign)
 {
 	this->sign_ = sign;
 }
 
 // SUBJECT FUNC
-void	Form::beSigned(const Bureaucrat& rhs)
+void	AForm::beSigned(const Bureaucrat& rhs)
 {
 	if (this->getSignGrade() < rhs.getGrade()) {
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 	}
 	if (this->getSign() == true){
-		throw Form::AlreadySignedException();
+		throw AForm::AlreadySignedException();
 	}
 	this->setSign(true);
 }
 
 // EXCEPTION
-Form::GradeTooHighException::GradeTooHighException() throw()
+AForm::GradeTooHighException::GradeTooHighException() throw()
 	: message_(GRADE_TOO_HIGH_MESSAGE)
 {
 	debugMessage("GradeTooHighException", DEFAULT_CONSTRUCT);
 }
 
-Form::GradeTooHighException::~GradeTooHighException() throw()
+AForm::GradeTooHighException::~GradeTooHighException() throw()
 {
 	debugMessage("GradeTooHighException", DESTRUCT);
 }
 
-const char*	Form::GradeTooHighException::what() const throw()
+const char*	AForm::GradeTooHighException::what() const throw()
 {
 	return (this->message_.c_str());
 }
 
-Form::GradeTooLowException::GradeTooLowException() throw()
+AForm::GradeTooLowException::GradeTooLowException() throw()
 	: message_(GRADE_TOO_LOW_MESSAGE)
 {
 	debugMessage("GradeTooLowException", DEFAULT_CONSTRUCT);
 }
 
-Form::GradeTooLowException::~GradeTooLowException() throw()
+AForm::GradeTooLowException::~GradeTooLowException() throw()
 {
 	debugMessage("GradeTooLowException", DESTRUCT);
 }
 
-const char*	Form::GradeTooLowException::what() const throw()
+const char*	AForm::GradeTooLowException::what() const throw()
 {
 	return (this->message_.c_str());
 }
 
-Form::AlreadySignedException::AlreadySignedException() throw()
+AForm::AlreadySignedException::AlreadySignedException() throw()
 	: message_(ALREADY_SIGNED_MESSAGE)
 {
 	debugMessage("AlreadySignedException", DEFAULT_CONSTRUCT);
 }
 
-Form::AlreadySignedException::~AlreadySignedException() throw()
+AForm::AlreadySignedException::~AlreadySignedException() throw()
 {
 	debugMessage("AlreadySignedException", DESTRUCT);
 }
 
-const char*	Form::AlreadySignedException::what() const throw()
+const char*	AForm::AlreadySignedException::what() const throw()
 {
 	return (this->message_.c_str());
 }
 
-Form::EmptyNameException::EmptyNameException() throw()
+AForm::EmptyNameException::EmptyNameException() throw()
 	: message_(EMPTY_NAME_MESSAGE)
 {
 	debugMessage("EmptyNameException", DEFAULT_CONSTRUCT);
 }
 
-Form::EmptyNameException::~EmptyNameException() throw()
+AForm::EmptyNameException::~EmptyNameException() throw()
 {
 	debugMessage("EmptyNameException", DESTRUCT);
 }
 
-const char*	Form::EmptyNameException::what() const throw()
+const char*	AForm::EmptyNameException::what() const throw()
 {
 	return (this->message_.c_str());
 }
 
-std::ostream&	operator<<(std::ostream& lhs, const Form& rhs)
+std::ostream&	operator<<(std::ostream& lhs, const AForm& rhs)
 {
 	lhs << YELLOW << rhs.getName() << END \
 		<< ", Form sign " \
