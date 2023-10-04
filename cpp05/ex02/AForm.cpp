@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 08:03:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:30:34 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,8 @@ void	AForm::beSigned(const Bureaucrat& rhs)
 
 void	AForm::execute(Bureaucrat const & executor) const
 {
-	if (this->getSign() != false) {
-		// TODO : make NotSignedException
-		// throw AForm::NotSignedException();
-		;
+	if (this->getSign() == false) {
+		throw AForm::NotSignedException();
 	}
 	if (this->getExecuteGrade() < executor.getGrade()) {
 		throw AForm::GradeTooLowException();
@@ -177,6 +175,22 @@ AForm::EmptyNameException::~EmptyNameException() throw()
 }
 
 const char*	AForm::EmptyNameException::what() const throw()
+{
+	return (this->message_.c_str());
+}
+
+AForm::NotSignedException::NotSignedException() throw()
+	: message_(NOT_SIGNED_MESSAGE)
+{
+	debugMessage("NotSignedException", DEFAULT_CONSTRUCT);
+}
+
+AForm::NotSignedException::~NotSignedException() throw()
+{
+	debugMessage("NotSignedException", DESTRUCT);
+}
+
+const char*	AForm::NotSignedException::what() const throw()
 {
 	return (this->message_.c_str());
 }
