@@ -6,13 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 17:38:36 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:03:15 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int	main()
 {
@@ -52,36 +53,20 @@ int	main()
 
 	std::cout << std::endl;
 
-	// std::cout << GREEN << "++++++++++ Test signForm();. ++++++++++" << END << std::endl;
-	// {
-	// 	Form		form_0("form_0", 75, 75);
-	// 	Form		form_1("form_1", 75, 75);
-	// 	Form		form_2("form_2", 75, 75);
-	// 	Bureaucrat	obj_0("obj_0", 75);
+	std::cout << GREEN << "++++++++++ Test PresidentialPardonForm ++++++++++" << END << std::endl;
+	{
+		PresidentialPardonForm		form_0;
+		PresidentialPardonForm		form_1("form_1");
+		PresidentialPardonForm		form_2(form_1);
+		PresidentialPardonForm		form_3("");
 
-	// 	obj_0.signForm(form_0);
-	// 	try {
-	// 		obj_0.incrementGrade();
-	// 	}
-	// 	catch (std::exception& e) {
-	// 		std::cerr << RED << e.what() << END << std::endl;
-	// 	}
-	// 	obj_0.signForm(form_1);
-	// 	obj_0.signForm(form_0);
-	// 	try {
-	// 		obj_0.decrementGrade();
-	// 		obj_0.decrementGrade();
-	// 	}
-	// 	catch (std::exception& e) {
-	// 		std::cerr << RED << e.what() << END << std::endl;
-	// 	}
-	// 	obj_0.signForm(form_2);
-	// 	std::cout << std::endl;
-	// 	std::cout << form_0 << std::endl;
-	// 	std::cout << form_1 << std::endl;
-	// 	std::cout << form_2 << std::endl;
-	// 	std::cout << std::endl;
-	// }
+		std::cout << std::endl;
+		form_0.informPardoned();
+		form_1.informPardoned();
+		form_2.informPardoned();
+		form_3.informPardoned();
+		std::cout << std::endl;
+	}
 #ifdef LEAKS
 	system("leaks -q ex02");
 #endif
