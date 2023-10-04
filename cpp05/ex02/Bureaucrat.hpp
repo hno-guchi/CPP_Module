@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 18:39:38 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:58:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "debugMessage.hpp"
 #include "color.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 #include <iostream>
 #include <exception>
 
@@ -26,7 +26,7 @@
 # define GRADE_TOO_LOW_MESSAGE "Grade is too low."
 # define EMPTY_NAME_MESSAGE "Name is empty."
 
-class Form;
+class AForm;
 
 class Bureaucrat {
 private:
@@ -53,7 +53,7 @@ public:
 	// SUBJECT FUNC
 	void	incrementGrade();
 	void	decrementGrade();
-	void	signForm(Form& rhs);
+	void	signForm(AForm& rhs);
 	// EXCEPTION
 	class GradeTooHighException : public std::exception {
 	private:

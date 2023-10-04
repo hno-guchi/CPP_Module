@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 18:54:51 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:58:52 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void	notSignedMessage(const std::string& name, const std::string& target)
 		<< std::flush;
 }
 
-void	Bureaucrat::signForm(Form& rhs)
+void	Bureaucrat::signForm(AForm& rhs)
 {
 	try {
 		rhs.beSigned(*this);
