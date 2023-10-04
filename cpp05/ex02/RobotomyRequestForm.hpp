@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 17:53:29 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:07:33 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ public:
 	// SETTER
 
 	// SUBJECT FUNC
-	void	randomRequestRobotomy();
+	void	action() const;
 	// EXCEPTION
 	class FailedRequestRobotomyException : public std::exception {
 	private:

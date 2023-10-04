@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 18:28:31 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:03:59 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,15 @@ void	AForm::beSigned(const Bureaucrat& rhs)
 
 void	AForm::execute(Bureaucrat const & executor) const
 {
+	if (this->getSign() != false) {
+		// TODO : make NotSignedException
+		// throw AForm::NotSignedException();
+		;
+	}
 	if (this->getExecuteGrade() < executor.getGrade()) {
 		throw AForm::GradeTooLowException();
 	}
+	this->action();
 }
 
 // EXCEPTION

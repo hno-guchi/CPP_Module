@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 17:57:33 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:08:00 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm& r
 // SETTER
 
 // SUBJECT FUNC
-void	RobotomyRequestForm::randomRequestRobotomy()
+void	RobotomyRequestForm::action() const
 {
 	try {
 		int	execFlag = std::rand() % 2;

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 18:03:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:02:12 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	main()
 		ShrubberyCreationForm	form_3("../../form_3");
 		ShrubberyCreationForm	form_4("");
 		
-		form_0.createAsciiTree();
-		form_1.createAsciiTree();
-		form_2.createAsciiTree();
-		form_3.createAsciiTree();
-		form_4.createAsciiTree();
+		form_0.action();
+		form_1.action();
+		form_2.action();
+		form_3.action();
+		form_4.action();
 
 		std::cout << std::endl;
 	}
@@ -44,10 +44,10 @@ int	main()
 		RobotomyRequestForm	form_3("");
 
 		std::cout << std::endl;
-		form_0.randomRequestRobotomy();
-		form_1.randomRequestRobotomy();
-		form_2.randomRequestRobotomy();
-		form_3.randomRequestRobotomy();
+		form_0.action();
+		form_1.action();
+		form_2.action();
+		form_3.action();
 		std::cout << std::endl;
 	}
 
@@ -61,11 +61,15 @@ int	main()
 		PresidentialPardonForm		form_3("");
 
 		std::cout << std::endl;
-		form_0.informPardoned();
-		form_1.informPardoned();
-		form_2.informPardoned();
-		form_3.informPardoned();
+		form_0.action();
+		form_1.action();
+		form_2.action();
+		form_3.action();
 		std::cout << std::endl;
+	}
+
+	{
+		// Bureaucrat				user_0("user_0", 50);
 	}
 #ifdef LEAKS
 	system("leaks -q ex02");

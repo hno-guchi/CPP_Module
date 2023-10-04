@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 18:28:01 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:04:12 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ public:
 	// DESTRUCTER
 	virtual ~AForm();
 	// OPERATOR
-	AForm&	operator=(const AForm& rhs);
+	AForm&				operator=(const AForm& rhs);
 	// GETTER
 	const std::string&	getName() const;
 	const bool&			getSign() const;
@@ -55,8 +55,9 @@ public:
 	// SETTER
 	void				setSign(const bool& sign);
 	// SUBJECT FUNC
-	void	beSigned(const Bureaucrat& rhs);
-	void	execute(Bureaucrat const & executor) const;
+	void				beSigned(const Bureaucrat& rhs);
+	void				execute(Bureaucrat const & executor) const;
+	virtual void		action() const = 0;
 
 	// EXCEPTION
 	class GradeTooHighException : public std::exception {
