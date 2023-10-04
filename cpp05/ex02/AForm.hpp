@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 15:24:51 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:28:01 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ public:
 	void				setSign(const bool& sign);
 	// SUBJECT FUNC
 	void	beSigned(const Bureaucrat& rhs);
+	void	execute(Bureaucrat const & executor) const;
+
 	// EXCEPTION
 	class GradeTooHighException : public std::exception {
 	private:

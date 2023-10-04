@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 13:09:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:28:31 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,13 @@ void	AForm::beSigned(const Bureaucrat& rhs)
 		throw AForm::AlreadySignedException();
 	}
 	this->setSign(true);
+}
+
+void	AForm::execute(Bureaucrat const & executor) const
+{
+	if (this->getExecuteGrade() < executor.getGrade()) {
+		throw AForm::GradeTooLowException();
+	}
 }
 
 // EXCEPTION
