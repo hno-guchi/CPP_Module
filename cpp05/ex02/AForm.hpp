@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 08:04:12 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:33:08 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define GRADE_TOO_HIGH_MESSAGE "Grade is too high."
 # define GRADE_TOO_LOW_MESSAGE "Grade is too low."
 # define ALREADY_SIGNED_MESSAGE "Already signed."
+# define NOT_SIGNED_MESSAGE "Not yet signed."
 
 class Bureaucrat;
 
@@ -57,7 +58,7 @@ public:
 	// SUBJECT FUNC
 	void				beSigned(const Bureaucrat& rhs);
 	void				execute(Bureaucrat const & executor) const;
-	virtual void		action() const = 0;
+	virtual void		action() const = 0; // private??
 
 	// EXCEPTION
 	class GradeTooHighException : public std::exception {
@@ -94,6 +95,15 @@ public:
 	public:
 		EmptyNameException() throw();
 		~EmptyNameException() throw();
+		const char*	what() const throw();
+	};
+	class NotSignedException : public std::exception {
+	private:
+		std::string	message_;
+	
+	public:
+		NotSignedException() throw();
+		~NotSignedException() throw();
 		const char*	what() const throw();
 	};
 };

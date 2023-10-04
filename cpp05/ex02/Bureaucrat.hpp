@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 11:58:39 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:38:40 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ public:
 		~GradeTooHighException() throw();
 		const char*	what() const throw();
 	};
-	
 	class GradeTooLowException : public std::exception {
 	private:
 		std::string	message_;

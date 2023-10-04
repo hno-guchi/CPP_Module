@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 08:02:12 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 08:53:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,44 @@ int	main()
 		std::cout << std::endl;
 	}
 
+	std::cout << GREEN << "++++++++++ Test execute member function [AForm class(abstract)] ++++++++++" << END << std::endl;
 	{
-		// Bureaucrat				user_0("user_0", 50);
+		Bureaucrat				grade_146("grade_146", 146);
+		Bureaucrat				grade_137("grade_137", 137);
+		ShrubberyCreationForm	exec_form("exec_form");
+
+		std::cout << std::endl;
+
+		try {
+			exec_form.execute(grade_137);
+		} catch (std::exception& e) {
+			std::cerr << RED << e.what() << END << std::endl;
+		}
+
+		std::cout << std::endl;
+		std::cout << exec_form << std::endl;
+		grade_146.signForm(exec_form);
+		grade_146.incrementGrade();
+		std::cout << exec_form << std::endl;
+		grade_146.signForm(exec_form);
+		std::cout << exec_form << std::endl;
+		std::cout << std::endl;
+
+		grade_137.decrementGrade();
+
+		std::cout << std::endl;
+		try {
+			exec_form.execute(grade_137);
+		} catch (std::exception& e) {
+			std::cerr << RED << e.what() << END << std::endl;
+		}
+		grade_137.incrementGrade();
+		try {
+			exec_form.execute(grade_137);
+		} catch (std::exception& e) {
+			std::cerr << RED << e.what() << END << std::endl;
+		}
+		std::cout << std::endl;
 	}
 #ifdef LEAKS
 	system("leaks -q ex02");
