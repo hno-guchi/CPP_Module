@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 17:05:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:05:52 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHRUBBERYCREATIONFORM_HPP
-# define SHRUBBERYCREATIONFORM_HPP
+#ifndef ROBOTOMYREQUESTFORM_HPP
+# define ROBOTOMYREQUESTFORM_HPP
 
 #include "debugMessage.hpp"
-#include "color.hpp"
 #include "AForm.hpp"
-#include <fstream>
-#include <string>
-// #include <stdexcept>
+// #include <experimental/random>
+#include <random>
 
-# define SBC_SUFFIX "_shrubbery"
-# define SBC_SIGN_GRADE 145
-# define SBC_EXEC_GRADE 137
-# define FAILED_OPEN_FD_MESSAGE "Failed open fd."
+# define RR_SIGN_GRADE 72
+# define RR_EXEC_GRADE 45
+# define FAILED_REQUEST_ROBOTOMY_MESSAGE "Failed request robotomy."
 
 class AForm;
 
-class ShrubberyCreationForm : public AForm {
+class RobotomyRequestForm : public AForm {
 private:
 	// SUBJECT ATTRIBUTE
 
@@ -35,27 +32,29 @@ private:
 
 public:
 	// CONSTRUCTER
-	ShrubberyCreationForm();
-	ShrubberyCreationForm(const std::string& target);
-	ShrubberyCreationForm(const ShrubberyCreationForm& src);
+	RobotomyRequestForm();
+	RobotomyRequestForm(const std::string& name);
+	RobotomyRequestForm(const RobotomyRequestForm& src);
 	// DESTRUCTER
-	virtual ~ShrubberyCreationForm();
+	virtual ~RobotomyRequestForm();
+
 	// OPERATOR
-	ShrubberyCreationForm&	operator=(const ShrubberyCreationForm& rhs);
+	RobotomyRequestForm&	operator=(const RobotomyRequestForm& rhs);
+
 	// GETTER
 
 	// SETTER
 
 	// SUBJECT FUNC
-	void	createAsciiTree();
+	void	randomRequestRobotomy();
 	// EXCEPTION
-	class FailedOpenFdException : public std::exception {
+	class FailedRequestRobotomyException : public std::exception {
 	private:
 		std::string	message_;
 	
 	public:
-		FailedOpenFdException() throw();
-		~FailedOpenFdException() throw();
+		FailedRequestRobotomyException() throw();
+		~FailedRequestRobotomyException() throw();
 		const char*	what() const throw();
 	};
 };
