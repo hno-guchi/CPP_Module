@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 18:43:56 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:45:44 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 // CONSTRUCTER
 Form::Form() :
-	name_(DEFAULT_FORM_NAME), sign_(false), grade_(150)
+	name_(DEFAULT_FORM_NAME), sign_(false), signGrade_(150), executeGrade_(150)
 {
 	debugMessage("Form", DEFAULT_CONSTRUCT);
 }
 
-Form::Form(const std::string& name, const unsigned int& grade) :
-	name_(name), sign_(false), grade_(grade)
+Form::Form(const std::string& name, const unsigned int& signGrade, const unsigned int& execGrade) :
+	name_(name), sign_(false), signGrade_(signGrade), executeGrade_(execGrade)
 {
 	debugMessage("Form", HAS_ARGS_CONSTRUCT);
 	try {
 		if (name.empty() == true) {
 			throw Form::EmptyNameException();
 		}
-		if (grade < HIGHEST_RANGE) {
+		if (signGrade < HIGHEST_RANGE || execGrade < HIGHEST_RANGE) {
 			throw Form::GradeTooHighException();
 		}
-		if (LOWEST_RANGE < grade) {
+		if (LOWEST_RANGE < signGrade || LOWEST_RANGE < execGrade) {
 			throw Form::GradeTooLowException();
 		}
 	}
@@ -41,7 +41,7 @@ Form::Form(const std::string& name, const unsigned int& grade) :
 }
 
 Form::Form(const Form& src) :
-	name_(src.getName()), grade_(src.getGrade())
+	name_(src.getName()), signGrade_(src.getSignGrade()), executeGrade_(src.getExecuteGrade())
 {
 	debugMessage("Form", COPY_CONSTRUCT);
 	this->operator=(src);
@@ -75,9 +75,14 @@ const bool&		Form::getSign() const
 	return (this->sign_);
 }
 
-const unsigned int&	Form::getGrade() const
+const unsigned int&	Form::getSignGrade() const
 {
-	return (this->grade_);
+	return (this->signGrade_);
+}
+
+const unsigned int&	Form::getExecuteGrade() const
+{
+	return (this->executeGrade_);
 }
 
 // SETTER
@@ -89,7 +94,7 @@ void	Form::setSign(const bool& sign)
 // SUBJECT FUNC
 void	Form::beSigned(const Bureaucrat& rhs)
 {
-	if (this->getGrade() < rhs.getGrade()) {
+	if (this->getSignGrade() < rhs.getGrade()) {
 		throw Form::GradeTooLowException();
 	}
 	if (this->getSign() == true){
@@ -168,8 +173,10 @@ std::ostream&	operator<<(std::ostream& lhs, const Form& rhs)
 	lhs << YELLOW << rhs.getName() << END \
 		<< ", Form sign " \
 		<< YELLOW << rhs.getSign() << END \
-		<< ", Form grade " \
-		<< YELLOW << rhs.getGrade() << END \
+		<< ", Form sign grade " \
+		<< YELLOW << rhs.getSignGrade() << END \
+		<< ", Form execute grade " \
+		<< YELLOW << rhs.getExecuteGrade() << END \
 		<< ".";
 	return (lhs);
 }

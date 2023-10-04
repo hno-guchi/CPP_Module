@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 18:31:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:42:43 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,15 @@ private:
 	// SUBJECT ATTRIBUTE
 	const std::string	name_;
 	bool				sign_;
-	const unsigned int	grade_;
+	const unsigned int	signGrade_;
+	const unsigned int	executeGrade_;
 
 	// MY ATTRIBUTE
 
 public:
 	// CONSTRUCTER
 	Form();
-	Form(const std::string& name, const unsigned int& grade);
+	Form(const std::string& name, const unsigned int& signGrade, const unsigned int& execGrade);
 	Form(const Form& src);
 	// DESTRUCTER
 	virtual ~Form();
@@ -49,7 +50,8 @@ public:
 	// GETTER
 	const std::string&	getName() const;
 	const bool&			getSign() const;
-	const unsigned int&	getGrade() const;
+	const unsigned int&	getSignGrade() const;
+	const unsigned int&	getExecuteGrade() const;
 	// SETTER
 	void				setSign(const bool& sign);
 	// SUBJECT FUNC

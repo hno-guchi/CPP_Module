@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 18:58:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:45:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main()
 	{
 		Bureaucrat	obj_0("name_0", 100);
 		Form		form_0;
-		Form		form_1("form_1", 100);
+		Form		form_1("form_1", 100, 100);
 		Form		form_2(form_1);
 
 		std::cout << std::endl;
@@ -43,11 +43,13 @@ int	main()
 
 	std::cout << GREEN << "++++++++++ Test Constructer exception. ++++++++++" << END << std::endl;
 	{
-		Form	form_0("form_0", 1);
-		Form	form_1("form_1", 150);
-		Form	form_2("", 150);
-		Form	form_3("form_3", 0);
-		Form	form_4("form_4", 151);
+		Form	form_0("form_0", 1, 1);
+		Form	form_1("form_1", 150, 150);
+		Form	form_2("", 150, 150);
+		Form	form_3("form_3", 0, 1);
+		Form	form_4("form_4", 1, 0);
+		Form	form_5("form_5", 151, 150);
+		Form	form_6("form_4", 150, 151);
 
 		std::cout << std::endl;
 		std::cout << form_0 << std::endl;
@@ -55,6 +57,8 @@ int	main()
 		std::cout << form_2 << std::endl;
 		std::cout << form_3 << std::endl;
 		std::cout << form_4 << std::endl;
+		std::cout << form_5 << std::endl;
+		std::cout << form_6 << std::endl;
 		std::cout << std::endl;
 	}
 
@@ -62,9 +66,9 @@ int	main()
 
 	std::cout << GREEN << "++++++++++ Test signForm();. ++++++++++" << END << std::endl;
 	{
-		Form		form_0("form_0", 75);
-		Form		form_1("form_1", 75);
-		Form		form_2("form_2", 75);
+		Form		form_0("form_0", 75, 75);
+		Form		form_1("form_1", 75, 75);
+		Form		form_2("form_2", 75, 75);
 		Bureaucrat	obj_0("obj_0", 75);
 
 		obj_0.signForm(form_0);
