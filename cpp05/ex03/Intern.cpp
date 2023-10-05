@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 16:46:17 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:21:03 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ AForm*	Intern::makeForm(const std::string& name, const std::string& target)
 			default:
 				throw Intern::NotExistFormException();
 		}
-		actionMessage("Intern", "creates", target);
+		actionMessage("Intern", target, "creates");
 	}
 	catch (std::exception& e) {
-		notActionMessage("Intern", "create", target);
+		notActionMessage("Intern", target, "create");
 		std::cerr << RED << e.what() << END << std::endl;
 	}
 	return (ptr);
