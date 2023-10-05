@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 13:53:00 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:31:00 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 // SETTER
 
+// #include <locale>
+// std::isprint();
 // SUBJECT FUNC
 void	ScalarConverter::convert(std::string& str)
 {
