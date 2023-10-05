@@ -1,53 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CanonicalForm.cpp                                  :+:      :+:    :+:   */
+/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 16:23:46 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:53:00 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CanonicalForm.hpp"
+#include "ScalarConverter.hpp"
 
 // CONSTRUCTER
-CanonicalForm::CanonicalForm()
-{
-	debugMessage("CanonicalForm", DEFAULT_CONSTRUCT);
-}
-
-CanonicalForm::CanonicalForm() :
-{
-	debugMessage("CanonicalForm", HAS_ARGS_CONSTRUCT);
-}
-
-CanonicalForm::CanonicalForm(const CanonicalForm& src)
-{
-	debugMessage("CanonicalForm", COPY_CONSTRUCT);
-	this->operator=(src);
-}
-
 // DESTRUCTER
-CanonicalForm::~CanonicalForm()
-{
-	debugMessage("CanonicalForm", DESTRUCT);
-}
-
 // OPERATOR
-CanonicalForm&	CanonicalForm::operator=(const CanonicalForm& rhs)
-{
-	if (this == &rhs) {
-		return (*this);
-	}
-	debugMessage("CanonicalForm", COPY_OPERATOR);
-	return (*this);
-}
+// ScalarConverter&	ScalarConverter::operator=(const ScalarConverter& rhs)
+// {
+// 	if (this == &rhs) {
+// 		return (*this);
+// 	}
+// 	debugMessage("ScalarConverter", COPY_OPERATOR);
+// 	return (*this);
+// }
 
 // GETTER
 
 // SETTER
 
 // SUBJECT FUNC
-
+void	ScalarConverter::convert(std::string& str)
+{
+	std::cout << "char:" << std::endl;
+	std::cout << "int:" << std::endl;
+	std::cout << "float:" << std::endl;
+	std::cout << "double:" << std::endl;
+	std::cout << str << std::endl;
+}
