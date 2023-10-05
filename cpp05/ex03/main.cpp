@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 17:00:25 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:17:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,31 @@ int	main()
 		Intern					intern_0;
 		AForm*					ptr;
 
+		std::cout << std::endl;
 		ptr = intern_0.makeForm("shrubbery creation", "form_0");
+		std::cout << "ptr : [" << GREEN << ptr << END << "] | " << "makeForm(\"shrubbery creation\", \"form_0\");" << std::endl;
 		delete ptr;
-		std::cout << std::endl;
 
+		std::cout << std::endl;
 		ptr = intern_0.makeForm("robotomy request", "Bender");
+		std::cout << "ptr : ["<< GREEN << ptr << END << "] | " << "makeForm(\"robotomy request\", \"Bender\");" << std::endl;
 		delete ptr;
-		std::cout << std::endl;
 
+		std::cout << std::endl;
 		ptr = intern_0.makeForm("presidential pardon", "form_1");
+		std::cout << "ptr : ["<< GREEN << ptr << END << "] | " << "makeForm(\"presidential pardon\", \"form_1\");" << std::endl;
 		delete ptr;
-		std::cout << std::endl;
 
+		std::cout << std::endl;
 		ptr = intern_0.makeForm("WRONG FORM", "form_2");
+		std::cout << "ptr : ["<< GREEN << ptr << END << "] | " << "makeForm(\"WRONG FORM\", \"form_2\");" << std::endl;
 		delete ptr;
-		std::cout << std::endl;
 
+		std::cout << std::endl;
 		ptr = intern_0.makeForm("", "form_3");
+		std::cout << "ptr : ["<< GREEN << ptr << END << "] | " << "makeForm(\"\", \"form_3\");" << std::endl;
 		delete ptr;
+
 		std::cout << std::endl;
 	}
 #ifdef LEAKS
