@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 09:36:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 10:37:31 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ public:
 	PresidentialPardonForm(const std::string& target);
 	PresidentialPardonForm(const PresidentialPardonForm& src);
 	// DESTRUCTER
-	virtual ~PresidentialPardonForm();
+	~PresidentialPardonForm();
 
 	// OPERATOR
 	PresidentialPardonForm&	operator=(const PresidentialPardonForm& rhs);

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 09:37:42 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 10:37:25 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ public:
 	ShrubberyCreationForm(const std::string& target);
 	ShrubberyCreationForm(const ShrubberyCreationForm& src);
 	// DESTRUCTER
-	virtual ~ShrubberyCreationForm();
+	~ShrubberyCreationForm();
 	// OPERATOR
 	ShrubberyCreationForm&	operator=(const ShrubberyCreationForm& rhs);
 	// GETTER
