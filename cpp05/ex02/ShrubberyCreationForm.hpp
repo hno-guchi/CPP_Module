@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 08:07:58 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 09:37:42 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ private:
 
 	// MY ATTRIBUTE
 
+	// SUBJECT FUNC
+	void	action() const;
 public:
 	// CONSTRUCTER
 	ShrubberyCreationForm();
@@ -46,8 +48,6 @@ public:
 
 	// SETTER
 
-	// SUBJECT FUNC
-	void	action() const;
 	// EXCEPTION
 	class FailedOpenFdException : public std::exception {
 	private:
