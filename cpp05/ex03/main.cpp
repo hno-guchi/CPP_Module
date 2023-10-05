@@ -6,106 +6,42 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 15:17:22 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:00:25 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int	main()
 {
-	std::cout << GREEN << "++++++++++ Test ShrubberyCreationForm ++++++++++" << END << std::endl;
+	std::cout << GREEN << "++++++++++ Test Intern ++++++++++" << END << std::endl;
 	{
-		Bureaucrat				president("president", 1);
-		ShrubberyCreationForm	form_0;
-		ShrubberyCreationForm	form_1("form_1");
-		ShrubberyCreationForm	form_2(form_1);
-		ShrubberyCreationForm	form_3("../../form_3");
-		ShrubberyCreationForm	form_4("");
+		Intern					intern_0;
+		AForm*					ptr;
 
+		ptr = intern_0.makeForm("shrubbery creation", "form_0");
+		delete ptr;
 		std::cout << std::endl;
-		president.signForm(form_0); president.signForm(form_1); president.signForm(form_2);
-		president.signForm(form_3); president.signForm(form_4);
 
+		ptr = intern_0.makeForm("robotomy request", "Bender");
+		delete ptr;
 		std::cout << std::endl;
-		president.executeForm(form_0); president.executeForm(form_1); president.executeForm(form_2);
-		president.executeForm(form_3); president.executeForm(form_4);
 
+		ptr = intern_0.makeForm("presidential pardon", "form_1");
+		delete ptr;
 		std::cout << std::endl;
-	}
 
-	std::cout << std::endl;
-
-	std::cout << GREEN << "++++++++++ Test RobotomyRequestForm ++++++++++" << END << std::endl;
-	{
-		Bureaucrat			president("president", 1);
-		RobotomyRequestForm	form_0;
-		RobotomyRequestForm	form_1("form_1");
-		RobotomyRequestForm	form_2(form_1);
-		RobotomyRequestForm	form_3("");
-
+		ptr = intern_0.makeForm("WRONG FORM", "form_2");
+		delete ptr;
 		std::cout << std::endl;
-		president.signForm(form_0); president.signForm(form_1);
-		president.signForm(form_2); president.signForm(form_3);
 
-		std::cout << std::endl;
-		president.executeForm(form_0); president.executeForm(form_1);
-		president.executeForm(form_2); president.executeForm(form_3);
-
-		std::cout << std::endl;
-	}
-
-	std::cout << std::endl;
-
-	std::cout << GREEN << "++++++++++ Test PresidentialPardonForm ++++++++++" << END << std::endl;
-	{
-		Bureaucrat				president("president", 1);
-		PresidentialPardonForm	form_0;
-		PresidentialPardonForm	form_1("form_1");
-		PresidentialPardonForm	form_2(form_1);
-		PresidentialPardonForm	form_3("");
-
-		std::cout << std::endl;
-		president.signForm(form_0); president.signForm(form_1);
-		president.signForm(form_2); president.signForm(form_3);
-
-		std::cout << std::endl;
-		president.executeForm(form_0); president.executeForm(form_1);
-		president.executeForm(form_2); president.executeForm(form_3);
-
-		std::cout << std::endl;
-	}
-
-	std::cout << GREEN << "++++++++++ Test execute member function [AForm class(abstract)] ++++++++++" << END << std::endl;
-	{
-		Bureaucrat				grade_25("grade_25", 25);
-		Bureaucrat				grade_5("grade_5", 5);
-		PresidentialPardonForm	exec_form("exec_form");
-
-		std::cout << std::endl;
-		grade_5.executeForm(exec_form);
-
-		std::cout << std::endl;
-		std::cout << exec_form << std::endl;
-
-		grade_25.decrementGrade();
-		grade_25.signForm(exec_form);
-		std::cout << exec_form << std::endl;
-
-		grade_25.incrementGrade();
-		grade_25.signForm(exec_form);
-		std::cout << exec_form << std::endl;
-
-		std::cout << std::endl;
-		grade_5.decrementGrade();
-		grade_5.executeForm(exec_form);
-
-		grade_5.incrementGrade();
-		grade_5.executeForm(exec_form);
-
+		ptr = intern_0.makeForm("", "form_3");
+		delete ptr;
 		std::cout << std::endl;
 	}
 #ifdef LEAKS

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 09:54:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:32:18 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ static void	actionMessage(const std::string& name, const std::string& target, co
 		<< END << std::endl;
 }
 
-// TODO
 static void	notActionMessage(const std::string& name, const std::string& target, const std::string& action)
 {
 	std::cerr \
