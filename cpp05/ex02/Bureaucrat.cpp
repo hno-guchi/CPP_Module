@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/04 15:24:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 09:31:19 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,33 +90,47 @@ void	Bureaucrat::decrementGrade()
 	this->grade_ += 1;
 }
 
-static void	signedMessage(const std::string& name, const std::string& target)
+static void	actionMessage(const std::string& name, const std::string& target, const std::string& action)
 {
 	std::cout \
-		<< YELLOW << name << END \
-		<< " signed " \
+		<< YELLOW << name << END << " " \
+		<< YELLOW << action << END << " " \
 		<< YELLOW << target << END \
 		<< std::endl;
 }
 
-static void	notSignedMessage(const std::string& name, const std::string& target)
+// TODO
+static void	notActionMessage(const std::string& name, const std::string& target, const std::string& action)
 {
 	std::cerr \
 		<< YELLOW << name << END \
-		<< " couldn’t sign " \
+		<< " couldn’t " \
+		<< YELLOW << action << END << " " \
 		<< YELLOW << target << END \
 		<< " because " \
 		<< std::flush;
 }
 
-void	Bureaucrat::signForm(AForm& rhs)
+void	Bureaucrat::signForm(AForm& form)
 {
 	try {
-		rhs.beSigned(*this);
-		signedMessage(this->getName(), rhs.getName());
+		form.beSigned(*this);
+		actionMessage(this->getName(), form.getName(), "signed");
 	}
 	catch (std::exception& e) {
-		notSignedMessage(this->getName(), rhs.getName());
+		notActionMessage(this->getName(), form.getName(), "sign");
+		std::cerr << RED << e.what() << END << std::endl;
+	}
+}
+
+void	Bureaucrat::executeForm(AForm const & form)
+{
+	try {
+		form.execute(*this);
+		actionMessage(this->getName(), form.getName(), "executed");
+	}
+	catch (std::exception& e) {
+		notActionMessage(this->getName(), form.getName(), "execute");
 		std::cerr << RED << e.what() << END << std::endl;
 	}
 }
