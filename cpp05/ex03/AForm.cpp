@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 09:30:33 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:41:11 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ std::ostream&	operator<<(std::ostream& lhs, const AForm& rhs)
 {
 	lhs << YELLOW << rhs.getName() << END \
 		<< ", Form sign " \
-		<< YELLOW << rhs.getSign() << END \
+		<< std::boolalpha << YELLOW << rhs.getSign() << END \
 		<< ", Form sign grade " \
 		<< YELLOW << rhs.getSignGrade() << END \
 		<< ", Form execute grade " \
