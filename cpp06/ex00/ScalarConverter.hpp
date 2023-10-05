@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CanonicalForm.hpp                                  :+:      :+:    :+:   */
+/*   ScalarConverter.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 16:09:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 10:35:14 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _HPP
-#define _HPP
+#ifndef SCALARCONVERTER_HPP
+# define SCALARCONVERTER_HPP
 
 #include "debugMessage.hpp"
 
-class CanonicalForm {
+class ScalarConverter {
 private:
 	// SUBJECT ATTRIBUTE
 
 	// MY ATTRIBUTE
 
-public:
 	// CONSTRUCTER
-	CanonicalForm();
-	CanonicalForm(const std::string& type);
-	CanonicalForm(const CanonicalForm& src);
-	// DESTRUCTER
-	virtual ~CanonicalForm();
+	ScalarConverter();
+	~ScalarConverter();
 
+public:
 	// OPERATOR
-	CanonicalForm&	operator=(const CanonicalForm& rhs);
-
+	ScalarConverter&	operator=(const ScalarConverter& rhs);
 	// GETTER
 
 	// SETTER
 
 	// SUBJECT FUNC
-
+	static void	convert(std::string& str);
 };
 
 #endif
