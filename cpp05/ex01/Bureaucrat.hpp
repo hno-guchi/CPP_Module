@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/03 18:39:38 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 10:36:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ public:
 	Bureaucrat(const std::string& name, const unsigned int& grade);
 	Bureaucrat(const Bureaucrat& src);
 	// DESTRUCTER
-	virtual ~Bureaucrat();
+	~Bureaucrat();
 	// OPERATOR
 	Bureaucrat&			operator=(const Bureaucrat& rhs);
 	// GETTER

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 09:37:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 10:37:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ public:
 	RobotomyRequestForm(const std::string& target);
 	RobotomyRequestForm(const RobotomyRequestForm& src);
 	// DESTRUCTER
-	virtual ~RobotomyRequestForm();
+	~RobotomyRequestForm();
 	// OPERATOR
 	RobotomyRequestForm&	operator=(const RobotomyRequestForm& rhs);
 
