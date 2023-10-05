@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 08:04:37 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 09:36:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ private:
 
 	// MY ATTRIBUTE
 
+	// SUBJECT FUNC
+	void	action() const;
 public:
 	// CONSTRUCTER
 	PresidentialPardonForm();
@@ -40,10 +42,6 @@ public:
 	// GETTER
 
 	// SETTER
-
-	// SUBJECT FUNC
-	void	action() const;
-
 };
 
 #endif

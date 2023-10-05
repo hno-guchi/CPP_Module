@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 09:31:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 09:54:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,9 @@ void	Bureaucrat::decrementGrade()
 
 static void	actionMessage(const std::string& name, const std::string& target, const std::string& action)
 {
-	std::cout \
-		<< YELLOW << name << END << " " \
-		<< YELLOW << action << END << " " \
-		<< YELLOW << target << END \
-		<< std::endl;
+	std::cout << YELLOW \
+		<< name << " " << action << " " << target
+		<< END << std::endl;
 }
 
 // TODO
@@ -104,8 +102,7 @@ static void	notActionMessage(const std::string& name, const std::string& target,
 {
 	std::cerr \
 		<< YELLOW << name << END \
-		<< " couldn’t " \
-		<< YELLOW << action << END << " " \
+		<< " couldn’t " << action << " " \
 		<< YELLOW << target << END \
 		<< " because " \
 		<< std::flush;

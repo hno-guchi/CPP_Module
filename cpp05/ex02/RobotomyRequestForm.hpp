@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 08:07:33 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 09:37:18 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ private:
 
 	// MY ATTRIBUTE
 
+	// SUBJECT FUNC
+	void	action() const;
 public:
 	// CONSTRUCTER
 	RobotomyRequestForm();
@@ -37,7 +39,6 @@ public:
 	RobotomyRequestForm(const RobotomyRequestForm& src);
 	// DESTRUCTER
 	virtual ~RobotomyRequestForm();
-
 	// OPERATOR
 	RobotomyRequestForm&	operator=(const RobotomyRequestForm& rhs);
 
@@ -45,8 +46,6 @@ public:
 
 	// SETTER
 
-	// SUBJECT FUNC
-	void	action() const;
 	// EXCEPTION
 	class FailedRequestRobotomyException : public std::exception {
 	private:
