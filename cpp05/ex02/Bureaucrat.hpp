@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 08:38:40 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/05 09:30:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ public:
 	// SUBJECT FUNC
 	void	incrementGrade();
 	void	decrementGrade();
-	void	signForm(AForm& rhs);
+	void	signForm(AForm& form);
+	void	executeForm(AForm const & form);
 	// EXCEPTION
 	class GradeTooHighException : public std::exception {
 	private:
