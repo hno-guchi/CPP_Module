@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 17:41:13 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:58:37 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,21 @@ AForm::AForm(const std::string& name, const unsigned int& signGrade, const unsig
 	name_(name), sign_(false), signGrade_(signGrade), executeGrade_(execGrade)
 {
 	debugMessage("AForm", HAS_ARGS_CONSTRUCT);
-	try {
-		if (name.empty() == true) {
-			throw AForm::EmptyNameException();
-		}
-		if (signGrade < HIGHEST_RANGE || execGrade < HIGHEST_RANGE) {
-			throw AForm::GradeTooHighException();
-		}
-		if (LOWEST_RANGE < signGrade || LOWEST_RANGE < execGrade) {
-			throw AForm::GradeTooLowException();
-		}
+	// try {
+	if (name.empty() == true) {
+		throw AForm::EmptyNameException();
 	}
-	catch (std::exception& e) {
-		std::cerr << RED << e.what() << END << std::endl;
-		// throw;
+	if (signGrade < HIGHEST_RANGE || execGrade < HIGHEST_RANGE) {
+		throw AForm::GradeTooHighException();
 	}
+	if (LOWEST_RANGE < signGrade || LOWEST_RANGE < execGrade) {
+		throw AForm::GradeTooLowException();
+	}
+	// }
+	// catch (std::exception& e) {
+	// 	std::cerr << RED << e.what() << END << std::endl;
+	// 	throw;
+	// }
 }
 
 AForm::AForm(const AForm& src) :
@@ -111,7 +111,12 @@ void	AForm::execute(Bureaucrat const & executor) const
 	if (this->getExecuteGrade() < executor.getGrade()) {
 		throw AForm::GradeTooLowException();
 	}
-	this->action();
+	try {
+		this->action();
+	}
+	catch (std::exception& e) {
+		throw ;
+	}
 }
 
 // EXCEPTION

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 10:04:32 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:03:52 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,23 @@ int	main()
 		ShrubberyCreationForm	form_1("form_1");
 		ShrubberyCreationForm	form_2(form_1);
 		ShrubberyCreationForm	form_3("../../form_3");
-		ShrubberyCreationForm	form_4("");
-
 		std::cout << std::endl;
-		president.signForm(form_0); president.signForm(form_1); president.signForm(form_2);
-		president.signForm(form_3); president.signForm(form_4);
-
+		try {
+			ShrubberyCreationForm	form_4("");
+		}
+		catch (std::exception& e) {
+			std::cerr << RED << e.what() << END << std::endl;
+		}
 		std::cout << std::endl;
-		president.executeForm(form_0); president.executeForm(form_1); president.executeForm(form_2);
-		president.executeForm(form_3); president.executeForm(form_4);
 
+		president.signForm(form_0); president.signForm(form_1);
+		president.signForm(form_2); president.signForm(form_3);
+		// president.signForm(form_4);
+		std::cout << std::endl;
+
+		president.executeForm(form_0); president.executeForm(form_1);
+		president.executeForm(form_2); president.executeForm(form_3);
+		// president.executeForm(form_4);
 		std::cout << std::endl;
 	}
 
@@ -45,16 +52,22 @@ int	main()
 		RobotomyRequestForm	form_0;
 		RobotomyRequestForm	form_1("form_1");
 		RobotomyRequestForm	form_2(form_1);
-		RobotomyRequestForm	form_3("");
-
+		try {
+			RobotomyRequestForm	form_3("");
+		}
+		catch (std::exception& e) {
+			std::cerr << RED << e.what() << END << std::endl;
+		}
 		std::cout << std::endl;
+
 		president.signForm(form_0); president.signForm(form_1);
-		president.signForm(form_2); president.signForm(form_3);
-
+		president.signForm(form_2);
+		// president.signForm(form_3);
 		std::cout << std::endl;
-		president.executeForm(form_0); president.executeForm(form_1);
-		president.executeForm(form_2); president.executeForm(form_3);
 
+		president.executeForm(form_0); president.executeForm(form_1);
+		president.executeForm(form_2);
+		// president.executeForm(form_3);
 		std::cout << std::endl;
 	}
 
@@ -66,16 +79,23 @@ int	main()
 		PresidentialPardonForm	form_0;
 		PresidentialPardonForm	form_1("form_1");
 		PresidentialPardonForm	form_2(form_1);
-		PresidentialPardonForm	form_3("");
-
 		std::cout << std::endl;
+		try {
+			PresidentialPardonForm	form_3("");
+		}
+		catch (std::exception& e) {
+			std::cerr << RED << e.what() << END << std::endl;
+		}
+		std::cout << std::endl;
+
 		president.signForm(form_0); president.signForm(form_1);
-		president.signForm(form_2); president.signForm(form_3);
-
+		president.signForm(form_2);
+		// president.signForm(form_3);
 		std::cout << std::endl;
-		president.executeForm(form_0); president.executeForm(form_1);
-		president.executeForm(form_2); president.executeForm(form_3);
 
+		president.executeForm(form_0); president.executeForm(form_1);
+		president.executeForm(form_2);
+		// president.executeForm(form_3);
 		std::cout << std::endl;
 	}
 
