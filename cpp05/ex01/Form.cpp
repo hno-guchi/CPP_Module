@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 17:38:36 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:40:02 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,21 @@ Form::Form(const std::string& name, const unsigned int& signGrade, const unsigne
 	name_(name), sign_(false), signGrade_(signGrade), executeGrade_(execGrade)
 {
 	debugMessage("Form", HAS_ARGS_CONSTRUCT);
-	try {
-		if (name.empty() == true) {
-			throw Form::EmptyNameException();
-		}
-		if (signGrade < HIGHEST_RANGE || execGrade < HIGHEST_RANGE) {
-			throw Form::GradeTooHighException();
-		}
-		if (LOWEST_RANGE < signGrade || LOWEST_RANGE < execGrade) {
-			throw Form::GradeTooLowException();
-		}
+	// try {
+	if (name.empty() == true) {
+		throw Form::EmptyNameException();
 	}
-	catch (std::exception& e) {
-		std::cerr << RED << e.what() << END << std::endl;
-		// throw;
+	if (signGrade < HIGHEST_RANGE || execGrade < HIGHEST_RANGE) {
+		throw Form::GradeTooHighException();
 	}
+	if (LOWEST_RANGE < signGrade || LOWEST_RANGE < execGrade) {
+		throw Form::GradeTooLowException();
+	}
+	// }
+	// catch (std::exception& e) {
+	// 	std::cerr << RED << e.what() << END << std::endl;
+	// 	throw;
+	// }
 }
 
 Form::Form(const Form& src) :
