@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 08:07:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:57:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,19 +108,19 @@ static const std::string	getFileName(const std::string& target)
 
 void	ShrubberyCreationForm::action() const
 {
-	try {
-		const std::string	fileName(getFileName(this->getName()));
-		std::ofstream		fileFd(fileName.c_str()); // (std::string str); c++98
+	// try {
+	const std::string	fileName(getFileName(this->getName()));
+	std::ofstream		fileFd(fileName.c_str()); // (std::string str); c++98
 
-		if (fileFd.is_open() == false) {
-			throw ShrubberyCreationForm::FailedOpenFdException();
-		}
-		writeAsciiTree(fileFd);
-		fileFd.close();
+	if (fileFd.is_open() == false) {
+		throw ShrubberyCreationForm::FailedOpenFdException();
 	}
-	catch (std::exception& e) {
-			std::cerr << RED << e.what() << END << std::endl;
-	}
+	writeAsciiTree(fileFd);
+	fileFd.close();
+	// }
+	// catch (std::exception& e) {
+	// 		std::cerr << RED << e.what() << END << std::endl;
+	// }
 }
 
 // EXCEPTION

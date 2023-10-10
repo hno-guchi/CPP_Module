@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 08:08:00 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:58:30 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,17 @@ RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm& r
 // SUBJECT FUNC
 void	RobotomyRequestForm::action() const
 {
-	try {
-		int	execFlag = std::rand() % 2;
+	// try {
+	int	execFlag = std::rand() % 2;
 
-		if (execFlag == 0) {
-			throw RobotomyRequestForm::FailedRequestRobotomyException();
-		}
-		std::cout << BLUE << this->getName() << " has been robotomized." << END << std::endl;
-	} catch (std::exception& e) {
-			std::cerr << RED << e.what() << END << std::endl;
+	if (execFlag == 0) {
+		throw RobotomyRequestForm::FailedRequestRobotomyException();
 	}
+	std::cout << BLUE << this->getName() << " has been robotomized." << END << std::endl;
+	// }
+	// catch (std::exception& e) {
+	// 	 	std::cerr << RED << e.what() << END << std::endl;
+	// }
 }
 
 // EXCEPTION
