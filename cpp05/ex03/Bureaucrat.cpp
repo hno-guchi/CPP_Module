@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 16:32:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:49:06 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@ Bureaucrat::Bureaucrat(const std::string& name, const unsigned int& grade) :
 	name_(name)
 {
 	debugMessage("Bureaucrat", HAS_ARGS_CONSTRUCT);
-	try {
-		if (name.empty() == true) {
-			throw Bureaucrat::EmptyNameException();
-		}
-		if (grade < HIGHEST_RANGE) {
-			this->grade_ = HIGHEST_RANGE;
-			throw Bureaucrat::GradeTooHighException();
-		}
-		if (LOWEST_RANGE < grade) {
-			this->grade_ = LOWEST_RANGE;
-			throw Bureaucrat::GradeTooLowException();
-		}
-		this->grade_ = grade;
+	// try {
+	if (name.empty() == true) {
+		throw Bureaucrat::EmptyNameException();
 	}
-	catch (std::exception& e) {
-		std::cerr << RED << e.what() << END << std::endl;
-		// throw;
+	if (grade < HIGHEST_RANGE) {
+		this->grade_ = HIGHEST_RANGE;
+		throw Bureaucrat::GradeTooHighException();
 	}
+	if (LOWEST_RANGE < grade) {
+		this->grade_ = LOWEST_RANGE;
+		throw Bureaucrat::GradeTooLowException();
+	}
+	this->grade_ = grade;
+	// }
+	// catch (std::exception& e) {
+	// 	std::cerr << RED << e.what() << END << std::endl;
+	// 	throw;
+	// }
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& src) :
