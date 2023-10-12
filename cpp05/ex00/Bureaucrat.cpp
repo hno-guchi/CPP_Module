@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/12 14:10:08 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:21:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Bureaucrat::Bureaucrat(const std::string& name, const unsigned int grade) :
 		throw Bureaucrat::EmptyNameException();
 	}
 	if (grade < this->highestRange_) {
-		throw Bureaucrat::GradeTooHighException("Grade is too high.");
+		throw Bureaucrat::GradeTooHighException();
 	}
 	if (this->lowestRange_ < grade) {
 		throw Bureaucrat::GradeTooLowException();
@@ -68,7 +68,7 @@ const unsigned int&	Bureaucrat::getGrade() const
 void	Bureaucrat::incrementGrade()
 {
 	if (this->grade_ == this->highestRange_) {
-		throw Bureaucrat::GradeTooHighException("Grade is too high.");
+		throw Bureaucrat::GradeTooHighException();
 	}
 	this->grade_ -= 1;
 }
