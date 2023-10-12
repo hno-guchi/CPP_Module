@@ -6,38 +6,33 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/10 18:58:37 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:32:47 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
 
 // CONSTRUCTER
-AForm::AForm() :
-	name_(DEFAULT_FORM_NAME), sign_(false), signGrade_(150), executeGrade_(150)
-{
-	debugMessage("AForm", DEFAULT_CONSTRUCT);
-}
+// AForm::AForm() :
+// 	name_(DEFAULT_FORM_NAME), sign_(false), signGrade_(150), executeGrade_(150)
+// {
+// 	debugMessage("AForm", DEFAULT_CONSTRUCT);
+// }
 
 AForm::AForm(const std::string& name, const unsigned int& signGrade, const unsigned int& execGrade) :
 	name_(name), sign_(false), signGrade_(signGrade), executeGrade_(execGrade)
 {
 	debugMessage("AForm", HAS_ARGS_CONSTRUCT);
-	// try {
 	if (name.empty() == true) {
 		throw AForm::EmptyNameException();
 	}
-	if (signGrade < HIGHEST_RANGE || execGrade < HIGHEST_RANGE) {
+	if (signGrade < this->highestRange_ || execGrade < this->highestRange_) {
 		throw AForm::GradeTooHighException();
 	}
-	if (LOWEST_RANGE < signGrade || LOWEST_RANGE < execGrade) {
+	if (this->lowestRange_ < signGrade || this->lowestRange_ < execGrade) {
 		throw AForm::GradeTooLowException();
 	}
-	// }
-	// catch (std::exception& e) {
-	// 	std::cerr << RED << e.what() << END << std::endl;
-	// 	throw;
-	// }
 }
 
 AForm::AForm(const AForm& src) :
@@ -86,11 +81,6 @@ const unsigned int&	AForm::getExecuteGrade() const
 }
 
 // SETTER
-void	AForm::setSign(const bool& sign)
-{
-	this->sign_ = sign;
-}
-
 // SUBJECT FUNC
 void	AForm::beSigned(const Bureaucrat& rhs)
 {
@@ -100,7 +90,7 @@ void	AForm::beSigned(const Bureaucrat& rhs)
 	if (this->getSign() == true){
 		throw AForm::AlreadySignedException();
 	}
-	this->setSign(true);
+	this->sign_ = true;
 }
 
 void	AForm::execute(Bureaucrat const & executor) const
@@ -120,85 +110,15 @@ void	AForm::execute(Bureaucrat const & executor) const
 }
 
 // EXCEPTION
-AForm::GradeTooHighException::GradeTooHighException() throw()
-	: message_(GRADE_TOO_HIGH_MESSAGE)
-{
-	debugMessage("GradeTooHighException", DEFAULT_CONSTRUCT);
-}
+AForm::GradeTooHighException::GradeTooHighException(const std::string& msg) : std::out_of_range(msg) {}
 
-AForm::GradeTooHighException::~GradeTooHighException() throw()
-{
-	debugMessage("GradeTooHighException", DESTRUCT);
-}
+AForm::GradeTooLowException::GradeTooLowException(const std::string& msg) : std::out_of_range(msg) {}
 
-const char*	AForm::GradeTooHighException::what() const throw()
-{
-	return (this->message_.c_str());
-}
+AForm::EmptyNameException::EmptyNameException(const std::string& msg) : std::invalid_argument(msg) {}
 
-AForm::GradeTooLowException::GradeTooLowException() throw()
-	: message_(GRADE_TOO_LOW_MESSAGE)
-{
-	debugMessage("GradeTooLowException", DEFAULT_CONSTRUCT);
-}
+AForm::AlreadySignedException::AlreadySignedException(const std::string& msg) : std::logic_error(msg) {}
 
-AForm::GradeTooLowException::~GradeTooLowException() throw()
-{
-	debugMessage("GradeTooLowException", DESTRUCT);
-}
-
-const char*	AForm::GradeTooLowException::what() const throw()
-{
-	return (this->message_.c_str());
-}
-
-AForm::AlreadySignedException::AlreadySignedException() throw()
-	: message_(ALREADY_SIGNED_MESSAGE)
-{
-	debugMessage("AlreadySignedException", DEFAULT_CONSTRUCT);
-}
-
-AForm::AlreadySignedException::~AlreadySignedException() throw()
-{
-	debugMessage("AlreadySignedException", DESTRUCT);
-}
-
-const char*	AForm::AlreadySignedException::what() const throw()
-{
-	return (this->message_.c_str());
-}
-
-AForm::EmptyNameException::EmptyNameException() throw()
-	: message_(EMPTY_NAME_MESSAGE)
-{
-	debugMessage("EmptyNameException", DEFAULT_CONSTRUCT);
-}
-
-AForm::EmptyNameException::~EmptyNameException() throw()
-{
-	debugMessage("EmptyNameException", DESTRUCT);
-}
-
-const char*	AForm::EmptyNameException::what() const throw()
-{
-	return (this->message_.c_str());
-}
-
-AForm::NotSignedException::NotSignedException() throw()
-	: message_(NOT_SIGNED_MESSAGE)
-{
-	debugMessage("NotSignedException", DEFAULT_CONSTRUCT);
-}
-
-AForm::NotSignedException::~NotSignedException() throw()
-{
-	debugMessage("NotSignedException", DESTRUCT);
-}
-
-const char*	AForm::NotSignedException::what() const throw()
-{
-	return (this->message_.c_str());
-}
+AForm::NotSignedException::NotSignedException(const std::string& msg) : std::logic_error(msg) {}
 
 std::ostream&	operator<<(std::ostream& lhs, const AForm& rhs)
 {

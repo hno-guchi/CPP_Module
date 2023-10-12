@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/12 14:38:25 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:00:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ public:
 	const unsigned int&	getSignGrade() const;
 	const unsigned int&	getExecuteGrade() const;
 	// SETTER
-
 	// SUBJECT FUNC
 	void	beSigned(const Bureaucrat& rhs);
 	// EXCEPTION
