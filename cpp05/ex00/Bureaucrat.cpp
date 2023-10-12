@@ -6,40 +6,31 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/10 18:28:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:10:08 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat() :
-	name_(DEFAULT_NAME), grade_(150)
-{
-	debugMessage("Bureaucrat", DEFAULT_CONSTRUCT);
-}
+// Bureaucrat::Bureaucrat() : name_("John Doe"), grade_(150)
+// {
+// 	debugMessage("Bureaucrat", DEFAULT_CONSTRUCT);
+// }
 
-Bureaucrat::Bureaucrat(const std::string& name, const unsigned int& grade) :
+Bureaucrat::Bureaucrat(const std::string& name, const unsigned int grade) :
 	name_(name)
 {
 	debugMessage("Bureaucrat", HAS_ARGS_CONSTRUCT);
-	// try {
 	if (name.empty() == true) {
 		throw Bureaucrat::EmptyNameException();
 	}
-	if (grade < HIGHEST_RANGE) {
-		// this->grade_ = HIGHEST_RANGE;
-		throw Bureaucrat::GradeTooHighException();
+	if (grade < this->highestRange_) {
+		throw Bureaucrat::GradeTooHighException("Grade is too high.");
 	}
-	if (LOWEST_RANGE < grade) {
-		// this->grade_ = LOWEST_RANGE;
+	if (this->lowestRange_ < grade) {
 		throw Bureaucrat::GradeTooLowException();
 	}
 	this->grade_ = grade;
-	// }
-	// catch (std::exception& e) {
-	// 	std::cerr << RED << e.what() << END << std::endl;
-		// throw;
-	// }
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& src) :
@@ -76,67 +67,25 @@ const unsigned int&	Bureaucrat::getGrade() const
 
 void	Bureaucrat::incrementGrade()
 {
-	if (this->grade_ == HIGHEST_RANGE) {
-		throw Bureaucrat::GradeTooHighException();
+	if (this->grade_ == this->highestRange_) {
+		throw Bureaucrat::GradeTooHighException("Grade is too high.");
 	}
 	this->grade_ -= 1;
 }
 
 void	Bureaucrat::decrementGrade()
 {
-	if (this->grade_ == LOWEST_RANGE) {
+	if (this->grade_ == this->lowestRange_) {
 		throw Bureaucrat::GradeTooLowException();
 	}
 	this->grade_ += 1;
 }
 
-Bureaucrat::GradeTooHighException::GradeTooHighException() throw()
-	: message_(GRADE_TOO_HIGH_MESSAGE)
-{
-	debugMessage("GradeTooHighException", DEFAULT_CONSTRUCT);
-}
+Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string& msg) : std::out_of_range(msg) {}
 
-Bureaucrat::GradeTooHighException::~GradeTooHighException() throw()
-{
-	debugMessage("GradeTooHighException", DESTRUCT);
-}
+Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string& msg) : std::out_of_range(msg) {}
 
-const char*	Bureaucrat::GradeTooHighException::what() const throw()
-{
-	return (this->message_.c_str());
-}
-
-Bureaucrat::GradeTooLowException::GradeTooLowException() throw()
-	: message_(GRADE_TOO_LOW_MESSAGE)
-{
-	debugMessage("GradeTooLowException", DEFAULT_CONSTRUCT);
-}
-
-Bureaucrat::GradeTooLowException::~GradeTooLowException() throw()
-{
-	debugMessage("GradeTooLowException", DESTRUCT);
-}
-
-const char*	Bureaucrat::GradeTooLowException::what() const throw()
-{
-	return (this->message_.c_str());
-}
-
-Bureaucrat::EmptyNameException::EmptyNameException() throw()
-	: message_(EMPTY_NAME_MESSAGE)
-{
-	debugMessage("EmptyNameException", DEFAULT_CONSTRUCT);
-}
-
-Bureaucrat::EmptyNameException::~EmptyNameException() throw()
-{
-	debugMessage("EmptyNameException", DESTRUCT);
-}
-
-const char*	Bureaucrat::EmptyNameException::what() const throw()
-{
-	return (this->message_.c_str());
-}
+Bureaucrat::EmptyNameException::EmptyNameException(const std::string& msg) : std::invalid_argument(msg) {}
 
 std::ostream&	operator<<(std::ostream& lhs, const Bureaucrat& rhs)
 {
