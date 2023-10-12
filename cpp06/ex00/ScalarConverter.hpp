@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/11 19:07:29 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:44:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "color.hpp"
 #include <iostream>
 #include <locale>
+#include <string>
 
 # define NON_DISPLAYABLE_MESSAGE "Non displayable"
 # define IMPOSIBLE_MESSAGE "impossible"

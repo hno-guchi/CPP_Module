@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/11 19:12:34 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:42:17 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,67 @@
 
 // SETTER
 
-static bool	ftIsPrint(char c)
+static bool	ftIsPrint(const char& c)
 {
 	std::locale	l = std::locale::classic();
 
 	return (std::isprint(c, l));
 }
 
-static void	printChar(unsigned int c)
+static bool	ftIsDigit(char c)
 {
-	std::cout << "char:" << std::flush;
+	std::locale	l = std::locale::classic();
+
+	return (std::isdigit(c, l));
+}
+
+static void	printChar(const char& c)
+{
+	std::cout << "char: " << std::flush;
 	if (ftIsPrint(c)) {
 		std::cout << c << std::endl;
 	}
 	else {
-		std::cout << NON_DISPLAYABLE_MESSAGE << std::endl;
+		std::cout << "Non displayable" << std::endl;
 	}
 }
 
-// static bool	ftIsDigit(char c)
-// {
-// 	std::locale	l = std::locale::classic();
-// 
-// 	return (std::isdigit(c, l));
-// }
-// 
+static void	printInt(const int& i)
+{
+	std::cout << "int: " << std::flush;
+	std::cout << i << std::endl;
+}
+
+static void	printFloat(const float& f)
+{
+	std::cout << "float: " << std::flush;
+	std::cout << f << std::endl;
+}
+
+static void	printDouble(const double& d)
+{
+	std::cout << "double: " << std::flush;
+	std::cout << d << std::endl;
+}
+
+static void	convertChar(char c)
+{
+	printChar(c);
+	printInt(static_cast<const int&>(c));
+	printFloat(static_cast<const float&>(c));
+	printDouble(static_cast<const double&>(c));
+}
+
+// convertDouble(); -> find("."); not std::setprecision
+// convertInt(); -> find("."); not std::setprecision(1);
+// floatの出力は、最後にfを出力する。
+
 // SUBJECT FUNC
 void	ScalarConverter::convert(std::string& str)
 {
 	// if (str.length() == 1 && !ftIsDigit(str[0])) {
 	if (str.length() == 1) {
-		printChar(str[0]);
-		// convertChar(str);
+		convertChar(str[0]);
 	}
 	else {
 		std::cout << "Over one." << std::endl;
@@ -70,9 +99,4 @@ void	ScalarConverter::convert(std::string& str)
 	// else {
 	// 	convertInt(str);
 	// }
-	// std::cout << "char:" << std::endl;
-	// std::cout << "int:" << std::endl;
-	// std::cout << "float:" << std::endl;
-	// std::cout << "double:" << std::endl;
-	// std::cout << str << std::endl;
 }
