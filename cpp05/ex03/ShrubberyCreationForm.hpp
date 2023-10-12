@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 10:37:25 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:22:25 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 
 #include "debugMessage.hpp"
 #include "color.hpp"
-#include "AForm.hpp"
+#include <iostream>
 #include <fstream>
 #include <string>
-// #include <stdexcept>
-
-# define SBC_SUFFIX "_shrubbery"
-# define SBC_SIGN_GRADE 145
-# define SBC_EXEC_GRADE 137
-# define FAILED_OPEN_FD_MESSAGE "Failed open fd."
+#include <ios>
 
 class AForm;
 
@@ -32,31 +27,29 @@ private:
 	// SUBJECT ATTRIBUTE
 
 	// MY ATTRIBUTE
-
+	// std::string	suffix_ = "_shrubbery";
+	const static int	signGrade_ = 145;
+	const static int	execGrade_ = 137;
 	// SUBJECT FUNC
-	void	action() const;
+	virtual void	action() const;
 public:
 	// CONSTRUCTER
-	ShrubberyCreationForm();
-	ShrubberyCreationForm(const std::string& target);
+	// ShrubberyCreationForm();
+	ShrubberyCreationForm(const std::string& target = "SAMPLE");
 	ShrubberyCreationForm(const ShrubberyCreationForm& src);
 	// DESTRUCTER
 	~ShrubberyCreationForm();
 	// OPERATOR
 	ShrubberyCreationForm&	operator=(const ShrubberyCreationForm& rhs);
 	// GETTER
-
+	int						getSignGrade() const;
+	int						getExecGrade() const;
+	// const std::string&	getSuffix() const;
 	// SETTER
-
 	// EXCEPTION
-	class FailedOpenFdException : public std::exception {
-	private:
-		std::string	message_;
-	
+	class FailedOpenFdException : public std::ios_base::failure {
 	public:
-		FailedOpenFdException() throw();
-		~FailedOpenFdException() throw();
-		const char*	what() const throw();
+		FailedOpenFdException(const std::string& msg = "Failed open fd.");
 	};
 };
 

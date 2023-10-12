@@ -6,25 +6,25 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/10 18:58:30 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:12:01 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "AForm.hpp"
 #include "RobotomyRequestForm.hpp"
 
 // CONSTRUCTER
-RobotomyRequestForm::RobotomyRequestForm() :
-	AForm(DEFAULT_FORM_NAME, RR_SIGN_GRADE, RR_EXEC_GRADE)
-{
-	debugMessage("RobotomyRequestForm", DEFAULT_CONSTRUCT);
-	std::srand(static_cast<unsigned>(std::time(0)));
-}
+// RobotomyRequestForm::RobotomyRequestForm() :
+// 	AForm(DEFAULT_FORM_NAME, RR_SIGN_GRADE, RR_EXEC_GRADE)
+// {
+// 	debugMessage("RobotomyRequestForm", DEFAULT_CONSTRUCT);
+// 	std::srand(static_cast<unsigned>(std::time(0)));
+// }
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target) :
-	AForm(target, RR_SIGN_GRADE, RR_EXEC_GRADE)
+	AForm(target, this->getSignGrade(), this->getExecGrade())
 {
 	debugMessage("RobotomyRequestForm", HAS_ARGS_CONSTRUCT);
-	std::srand(static_cast<unsigned>(std::time(0)));
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& src) :
@@ -32,7 +32,6 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& src) :
 {
 	debugMessage("RobotomyRequestForm", COPY_CONSTRUCT);
 	this->operator=(src);
-	std::srand(static_cast<unsigned>(std::time(0)));
 }
 
 // DESTRUCTER
@@ -53,38 +52,28 @@ RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm& r
 }
 
 // GETTER
+int	RobotomyRequestForm::getSignGrade() const
+{
+	return (this->signGrade_);
+}
+
+int	RobotomyRequestForm::getExecGrade() const
+{
+	return (this->execGrade_);
+}
 
 // SETTER
 
 // SUBJECT FUNC
 void	RobotomyRequestForm::action() const
 {
-	// try {
 	int	execFlag = std::rand() % 2;
 
 	if (execFlag == 0) {
 		throw RobotomyRequestForm::FailedRequestRobotomyException();
 	}
 	std::cout << BLUE << this->getName() << " has been robotomized." << END << std::endl;
-	// }
-	// catch (std::exception& e) {
-	// 	 	std::cerr << RED << e.what() << END << std::endl;
-	// }
 }
 
 // EXCEPTION
-RobotomyRequestForm::FailedRequestRobotomyException::FailedRequestRobotomyException() throw()
-	: message_(FAILED_REQUEST_ROBOTOMY_MESSAGE)
-{
-	debugMessage("FailedRequestRobotomyException", DEFAULT_CONSTRUCT);
-}
-
-RobotomyRequestForm::FailedRequestRobotomyException::~FailedRequestRobotomyException() throw()
-{
-	debugMessage("FailedRequestRobotomyException", DESTRUCT);
-}
-
-const char*	RobotomyRequestForm::FailedRequestRobotomyException::what() const throw()
-{
-	return (this->message_.c_str());
-}
+RobotomyRequestForm::FailedRequestRobotomyException::FailedRequestRobotomyException(const std::string& msg) : std::logic_error(msg) {}

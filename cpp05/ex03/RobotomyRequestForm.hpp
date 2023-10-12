@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 10:37:16 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:11:49 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 
 #include "debugMessage.hpp"
 #include "color.hpp"
-#include "AForm.hpp"
 #include <random>
-
-# define RR_SIGN_GRADE 72
-# define RR_EXEC_GRADE 45
-# define FAILED_REQUEST_ROBOTOMY_MESSAGE "Failed request robotomy."
+#include <stdexcept>
 
 class AForm;
 
@@ -29,32 +25,27 @@ private:
 	// SUBJECT ATTRIBUTE
 
 	// MY ATTRIBUTE
-
+	const static int	signGrade_ = 72;
+	const static int	execGrade_ = 45;
 	// SUBJECT FUNC
-	void	action() const;
+	virtual void	action() const;
 public:
 	// CONSTRUCTER
-	RobotomyRequestForm();
-	RobotomyRequestForm(const std::string& target);
+	// RobotomyRequestForm();
+	RobotomyRequestForm(const std::string& target = "SAMPLE");
 	RobotomyRequestForm(const RobotomyRequestForm& src);
 	// DESTRUCTER
 	~RobotomyRequestForm();
 	// OPERATOR
 	RobotomyRequestForm&	operator=(const RobotomyRequestForm& rhs);
-
 	// GETTER
-
+	int						getSignGrade() const;
+	int						getExecGrade() const;
 	// SETTER
-
 	// EXCEPTION
-	class FailedRequestRobotomyException : public std::exception {
-	private:
-		std::string	message_;
-	
+	class FailedRequestRobotomyException : public std::logic_error {
 	public:
-		FailedRequestRobotomyException() throw();
-		~FailedRequestRobotomyException() throw();
-		const char*	what() const throw();
+		FailedRequestRobotomyException(const std::string& msg = "Failed request robotomy.");
 	};
 };
 
