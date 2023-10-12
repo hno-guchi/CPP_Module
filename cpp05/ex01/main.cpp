@@ -6,11 +6,12 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:13:38 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/10 18:45:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:37:47 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int	main()
 {
