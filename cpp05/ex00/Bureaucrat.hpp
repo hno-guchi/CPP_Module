@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/12 14:10:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:16:43 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,14 @@
 #include <stdexcept>
 #include <exception>
 
-# define EMPTY_NAME_MESSAGE "Name is empty."
-
 class Bureaucrat {
 private:
 	// SUBJECT ATTRIBUTE
 	const std::string	name_;
 	unsigned int		grade_;
+	// MY ATTRIBUTE
 	const static int	lowestRange_ = 150;
 	const static int	highestRange_ = 1;
-
-	// MY ATTRIBUTE
 
 public:
 	// CONSTRUCTOR
