@@ -6,21 +6,22 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/10 18:57:39 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:22:31 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
 // CONSTRUCTER
-ShrubberyCreationForm::ShrubberyCreationForm() :
-	AForm(DEFAULT_FORM_NAME, SBC_SIGN_GRADE, SBC_EXEC_GRADE)
-{
-	debugMessage("ShrubberyCreationForm", DEFAULT_CONSTRUCT);
-}
+// ShrubberyCreationForm::ShrubberyCreationForm() :
+// 	AForm("SAMPLE", this->getSignGrade(), this->getExecGrade())
+// {
+// 	debugMessage("ShrubberyCreationForm", DEFAULT_CONSTRUCT);
+// }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) :
-	AForm(target, SBC_SIGN_GRADE, SBC_EXEC_GRADE)
+	AForm(target, this->getSignGrade(), this->getExecGrade())
 {
 	debugMessage("ShrubberyCreationForm", HAS_ARGS_CONSTRUCT);
 }
@@ -49,6 +50,20 @@ ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationF
 }
 
 // GETTER
+int	ShrubberyCreationForm::getSignGrade() const
+{
+	return (this->signGrade_);
+}
+
+int	ShrubberyCreationForm::getExecGrade() const
+{
+	return (this->execGrade_);
+}
+
+// const std::string&	ShrubberyCreationForm::getSuffix() const
+// {
+// 	return (this->suffix_);
+// }
 
 // SETTER
 
@@ -102,13 +117,12 @@ static const std::string	getFileName(const std::string& target)
 	else {
 		fileName = target;
 	}
-	fileName += SBC_SUFFIX;
+	fileName += "_shrubbery";
 	return (fileName);
 }
 
 void	ShrubberyCreationForm::action() const
 {
-	// try {
 	const std::string	fileName(getFileName(this->getName()));
 	std::ofstream		fileFd(fileName.c_str()); // (std::string str); c++98
 
@@ -117,25 +131,7 @@ void	ShrubberyCreationForm::action() const
 	}
 	writeAsciiTree(fileFd);
 	fileFd.close();
-	// }
-	// catch (std::exception& e) {
-	// 		std::cerr << RED << e.what() << END << std::endl;
-	// }
 }
 
 // EXCEPTION
-ShrubberyCreationForm::FailedOpenFdException::FailedOpenFdException() throw()
-	: message_(FAILED_OPEN_FD_MESSAGE)
-{
-	debugMessage("FailedOpenFdException", DEFAULT_CONSTRUCT);
-}
-
-ShrubberyCreationForm::FailedOpenFdException::~FailedOpenFdException() throw()
-{
-	debugMessage("FailedOpenFdException", DESTRUCT);
-}
-
-const char*	ShrubberyCreationForm::FailedOpenFdException::what() const throw()
-{
-	return (this->message_.c_str());
-}
+ShrubberyCreationForm::FailedOpenFdException::FailedOpenFdException(const std::string& msg) : std::ios_base::failure(msg) {}

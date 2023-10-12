@@ -6,10 +6,14 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 18:12:53 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:22:35 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "AForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 #include "Intern.hpp"
 
 // CONSTRUCTER
@@ -103,18 +107,4 @@ AForm*	Intern::makeForm(const std::string& name, const std::string& target)
 }
 
 // EXCEPTION
-Intern::NotExistFormException::NotExistFormException() throw()
-	: message_(NOT_EXIST_FORM_MESSAGE)
-{
-	debugMessage("NotExistFormException", DEFAULT_CONSTRUCT);
-}
-
-Intern::NotExistFormException::~NotExistFormException() throw()
-{
-	debugMessage("NotExistFormException", DESTRUCT);
-}
-
-const char*	Intern::NotExistFormException::what() const throw()
-{
-	return (this->message_.c_str());
-}
+Intern::NotExistFormException::NotExistFormException(const std::string& msg) : std::logic_error(msg) {}
