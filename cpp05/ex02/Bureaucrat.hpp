@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/05 10:37:28 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:44:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,9 @@
 
 #include "debugMessage.hpp"
 #include "color.hpp"
-#include "AForm.hpp"
 #include <iostream>
+#include <stdexcept>
 #include <exception>
-
-# define LOWEST_RANGE 150
-# define HIGHEST_RANGE 1
-# define DEFAULT_NAME "John Doe"
-# define GRADE_TOO_HIGH_MESSAGE "Grade is too high."
-# define GRADE_TOO_LOW_MESSAGE "Grade is too low."
-# define EMPTY_NAME_MESSAGE "Name is empty."
 
 class AForm;
 
@@ -33,13 +26,14 @@ private:
 	// SUBJECT ATTRIBUTE
 	const std::string	name_;
 	unsigned int		grade_;
-
 	// MY ATTRIBUTE
+	const static int	lowestRange_ = 150;
+	const static int	highestRange_ = 1;
 
 public:
 	// CONSTRUCTER
-	Bureaucrat();
-	Bureaucrat(const std::string& name, const unsigned int& grade);
+	// Bureaucrat();
+	Bureaucrat(const std::string& name = "John Doe", const unsigned int grade = 150);
 	Bureaucrat(const Bureaucrat& src);
 	// DESTRUCTER
 	~Bureaucrat();
@@ -56,32 +50,17 @@ public:
 	void	signForm(AForm& form);
 	void	executeForm(AForm const & form);
 	// EXCEPTION
-	class GradeTooHighException : public std::exception {
-	private:
-		std::string	message_;
-	
+	class GradeTooHighException : public std::out_of_range {
 	public:
-		GradeTooHighException() throw();
-		~GradeTooHighException() throw();
-		const char*	what() const throw();
+		GradeTooHighException(const std::string& msg = "Grade is too high.");
 	};
-	class GradeTooLowException : public std::exception {
-	private:
-		std::string	message_;
-	
+	class GradeTooLowException : public std::out_of_range {
 	public:
-		GradeTooLowException() throw();
-		~GradeTooLowException() throw();
-		const char*	what() const throw();
+		GradeTooLowException(const std::string& msg = "Grade is too low.");
 	};
-	class EmptyNameException : public std::exception {
-	private:
-		std::string	message_;
-	
+	class EmptyNameException : public std::invalid_argument {
 	public:
-		EmptyNameException() throw();
-		~EmptyNameException() throw();
-		const char*	what() const throw();
+		EmptyNameException(const std::string& msg = "Name is empty.");
 	};
 };
 
