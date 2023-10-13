@@ -6,15 +6,12 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:46:07 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/13 09:24:46 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:34:26 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 #include "color.hpp"
-// #include <string>
-// #include <iostream>
-// #include <iomanip>
 
 int	main(int argc, char **argv)
 {
