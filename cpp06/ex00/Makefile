@@ -42,7 +42,7 @@ re: fclean all
 
 .PHONY: over_flow
 over_flow: fclean
-over_flow: CXXFLAGS += $(OVERFLOWFLAGS)
+over_flow: CXXFLAGS = $(OVERFLOWFLAGS)
 over_flow: $(OBJS_DIR)
 over_flow: $(OBJS)
 over_flow:

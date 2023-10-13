@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/13 10:59:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:25:32 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	ftIsPrint(const char c)
 	return (std::isprint(c, l));
 }
 
-static bool	ftIsDigit(char c)
+static bool	ftIsDigit(const char c)
 {
 	std::locale	l = std::locale::classic();
 
@@ -57,22 +57,27 @@ static void	printInt(const int i, const bool impossible = false)
 	}
 }
 
-static void	printFloat(const float f, const bool setPrecision = false)
+static void	printFloat(float f, const bool setPrecision = false, const bool impossible = false)
 {
 	std::cout << "float : " << std::flush;
-	if (setPrecision == true) {
-		std::cout << std::fixed << std::setprecision(1) << f << std::flush;
+	if (impossible == true) {
+		std::cout << "impossible" << std::endl;
+	}
+	else if (setPrecision == true || (static_cast<int>(f) - f) == 0) {
+		std::cout << std::fixed << std::setprecision(1) << f << "f" << std::endl;
 	}
 	else {
-		std::cout << f << std::flush;
+		std::cout << f << "f" << std::endl;
 	}
-	std::cout << "f" << std::endl;
 }
 
-static void	printDouble(const double d, const bool setPrecision = false)
+static void	printDouble(const double d, const bool setPrecision = false, const bool impossible = false)
 {
 	std::cout << "double: " << std::flush;
-	if (setPrecision == true) {
+	if (impossible == true) {
+		std::cout << "impossible" << std::endl;
+	}
+	else if (setPrecision == true) {
 		std::cout << std::fixed << std::setprecision(1) << d << std::endl;
 	}
 	else {
@@ -80,38 +85,93 @@ static void	printDouble(const double d, const bool setPrecision = false)
 	}
 }
 
-static void	convertChar(const unsigned int i)
+static void	convertChar(unsigned int i)
 {
 	printChar(i);
 	printInt(i);
-	printFloat(static_cast<const float>(i), true);
+	printFloat(static_cast<float>(i), true);
 	printDouble(static_cast<const double>(i), true);
 }
 
-static void	convertInt(const int i)
+static void	convertInt(std::string& str)
 {
-	if (i < 0 || 127 < i) {
-		printChar(0, true);
+	try {
+		int	i = std::stoi(str);
+		if (i < 0 || 127 < i) {
+			printChar(0, true);
+		}
+		else {
+			printChar(i);
+		}
+		printInt(i);
+		printFloat(static_cast<float>(i), true);
+		printDouble(static_cast<const double>(i), true);
+		return ;
 	}
-	else {
-		printChar(i);
+	catch (std::exception& e) {
+			printChar(0, true);
+			printInt(0, true);
 	}
-	printInt(i);
-	printFloat(static_cast<const float>(i), true);
-	printDouble(static_cast<const double>(i), true);
+
+	try {
+		float	f = std::stof(str);
+		printFloat(f, true);
+	}
+	catch (std::exception& e) {
+		printFloat(0, true, true);
+	}
+
+	try {
+		double	d = std::stod(str);
+		printDouble(d, true);
+	}
+	catch (std::exception& e) {
+		printDouble(0, true, true);
+	}
 }
 
-static void	convertDouble(const double d)
+static void	convertFloat(std::string& str)
 {
-	if (d < 0 || 127 < d) {
-		printChar(0, true);
+	try {
+		float	f = std::stof(str);
+		if (f < 0 || 127 < f) {
+			printChar(0, true);
+		}
+		else {
+			printChar(static_cast<const char>(f));
+		}
+		printInt(static_cast<const int>(f));
+		printFloat(f, false);
+		printDouble(static_cast<const double>(f));
 	}
-	else {
-		printChar(d);
+	catch (std::exception& e) {
+			printChar(0, true);
+			printInt(0, true);
+			printFloat(0, false, true);
+			printDouble(0, false, true);
 	}
-	printInt(static_cast<const int>(d));
-	printFloat(static_cast<const float>(d));
-	printDouble(d);
+}
+
+static void	convertDouble(std::string& str)
+{
+	try {
+		double	d = std::stod(str);
+		if (d < 0 || 127 < d) {
+			printChar(0, true);
+		}
+		else {
+			printChar(static_cast<const char>(d));
+		}
+		printInt(static_cast<const int>(d));
+		printFloat(static_cast<float>(d), false);
+		printDouble(d);
+	}
+	catch (std::exception& e) {
+			printChar(0, true);
+			printInt(0, true);
+			printFloat(0, false, true);
+			printDouble(0, false, true);
+	}
 }
 
 // SUBJECT FUNC
@@ -120,22 +180,15 @@ void	ScalarConverter::convert(std::string& str)
 	if (str.length() == 1 && !ftIsDigit(str[0])) {
 		convertChar(static_cast<const unsigned int>(str[0]));
 	}
-	else if (str.find('.') == std::string::npos) {
-		try {
-			int	i = std::stoi(str);
-			convertInt(i);
+	else if (str.find('.') != std::string::npos) {
+		if (str.back() == 'f') {
+			convertFloat(str);
 		}
-		catch (std::exception& e) {
-			std::cerr << RED << e.what() << END << std::endl;
+		else {
+			convertDouble(str);
 		}
 	}
 	else {
-		try {
-			double	d = std::stod(str);
-			convertDouble(d);
-		}
-		catch (std::exception& e) {
-			std::cerr << RED << e.what() << END << std::endl;
-		}
+		convertInt(str);
 	}
 }
