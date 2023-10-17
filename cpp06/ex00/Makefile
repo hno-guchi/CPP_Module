@@ -5,7 +5,7 @@
 NAME = convert
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
-OVERFLOWFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
+DEBUGFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
 SRCS = main.cpp debugMessage.cpp \
 	   ScalarConverter.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
@@ -40,13 +40,21 @@ fclean: clean
 .PHONY:re
 re: fclean all
 
+.PHONY: test
+test: fclean
+test: CXXFLAGS = $(DEBUGFLAGS) -DTEST
+test: $(OBJS_DIR)
+test: $(OBJS)
+test:
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+
 .PHONY: over_flow
 over_flow: fclean
-over_flow: CXXFLAGS = $(OVERFLOWFLAGS)
+over_flow: CXXFLAGS = $(DEBUGFLAGS)
 over_flow: $(OBJS_DIR)
 over_flow: $(OBJS)
 over_flow:
-	$(CXX) $(OVERFLOWFLAGS) -o $(NAME) $(OBJS)
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
 
 .PHONY: leaks
 leaks: CXXFLAGS += -DLEAKS
