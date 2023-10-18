@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:46:07 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/18 11:01:01 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/18 11:02:13 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	main()
 	std::cout << "        Data ptr : [" << &data << "]" << std::endl;
 	std::cout << "deserialized ptr : [" << ptr << "]" << std::endl;
 
-	// std::cout << std::endl;
+	std::cout << std::endl;
 
-	// uint = Serializer::serialize(NULL);
-	// ptr = Serializer::deserialize(uint);
-	// std::cout << GREEN << "++++++++++++++++++++++++++++++++++++++++" << END << std::endl;
-	// std::cout << "        Data ptr : [" << NULL << "]" << std::endl;
-	// std::cout << "deserialized ptr : [" << ptr << "]" << std::endl;
+	uint = Serializer::serialize(NULL);
+	ptr = Serializer::deserialize(uint);
+	std::cout << GREEN << "++++++++++++++++++++++++++++++++++++++++" << END << std::endl;
+	std::cout << "        Data ptr : [" << NULL << "]" << std::endl;
+	std::cout << "deserialized ptr : [" << ptr << "]" << std::endl;
 
 	// Compile error
 	// int	*iptr;
