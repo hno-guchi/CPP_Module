@@ -40,20 +40,12 @@ fclean: clean
 .PHONY:re
 re: fclean all
 
-.PHONY: test
-test: fclean
-test: CXXFLAGS = $(DEBUGFLAGS) -DTEST
-test: $(OBJS_DIR)
-test: $(OBJS)
-test:
-	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
-
-.PHONY: over_flow
-over_flow: fclean
-over_flow: CXXFLAGS = $(DEBUGFLAGS)
-over_flow: $(OBJS_DIR)
-over_flow: $(OBJS)
-over_flow:
+.PHONY: debug
+debug: fclean
+debug: CXXFLAGS = $(DEBUGFLAGS)
+debug: $(OBJS_DIR)
+debug: $(OBJS)
+debug:
 	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
 
 .PHONY: leaks
