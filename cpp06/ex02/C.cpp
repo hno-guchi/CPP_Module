@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/18 15:25:34 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:38:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ C::~C()
 Base*	C::generate(void)
 {
 	Base		*ptr = NULL;
-	const int	flag = (std::rand() % 3) + 1;
+	const int	flag = std::rand() % 3;
 
 	try {
 		switch (flag) {
-			case 1:
+			case 0:
 				ptr = new A();
 				break;
-			case 2:
+			case 1:
 				ptr = new B();
 				break;
-			case 3:
+			case 2:
 				ptr = new C();
 				break;
 			default:
@@ -76,5 +76,31 @@ void	C::identify(Base* p)
 
 void	C::identify(Base& p)
 {
-	(void)p;
+	try {
+		(void)dynamic_cast<A&>(p);
+		std::cout << "p: A" << std::endl;
+		return ;
+	}
+	catch (std::bad_cast& e) {
+		;
+		// std::cerr << RED << e.what() << END << std::endl;
+	}
+	try {
+		(void)dynamic_cast<B&>(p);
+		std::cout << "p: B" << std::endl;
+		return ;
+	}
+	catch (std::bad_cast& e) {
+		;
+		// std::cerr << RED << e.what() << END << std::endl;
+	}
+	try {
+		(void)dynamic_cast<C&>(p);
+		std::cout << "p: C" << std::endl;
+		return ;
+	}
+	catch (std::bad_cast& e) {
+		;
+		// std::cerr << RED << e.what() << END << std::endl;
+	}
 }
