@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/12 16:28:02 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:10:41 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	debugMessage(const std::string &prefix, tMessageType type)
 		case DEFAULT_CONSTRUCT:
 			writeMessage(DEFAULT_CONSTRUCT_MESSAGE);
 			break;
-		case HAS_ARGS_CONSTRUCT:
-			writeMessage(HAS_ARGS_CONSTRUCT_MESSAGE);
+		case HAS_ARG_CONSTRUCT:
+			writeMessage(HAS_ARG_CONSTRUCT_MESSAGE);
 			break;
 		case COPY_CONSTRUCT:
 			writeMessage(COPY_CONSTRUCT_MESSAGE);
