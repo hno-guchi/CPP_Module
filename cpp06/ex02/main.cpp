@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:17:15 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/18 15:56:00 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:08:59 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 int	main()
 {
+	std::srand(std::time(0));
 	std::cout << GREEN << "++++++++++ class A ++++++++++" << END << std::endl;
 	A	a;
 	Base *ptr = a.generate();
