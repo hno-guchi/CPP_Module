@@ -6,20 +6,60 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:13:09 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/19 10:57:32 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:00:18 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WHATEVER_HPP
 # define WHATEVER_HPP
 
-template <typename T>
-void	swap(T& a, T& b);
+#include "color.hpp"
+#include <iostream>
 
-// template <typename T>
-// T	min(T a, T b);
-// 
-// template <typename T>
-// T	max(T a, T b);
+template <typename T>
+void	swap(T& a, T& b)
+{
+	if (&a == &b) {
+		return ;
+	}
+	T	temp = a;
+	a = b;
+	b = temp;
+}
+
+template <typename T>
+T	min(T a, T b)
+{
+	return ((a < b) ? a : b);
+}
+
+template <typename T>
+T	max(T a, T b)
+{
+	return ((a <= b) ? b : a);
+}
+
+	template <typename T>
+void	executeTest(T a, T b)
+{
+	std::cout << GREEN << "+++++++++ swap() test +++++++++++" << END << std::endl;
+	std::cout << "Before : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
+	swap(a, b);
+	std::cout << "After  : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
+	std::cout << std::endl;
+
+	swap(a, b);
+	std::cout << GREEN << "+++++++++ min() test +++++++++++" << END << std::endl;
+	std::cout << " value : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
+	T resultMin = min(a, b);
+	std::cout << "result : [" << resultMin << "]" << std::endl;
+	std::cout << std::endl;
+
+	std::cout << GREEN << "+++++++++ max() test +++++++++++" << END << std::endl;
+	std::cout << " value : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
+	T resultMax = max(a, b);
+	std::cout << "result : [" << resultMax << "]" << std::endl;
+	std::cout << std::endl;
+}
 
 #endif

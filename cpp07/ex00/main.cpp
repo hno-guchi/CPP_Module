@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:29:55 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/18 17:02:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:58:46 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 #include "color.hpp"
 #include <iostream>
 
+#ifdef SWAP
+
 int	main()
 {
 	int	a = 0;
 	int	b = 100;
-	std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
+	std::cout << GREEN << "+++++++++ swap() test +++++++++++" << END << std::endl;
 	std::cout << "Before : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
 	swap(a, b);
 	std::cout << "After  : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
@@ -38,3 +40,122 @@ int	main()
 	std::cout << "After  : a = [" << a << "] " << "b = [" << a << "]" << std::endl;
 	std::cout << std::endl;
 }
+
+#elif MIN
+
+int	main()
+{
+	int	a = 0;
+	int	b = 100;
+	int	result = -1;
+	std::cout << GREEN << "+++++++++ min() test +++++++++++" << END << std::endl;
+	std::cout << " value : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
+	result = min(a, b);
+	std::cout << "result : [" << result << "]" << std::endl;
+	std::cout << std::endl;
+
+	// std::string	aStr = "hello";
+	// std::string	bStr = "World";
+	// std::string	resultStr;
+	// std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
+	// std::cout << " value : a = [" << aStr << "] " << "b = [" << bStr << "]" << std::endl;
+	// resultStr = min(aStr, bStr);
+	// std::cout << "result : [" << resultStr << "]" << std::endl;
+	// std::cout << std::endl;
+
+	float	c = -0.4;
+	float	d = -0.3;
+	float	resultF = -1;
+	std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
+	std::cout << " value : c = [" << c << "] " << "d = [" << d << "]" << std::endl;
+	resultF = min(c, d);
+	std::cout << "result : [" << resultF << "]" << std::endl;
+	std::cout << std::endl;
+
+
+	b = 0;
+	result = -1;
+	std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
+	std::cout << "Before : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
+	std::cout << "       : a = [" << &a << "] " << "b = [" << &b << "]" << std::endl;
+	result = min(a, b);
+	std::cout << "result : [" << result << "]" << std::endl;
+	std::cout << "       : [" << &result << "]" << std::endl;
+	std::cout << std::endl;
+}
+
+#elif MAX
+
+int	main()
+{
+	int	a = 0;
+	int	b = 100;
+	int	result = -1;
+	std::cout << GREEN << "+++++++++ max() test +++++++++++" << END << std::endl;
+	std::cout << " value : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
+	result = max(a, b);
+	std::cout << "result : [" << result << "]" << std::endl;
+	std::cout << std::endl;
+
+	// std::string	aStr = "hello";
+	// std::string	bStr = "World";
+	// std::string	resultStr;
+	// std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
+	// std::cout << " value : a = [" << aStr << "] " << "b = [" << bStr << "]" << std::endl;
+	// resultStr = max(aStr, bStr);
+	// std::cout << "result : [" << resultStr << "]" << std::endl;
+	// std::cout << std::endl;
+
+	float	c = -0.4;
+	float	d = -0.3;
+	float	resultF = -1;
+	std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
+	std::cout << " value : c = [" << c << "] " << "d = [" << d << "]" << std::endl;
+	resultF = max(c, d);
+	std::cout << "result : [" << resultF << "]" << std::endl;
+	std::cout << std::endl;
+
+
+	b = 0;
+	result = -1;
+	std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
+	std::cout << "Before : a = [" << a << "] " << "b = [" << b << "]" << std::endl;
+	std::cout << "       : a = [" << &a << "] " << "b = [" << &b << "]" << std::endl;
+	result = max(a, b);
+	std::cout << "result : [" << result << "]" << std::endl;
+	std::cout << "       : [" << &result << "]" << std::endl;
+	std::cout << std::endl;
+}
+
+#else
+
+#include <string>
+
+int	main(int argc, char *argv[])
+{
+	if (argc != 4) {
+		std::cerr << "Please have 3 args. ~$ ./ex00 [Data type] [value 1] [value 2]" << std::endl;
+		return (0);
+	}
+	std::string	type = static_cast<std::string>(argv[1]);
+	std::string	value1 = static_cast<std::string>(argv[2]);
+	std::string	value2 = static_cast<std::string>(argv[3]);
+
+	if (type == "int") {
+		int	a = std::stoi(value1);
+		int	b = std::stoi(value2);
+		executeTest(a, b);
+	}
+	else if (type == "float") {
+		float	a = std::stof(value1);
+		float	b = std::stof(value2);
+		executeTest(a, b);
+	}
+	else if (type == "double") {
+		double	a = std::stod(value1);
+		double	b = std::stod(value2);
+		executeTest(a, b);
+	}
+}
+
+#endif

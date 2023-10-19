@@ -39,12 +39,28 @@ fclean: clean
 .PHONY:re
 re: fclean all
 
-.PHONY: test
-test: fclean
-test: CXXFLAGS = $(DEBUGFLAGS) -DTEST
-test: $(OBJS_DIR)
-test: $(OBJS)
-test:
+.PHONY: swap
+swap: fclean
+swap: CXXFLAGS = $(DEBUGFLAGS) -DSWAP
+swap: $(OBJS_DIR)
+swap: $(OBJS)
+swap:
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+
+.PHONY: min
+min: fclean
+min: CXXFLAGS = $(DEBUGFLAGS) -DMIN
+min: $(OBJS_DIR)
+min: $(OBJS)
+min:
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+
+.PHONY: max
+max: fclean
+max: CXXFLAGS = $(DEBUGFLAGS) -DMAX
+max: $(OBJS_DIR)
+max: $(OBJS)
+max:
 	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
 
 .PHONY: over_flow
