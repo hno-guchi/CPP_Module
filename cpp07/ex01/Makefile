@@ -2,7 +2,7 @@
 # General #
 ###########
 
-NAME = ex00
+NAME = ex01
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 DEBUGFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
@@ -38,38 +38,6 @@ fclean: clean
 
 .PHONY:re
 re: fclean all
-
-.PHONY: swap
-swap: fclean
-swap: CXXFLAGS = $(DEBUGFLAGS) -DSWAP
-swap: $(OBJS_DIR)
-swap: $(OBJS)
-swap:
-	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
-
-.PHONY: min
-min: fclean
-min: CXXFLAGS = $(DEBUGFLAGS) -DMIN
-min: $(OBJS_DIR)
-min: $(OBJS)
-min:
-	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
-
-.PHONY: max
-max: fclean
-max: CXXFLAGS = $(DEBUGFLAGS) -DMAX
-max: $(OBJS_DIR)
-max: $(OBJS)
-max:
-	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
-
-.PHONY: sub
-sub: fclean
-sub: CXXFLAGS = $(DEBUGFLAGS) -DSUB
-sub: $(OBJS_DIR)
-sub: $(OBJS)
-sub:
-	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
 
 .PHONY: debug
 debug: fclean

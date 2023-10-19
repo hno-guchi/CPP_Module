@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:29:55 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/19 15:04:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:33:32 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,6 @@ int	main()
 	std::cout << "result : [" << result << "]" << std::endl;
 	std::cout << std::endl;
 
-	// std::string	aStr = "hello";
-	// std::string	bStr = "World";
-	// std::string	resultStr;
-	// std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
-	// std::cout << " value : a = [" << aStr << "] " << "b = [" << bStr << "]" << std::endl;
-	// resultStr = min(aStr, bStr);
-	// std::cout << "result : [" << resultStr << "]" << std::endl;
-	// std::cout << std::endl;
-
 	float	c = -0.4;
 	float	d = -0.3;
 	float	resultF = -1;
@@ -71,7 +62,6 @@ int	main()
 	resultF = min(c, d);
 	std::cout << "result : [" << resultF << "]" << std::endl;
 	std::cout << std::endl;
-
 
 	b = 0;
 	result = -1;
@@ -97,15 +87,6 @@ int	main()
 	std::cout << "result : [" << result << "]" << std::endl;
 	std::cout << std::endl;
 
-	// std::string	aStr = "hello";
-	// std::string	bStr = "World";
-	// std::string	resultStr;
-	// std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
-	// std::cout << " value : a = [" << aStr << "] " << "b = [" << bStr << "]" << std::endl;
-	// resultStr = max(aStr, bStr);
-	// std::cout << "result : [" << resultStr << "]" << std::endl;
-	// std::cout << std::endl;
-
 	float	c = -0.4;
 	float	d = -0.3;
 	float	resultF = -1;
@@ -114,7 +95,6 @@ int	main()
 	resultF = max(c, d);
 	std::cout << "result : [" << resultF << "]" << std::endl;
 	std::cout << std::endl;
-
 
 	b = 0;
 	result = -1;
