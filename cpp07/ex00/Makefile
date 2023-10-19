@@ -63,6 +63,14 @@ max: $(OBJS)
 max:
 	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
 
+.PHONY: sub
+sub: fclean
+sub: CXXFLAGS = $(DEBUGFLAGS) -DSUB
+sub: $(OBJS_DIR)
+sub: $(OBJS)
+sub:
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+
 .PHONY: over_flow
 over_flow: fclean
 over_flow: CXXFLAGS = $(DEBUGFLAGS)
