@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/17 17:26:31 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/19 09:47:57 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ static void	printFloat(float f, const bool setPrecision = false, const bool impo
 
 static void	convertFloatFromDouble(const double d)
 {
-	if (d < std::numeric_limits<float>::min() || std::numeric_limits<float>::max() < d) {
+	if (d < -(std::numeric_limits<float>::max()) || std::numeric_limits<float>::max() < d) {
 		printFloat(0, true);
 	}
 	else {
