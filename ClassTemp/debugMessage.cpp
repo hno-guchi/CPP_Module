@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/18 16:10:41 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:25:19 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	debugMessage(const std::string &prefix, tMessageType type)
 	std::cout << prefix << ": " << std::flush;
 	switch (type) {
 		case DEFAULT_CONSTRUCT:
-			writeMessage(DEFAULT_CONSTRUCT_MESSAGE);
+			writeMessage("Default constructor called");
 			break;
 		case HAS_ARG_CONSTRUCT:
-			writeMessage(HAS_ARG_CONSTRUCT_MESSAGE);
+			writeMessage("Has arg constructor called");
 			break;
 		case COPY_CONSTRUCT:
-			writeMessage(COPY_CONSTRUCT_MESSAGE);
+			writeMessage("Copy constructor called");
 			break;
 		case COPY_OPERATOR:
-			writeMessage(COPY_OPERATOR_MESSAGE);
+			writeMessage("Copy assignment operator called");
 			break;
 		case DESTRUCT:
-			writeMessage(DESTRUCT_MESSAGE);
+			writeMessage("Destructor called");
 		default:
 			break;
 	}
