@@ -6,18 +6,18 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:38:49 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/19 18:02:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/20 14:43:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "iter.hpp"
 
-static void	func(int* ptr)
+static void	func(int& ptr)
 {
-	*ptr += 1;
+	ptr += 1;
 }
 
-static void	func1(int const* ptr)
+static void	func2(int const* ptr)
 {
 	std::cout << " ["<< *ptr << "] " << std::flush;
 }
@@ -39,10 +39,10 @@ int	main()
 	printIndex(sizeof(ary1) / sizeof(int));
 	PrintAryData(ary1, sizeof(ary1) / sizeof(int));
 
-	int const	ary2[10] = {0};
+	const int	ary2[10] = {0};
 	printIndex(sizeof(ary2) / sizeof(int));
 	std::cout << "value : " << std::flush;
-	iter(ary2, (sizeof(ary2) / sizeof(int)), &func1);
+	iter(ary2, (sizeof(ary2) / sizeof(int)), &func2);
 	std::cout << std::endl;
 	// PrintAryData(ary2, sizeof(ary2) / sizeof(int));
 

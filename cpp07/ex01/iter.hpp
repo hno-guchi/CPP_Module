@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:08:01 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/19 18:00:37 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/20 14:56:18 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 
 #include <iostream>
 
-template <typename T1, typename T2>
-void	iter(T1* addr, const std::size_t size, T2 (*func)(T1*))
+template <typename T>
+void	iter(T* addr, const std::size_t size, void (*func)(T&))
 {
 	if (addr == NULL || func == NULL) {
 		return ;
 	}
 	for (std::size_t i = 0; i < size; i++) {
-		(void)func(&(addr[i]));
+		func(addr[i]);
 	}
 }
 
-template <typename T1, typename T2>
-void	iter(T1 const* addr, const std::size_t size, T2 (*func)(T1 const*))
+template <typename T>
+void	iter(const T* addr, const std::size_t size, void (*func)(const T*))
 {
 	if (addr == NULL || func == NULL) {
 		return ;
