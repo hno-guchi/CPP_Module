@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:29:55 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/19 15:33:32 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/20 13:07:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ int	main()
 	swap(a, a);
 	std::cout << "After  : a = [" << a << "] " << "b = [" << a << "]" << std::endl;
 	std::cout << std::endl;
+
+	// const int	c = 0;
+	// const int	d = 0;
+	// std::cout << GREEN << "+++++++++ swap() test +++++++++++" << END << std::endl;
+	// std::cout << "Before : const c = [" << c << "] " << "const d = [" << d << "]" << std::endl;
+	// swap(c, d);
+	// std::cout << "After  : const c = [" << c << "] " << "const d = [" << d << "]" << std::endl;
+	// std::cout << std::endl;
 }
 
 #elif MIN
@@ -72,6 +80,14 @@ int	main()
 	std::cout << "result : [" << result << "]" << std::endl;
 	std::cout << "       : [" << &result << "]" << std::endl;
 	std::cout << std::endl;
+
+	const int	e = 0;
+	const int	f = 100;
+	std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
+	std::cout << "  value : const e = [" << e << "] " << "const f = [" << f << "]" << std::endl;
+	const int	result2 = min(e, f);
+	std::cout << "result2 : [" << result2 << "]" << std::endl;
+	std::cout << std::endl;
 }
 
 #elif MAX
@@ -104,6 +120,14 @@ int	main()
 	result = max(a, b);
 	std::cout << "result : [" << result << "]" << std::endl;
 	std::cout << "       : [" << &result << "]" << std::endl;
+	std::cout << std::endl;
+
+	const int	e = 0;
+	const int	f = 100;
+	std::cout << GREEN << "++++++++++++++++++++" << END << std::endl;
+	std::cout << "  value : const e = [" << e << "] " << "const f = [" << f << "]" << std::endl;
+	const int	result2 = max(e, f);
+	std::cout << "result2 : [" << result2 << "]" << std::endl;
 	std::cout << std::endl;
 }
 
