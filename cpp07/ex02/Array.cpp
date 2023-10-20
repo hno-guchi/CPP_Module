@@ -6,22 +6,68 @@
 /*   By: hnoguchi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 18:11:30 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/19 18:22:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:33:07 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Array.hpp"
 #include "debugMessage.hpp"
 
+// CONSTRUCTOR
 template <typename T>
 Array<T>::Array() :
-	capacity_(1), data_(new T[1])
+	capacity_(1)
 {
 	debugMessage("Array", DEFAULT_CONSTRUCT);
+	// try {
+	// 	this->data_ = new Array;
+	// }
+}
+
+template <typename T>
+Array<T>::Array(const unsigned int n)
+{
+	debugMessage("Array", HAS_ARG_CONSTRUCT);
+	(void)n;
+}
+
+template <typename T>
+Array<T>::Array(const Array& src)
+{
+	debugMessage("Array", COPY_CONSTRUCT);
+	(void)src;
+}
+
+// OPERATOR
+template <typename T>
+Array<T>&	Array<T>::operator=(const Array& rhs)
+{
+	debugMessage("Array", COPY_OPERATOR);
+	(void)rhs;
+}
+
+template <typename T>
+T	Array<T>::operator[](std::size_t index) const
+{
+	debugMessage("Array", GET_INDEX_OPERATOR);
+	return (this->data_[index]);
+}
+
+template <typename T>
+T&	Array<T>::operator[](std::size_t index)
+{
+	debugMessage("Array", SET_INDEX_OPERATOR);
+	return (this->data_[index]);
 }
 
 template <typename T>
 Array<T>::~Array()
 {
 	debugMessage("Array", DESTRUCT);
+}
+
+template <typename T>
+std::size_t	Array<T>::size() const
+{
+	return (this->capacity_);
 }
