@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:29:55 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/20 13:07:28 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:36:38 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int	main(void)
 int	main(int argc, char *argv[])
 {
 	if (argc != 4) {
-		std::cerr << "Please have 3 args. ~$ ./ex00 [Data type] [value 1] [value 2]" << std::endl;
+		std::cerr << "Please have 3 args. ~$ ./ex00 [Data type(int, float, double)] [value 1] [value 2]" << std::endl;
 		return (0);
 	}
 	std::string	type = static_cast<std::string>(argv[1]);

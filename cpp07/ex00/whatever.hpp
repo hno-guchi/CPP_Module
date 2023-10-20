@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:13:09 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/19 15:00:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:33:11 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ void	swap(T& a, T& b)
 }
 
 template <typename T>
-T	min(T a, T b)
+const T&	min(const T& a, const T& b)
 {
 	return ((a < b) ? a : b);
 }
 
 template <typename T>
-T	max(T a, T b)
+const T&	max(const T& a, const T& b)
 {
 	return ((a <= b) ? b : a);
 }
 
-	template <typename T>
+template <typename T>
 void	executeTest(T a, T b)
 {
 	std::cout << GREEN << "+++++++++ swap() test +++++++++++" << END << std::endl;
