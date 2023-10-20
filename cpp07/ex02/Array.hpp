@@ -6,7 +6,7 @@
 /*   By: hnoguchi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 18:05:13 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/20 17:32:40 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/20 18:41:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define ARRAY_HPP
 
 #include <iostream>
+#include <exception>
+#include "color.hpp"
 
 template <typename T>
 class Array {
@@ -23,16 +25,18 @@ private:
 public:
 	// CONSTRUCTOR
 	Array();
-	Array(const unsigned int n);
-	Array(const Array& src);
+	// Array(const unsigned int n);
+	// Array(const Array& src);
 	// DESTRUCTOR
 	~Array();
 	// OPERATOR
-	Array&	operator=(const Array<T>& rhs);
-	T	operator[](std::size_t index) const;
-	T&	operator[](std::size_t index);
+	// Array&	operator=(const Array<T>& rhs);
+	// T	operator[](std::size_t index) const;
+	// T&	operator[](std::size_t index);
 	// SUB FUNC
-	std::size_t	size() const;
+	// std::size_t	size() const;
 };
+
+#include "Array.tpp"
 
 #endif
