@@ -15,7 +15,7 @@
 // CONSTRUCTOR
 template <typename T>
 Array<T>::Array() :
-	size_(1)
+	size_(1), data_(NULL)
 {
 	debugMessage("Array", DEFAULT_CONSTRUCT);
 	try {
@@ -30,7 +30,7 @@ Array<T>::Array() :
 
 template <typename T>
 Array<T>::Array(const unsigned int n) :
-	size_(static_cast<std::size_t>(n))
+	size_(static_cast<std::size_t>(n)), data_(NULL)
 {
 	debugMessage("Array", HAS_ARG_CONSTRUCT);
 	try {
@@ -49,40 +49,45 @@ Array<T>::Array(const unsigned int n) :
 // Array<T>::Array(const Array& src)
 // {
 // 	debugMessage("Array", COPY_CONSTRUCT);
-// 	(void)src;
+// 	this->operator=(src);
 // }
 
 // OPERATOR
-// template <typename T>
-// Array<T>&	Array<T>::operator=(const Array& rhs)
-// {
-// 	debugMessage("Array", COPY_OPERATOR);
-// 	this->size_ = rhs.size();
-// 	try {
-// 		this->data_ = new T[n];
-// 		for (std::size_t i = 0; i < rhs.size(); i++) {
-// 			this->data_[i] = rhs->data_[i];
-// 		}
-// 	}
-// 	catch (std::exception& e) {
-// 		std::cerr << RED << e.what() << END << std::endl;
-// 		this->size_ = 0;
-// 	}
-// }
-// 
-// template <typename T>
-// T	Array<T>::operator[](std::size_t index) const
-// {
-// 	debugMessage("Array", GET_INDEX_OPERATOR);
-// 	return (this->data_[index]);
-// }
-// 
-// template <typename T>
-// T&	Array<T>::operator[](std::size_t index)
-// {
-// 	debugMessage("Array", SET_INDEX_OPERATOR);
-// 	return (this->data_[index]);
-// }
+template <typename T>
+Array<T>&	Array<T>::operator=(const Array& rhs)
+{
+	// debugMessage("Array", COPY_OPERATOR);
+	if (this == &rhs) {
+		return (*this);
+	}
+	try {
+		delete [] this->data_;
+		this->data_ = new T[rhs.size()];
+		for (std::size_t i = 0; i < rhs.size(); i++) {
+			this->data_[i] = rhs.data_[i];
+		}
+		this->size_ = rhs.size();
+	}
+	catch (std::exception& e) {
+		std::cerr << RED << e.what() << END << std::endl;
+		this->size_ = 0;
+	}
+	return (*this);
+}
+
+template <typename T>
+T	Array<T>::operator[](std::size_t index) const
+{
+	// debugMessage("Array", GET_INDEX_OPERATOR);
+	return (this->data_[index]);
+}
+
+template <typename T>
+T&	Array<T>::operator[](std::size_t index)
+{
+	// debugMessage("Array", SET_INDEX_OPERATOR);
+	return (this->data_[index]);
+}
 
 template <typename T>
 Array<T>::~Array()
