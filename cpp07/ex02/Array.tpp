@@ -45,12 +45,12 @@ Array<T>::Array(const unsigned int n) :
 	}
 }
 
-// template <typename T>
-// Array<T>::Array(const Array& src)
-// {
-// 	debugMessage("Array", COPY_CONSTRUCT);
-// 	this->operator=(src);
-// }
+template <typename T>
+Array<T>::Array(const Array& src)
+{
+	debugMessage("Array", COPY_CONSTRUCT);
+	this->operator=(src);
+}
 
 // OPERATOR
 template <typename T>
