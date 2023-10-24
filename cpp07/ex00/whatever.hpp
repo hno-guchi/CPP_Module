@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:13:09 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/20 16:33:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:39:05 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	swap(T& a, T& b)
 }
 
 template <typename T>
-const T&	min(const T& a, const T& b)
+const T	min(const T& a, const T& b)
 {
 	return ((a < b) ? a : b);
 }
 
 template <typename T>
-const T&	max(const T& a, const T& b)
+const T	max(const T& a, const T& b)
 {
 	return ((a <= b) ? b : a);
 }
