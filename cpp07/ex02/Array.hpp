@@ -6,7 +6,7 @@
 /*   By: hnoguchi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 18:05:13 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/24 18:43:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:14:52 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <exception>
+#include <stdexcept>
 #include "color.hpp"
 
 template <typename T>
@@ -31,12 +32,17 @@ public:
 	~Array();
 	// OPERATOR
 	Array&	operator=(const Array<T>& rhs);
-	T	operator[](std::size_t index) const;
-	T&	operator[](std::size_t index);
+	T	operator[](const unsigned int index) const;
+	T&	operator[](const unsigned int index);
 	// GETTER
 	// SETTER
 	// SUB FUNC
 	std::size_t	size() const;
+	// EXCEPTION
+	class OutOfRange : public std::out_of_range {
+	public:
+		OutOfRange(const std::string& msg = "index is out of range.");
+	};
 };
 
 #include "Array.tpp"

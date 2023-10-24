@@ -76,16 +76,22 @@ Array<T>&	Array<T>::operator=(const Array& rhs)
 }
 
 template <typename T>
-T	Array<T>::operator[](std::size_t index) const
+T	Array<T>::operator[](const unsigned int index) const
 {
 	// debugMessage("Array", GET_INDEX_OPERATOR);
+	if (this->size() <= index) {
+		throw Array::OutOfRange();
+	}
 	return (this->data_[index]);
 }
 
 template <typename T>
-T&	Array<T>::operator[](std::size_t index)
+T&	Array<T>::operator[](const unsigned int index)
 {
 	// debugMessage("Array", SET_INDEX_OPERATOR);
+	if (this->size() <= index) {
+		throw Array::OutOfRange();
+	}
 	return (this->data_[index]);
 }
 
@@ -102,3 +108,7 @@ std::size_t	Array<T>::size() const
 {
 	return (this->size_);
 }
+
+// EXCEPTION
+template <typename T>
+Array<T>::OutOfRange::OutOfRange(const std::string& msg) : std::out_of_range(msg) {}
