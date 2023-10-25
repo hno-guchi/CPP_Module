@@ -41,7 +41,6 @@ re: fclean all
 
 .PHONY: debug
 debug: fclean
-debug: CXXFLAGS = $(DEBUGFLAGS)
 debug: $(OBJS_DIR)
 debug: $(OBJS)
 debug:
@@ -50,6 +49,19 @@ debug:
 .PHONY: leaks
 leaks: CXXFLAGS += -DLEAKS
 leaks: re
+
+.PHONY: sub
+sub: fclean
+sub: CXXFLAGS += -DSUB_TEST -DLEAKS
+sub: re
+
+.PHONY: sub_leaks
+sub_leaks: fclean
+sub_leaks: CXXFLAGS += -DSUB_TEST
+sub_leaks: $(OBJS_DIR)
+sub_leaks: $(OBJS)
+sub_leaks:
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
 
 .PHONY: lldb
 lldb: CXXFLAGS += -g -O0
