@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CanonicalForm.hpp                                  :+:      :+:    :+:   */
+/*   Span.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/25 18:36:53 by hnoguchi         ###   ########.fr       */
+/*   Created: 2023/10/25 18:33:12 by hnoguchi          #+#    #+#             */
+/*   Updated: 2023/10/25 18:44:31 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _HPP
-#define _HPP
+#ifndef SPAN_HPP
+# define SPAN_HPP
 
-#include "debugMessage.hpp"
-
-class CanonicalForm {
+class Span {
 private:
-	// SUBJECT ATTRIBUTE
-
-	// MY ATTRIBUTE
+	std::string	size;
 
 public:
 	// CONSTRUCTOR
-	CanonicalForm();
-	CanonicalForm(const std::string& type);
-	CanonicalForm(const CanonicalForm& src);
+	Span();
+	Span(unsigned int size);
+	Span(const Span& src);
 	// DESTRUCTOR
-	~CanonicalForm();
-
+	~Span();
 	// OPERATOR
-	CanonicalForm&	operator=(const CanonicalForm& rhs);
-
-	// GETTER
-
-	// SETTER
-
-	// SUBJECT FUNC
-
+	Span&	operator=(const Span& rhs);
 };
 
 #endif

@@ -1,43 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CanonicalForm.hpp                                  :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/25 18:36:53 by hnoguchi         ###   ########.fr       */
+/*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
+/*   Updated: 2023/10/25 18:33:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _HPP
-#define _HPP
+#include <iostream>
+#include "Span.hpp"
 
-#include "debugMessage.hpp"
+int	main()
+{
+	Span	sp = Span(5);
 
-class CanonicalForm {
-private:
-	// SUBJECT ATTRIBUTE
+	sp.addNumber(6);
+	sp.addNumber(3);
+	sp.addNumber(17);
+	sp.addNumber(9);
+	sp.addNumber(11);
 
-	// MY ATTRIBUTE
+	std::cout << sp.shortestSpan() << std::endl;
+	std::cout << sp.longestSpan() << std::endl;
 
-public:
-	// CONSTRUCTOR
-	CanonicalForm();
-	CanonicalForm(const std::string& type);
-	CanonicalForm(const CanonicalForm& src);
-	// DESTRUCTOR
-	~CanonicalForm();
-
-	// OPERATOR
-	CanonicalForm&	operator=(const CanonicalForm& rhs);
-
-	// GETTER
-
-	// SETTER
-
-	// SUBJECT FUNC
-
-};
-
-#endif
+	return (0);
+}
