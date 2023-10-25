@@ -6,7 +6,7 @@
 /*   By: hnoguchi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:49:32 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/25 14:08:55 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:03:21 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,56 @@
 #include "Array.hpp"
 #include "color.hpp"
 
-#ifndef SUB_TEST
-
+#ifndef TEST
 int	main()
 {
-	Array<int>		i;
+	std::cout << GREEN << "========== CONSTRUCT TEST ==========" << END << std::endl;
+	Array<int>	i;
 	Array<int>	ary(100);
 	Array<int>	ary2(ary);
 
-	std::cout << "   i: ptr[" << &(i[0]) << "] | size[" << i.size() << "]" << std::endl;
-	std::cout << " ary: ptr[" << &(ary[0]) << "] | size[" << ary.size() << "]" << std::endl;
-	std::cout << "ary2: ptr[" << &(ary2[0]) << "] | size[" << ary2.size() << "]" << std::endl;
+	std::cout << "   i: ptr[" << &(i[0]) << "] | size[" << i.size() << "]   |    i[0] : [" << i[0] << "]" << std::endl;
+	std::cout << " ary: ptr[" << &(ary[0]) << "] | size[" << ary.size() << "] |  ary[0] : [" << ary[0] << "]" << std::endl;
+	std::cout << "ary2: ptr[" << &(ary2[0]) << "] | size[" << ary2.size() << "] | ary2[0] : [" << ary2[0] << "]" << std::endl;
 	i = ary;
-	std::cout << "   i: ptr[" << &(i[0]) << "] | size[" << i.size() << "]" << std::endl;
-	
-	// int num = i[-1];
-	// std::cout << num << std::endl;
-	int num = i[100];
-	std::cout << num << std::endl;
+	std::cout << "   i: ptr[" << &(i[0]) << "] | size[" << i.size() << "] |    i[0] : [" << i[0] << "]" << std::endl;
+
+	std::cout << GREEN << "========== OPEARATOR TEST ==========" << END << std::endl;
+	try {
+		int num = i[-1];
+		std::cout << num << std::endl;
+	}
+	catch (const std::exception& e) {
+		std::cerr << RED << e.what() << END << std::endl;
+	}
+	try {
+		int num = i[100];
+		std::cout << num << std::endl;
+	}
+	catch (const std::exception& e) {
+		std::cerr << RED << e.what() << END << std::endl;
+	}
+	try {
+		i[0] = 100;
+		std::cout << i[0] << std::endl;
+	}
+	catch (const std::exception& e) {
+		std::cerr << RED << e.what() << END << std::endl;
+	}
+	// COMPILE ERROR
+	// Array<float>	f1;
+	// Array<float>	f2(i);
+	// Array<float>	f3 = i;
+	// f1 = i;
 #ifdef LEAKS
 	system("leaks -q ex02");
 #endif
 	return (0);
 }
 
-#else
+#else // TEST
+
+#ifdef SUB
 
 #define MAX_VAL 750
 int main()
@@ -84,5 +109,20 @@ int main()
 #endif // LEAKS
 	return (0);
 }
+#endif // SUB
 
-#endif // SUB_TEST
+#ifdef WHILE_LEAKS
+int	main()
+{
+	Array<int>	i;
+	Array<int>	ary(100);
+
+	// while (1) {
+	for (int cnt = 0; cnt < 10; cnt++) {
+		i = ary;
+	}
+	system("leaks -q ex02");
+}
+#endif // WHILE_LEAKS
+
+#endif // TEST
