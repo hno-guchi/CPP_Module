@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 17:21:37 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:10:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ Span::Span(unsigned int cap) :
 	}
 }
 
-// Span::Span(const Span& src)
-// {
-// 	debugMessage("Span", COPY_CONSTRUCT);
-// }
+Span::Span(const Span& src)
+{
+	debugMessage("Span", COPY_CONSTRUCT);
+	this->operator=(src);
+}
 
 // DESTRUCTOR
 Span::~Span()
@@ -56,7 +57,7 @@ Span&	Span::operator=(const Span& rhs)
 	try {
 		this->data_.reserve(rhs.getCapacity());
 		for (std::size_t i = 0; i < rhs.getSize(); i++) {
-			this->data_[i] = rhs.getData()[i];
+			this->data_.push_back(rhs.getData()[i]);
 		}
 		this->capacity_ = rhs.getCapacity();
 	}
