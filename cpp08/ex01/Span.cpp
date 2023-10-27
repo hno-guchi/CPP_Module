@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/26 14:23:35 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:44:36 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,26 @@
 #include "color.hpp"
 
 // CONSTRUCTOR
-Span::Span() :
-	capacity_(1), size_(1)
+Span::Span()
 {
 	debugMessage("Span", DEFAULT_CONSTRUCT);
-	this->data_[0] = 0;
 }
 
-Span::Span(unsigned int cap) :
-	capacity_(cap), size_(0)
+Span::Span(unsigned int cap)
 {
 	debugMessage("Span", HAS_ARG_CONSTRUCT);
-	this->data_[0] = 0;
 	try {
-		for (std::size_t i = 0; i < cap; i++) {
-			this->data_.push_back(0);
-		}
+		this->data_.reserve(cap);
 	}
 	catch (const std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;
 	}
 }
 
-Span::Span(const Span& src)
-{
-	debugMessage("Span", COPY_CONSTRUCT);
-}
+// Span::Span(const Span& src)
+// {
+// 	debugMessage("Span", COPY_CONSTRUCT);
+// }
 
 // DESTRUCTOR
 Span::~Span()
@@ -49,24 +43,35 @@ Span::~Span()
 }
 
 // OPERATOR
-Span&	Span::operator=(const Span& rhs)
+// Span&	Span::operator=(const Span& rhs)
+// {
+// 	debugMessage("Span", COPY_OPERATOR);
+// 	this->
+// }
+
+// GETTER
+std::size_t	Span::getSize() const
 {
-	debugMessage("Span", COPY_OPERATOR);
+	return (this->data_.size());
+}
+
+std::size_t	Span::getCapacity() const
+{
+	return (this->data_.capacity());
 }
 
 // SUB_FUNC
-void	Span::addNumber(int num)
-{
-	(void)num;
-}
+// void	Span::addNumber(int num)
+// {
+// 	(void)num;
+// }
 
-int		Span::shortestSpan()
-{
-	return (0);
-}
+// int		Span::shortestSpan()
+// {
+// 	return (0);
+// }
 
-int		Span::longestSpan()
-{
-	return (0);
-}
-
+// int		Span::longestSpan()
+// {
+// 	return (0);
+// }
