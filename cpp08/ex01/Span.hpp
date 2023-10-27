@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:12 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/26 11:13:07 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:44:35 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,28 @@
 # define SPAN_HPP
 
 #include <iostream>
+#include <vector>
 
 class Span {
 private:
-	std::size_t			capacity_;
-	std::size_t			size_;
 	std::vector<int>	data_;
 
 public:
 	// CONSTRUCTOR
 	Span();
 	Span(unsigned int cap);
-	Span(const Span& src);
+	// Span(const Span& src);
 	// DESTRUCTOR
 	~Span();
 	// OPERATOR
-	Span&	operator=(const Span& rhs);
+	// Span&	operator=(const Span& rhs);
+	// GETTER
+	std::size_t	getSize() const;
+	std::size_t	getCapacity() const;
 	// SUB_FUNC
-	void	addNumber(int num);
-	int		shortestSpan();
-	int		longestSpan();
+	// void	addNumber(int num);
+	// int		shortestSpan();
+	// int		longestSpan();
 };
 
 #endif
