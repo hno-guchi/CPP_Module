@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 15:44:36 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 17:21:37 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 #include "color.hpp"
 
 // CONSTRUCTOR
-Span::Span()
+Span::Span() :
+	capacity_(0)
 {
 	debugMessage("Span", DEFAULT_CONSTRUCT);
 }
 
-Span::Span(unsigned int cap)
+Span::Span(unsigned int cap) :
+	capacity_(cap)
 {
 	debugMessage("Span", HAS_ARG_CONSTRUCT);
 	try {
@@ -28,6 +30,7 @@ Span::Span(unsigned int cap)
 	}
 	catch (const std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;
+		this->capacity_ = 0;
 	}
 }
 
@@ -43,13 +46,33 @@ Span::~Span()
 }
 
 // OPERATOR
-// Span&	Span::operator=(const Span& rhs)
-// {
-// 	debugMessage("Span", COPY_OPERATOR);
-// 	this->
-// }
+Span&	Span::operator=(const Span& rhs)
+{
+	if (this == &rhs) {
+		return (*this);
+	}
+	debugMessage("Span", COPY_OPERATOR);
+	std::vector<int>().swap(this->data_);
+	try {
+		this->data_.reserve(rhs.getCapacity());
+		for (std::size_t i = 0; i < rhs.getSize(); i++) {
+			this->data_[i] = rhs.getData()[i];
+		}
+		this->capacity_ = rhs.getCapacity();
+	}
+	catch (const std::exception& e) {
+		std::cerr << RED << e.what() << END << std::endl;
+		this->capacity_ = 0;
+	}
+	return (*this);
+}
 
 // GETTER
+const std::vector<int>&	Span::getData() const
+{
+	return (this->data_);
+}
+
 std::size_t	Span::getSize() const
 {
 	return (this->data_.size());
@@ -57,14 +80,17 @@ std::size_t	Span::getSize() const
 
 std::size_t	Span::getCapacity() const
 {
-	return (this->data_.capacity());
+	return (this->capacity_);
 }
 
 // SUB_FUNC
-// void	Span::addNumber(int num)
-// {
-// 	(void)num;
-// }
+void	Span::addNumber(int num)
+{
+	if (this->getCapacity() == this->getSize()) {
+		throw Span::OverSize();
+	}
+	this->data_.push_back(num);
+}
 
 // int		Span::shortestSpan()
 // {
@@ -75,3 +101,5 @@ std::size_t	Span::getCapacity() const
 // {
 // 	return (0);
 // }
+
+Span::OverSize::OverSize(const std::string& msg) : std::overflow_error(msg) {}
