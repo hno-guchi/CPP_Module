@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 18:05:35 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:34:27 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ static void	printData(const std::string& sub, const Span& sp)
 		}
 	}
 	std::cout << std::endl;
+	std::cout << "shortestSpan(); == [" << std::flush;
+	try {
+		std::cout << sp.shortestSpan() << "]" << std::endl;
+	}
+	catch (const std::exception& e) {
+		std::cerr << RED << e.what() << END << "]" << std::endl;
+	}
+	// std::cout << sp.longestSpan() << std::endl;
 }
 
 int	main()
@@ -37,8 +45,7 @@ int	main()
 
 	Span	sp3 = Span(5);
 	try {
-		sp3.addNumber(0); sp3.addNumber(1); sp3.addNumber(2); sp3.addNumber(3); sp3.addNumber(4);
-		sp3.addNumber(0); sp3.addNumber(1); sp3.addNumber(2); sp3.addNumber(3); sp3.addNumber(4);
+		sp3.addNumber(0); sp3.addNumber(3); sp3.addNumber(7); sp3.addNumber(7); sp3.addNumber(4); sp3.addNumber(5);
 	}
 	catch (const std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;
@@ -53,8 +60,6 @@ int	main()
 	printData("sp1", sp1);
 	printData("sp4", sp4);
 
-	// std::cout << sp.shortestSpan() << std::endl;
-	// std::cout << sp.longestSpan() << std::endl;
 #ifdef LEAKS
 	system("leaks -q ex01");
 #endif

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:12 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 18:03:26 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:30:39 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,17 @@ public:
 	std::size_t	getCapacity() const;
 	// SUB_FUNC
 	void	addNumber(int num);
-	// int		shortestSpan();
-	// int		longestSpan();
+	int		shortestSpan() const;
+	// const int		longestSpan() const;
 	// EXCEPTION
 	class OverSize : public std::overflow_error {
 	public:
 		OverSize(const std::string& msg = "Over size.");
 	};
-
+	class NotExistSpan : public std::logic_error {
+	public:
+		NotExistSpan(const std::string& msg = "Not stored number, or only one.");
+	};
 };
 
 #endif

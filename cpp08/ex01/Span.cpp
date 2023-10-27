@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 18:10:29 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:35:54 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,29 @@ void	Span::addNumber(int num)
 	this->data_.push_back(num);
 }
 
-// int		Span::shortestSpan()
-// {
-// 	return (0);
-// }
+int	Span::shortestSpan() const
+{
+	int	span = 0;
+
+	if (this->getSize() == 0 || this->getSize() == 1) {
+		throw Span::NotExistSpan();
+	}
+	for (std::size_t i = 0; i < (this->getSize() - 1); i++) {
+		if ((this->data_[i] - this->data_[i + 1]) < span) {
+			span = this->data_[i] - this->data_[i + 1];
+		}
+	}
+	return (span);
+}
 
 // int		Span::longestSpan()
 // {
+// 	if (this->getSize() == 0 || this->getSize() == 1) {
+// 		throw Span::NotExistSpan();
+// 	}
 // 	return (0);
 // }
 
+// EXCEPTION
 Span::OverSize::OverSize(const std::string& msg) : std::overflow_error(msg) {}
+Span::NotExistSpan::NotExistSpan(const std::string& msg) : std::logic_error(msg) {}
