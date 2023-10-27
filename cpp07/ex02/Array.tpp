@@ -32,6 +32,9 @@ Array<T>::Array(const unsigned int n) :
 	size_(n), data_(NULL)
 {
 	debugMessage("Array", HAS_ARG_CONSTRUCT);
+	if (n == 0) {
+		throw Array::InvalidArgs();
+	}
 	try {
 		this->data_ = new T[n]();
 	}
@@ -109,3 +112,6 @@ std::size_t	Array<T>::size() const
 // EXCEPTION
 template <typename T>
 Array<T>::OutOfRange::OutOfRange(const std::string& msg) : std::out_of_range(msg) {}
+
+template <typename T>
+Array<T>::InvalidArgs::InvalidArgs(const std::string& msg) : std::invalid_argument(msg) {}

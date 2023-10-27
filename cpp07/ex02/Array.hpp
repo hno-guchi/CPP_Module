@@ -6,7 +6,7 @@
 /*   By: hnoguchi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 18:05:13 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/24 19:14:52 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:52:20 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ public:
 	class OutOfRange : public std::out_of_range {
 	public:
 		OutOfRange(const std::string& msg = "index is out of range.");
+	};
+	class InvalidArgs : public std::invalid_argument {
+	public:
+		InvalidArgs(const std::string& msg = "Invalid argument.");
 	};
 };
 
