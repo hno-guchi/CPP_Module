@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/26 11:14:39 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:23:35 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ Span::~Span()
 // OPERATOR
 Span&	Span::operator=(const Span& rhs)
 {
-	debugMessage("Span", COPY_ASSIGNMENT);
+	debugMessage("Span", COPY_OPERATOR);
 }
 
 // SUB_FUNC
