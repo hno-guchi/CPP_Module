@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:38:49 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/20 14:43:51 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:39:08 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	func(int& ptr)
 	ptr += 1;
 }
 
-static void	func2(int const* ptr)
+static void	func2(int const& ptr)
 {
-	std::cout << " ["<< *ptr << "] " << std::flush;
+	std::cout << " ["<< ptr << "] " << std::flush;
 }
 
 static void	printIndex(std::size_t size)

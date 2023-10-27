@@ -6,7 +6,7 @@
 /*   By: hnoguchi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:49:32 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/25 15:03:21 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:53:56 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,12 @@ int	main()
 {
 	std::cout << GREEN << "========== CONSTRUCT TEST ==========" << END << std::endl;
 	Array<int>	i;
-	Array<int>	ary(100);
+	// try {
+		Array<int>	ary(100);
+	// }
+	// catch (const std::exception& e) {
+	// 	std::cerr << RED << e.what() << END << std::endl;
+	// }
 	Array<int>	ary2(ary);
 
 	std::cout << "   i: ptr[" << &(i[0]) << "] | size[" << i.size() << "]   |    i[0] : [" << i[0] << "]" << std::endl;
