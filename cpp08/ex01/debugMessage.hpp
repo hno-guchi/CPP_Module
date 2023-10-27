@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Span.hpp                                           :+:      :+:    :+:   */
+/*   debugMessage.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 18:33:12 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/26 11:13:07 by hnoguchi         ###   ########.fr       */
+/*   Created: 2023/05/19 17:09:31 by hnoguchi          #+#    #+#             */
+/*   Updated: 2023/10/20 17:25:17 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPAN_HPP
-# define SPAN_HPP
+#ifndef DEBUGMESSAGE_HPP
+# define DEBUGMESSAGE_HPP
 
 #include <iostream>
 
-class Span {
-private:
-	std::size_t			capacity_;
-	std::size_t			size_;
-	std::vector<int>	data_;
+typedef enum eMessageType {
+	DEFAULT_CONSTRUCT,
+	HAS_ARG_CONSTRUCT,
+	COPY_CONSTRUCT,
+	COPY_OPERATOR,
+	DESTRUCT,
+	NOT_MESSAGE
+}	tMessageType;
 
-public:
-	// CONSTRUCTOR
-	Span();
-	Span(unsigned int cap);
-	Span(const Span& src);
-	// DESTRUCTOR
-	~Span();
-	// OPERATOR
-	Span&	operator=(const Span& rhs);
-	// SUB_FUNC
-	void	addNumber(int num);
-	int		shortestSpan();
-	int		longestSpan();
-};
+void	debugMessage(const std::string &className, tMessageType type);
 
 #endif
