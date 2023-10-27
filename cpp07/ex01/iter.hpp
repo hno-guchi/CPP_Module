@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:08:01 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/20 14:56:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:38:36 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	iter(T* addr, const std::size_t size, void (*func)(T&))
 }
 
 template <typename T>
-void	iter(const T* addr, const std::size_t size, void (*func)(const T*))
+void	iter(const T* addr, const std::size_t size, void (*func)(const T&))
 {
 	if (addr == NULL || func == NULL) {
 		return ;
 	}
 	for (std::size_t i = 0; i < size; i++) {
-		func(&(addr[i]));
+		func(addr[i]);
 	}
 }
 
