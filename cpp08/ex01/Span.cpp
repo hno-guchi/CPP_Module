@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 18:35:54 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 22:27:41 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,32 @@ void	Span::addNumber(int num)
 	this->data_.push_back(num);
 }
 
-int	Span::shortestSpan() const
+static std::size_t	size_tabs(const long num)
 {
-	int	span = 0;
+	return (num < 0 ? -(num) : num);
+}
 
+static std::size_t	calculateSpan(const long left, const long right)
+{
+	return (size_tabs(left - right));
+}
+
+std::size_t	Span::shortestSpan() const
+{
 	if (this->getSize() == 0 || this->getSize() == 1) {
 		throw Span::NotExistSpan();
 	}
-	for (std::size_t i = 0; i < (this->getSize() - 1); i++) {
-		if ((this->data_[i] - this->data_[i + 1]) < span) {
-			span = this->data_[i] - this->data_[i + 1];
+	std::size_t	span = 0;
+	std::size_t	shortest = calculateSpan(this->data_[0], this->data_[1]);
+	for (std::size_t i = 1; i < (this->getSize() - 1); i++) {
+		if ((span = calculateSpan(this->data_[i], this->data_[i + 1])) < shortest) {
+			shortest = span;
 		}
 	}
-	return (span);
+	return (shortest);
 }
 
-// int		Span::longestSpan()
+// std::size_t		Span::longestSpan()
 // {
 // 	if (this->getSize() == 0 || this->getSize() == 1) {
 // 		throw Span::NotExistSpan();
