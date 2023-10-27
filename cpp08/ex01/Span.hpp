@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:12 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 17:19:02 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:03:26 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ public:
 	// CONSTRUCTOR
 	Span();
 	Span(unsigned int cap);
-	// Span(const Span& src);
+	Span(const Span& src);
 	// DESTRUCTOR
 	~Span();
 	// OPERATOR
