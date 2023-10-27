@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 18:34:27 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 22:14:42 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ static void	printData(const std::string& sub, const Span& sp)
 int	main()
 {
 	std::cout << GREEN << "========== CONSTRUCTOR TEST ==========" << END << std::endl;
-	Span	sp1 = Span(); printData("sp1", sp1);
-
-	Span	sp2 = Span(0); printData("sp2", sp2);
-
+	Span	sp1 = Span();	printData("sp1", sp1);
+	Span	sp2 = Span(0);	printData("sp2", sp2);
 	Span	sp3 = Span(5);
 	try {
-		sp3.addNumber(0); sp3.addNumber(3); sp3.addNumber(7); sp3.addNumber(7); sp3.addNumber(4); sp3.addNumber(5);
+		sp3.addNumber(0); sp3.addNumber(INT_MIN); sp3.addNumber(INT_MAX); sp3.addNumber(INT_MIN); sp3.addNumber(4); sp3.addNumber(5);
 	}
 	catch (const std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;

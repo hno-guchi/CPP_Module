@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:12 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 18:30:39 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/27 21:25:27 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ public:
 	std::size_t	getCapacity() const;
 	// SUB_FUNC
 	void	addNumber(int num);
-	int		shortestSpan() const;
-	// const int		longestSpan() const;
+	std::size_t	shortestSpan() const;
+	// std::size_t	longestSpan() const;
 	// EXCEPTION
 	class OverSize : public std::overflow_error {
 	public:
