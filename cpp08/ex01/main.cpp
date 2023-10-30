@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 22:14:42 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:54:54 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 static void	printData(const std::string& sub, const Span& sp)
 {
 	std::cout << YELLOW << "[" << sub << "]" << END << std::endl;
-	std::cout << "capacity:[" << sp.getCapacity() << "]" << std::endl;
-	std::cout << "    size:[" << sp.getSize() << "]" << std::endl;
-	for (std::size_t i = 0; i < sp.getSize(); i++) {
-		std::cout << "[" << sp.getData()[i] << "]" << std::flush;
-		if (i != (sp.getSize() - 1)) {
+	std::cout << "cap(Span)  :[" << sp.getCapacity() << "]" << std::endl;
+	std::cout << "cap(Vector):[" << sp.getData().capacity() << "]" << std::endl;
+	std::cout << "size       :[" << sp.getSize() << "]" << std::endl;
+	for (std::vector<const int>::iterator it = sp.getData().begin(); it != sp.getData().end(); it++) {
+		std::cout << "[" << *it << "]" << std::flush;
+		if ((it + 1) != sp.getData().end()) {
 			std::cout << " -> " << std::flush;
 		}
 	}
