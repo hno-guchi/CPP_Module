@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/30 10:54:54 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:09:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	printData(const std::string& sub, const Span& sp)
 	std::cout << "cap(Span)  :[" << sp.getCapacity() << "]" << std::endl;
 	std::cout << "cap(Vector):[" << sp.getData().capacity() << "]" << std::endl;
 	std::cout << "size       :[" << sp.getSize() << "]" << std::endl;
-	for (std::vector<const int>::iterator it = sp.getData().begin(); it != sp.getData().end(); it++) {
+	for (std::vector<int>::const_iterator it = sp.getData().begin(); it != sp.getData().end(); it++) {
 		std::cout << "[" << *it << "]" << std::flush;
 		if ((it + 1) != sp.getData().end()) {
 			std::cout << " -> " << std::flush;
