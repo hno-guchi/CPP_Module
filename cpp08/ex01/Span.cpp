@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/30 10:47:29 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:09:20 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ Span&	Span::operator=(const Span& rhs)
 	std::vector<int>().swap(this->data_);
 	try {
 		this->data_.reserve(rhs.getCapacity());
-		for (std::size_t i = 0; i < rhs.getSize(); i++) {
-			this->data_.push_back(rhs.getData()[i]);
+		// for (std::size_t i = 0; i < rhs.getSize(); i++) {
+		for (std::vector<int>::const_iterator it = rhs.getData().begin(); it != rhs.getData().end(); it++) {
+			this->data_.push_back(*it);
 		}
 		this->capacity_ = rhs.getCapacity();
 	}
@@ -82,6 +83,7 @@ std::size_t	Span::getSize() const
 std::size_t	Span::getCapacity() const
 {
 	return (this->capacity_);
+	// return (this->data_.capacity());
 }
 
 // SUB_FUNC
@@ -111,7 +113,7 @@ std::size_t	Span::shortestSpan() const
 	std::size_t	span = 0;
 	std::size_t	shortest = calculateSpan(this->data_[0], this->data_[1]);
 	// for (std::size_t i = 1; i < (this->getSize() - 1); i++) {
-	for (std::vector<const int>::iterator it = this->getData().begin() + 1; (it + 1) != this->getData().end(); it++) {
+	for (std::vector<int>::const_iterator it = this->getData().begin() + 1; (it + 1) != this->getData().end(); it++) {
 	
 		// if ((span = calculateSpan(this->data_[i], this->data_[i + 1])) < shortest) {
 		if ((span = calculateSpan(*it, *(it + 1))) < shortest) {
