@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 18:26:51 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:26:14 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 # define MUTANTSTACK_HPP
 
 #include <stack>
+#include "debugMessage.hpp"
 
 template <typename T>
 class MutantStack : public std::stack<T> {
-private:
+// private:
 	// SUBJECT ATTRIBUTE
-
 	// MY ATTRIBUTE
-
 public:
 	// CONSTRUCTOR
 	// MutantStack();
@@ -29,16 +28,20 @@ public:
 	// MutantStack(const MutantStack& src);
 	// DESTRUCTOR
 	// ~MutantStack();
-
 	// OPERATOR
 	// MutantStack&	operator=(const MutantStack& rhs);
-
 	// GETTER
-
 	// SETTER
-
 	// SUBJECT FUNC
+	typedef typename std::deque<T>::iterator			iterator;
+	typedef typename std::deque<T>::const_iterator	const_iterator;
 
+	iterator		begin();
+	const_iterator	begin() const;
+	iterator		end();
+	const_iterator	end() const;
 };
+
+#include "MutantStack.tpp"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 18:25:55 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:17:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ int main()
 	//[...]
 	mstack.push(0);
 
-	// MutantStack<int>::iterator it = mstack.begin();
-	// MutantStack<int>::iterator ite = mstack.end();
+	MutantStack<int>::iterator it = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
 
+	(void)it;
+	(void)ite;
 	// ++it;
 	// --it;
 	// while (it != ite)
@@ -48,7 +50,7 @@ int main()
 	// }
 	std::stack<int> s(mstack);
 #ifdef LEAKS
-	system("leaks -q ex01");
+	system("leaks -q ex02");
 #endif
 	return (0);
 }
