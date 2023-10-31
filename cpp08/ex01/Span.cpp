@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 15:52:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:15:32 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ Span&	Span::operator=(const Span& rhs)
 }
 
 // GETTER
-// const std::vector<int>&	Span::getData() const
-// {
-// 	return (this->data_);
-// }
-
 std::size_t	Span::getSize() const
 {
 	return (this->data_.size());
@@ -145,6 +140,16 @@ std::size_t	Span::longestSpan() const
 		}
 	}
 	return (longest);
+}
+
+void	Span::fillRandomNumber()
+{
+	if (this->getCapacity() == this->getSize()) {
+		throw Span::OverSize();
+	}
+	while (this->getSize() < this->getCapacity()) {
+		this->addNumber(std::rand() % 10000);
+	}
 }
 
 // EXCEPTION
