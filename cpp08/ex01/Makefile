@@ -56,4 +56,28 @@ leaks: re
 lldb: CXXFLAGS += -g -O0
 lldb: re
 
+.PHONY: construct
+construct: fclean
+construct: CXXFLAGS = $(DEBUGFLAGS) -DTEST -DCONSTRUCT
+construct: $(OBJS_DIR)
+construct: $(OBJS)
+construct:
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+
+.PHONY: construct_leaks
+construct_leaks: CXXFLAGS += -DTEST -DCONSTRUCT -DLEAKS
+construct_leaks: re
+
+.PHONY: copy
+copy: fclean
+copy: CXXFLAGS = $(DEBUGFLAGS) -DTEST -DCOPY_ASSIGNMENT
+copy: $(OBJS_DIR)
+copy: $(OBJS)
+copy:
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+
+.PHONY: copy_leaks
+copy_leaks: CXXFLAGS += -DTEST -DCOPY_ASSIGNMENT -DLEAKS
+copy_leaks: re
+
 -include $(DEPENDS)
