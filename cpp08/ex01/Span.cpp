@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/30 11:09:20 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:13:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,9 @@ std::size_t	Span::shortestSpan() const
 	}
 	std::size_t	span = 0;
 	std::size_t	shortest = calculateSpan(this->data_[0], this->data_[1]);
-	// for (std::size_t i = 1; i < (this->getSize() - 1); i++) {
-	for (std::vector<int>::const_iterator it = this->getData().begin() + 1; (it + 1) != this->getData().end(); it++) {
+	for (std::vector<int>::const_iterator itr = this->getData().begin() + 1; (itr + 1) != this->getData().end(); itr++) {
 	
-		// if ((span = calculateSpan(this->data_[i], this->data_[i + 1])) < shortest) {
-		if ((span = calculateSpan(*it, *(it + 1))) < shortest) {
+		if ((span = calculateSpan(*itr, *(itr + 1))) < shortest) {
 			shortest = span;
 		}
 	}
