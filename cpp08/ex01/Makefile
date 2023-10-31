@@ -80,16 +80,16 @@ copy:
 copy_leaks: CXXFLAGS += -DTEST -DCOPY_ASSIGNMENT -DLEAKS
 copy_leaks: re
 
-.PHONY: addnum
-addnum: fclean
-addnum: CXXFLAGS = $(DEBUGFLAGS) -DTEST -DADDNUM
-addnum: $(OBJS_DIR)
-addnum: $(OBJS)
-addnum:
+.PHONY: subfunc
+subfunc: fclean
+subfunc: CXXFLAGS = $(DEBUGFLAGS) -DTEST -DSUB_FUNC
+subfunc: $(OBJS_DIR)
+subfunc: $(OBJS)
+subfunc:
 	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
 
-.PHONY: addnum_leaks
-addnum_leaks: CXXFLAGS += -DTEST -DADDNUM -DLEAKS
-addnum_leaks: re
+.PHONY: subfunc_leaks
+subfunc_leaks: CXXFLAGS += -DTEST -DSUB_FUNC -DLEAKS
+subfunc_leaks: re
 
 -include $(DEPENDS)

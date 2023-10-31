@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 14:34:33 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:52:14 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ std::size_t	Span::shortestSpan() const
 	}
 	std::size_t	span = 0;
 	std::size_t	shortest = calculateSpan(this->data_[0], this->data_[1]);
-	// for (std::vector<int>::const_iterator itr = this->getData().begin() + 1; (itr + 1) != this->getData().end(); itr++) {
 	for (std::vector<int>::const_iterator itr = this->getBegin() + 1; (itr + 1) != this->getEnd(); itr++) {
 	
 		if ((span = calculateSpan(*itr, *(itr + 1))) < shortest) {
@@ -132,13 +131,21 @@ std::size_t	Span::shortestSpan() const
 	return (shortest);
 }
 
-// std::size_t		Span::longestSpan()
-// {
-// 	if (this->getSize() == 0 || this->getSize() == 1) {
-// 		throw Span::NotExistSpan();
-// 	}
-// 	return (0);
-// }
+std::size_t	Span::longestSpan() const
+{
+	if (this->getSize() == 0 || this->getSize() == 1) {
+		throw Span::NotExistSpan();
+	}
+	std::size_t	span = 0;
+	std::size_t	longest = calculateSpan(this->data_[0], this->data_[1]);
+	for (std::vector<int>::const_iterator itr = this->getBegin() + 1; (itr + 1) != this->getEnd(); itr++) {
+	
+		if ((span = calculateSpan(*itr, *(itr + 1))) > longest) {
+			longest = span;
+		}
+	}
+	return (longest);
+}
 
 // EXCEPTION
 Span::OverSize::OverSize(const std::string& msg) : std::overflow_error(msg) {}
