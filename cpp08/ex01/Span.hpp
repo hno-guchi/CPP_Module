@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:12 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/27 21:25:27 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:33:47 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ public:
 	// OPERATOR
 	Span&	operator=(const Span& rhs);
 	// GETTER
-	const std::vector<int>&	getData() const;
+	// const std::vector<int>&	getData() const;
 	std::size_t	getSize() const;
 	std::size_t	getCapacity() const;
+	std::vector<int>::const_iterator	getBegin() const;
+	std::vector<int>::const_iterator	getEnd() const;
 	// SUB_FUNC
 	void	addNumber(int num);
 	std::size_t	shortestSpan() const;

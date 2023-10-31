@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 14:13:51 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:34:33 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ Span&	Span::operator=(const Span& rhs)
 	std::vector<int>().swap(this->data_);
 	try {
 		this->data_.reserve(rhs.getCapacity());
-		// for (std::size_t i = 0; i < rhs.getSize(); i++) {
-		for (std::vector<int>::const_iterator it = rhs.getData().begin(); it != rhs.getData().end(); it++) {
+		// for (std::vector<int>::const_iterator it = rhs.getData().begin(); it != rhs.getData().end(); it++) {
+		for (std::vector<int>::const_iterator it = rhs.getBegin(); it != rhs.getEnd(); it++) {
 			this->data_.push_back(*it);
 		}
 		this->capacity_ = rhs.getCapacity();
@@ -70,10 +70,10 @@ Span&	Span::operator=(const Span& rhs)
 }
 
 // GETTER
-const std::vector<int>&	Span::getData() const
-{
-	return (this->data_);
-}
+// const std::vector<int>&	Span::getData() const
+// {
+// 	return (this->data_);
+// }
 
 std::size_t	Span::getSize() const
 {
@@ -82,8 +82,18 @@ std::size_t	Span::getSize() const
 
 std::size_t	Span::getCapacity() const
 {
-	return (this->capacity_);
-	// return (this->data_.capacity());
+	// return (this->capacity_);
+	return (this->data_.capacity());
+}
+
+std::vector<int>::const_iterator	Span::getBegin() const
+{
+	return (this->data_.begin());
+}
+
+std::vector<int>::const_iterator	Span::getEnd() const
+{
+	return (this->data_.end());
 }
 
 // SUB_FUNC
@@ -112,7 +122,8 @@ std::size_t	Span::shortestSpan() const
 	}
 	std::size_t	span = 0;
 	std::size_t	shortest = calculateSpan(this->data_[0], this->data_[1]);
-	for (std::vector<int>::const_iterator itr = this->getData().begin() + 1; (itr + 1) != this->getData().end(); itr++) {
+	// for (std::vector<int>::const_iterator itr = this->getData().begin() + 1; (itr + 1) != this->getData().end(); itr++) {
+	for (std::vector<int>::const_iterator itr = this->getBegin() + 1; (itr + 1) != this->getEnd(); itr++) {
 	
 		if ((span = calculateSpan(*itr, *(itr + 1))) < shortest) {
 			shortest = span;
