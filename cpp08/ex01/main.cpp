@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 16:21:49 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:17:44 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,17 +185,46 @@ int	main()
 	}
 	printData("sp1", sp1);
 
-	Span	sp2 = Span(10000);
+	// Span	sp2 = Span(10000);
 	// printData("sp2", sp2);
+	// try {
+	// 	for (std::size_t i = 0; i < sp2.getCapacity(); i++) {
+	// 		sp2.addNumber(i);
+	// 	}
+	// }
+	// catch (const std::exception& e) {
+	// 	std::cerr << RED << e.what() << END << std::endl;
+	// }
+	// printData("sp2", sp2);
+
 	try {
-		for (std::size_t i = 0; i < sp2.getCapacity(); i++) {
-			sp2.addNumber(i);
-		}
+		sp1.fillRandomNumber();
 	}
 	catch (const std::exception& e) {
 		std::cerr << RED << e.what() << END << std::endl;
 	}
-	// printData("sp2", sp2);
+	printData("sp1", sp1);
+
+	Span	sp3 = Span(10);
+	try {
+		sp3.fillRandomNumber();
+	}
+	catch (const std::exception& e) {
+		std::cerr << RED << e.what() << END << std::endl;
+	}
+	printData("sp3", sp3);
+
+	Span	sp4 = Span(10);
+	try {
+		sp4.addNumber(0);
+		sp4.addNumber(1);
+		sp4.addNumber(2);
+		sp4.fillRandomNumber();
+	}
+	catch (const std::exception& e) {
+		std::cerr << RED << e.what() << END << std::endl;
+	}
+	printData("sp4", sp4);
 
 #ifdef LEAKS
 	system("leaks -q ex01");

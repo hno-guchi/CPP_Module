@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:12 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 15:51:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:15:58 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 class Span {
 private:
-	std::vector<int>					data_;
-	std::size_t							capacity_;
+	std::vector<int>			data_;
+	std::size_t					capacity_;
 public:
 	// CONSTRUCTOR
 	Span();
@@ -28,16 +28,17 @@ public:
 	// DESTRUCTOR
 	~Span();
 	// OPERATOR
-	Span&								operator=(const Span& rhs);
+	Span&						operator=(const Span& rhs);
 	// GETTER
-	std::size_t							getSize() const;
-	std::size_t							getCapacity() const;
+	std::size_t					getSize() const;
+	std::size_t					getCapacity() const;
 	std::vector<int>::const_iterator	getBegin() const;
 	std::vector<int>::const_iterator	getEnd() const;
 	// SUB_FUNC
-	void								addNumber(int num);
-	std::size_t							shortestSpan() const;
-	std::size_t							longestSpan() const;
+	void						addNumber(int num);
+	std::size_t					shortestSpan() const;
+	std::size_t					longestSpan() const;
+	void						fillRandomNumber();
 	// EXCEPTION
 	class OverSize : public std::overflow_error {
 	public:
