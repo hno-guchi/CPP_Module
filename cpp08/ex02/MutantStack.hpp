@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/01 13:40:16 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:38:37 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ public:
 	~MutantStack();
 	// OPERATOR
 	MutantStack&	operator=(const MutantStack& other);
-
 	// GETTER
 	// SETTER
+
 	// SUBJECT FUNC
-	typedef typename std::deque<T>::iterator			iterator;
-	typedef typename std::deque<T>::const_iterator	const_iterator;
+	typedef typename std::deque<T>::reverse_iterator		iterator;
+	typedef typename std::deque<T>::const_reverse_iterator	const_iterator;
 
 	iterator		begin();
 	const_iterator	begin() const;
