@@ -6,24 +6,27 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/01 18:16:45 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:21:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <list>
 #include "color.hpp"
 #include "MutantStack.hpp"
+#include <list>
 
 #ifdef MY_TEST
 
-void	printStack(const std::string& sub, const MutantStack<int>& mstack)
+template <typename CONTAINER_TYPE>
+void	printElement(const std::string& sub, const std::string& type, const CONTAINER_TYPE& container)
 {
-	std::cout << YELLOW << "----- [" << sub << "] -----" << END << std::endl;
+	typename CONTAINER_TYPE::const_iterator eitr = container.end();
 
-	for (MutantStack<int>::const_iterator itr = mstack.begin(); itr != mstack.end(); ++itr) {
+	eitr--;
+	std::cout << YELLOW << "----- [" << sub << "(" << type << ")] -----" << END << std::endl;
+	for (typename CONTAINER_TYPE::const_iterator itr = container.begin(); itr != container.end(); ++itr) {
 		std::cout << "[" << *itr << "]" << std::flush;
-		if ((itr + 1) != mstack.end()) {
+		if (itr != eitr) {
 			std::cout << " -> " << std::flush;
 		}
 	}
@@ -37,12 +40,14 @@ int main()
 	MutantStack<int>	mstack3;
 
 	mstack0.push(0); mstack0.push(1); mstack0.push(2); mstack0.push(3); mstack0.push(4);
-	printStack("mstack0", mstack0);
-	std::cout << std::endl;
-	mstack3 = mstack0;
-	printStack("mstack3", mstack3);
+	printElement("mstack0", "std::deque<int>", mstack0); std::cout << std::endl;
 
-	MutantStack<int, std::list<int> >	mstack4;
+	mstack3 = mstack0;
+	printElement("mstack3", "std::deque<int>", mstack3); std::cout << std::endl;
+
+	std::list<int>	list0;
+	list0.push_front(0); list0.push_front(1); list0.push_front(2); list0.push_front(3); list0.push_front(4);
+	printElement("list0", "std::list<int>", list0);
 #ifdef LEAKS
 	system("leaks -q ex02");
 #endif
