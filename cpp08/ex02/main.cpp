@@ -6,11 +6,12 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/01 17:26:43 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:16:45 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <list>
 #include "color.hpp"
 #include "MutantStack.hpp"
 
@@ -41,15 +42,7 @@ int main()
 	mstack3 = mstack0;
 	printStack("mstack3", mstack3);
 
-	// d.end();を超えたitrの挙動を確認。エラーなく進む。
-	// std::deque<int>		d;
-	// d.push_back(0); d.push_back(1); d.push_back(2);
-	// std::deque<int>::iterator itr = d.begin();
-	// for (int i = 0; i < 5; i++) {
-	// 	std::cout << *itr << std::flush;
-	// 	itr++;
-	// }
-
+	MutantStack<int, std::list<int> >	mstack4;
 #ifdef LEAKS
 	system("leaks -q ex02");
 #endif
