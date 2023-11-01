@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 17:15:32 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:11:24 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ Span&	Span::operator=(const Span& rhs)
 	std::vector<int>().swap(this->data_);
 	try {
 		this->data_.reserve(rhs.getCapacity());
-		// for (std::vector<int>::const_iterator it = rhs.getData().begin(); it != rhs.getData().end(); it++) {
 		for (std::vector<int>::const_iterator it = rhs.getBegin(); it != rhs.getEnd(); it++) {
 			this->data_.push_back(*it);
 		}
@@ -81,9 +80,19 @@ std::size_t	Span::getCapacity() const
 	return (this->data_.capacity());
 }
 
+std::vector<int>::iterator	Span::getBegin()
+{
+	return (this->data_.begin());
+}
+
 std::vector<int>::const_iterator	Span::getBegin() const
 {
 	return (this->data_.begin());
+}
+
+std::vector<int>::iterator	Span::getEnd()
+{
+	return (this->data_.end());
 }
 
 std::vector<int>::const_iterator	Span::getEnd() const
