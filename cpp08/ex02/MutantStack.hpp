@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/01 16:38:37 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:20:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <stack>
 #include "debugMessage.hpp"
 
-template <typename T>
-class MutantStack : public std::stack<T> {
+template <typename TYPE = int, typename CONTAINER = std::deque<TYPE> >
+class MutantStack : public std::stack<TYPE, CONTAINER> {
 // private:
 	// SUBJECT ATTRIBUTE
 	// MY ATTRIBUTE
@@ -33,13 +33,19 @@ public:
 	// SETTER
 
 	// SUBJECT FUNC
-	typedef typename std::deque<T>::reverse_iterator		iterator;
-	typedef typename std::deque<T>::const_reverse_iterator	const_iterator;
+	typedef typename std::stack<TYPE, CONTAINER>::container_type::reverse_iterator		iterator;
+	typedef typename std::stack<TYPE, CONTAINER>::container_type::const_reverse_iterator	const_iterator;
+	iterator				begin();
+	const_iterator			begin() const;
+	iterator				end();
+	const_iterator			end() const;
 
-	iterator		begin();
-	const_iterator	begin() const;
-	iterator		end();
-	const_iterator	end() const;
+	typedef typename std::stack<TYPE, CONTAINER>::container_type::iterator				reverse_iterator;
+	typedef typename std::stack<TYPE, CONTAINER>::container_type::const_iterator			const_reverse_iterator;
+	reverse_iterator		rbegin();
+	const_reverse_iterator	rbegin() const;
+	reverse_iterator		rend();
+	const_reverse_iterator	rend() const;
 };
 
 #include "MutantStack.tpp"
