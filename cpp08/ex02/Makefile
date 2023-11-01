@@ -6,7 +6,7 @@ NAME = ex02
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 DEBUGFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
-SRCS = main.cpp
+SRCS = main.cpp debugMessage.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -54,5 +54,17 @@ leaks: re
 .PHONY: lldb
 lldb: CXXFLAGS += -g -O0
 lldb: re
+
+.PHONY: construct
+construct: fclean
+construct: CXXFLAGS = $(DEBUGFLAGS) -DTEST -DCONSTRUCT
+construct: $(OBJS_DIR)
+construct: $(OBJS)
+construct:
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+
+.PHONY: construct_leaks
+construct_leaks: CXXFLAGS += -DLEAKS -DTEST -DCONSTRUCT
+construct_leaks: re
 
 -include $(DEPENDS)

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:31:58 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 19:17:16 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:23:31 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 #include "MutantStack.hpp"
 
 #ifdef TEST
+
+#ifdef CONSTRUCT
+
+int main()
+{
+	MutantStack<int>	mstack0;
+	MutantStack<int>	mstack1(mstack0);
+	MutantStack<int>	mstack3;
+
+	mstack3 = mstack0;
+
+#ifdef LEAKS
+	system("leaks -q ex02");
+#endif
+	return (0);
+}
+
+#endif // CONSTRUCT
 
 #else // TEST
 

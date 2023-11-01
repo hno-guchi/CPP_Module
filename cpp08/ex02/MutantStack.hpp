@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/31 19:26:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:40:16 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ class MutantStack : public std::stack<T> {
 	// MY ATTRIBUTE
 public:
 	// CONSTRUCTOR
-	// MutantStack();
-	// MutantStack(const std::string& type);
-	// MutantStack(const MutantStack& src);
+	MutantStack();
+	MutantStack(const MutantStack& other);
 	// DESTRUCTOR
-	// ~MutantStack();
+	~MutantStack();
 	// OPERATOR
-	// MutantStack&	operator=(const MutantStack& rhs);
+	MutantStack&	operator=(const MutantStack& other);
+
 	// GETTER
 	// SETTER
 	// SUBJECT FUNC
