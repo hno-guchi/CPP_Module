@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:33:12 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/01 12:09:18 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:34:10 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <iostream>
 #include <vector>
+#include <numeric>
+#include <algorithm>
 
 class Span {
 private:
