@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:52:26 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/01 12:11:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:18:07 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,20 +119,24 @@ static std::size_t	calculateSpan(const long left, const long right)
 	return (size_tabs(left - right));
 }
 
+// static void	printFunc(long num)
+// {
+// 	std::cout << "[" << num << "] -> " << std::flush;
+// }
+
 std::size_t	Span::shortestSpan() const
 {
 	if (this->getSize() == 0 || this->getSize() == 1) {
 		throw Span::NotExistSpan();
 	}
-	std::size_t	span = 0;
-	std::size_t	shortest = calculateSpan(this->data_[0], this->data_[1]);
-	for (std::vector<int>::const_iterator itr = this->getBegin() + 1; (itr + 1) != this->getEnd(); itr++) {
-	
-		if ((span = calculateSpan(*itr, *(itr + 1))) < shortest) {
-			shortest = span;
-		}
-	}
-	return (shortest);
+	std::vector<long>			copyVector(this->getSize());
+	std::vector<long>			diffVector(this->getSize());
+	std::vector<std::size_t>	diffAbsVector(this->getSize() - 1);
+
+	std::copy(this->getBegin(), this->getEnd(), copyVector.begin());
+	std::adjacent_difference(copyVector.begin(), copyVector.end(), diffVector.begin());
+	std::transform(diffVector.begin() + 1, diffVector.end(), diffAbsVector.begin(), size_tabs);
+	return (*(std::min_element(diffAbsVector.begin(), diffAbsVector.end())));
 }
 
 std::size_t	Span::longestSpan() const
