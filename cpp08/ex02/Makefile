@@ -63,7 +63,7 @@ my_test: $(OBJS)
 my_test:
 	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
 
-.PHONY: construct_leaks
+.PHONY: my_test_leaks
 my_test_leaks: CXXFLAGS += -DLEAKS -DMY_TEST
 my_test_leaks: re
 
