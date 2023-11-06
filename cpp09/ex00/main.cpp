@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/02 15:08:02 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/06 10:55:25 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2) {
 		std::cerr << RED << "Error: could not open file." << END << std::endl;
 	}
+	// BitcoinExchange Class
 	std::ifstream	fd(argv[1]);
 	if (!fd.is_open()) {
 		std::cerr << RED << "Error: could not open file." << END << std::endl;
