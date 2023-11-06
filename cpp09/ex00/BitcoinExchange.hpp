@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnoguchi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hnoguchi <hnoguch@42tokyo.jp>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:51:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/02 14:56:08 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:15:05 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,27 @@
 
 #include <iostream>
 #include <fstream>
+#include "debugMessage.hpp"
+
+class BitcoinExchange {
+private:
+	std::string		fileName_;
+	std::ifstream	fd_;
+
+public:
+	// CONSTRUCTOR
+	BitcoinExchange(const std::string& name);
+	BitcoinExchange(const BitcoinExchange& src);
+	// DESTRUCTOR
+	~BitcoinExchange();
+	// OPERATOR
+	BitcoinExchange&	operator=(const BitcoinExchange& rhs);
+	// GETTER
+	const std::string&		getFileName() const;
+	const std::ifstream&	getFd() const;
+	// SETTER
+
+
+};
 
 #endif
