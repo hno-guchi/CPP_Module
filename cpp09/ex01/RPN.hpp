@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:03:14 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/08 15:58:21 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:31:35 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ public:
 	void	execute(std::string str) const;
 
 	// EXCEPTION
-	class EmptyArg : public std::invalid_argument {
+	class InvalidArg : public std::invalid_argument {
 	public:
-		EmptyArg(const std::string& msg = "Empty argument.");
+		InvalidArg(const std::string& msg = "Invalid argument.");
 	};
 };
 
