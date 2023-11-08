@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:03:14 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/08 10:23:59 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/08 14:54:40 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,29 @@
 
 #include <iostream>
 #include <deque>
+#include <stdexcept>
 
 class RPN {
 private:
-	// SUBJECT ATTRIBUTE
-
-	// MY ATTRIBUTE
+	std::deque<char>	buff;
 
 public:
 	// CONSTRUCTOR
-	// RPN();
-	RPN(const std::string& str = "");
-	RPN(const RPN& src);
-	// DESTRUCTOR
+	RPN();
+	// DESUTRUCTOR
 	~RPN();
 
-	// OPERATOR
-	RPN&	operator=(const RPN& rhs);
+	void	execute(std::string str) const;
 
-	// GETTER
-
-	// SETTER
-
-	// SUBJECT FUNC
+	// EXCEPTION
+	class EmptyArg : public std::invalid_argument {
+	public:
+		EmptyArg(const std::string& msg = "Empty argument.");
+	};
 };
 
 #endif
+
+// tokenize
+// number is less than 10.
+// operations is only +, -, /, *.

@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:12:46 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/08 10:19:12 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/08 14:56:36 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 int	main(int argc, char *argv[])
 {
 	if (argc != 2) {
-		std::cerr << RED << "Please give a single argument." << END << std::endl;
+		std::cout << RED << "Please give a single argument." << END << std::endl;
 		return (1);
 	}
 	try {
-		const RPN	rpn(static_cast<std::string>(argv[1]));
-		// rpn.excetuce();
+		const RPN	rpn;
+		rpn.execute(static_cast<std::string>(argv[1]));
 	} catch (std::exception& e) {
-		std::cerr << RED << e.what() << END << std::endl;
+		std::cout << RED << e.what() << END << std::endl;
 	}
 	return (0);
 }
