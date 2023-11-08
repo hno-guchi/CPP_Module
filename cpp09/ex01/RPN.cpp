@@ -1,47 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CanonicalForm.cpp                                  :+:      :+:    :+:   */
+/*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/08 10:26:01 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/08 10:26:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CanonicalForm.hpp"
+#include "RPN.hpp"
+#include "debugMessage.hpp"
 
 // CONSTRUCTER
-CanonicalForm::CanonicalForm()
+// RPN::RPN()
+// {
+// 	debugMessage("RPN", DEFAULT_CONSTRUCT);
+// }
+
+RPN::RPN(const std::string& str)
 {
-	debugMessage("CanonicalForm", DEFAULT_CONSTRUCT);
+	(void)str;
+	debugMessage("RPN", HAS_ARG_CONSTRUCT);
 }
 
-CanonicalForm::CanonicalForm() :
+RPN::RPN(const RPN& src)
 {
-	debugMessage("CanonicalForm", HAS_ARG_CONSTRUCT);
-}
-
-CanonicalForm::CanonicalForm(const CanonicalForm& src)
-{
-	debugMessage("CanonicalForm", COPY_CONSTRUCT);
+	debugMessage("RPN", COPY_CONSTRUCT);
 	this->operator=(src);
 }
 
 // DESTRUCTER
-CanonicalForm::~CanonicalForm()
+RPN::~RPN()
 {
-	debugMessage("CanonicalForm", DESTRUCT);
+	debugMessage("RPN", DESTRUCT);
 }
 
 // OPERATOR
-CanonicalForm&	CanonicalForm::operator=(const CanonicalForm& rhs)
+RPN&	RPN::operator=(const RPN& rhs)
 {
 	if (this == &rhs) {
 		return (*this);
 	}
-	debugMessage("CanonicalForm", COPY_OPERATOR);
+	debugMessage("RPN", COPY_OPERATOR);
 	return (*this);
 }
 
