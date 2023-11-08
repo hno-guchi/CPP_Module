@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/08 16:30:15 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:39:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ RPN::~RPN()
 void	RPN::execute(std::string str) const
 {
 	if (str.empty()) {
-		throw RPN::EmptyArg();
+		throw RPN::InvalidArg();
+		return ;
 	}
 	std::locale	l = std::locale::classic();
 	for (std::string::iterator itr = str.begin(); itr != str.end(); itr++) {
@@ -47,12 +48,22 @@ void	RPN::execute(std::string str) const
 					break ;
 				}
 			}
-			// if ()
-			std::cout << token << std::endl;
+			// validationToken(token)
+			if (token.size() != 1) {
+				throw RPN::InvalidArg();
+				// return ;
+			}
+			// if (std::isdigit(static_cast<char>(token[0]), l)) {
+			if (std::isdigit(token[0], l)) {
+				std::cout << "token: [" << token << "] | size: [" << token.size() << "] | type: [digit]" << std::endl;
+			}
+			else {
+				std::cout << "token: [" << token << "] | size: [" << token.size() << "] | type: [operator]" << std::endl;
+			}
 			itr = tokenItr;
 		}
 	}
 }
 
 // EXCEPTION
-RPN::EmptyArg::EmptyArg(const std::string& msg) : std::invalid_argument(msg) {}
+RPN::InvalidArg::InvalidArg(const std::string& msg) : std::invalid_argument(msg) {}
