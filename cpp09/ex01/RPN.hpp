@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:03:14 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/08 14:54:40 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:58:21 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 # define RPN_HPP
 
 #include <iostream>
+#include <locale>
 #include <deque>
 #include <stdexcept>
 
 class RPN {
 private:
-	std::deque<char>	buff;
+	std::deque<int>	buff;
 
 public:
 	// CONSTRUCTOR
