@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:12:46 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/08 14:56:36 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:21:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ int	main(int argc, char *argv[])
 	} catch (std::exception& e) {
 		std::cout << RED << e.what() << END << std::endl;
 	}
+#ifdef LEAKS
+	system("leaks -q RPN");
+#endif
 	return (0);
 }
