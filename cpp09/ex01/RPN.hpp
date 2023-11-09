@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:03:14 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/08 18:31:35 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:56:41 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 class RPN {
 private:
-	std::deque<int>	buff;
+	static const std::string	operations_;
 
 public:
 	// CONSTRUCTOR
@@ -38,7 +38,3 @@ public:
 };
 
 #endif
-
-// tokenize
-// number is less than 10.
-// operations is only +, -, /, *.
