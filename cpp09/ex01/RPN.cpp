@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/09 16:26:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:57:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,26 @@ static void	printBuff(const std::deque<int>& buf)
 	std:: cout << std::endl;
 }
 
+static void	subtraction(std::deque<int>& buf)
+{
+	int	a = buf.front();
+	buf.pop_front();
+	int	b = buf.front();
+	buf.pop_front();
+	int	result = a - b;
+	buf.push_front(result);
+}
+
+static void	addition(std::deque<int>& buf)
+{
+	int	a = buf.front();
+	buf.pop_front();
+	int	b = buf.front();
+	buf.pop_front();
+	int	result = a + b;
+	buf.push_front(result);
+}
+
 // SUBJECT FUNC
 void	RPN::execute(std::string str) const
 {
@@ -77,7 +97,7 @@ void	RPN::execute(std::string str) const
 			// validationToken(token)
 			if (token.size() != 1) {
 				throw RPN::InvalidArg();
-				// return ;
+				return ;
 			}
 			if (std::isdigit(static_cast<char>(token[0]), l)) {
 				switch (static_cast<char>(token[0])) {
@@ -117,12 +137,16 @@ void	RPN::execute(std::string str) const
 				}
 			}
 			else if (this->operations_.find(token) != this->operations_.npos) {
+				if (buff.size() < 2) {
+					throw RPN::InvalidArg();
+					return ; 
+				}
 				switch (static_cast<char>(token[0])) {
 					case '+':
-						std::cout << "token: [" << token << "] | size: [" << token.size() << "] | type: [operator]" << std::endl;
+						addition(buff);
 						break;
 					case '-':
-						std::cout << "token: [" << token << "] | size: [" << token.size() << "] | type: [operator]" << std::endl;
+						subtraction(buff);
 						break;
 					case '/':
 						std::cout << "token: [" << token << "] | size: [" << token.size() << "] | type: [operator]" << std::endl;
