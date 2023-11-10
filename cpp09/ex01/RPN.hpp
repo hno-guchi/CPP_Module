@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:03:14 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/09 15:56:41 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:41:25 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <locale>
 #include <deque>
+#include <algorithm>
 #include <stdexcept>
 
 class RPN {
@@ -34,6 +35,10 @@ public:
 	class InvalidArg : public std::invalid_argument {
 	public:
 		InvalidArg(const std::string& msg = "Invalid argument.");
+	};
+	class OverInt : public std::out_of_range {
+	public:
+		OverInt(const std::string& msg = "Over INT_MAX or under INT_MIN.");
 	};
 };
 
