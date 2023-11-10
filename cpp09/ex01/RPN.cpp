@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/09 16:57:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:26:41 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,26 @@ static void	printBuff(const std::deque<int>& buf)
 	std:: cout << std::endl;
 }
 
+static void	multiplication(std::deque<int>& buf)
+{
+	int	a = buf.front();
+	buf.pop_front();
+	int	b = buf.front();
+	buf.pop_front();
+	int	result = a * b;
+	buf.push_front(result);
+}
+
+static void	division(std::deque<int>& buf)
+{
+	int	a = buf.front();
+	buf.pop_front();
+	int	b = buf.front();
+	buf.pop_front();
+	int	result = a / b;
+	buf.push_front(result);
+}
+
 static void	subtraction(std::deque<int>& buf)
 {
 	int	a = buf.front();
@@ -78,14 +98,14 @@ static void	addition(std::deque<int>& buf)
 void	RPN::execute(std::string str) const
 {
 	if (str.empty()) {
-		throw RPN::InvalidArg();
-		return ;
+		throw RPN::InvalidArg("Empty argument.");
 	}
+
 	std::deque<int>	buff;
 	std::locale		l = std::locale::classic();
 	for (std::string::iterator itr = str.begin(); itr != str.end(); itr++) {
 		if (!std::isspace(*itr, l)) {
-			std::string	token; 
+			std::string				token; 
 			// getToken(*itr, token);
 			std::string::iterator	tokenItr = itr;
 			for (; !std::isspace(*tokenItr, l); tokenItr++) {
@@ -96,51 +116,16 @@ void	RPN::execute(std::string str) const
 			}
 			// validationToken(token)
 			if (token.size() != 1) {
-				throw RPN::InvalidArg();
-				return ;
+				throw RPN::InvalidArg("Only use 0 ~ 9.");
 			}
 			if (std::isdigit(static_cast<char>(token[0]), l)) {
-				switch (static_cast<char>(token[0])) {
-					case '0':
-						buff.push_front(0);
-						break;
-					case '1':
-						buff.push_front(1);
-						break;
-					case '2':
-						buff.push_front(2);
-						break;
-					case '3':
-						buff.push_front(3);
-						break;
-					case '4':
-						buff.push_front(4);
-						break;
-					case '5':
-						buff.push_front(5);
-						break;
-					case '6':
-						buff.push_front(6);
-						break;
-					case '7':
-						buff.push_front(7);
-						break;
-					case '8':
-						buff.push_front(8);
-						break;
-					case '9':
-						buff.push_front(9);
-						break;
-					default:
-						throw RPN::InvalidArg();
-						return ;
-				}
+				buff.push_front(static_cast<char>(token[0]) - '0');
 			}
 			else if (this->operations_.find(token) != this->operations_.npos) {
 				if (buff.size() < 2) {
-					throw RPN::InvalidArg();
-					return ; 
+					throw RPN::InvalidArg("Not enough numbers.");
 				}
+				// calculate(static_cast<char>(this->operations_.find(token)), buff);
 				switch (static_cast<char>(token[0])) {
 					case '+':
 						addition(buff);
@@ -149,22 +134,23 @@ void	RPN::execute(std::string str) const
 						subtraction(buff);
 						break;
 					case '/':
-						std::cout << "token: [" << token << "] | size: [" << token.size() << "] | type: [operator]" << std::endl;
+						division(buff);
 						break;
 					case '*':
-						std::cout << "token: [" << token << "] | size: [" << token.size() << "] | type: [operator]" << std::endl;
+						multiplication(buff);
 						break;
 					default:
-						throw RPN::InvalidArg();
-						return ;
+						throw RPN::InvalidArg("Wrong operation.");
 				}
 			}
 			else {
-				throw RPN::InvalidArg();
-				return ;
+				throw RPN::InvalidArg("Non digit or operations(+-*/).");
 			}
 			itr = tokenItr;
 		}
+	}
+	if (buff.size() != 1) {
+		throw RPN::InvalidArg("Wrong format.");
 	}
 	printBuff(buff);
 }
