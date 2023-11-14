@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguch@42tokyo.jp>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:51:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/06 11:15:05 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/14 16:37:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <iostream>
 #include <fstream>
+// #include <string>
+#include <map>
 #include "debugMessage.hpp"
 
 class BitcoinExchange {
@@ -34,8 +36,6 @@ public:
 	const std::string&		getFileName() const;
 	const std::ifstream&	getFd() const;
 	// SETTER
-
-
 };
 
 #endif
