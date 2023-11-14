@@ -55,4 +55,12 @@ leaks: re
 lldb: CXXFLAGS += -g -O0
 lldb: re
 
+.PHONY: test
+test: fclean
+test: CXXFLAGS = $(DEBUGFLAGS) -DTEST
+test: $(OBJS_DIR)
+test: $(OBJS)
+test:
+	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+
 -include $(DEPENDS)
