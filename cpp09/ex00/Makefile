@@ -6,7 +6,8 @@ NAME = btc
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 DEBUGFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
-SRCS = main.cpp debugMessage.cpp
+SRCS = main.cpp debugMessage.cpp \
+	   BitcoinExchange.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -62,5 +63,6 @@ test: $(OBJS_DIR)
 test: $(OBJS)
 test:
 	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+	./$(NAME)
 
 -include $(DEPENDS)
