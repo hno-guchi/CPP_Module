@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguch@42tokyo.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:51:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/15 15:21:55 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/16 10:00:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ public:
 	// SETTER
 
 	// TODO: testが終わったらstaticに変更する。
-	void	parseDate(const std::string& date);
+	void	validationDate(const std::string& date);
 	void	parseLine(const std::string& line);
 
 	// EXCEPTION
