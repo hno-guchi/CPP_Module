@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/16 13:46:03 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:29:09 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,131 +15,155 @@
 
 # ifdef TEST
 
+void	validationDateTest(const std::string& date, BitcoinExchange& btc)
+{
+	// std::cout << "date: " << line << std::endl;
+	try {
+		btc.validationDate(date);
+	} catch (const std::exception& e) {
+		std::cout << "Error: " << RED << e.what() << END << " => [" << RED << date << END << "]" << std::endl;
+	}
+}
+
+void	parseLineTest(std::string line, const std::string& delimiter, BitcoinExchange& btc)
+{
+	// std::cout << "line: " << line << std::endl;
+	// std::cout << "delimiter: " << delimiter << std::endl;
+	try {
+		btc.parseLine(line, delimiter);
+	} catch (const std::exception& e) {
+		std::cout << "Error: " << RED << e.what() << END << " => [" << RED << line << END << "]" << std::endl;
+	}
+}
+
 int	main()
 {
 	BitcoinExchange	btc;
 
 	std::cout << " [parseLine(); TEST]" << std::endl;
 	std::cout << "---------- [" << GREEN "OK" << END << "] ----------" << std::endl;
-	try { btc.parseLine("2011-01-01,0"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01,0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	parseLineTest("2011-01-01,0", ",", btc);					parseLineTest("2011-01-01 | 0", " | ", btc);
+	parseLineTest("2011-01-01,0.5", ",", btc);					parseLineTest("2011-01-01 | 0.5", " | ", btc);
 
-	try { btc.parseLine("2011-01-01,0.000000000000000000000000000000000000005");
-	} catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	parseLineTest("2011-01-01,0.000000000000000000000000000000000000005", ",", btc);
+	parseLineTest("2011-01-01 | 0.000000000000000000000000000000000000005", " | ", btc);
 
-	try { btc.parseLine("2011-01-01,999999999999999999999990.000000000000000000000000000000000000005");
-	} catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	parseLineTest("2011-01-01,999999999999999999999990.000000000000000000000000000000000000005", ",", btc);
+	parseLineTest("2011-01-01 | 999999999999999999999990.000000000000000000000000000000000000005", " | ", btc);
 
-	try { btc.parseLine("2011-01-01,999999999999999999999999999999999999999999999999999999999999999");
-	} catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	parseLineTest("2011-01-01,999999999999999999999999999999999999999999999999999999999999999", ",", btc);
+	parseLineTest("2011-01-01 | 999999999999999999999999999999999999999999999999999999999999999", " | ", btc);
+
 
 	std::cout << "\n---------- [" << RED "NG" << END << "] ----------" << std::endl;
-	try { btc.parseLine("2011-01-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01,"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01 ,"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01, "); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01 , "); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01,a"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01, 0a"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01,0.5 2011-01-01,0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01,-999999999999999999999999999999999999999999999999999999999999999");
-	} catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01 ,0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01, 0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01 , 0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("     2011-01-01,0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01     ,0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01,     0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine("2011-01-01,0.5     "); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine(""); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine(" "); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine(", 0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.parseLine(" , 0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	parseLineTest("2011-01-01", ",", btc);						parseLineTest("2011-01-01", " | ", btc);
+	parseLineTest("2011-01-01,", ",", btc);						parseLineTest("2011-01-01 | ", " | ", btc);
+	parseLineTest("2011-01-01 ,", ",", btc);					parseLineTest("2011-01-01  | ", " | ", btc);
+	parseLineTest("2011-01-01, ", ",", btc);					parseLineTest("2011-01-01 |  ", " | ", btc);
+	parseLineTest("2011-01-01 , ", ",", btc);					parseLineTest("2011-01-01  |  ", " | ", btc);
+	parseLineTest("2011-01-01,a", ",", btc);					parseLineTest("2011-01-01 | a", " | ", btc);
+	parseLineTest("2011-01-01, 0a", ",", btc);					parseLineTest("2011-01-01 |  0a", " | ", btc);
+	parseLineTest("2011-01-01,0.5 2011-01-01,0.5", ",", btc);	parseLineTest("2011-01-01 | 0.5 2011-01-01 | 0.5", " | ", btc);
+
+	parseLineTest("2011-01-01,-999999999999999999999999999999999999999999999999999999999999999", ",", btc);
+	parseLineTest("2011-01-01 | -999999999999999999999999999999999999999999999999999999999999999", " | ", btc);
+
+	parseLineTest("2011-01-01 ,0.5", ",", btc);					parseLineTest("2011-01-01  | 0.5", " | ", btc);
+	parseLineTest("2011-01-01, 0.5", ",", btc);					parseLineTest("2011-01-01 |  0.5", " | ", btc);
+	parseLineTest("2011-01-01 , 0.5", ",", btc);				parseLineTest("2011-01-01  |  0.5", " | ", btc);
+	parseLineTest("     2011-01-01,0.5", ",", btc);				parseLineTest("     2011-01-01 | 0.5", " | ", btc);
+	parseLineTest("2011-01-01     ,0.5", ",", btc);				parseLineTest("2011-01-01      | 0.5", " | ", btc);
+	parseLineTest("2011-01-01,     0.5", ",", btc);				parseLineTest("2011-01-01 |      0.5", " | ", btc);
+	parseLineTest("2011-01-01,0.5     ", ",", btc);				parseLineTest("2011-01-01 | 0.5     ", " | ", btc);
+	parseLineTest("", ",", btc);								parseLineTest("", " | ", btc);
+	parseLineTest(" ", ",", btc);								parseLineTest(" ", " | ", btc);
+	parseLineTest(", 0.5", ",", btc);							parseLineTest(" |  0.5", " | ", btc);
+	parseLineTest(" , 0.5", ",", btc);							parseLineTest("  |  0.5", " | ", btc);
 
 	std::cout << "\n\n [validationDate(); TEST]" << std::endl;
 	std::cout << "---------- [" << GREEN "OK" << END << "] ----------" << std::endl;
-	try { btc.validationDate("2011-01-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2011-01-01", btc);
+	validationDateTest("2012-2-29", btc);
 
-	try { btc.validationDate("2020-04-30"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-06-30"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-09-30"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-11-30"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2020-04-30", btc);
+	validationDateTest("2020-06-30", btc);
+	validationDateTest("2020-09-30", btc);
+	validationDateTest("2020-11-30", btc);
 
-	try { btc.validationDate("2020-01-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-03-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-05-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-07-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-08-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-10-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-12-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2020-01-31", btc);
+	validationDateTest("2020-03-31", btc);
+	validationDateTest("2020-05-31", btc);
+	validationDateTest("2020-07-31", btc);
+	validationDateTest("2020-08-31", btc);
+	validationDateTest("2020-10-31", btc);
+	validationDateTest("2020-12-31", btc);
 
-	try { btc.validationDate("2011-2-28"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2015-2-28"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2016-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2019-2-28"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2011-2-28", btc);
+	validationDateTest("2012-2-29", btc);
+	validationDateTest("2015-2-28", btc);
+	validationDateTest("2016-2-29", btc);
+	validationDateTest("2019-2-28", btc);
+	validationDateTest("2020-2-29", btc);
 
 	std::cout << "\n---------- [" << RED "NG" << END << "] ----------" << std::endl;
-	try { btc.validationDate("a-01-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2011-a-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2011-01-a"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2011*01-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2011-01*01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2011-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("-2011-01-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2011--01-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2011-01--01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("-2147483648-12-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012--2147483648-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012-12--2147483648"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("-2147483649-12-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012--2147483649-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012-12--2147483649"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2147483647-12-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012-2147483647-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012-12-2147483647"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2147483648-12-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012-2147483648-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012-12-2147483648"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("a-01-01", btc);
+	validationDateTest("2011-a-01", btc);
+	validationDateTest("2011-01-a", btc);
+	validationDateTest("2011*01-01", btc);
+	validationDateTest("2011-01*01", btc);
+	validationDateTest("2011-01", btc);
+	validationDateTest("-2011-01-01", btc);
+	validationDateTest("2011--01-01", btc);
+	validationDateTest("2011-01--01", btc);
+	validationDateTest("-2147483648-12-31", btc);
+	validationDateTest("2012--2147483648-31", btc);
+	validationDateTest("2012-12--2147483648", btc);
+	validationDateTest("-2147483649-12-31", btc);
+	validationDateTest("2012--2147483649-31", btc);
+	validationDateTest("2012-12--2147483649", btc);
+	validationDateTest("2147483647-12-31", btc);
+	validationDateTest("2012-2147483647-31", btc);
+	validationDateTest("2012-12-2147483647", btc);
+	validationDateTest("2147483648-12-31", btc);
+	validationDateTest("2012-2147483648-31", btc);
+	validationDateTest("2012-12-2147483648", btc);
 
-	try { btc.validationDate("2008-01-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2009-00-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2009-0-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2009-01-00"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2008-01-01", btc);
+	validationDateTest("2009-00-01", btc);
+	validationDateTest("2009-0-01", btc);
+	validationDateTest("2009-01-00", btc);
 
-	try { btc.validationDate("2009-13-01"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2009-13-01", btc);
 
-	try { btc.validationDate("2024-11-15"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2023-12-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2023-11-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2024-11-15", btc);
+	validationDateTest("2023-12-31", btc);
+	validationDateTest("2023-11-31", btc);
 
-	try { btc.validationDate("2020-04-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-06-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-09-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-11-31"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2020-04-31", btc);
+	validationDateTest("2020-06-31", btc);
+	validationDateTest("2020-09-31", btc);
+	validationDateTest("2020-11-31", btc);
 
-	try { btc.validationDate("2020-01-32"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-03-32"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-05-32"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-07-32"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-08-32"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-10-32"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-12-32"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2020-01-32", btc);
+	validationDateTest("2020-03-32", btc);
+	validationDateTest("2020-05-32", btc);
+	validationDateTest("2020-07-32", btc);
+	validationDateTest("2020-08-32", btc);
+	validationDateTest("2020-10-32", btc);
+	validationDateTest("2020-12-32", btc);
 
-	try { btc.validationDate("2009-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2010-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2011-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2012-2-30"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2013-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2014-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2015-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2016-2-30"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2017-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2018-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2019-2-29"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
-	try { btc.validationDate("2020-2-30"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	validationDateTest("2009-2-29", btc);
+	validationDateTest("2010-2-29", btc);
+	validationDateTest("2011-2-29", btc);
+	validationDateTest("2012-2-30", btc);
+	validationDateTest("2013-2-29", btc);
+	validationDateTest("2014-2-29", btc);
+	validationDateTest("2015-2-29", btc);
+	validationDateTest("2016-2-30", btc);
+	validationDateTest("2017-2-29", btc);
+	validationDateTest("2018-2-29", btc);
+	validationDateTest("2019-2-29", btc);
+	validationDateTest("2020-2-30", btc);
 }
 
 # else // TEST
