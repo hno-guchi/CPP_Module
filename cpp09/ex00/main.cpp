@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/16 10:23:02 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/16 11:07:23 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	main()
 	try { btc.parseLine("2011-01-01,a"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
 	try { btc.parseLine("2011-01-01, 0a"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
 	try { btc.parseLine("2011-01-01,0.5 2011-01-01,0.5"); } catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
+	try { btc.parseLine("2011-01-01,-999999999999999999999999999999999999999999999999999999999999999");
+	} catch (const std::exception& e) { std::cout << "Error: " << RED << e.what() << END << std::endl; }
 
 	std::cout << " [validationDate(); TEST]" << std::endl;
 	std::cout << "---------- [" << GREEN "OK" << END << "] ----------" << std::endl;
