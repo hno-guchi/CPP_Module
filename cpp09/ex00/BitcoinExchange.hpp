@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguch@42tokyo.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:51:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/16 17:55:56 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:38:35 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ public:
 	// const std::string&		getFileName() const;
 	// const std::ifstream&	getFd() const;
 	// SETTER
-
-	// TODO: testが終わったらstaticに変更する。
-	void	validationDate(const std::string& date);
+#ifdef TEST
 	void	parseLine(std::string line, const std::string& delimiter);
+	void	validationDate(const std::string& date);
+#endif // TEST
 
 	// EXCEPTION
 	class FatalErr : public std::logic_error {

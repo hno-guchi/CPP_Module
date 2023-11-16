@@ -65,4 +65,10 @@ test:
 	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
 	./$(NAME)
 
+.PHONY: test_leaks
+test_leaks: CXXFLAGS += -DTEST -DLEAKS
+test_leaks: re
+test_leaks:
+	./$(NAME)
+
 -include $(DEPENDS)

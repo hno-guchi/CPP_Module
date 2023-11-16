@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/16 18:29:09 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/16 20:03:28 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ int	main()
 	parseLineTest(" ", ",", btc);								parseLineTest(" ", " | ", btc);
 	parseLineTest(", 0.5", ",", btc);							parseLineTest(" |  0.5", " | ", btc);
 	parseLineTest(" , 0.5", ",", btc);							parseLineTest("  |  0.5", " | ", btc);
+	parseLineTest(",2011-01-01,0.5", ",", btc);					parseLineTest(" | 2011-01-01 | 0.5", " | ", btc);
+	parseLineTest("2011-01-01,,0.5", ",", btc);					parseLineTest("2011-01-01 |  | 0.5", " | ", btc);
+	parseLineTest("2011-01-01,0.5,", ",", btc);					parseLineTest("2011-01-01 | 0.5 | ", " | ", btc);
+	parseLineTest("2011-01-01, ,0.5", ",", btc);					parseLineTest("2011-01-01 |   | 0.5", " | ", btc);
+	parseLineTest(",", ",", btc);					parseLineTest(" | ", " | ", btc);
+	parseLineTest(",,", ",", btc);					parseLineTest(" |  | ", " | ", btc);
+	parseLineTest(",,,", ",", btc);					parseLineTest(" |  |  | ", " | ", btc);
+	// parseLineTest("2011-01-01,0.5", ",", btc);					parseLineTest("2011-01-01 | 0.5", " | ", btc);
 
 	std::cout << "\n\n [validationDate(); TEST]" << std::endl;
 	std::cout << "---------- [" << GREEN "OK" << END << "] ----------" << std::endl;
@@ -164,6 +172,9 @@ int	main()
 	validationDateTest("2018-2-29", btc);
 	validationDateTest("2019-2-29", btc);
 	validationDateTest("2020-2-30", btc);
+#ifdef LEAKS
+	system("leaks -q btc");
+#endif // LEAKS
 }
 
 # else // TEST
