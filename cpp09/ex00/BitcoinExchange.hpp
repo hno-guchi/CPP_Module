@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguch@42tokyo.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:51:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/16 10:00:22 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:57:18 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ public:
 
 	// TODO: testが終わったらstaticに変更する。
 	void	validationDate(const std::string& date);
-	void	parseLine(const std::string& line);
+	// void	parseLine(const std::string& line);
+	void	parseLine(std::string line);
 
 	// EXCEPTION
 	class FatalErr : public std::logic_error {
