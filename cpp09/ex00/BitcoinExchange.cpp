@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/15 18:31:56 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/16 10:42:04 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ BitcoinExchange::~BitcoinExchange()
 #endif // DEBUG
 }
 
-// static void	parseDate(const std::string& date)
-void	BitcoinExchange::parseDate(const std::string& date)
+// static void	validationDate(const std::string& date)
+void	BitcoinExchange::validationDate(const std::string& date)
 {
 	std::istringstream	iss(date);
 	int					year(0);
@@ -82,6 +82,7 @@ void	BitcoinExchange::parseDate(const std::string& date)
 	if (12 < month) {
 		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
 	}
+	// isOverBeginTime
 	if ((1900 + this->beginTime_->tm_year) < year) {
 		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
 	}
@@ -92,6 +93,7 @@ void	BitcoinExchange::parseDate(const std::string& date)
 		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
 	}
 
+	// isOverLastDay
 	if (month == 4 || month == 6 || month == 9 || month == 11) {
 		if (30 < day) {
 			throw BitcoinExchange::ValidErr("Bad date format. => " + date);
@@ -119,7 +121,7 @@ void	BitcoinExchange::parseDate(const std::string& date)
 			}
 		}
 		else {
-			if (28 < day) {
+			if (29 < day) {
 				throw BitcoinExchange::ValidErr("Bad date format. => " + date);
 			}
 		}
@@ -145,13 +147,14 @@ void	BitcoinExchange::parseLine(const std::string& line)
 	if (!iss.eof()) {
 		throw BitcoinExchange::ValidErr("Bad format. => " + line);
 	}
-	std::map<std::string, double>	map;
+	std::map<std::string, double>	dateValueMap;
+	// std::map<std::string, std::tm>	dateTmMap;
 	// if (!validationDate(date)) {
 	// 	std::cout << RED << "Error: Bad date." << END << std::endl;
 	// 	return ;
 	// }
-	map[date] = value;
-	std::cout << date << ": [" << GREEN << map[date] << END << "]" << std::endl;
+	dateValueMap[date] = value;
+	std::cout << date << ": [" << GREEN << dateValueMap[date] << END << "]" << std::endl;
 }
 
 // EXCEPTION
