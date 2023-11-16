@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/16 11:05:19 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:27:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,33 +129,84 @@ void	BitcoinExchange::validationDate(const std::string& date)
     std::cout << "Year: " << year << ", Month: " << month << ", Day: " << day << std::endl;
 }
 
-// static void	parseLine(const std::string& line)
-void	BitcoinExchange::parseLine(const std::string& line)
+static void	getField(std::string& field, std::string& line, const char delimiter)
 {
-	std::istringstream				iss(line);
-	std::string						date;
-
-	if (!std::getline(iss, date, ',')) {
-		throw BitcoinExchange::ValidErr("Failed std::getline().");
+	if (line.empty()) {
+		return ;
 	}
 	try {
-		// validationValue(iss);
-		double	value;
-		if (!(iss >> value)) {
-			throw BitcoinExchange::ValidErr("Bad value.  => " + line);
+		size_t	pos = line.find(delimiter);
+		if (pos == line.size() - 1) {
+			throw BitcoinExchange::ValidErr("Bad line format.");
+		}
+		else if (pos == std::string::npos) {
+			field = line.substr(0);
+		}
+		else {
+			field = line.substr(0, pos);
+		}
+
+		if (field.empty()) {
+			throw BitcoinExchange::ValidErr("Empty field.");
+		}
+
+		if (delimiter == '|') {
+			if (field.back() == ' ') {
+				field.pop_back();
+			}
+			else {
+				throw BitcoinExchange::ValidErr("Bad field format.");
+			}
+		}
+
+		if (pos == std::string::npos) {
+			line = "";
+		}
+		else {
+			line = line.substr(pos + 1);
+		}
+	}
+	catch (const std::exception& e) {
+		throw ;
+	}
+}
+
+// static void	parseLine(const std::string& line)
+// void	BitcoinExchange::parseLine(std::string line, const char delimiter)
+void	BitcoinExchange::parseLine(std::string line)
+{
+	std::string	date;
+	std::string	valueStr;
+
+	try {
+		// TODO: refactoring
+		getField(date, line, ',');
+		getField(valueStr, line, ',');
+		if (date.find(' ') != std::string::npos) {
+			throw BitcoinExchange::ValidErr("Bad date format.");
+		}
+		if (valueStr.find(' ') != std::string::npos) {
+			throw BitcoinExchange::ValidErr("Bad value format.");
+		}
+		if (!line.empty()) {
+			throw BitcoinExchange::ValidErr("Bad line format.");
+		}
+		std::istringstream	iss(valueStr);
+		double	valueDouble(0.0);
+		if (!(iss >> valueDouble)) {
+			throw BitcoinExchange::ValidErr("Bad value.  => [" + line + "]");
 		}
 		if (!iss.eof()) {
-			throw BitcoinExchange::ValidErr("Bad format. => " + line);
+			throw BitcoinExchange::ValidErr("Bad format. => [" + line + "]");
 		}
-		if (value < 0) {
+		if (valueDouble < 0) {
 			throw BitcoinExchange::ValidErr("not a positive number.");
 		}
-		// if (1000 < value) {
+		// if (1000 < dValue) {
 		// 	throw BitcoinExchange::ValidErr("too large a number.");
 		// }
-		// validationDate(date);
 		std::map<std::string, double>	dateValueMap;
-		dateValueMap[date] = value;
+		dateValueMap[date] = valueDouble;
 		std::cout << date << ": [" << GREEN << dateValueMap[date] << END << "]" << std::endl;
 		// std::map<std::string, std::tm>	dateTmMap;
 	}
