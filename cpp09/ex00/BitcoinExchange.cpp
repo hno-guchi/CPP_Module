@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/16 10:42:04 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/16 11:05:19 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,23 +138,30 @@ void	BitcoinExchange::parseLine(const std::string& line)
 	if (!std::getline(iss, date, ',')) {
 		throw BitcoinExchange::ValidErr("Failed std::getline().");
 	}
-
-	double	value;
-
-	if (!(iss >> value)) {
-		throw BitcoinExchange::ValidErr("Bad value.  => " + line);
+	try {
+		// validationValue(iss);
+		double	value;
+		if (!(iss >> value)) {
+			throw BitcoinExchange::ValidErr("Bad value.  => " + line);
+		}
+		if (!iss.eof()) {
+			throw BitcoinExchange::ValidErr("Bad format. => " + line);
+		}
+		if (value < 0) {
+			throw BitcoinExchange::ValidErr("not a positive number.");
+		}
+		// if (1000 < value) {
+		// 	throw BitcoinExchange::ValidErr("too large a number.");
+		// }
+		// validationDate(date);
+		std::map<std::string, double>	dateValueMap;
+		dateValueMap[date] = value;
+		std::cout << date << ": [" << GREEN << dateValueMap[date] << END << "]" << std::endl;
+		// std::map<std::string, std::tm>	dateTmMap;
 	}
-	if (!iss.eof()) {
-		throw BitcoinExchange::ValidErr("Bad format. => " + line);
+	catch (const std::exception& e) {
+		throw ;
 	}
-	std::map<std::string, double>	dateValueMap;
-	// std::map<std::string, std::tm>	dateTmMap;
-	// if (!validationDate(date)) {
-	// 	std::cout << RED << "Error: Bad date." << END << std::endl;
-	// 	return ;
-	// }
-	dateValueMap[date] = value;
-	std::cout << date << ": [" << GREEN << dateValueMap[date] << END << "]" << std::endl;
 }
 
 // EXCEPTION
