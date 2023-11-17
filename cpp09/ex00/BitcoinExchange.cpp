@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/17 15:05:03 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:14:08 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static std::tm*	getTime()
 
 // CONSTRUCTOR
 BitcoinExchange::BitcoinExchange(const std::string& fileName) :
-	fileName_(fileName)
+	fileName_(fileName), countField_(2), isHeader_(true)
 {
 #ifdef DEBUG
 	debugMessage("BitcoinExchange", HAS_ARG_CONSTRUCT);

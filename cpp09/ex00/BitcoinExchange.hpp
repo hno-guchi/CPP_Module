@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguch@42tokyo.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:51:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/17 14:02:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:14:29 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ private:
 	// std::ifstream					fd_;
 	std::string							fileName_;
 	std::tm*							beginTime_;
+	const size_t						countField_;
+	const bool							isHeader_;
 	// std::map<size_t, std::string>	delimiterList_;
 	std::map<size_t, std::string>	csvHeader_;
 	// std::map<std::string, double>	csvRecord_;
