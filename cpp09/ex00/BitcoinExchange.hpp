@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguch@42tokyo.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:51:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/16 18:38:35 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:02:24 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@
 
 class BitcoinExchange {
 private:
+	// std::ifstream					fd_;
 	std::string							fileName_;
 	std::tm*							beginTime_;
-	// std::ifstream						fd_;
-	// std::map<std::string, std::string>	csvDate_;
+	// std::map<size_t, std::string>	delimiterList_;
+	std::map<size_t, std::string>	csvHeader_;
+	// std::map<std::string, double>	csvRecord_;
 
 public:
 	// CONSTRUCTOR
@@ -40,8 +42,11 @@ public:
 	// const std::ifstream&	getFd() const;
 	// SETTER
 #ifdef TEST
-	void	parseLine(std::string line, const std::string& delimiter);
-	void	validationDate(const std::string& date);
+	// GETTER
+	const std::map<size_t, std::string>	getCsvHeader() const;
+	void	validationDate(const std::string& date) const;
+	void	parseLine(std::string line, const std::string& delimiter) const;
+	void	setHeader(std::string line, const std::string& delimiter);
 #endif // TEST
 
 	// EXCEPTION

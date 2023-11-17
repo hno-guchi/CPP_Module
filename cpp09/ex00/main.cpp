@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/16 20:03:28 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:20:14 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,34 @@
 
 # ifdef TEST
 
-void	validationDateTest(const std::string& date, BitcoinExchange& btc)
+static void	printHeader(const std::map<size_t, std::string>& header)
+{
+	for (std::map<size_t, std::string>::const_iterator itr = header.begin(); itr != header.end(); itr++) {
+		std::cout << itr->first << "[" << GREEN << itr->second << END << "]" << std::flush;
+		if (itr != --header.end()) {
+			std::cout << "  " << std::flush;
+		}
+		else {
+			std::cout << std::endl;
+		}
+	}
+}
+
+static void	setHeaderTest(std::string line, const std::string& delimiter)
+{
+	BitcoinExchange	btc;
+	// std::cout << "line: " << line << std::endl;
+	// std::cout << "delimiter: " << delimiter << std::endl;
+	try {
+		btc.setHeader(line, delimiter);
+		printHeader(btc.getCsvHeader());
+	} catch (const std::exception& e) {
+		std::cout << "Error: " << RED << e.what() << END << " => [" << RED << line << END << "]" << std::endl;
+	}
+	// printHeader(btc.getCsvHeader());
+}
+
+static void	validationDateTest(const std::string& date, BitcoinExchange& btc)
 {
 	// std::cout << "date: " << line << std::endl;
 	try {
@@ -25,7 +52,7 @@ void	validationDateTest(const std::string& date, BitcoinExchange& btc)
 	}
 }
 
-void	parseLineTest(std::string line, const std::string& delimiter, BitcoinExchange& btc)
+static void	parseLineTest(std::string line, const std::string& delimiter, BitcoinExchange& btc)
 {
 	// std::cout << "line: " << line << std::endl;
 	// std::cout << "delimiter: " << delimiter << std::endl;
@@ -39,6 +66,56 @@ void	parseLineTest(std::string line, const std::string& delimiter, BitcoinExchan
 int	main()
 {
 	BitcoinExchange	btc;
+
+	std::cout << " [setHeader(); TEST]" << std::endl;
+	std::cout << "---------- [" << GREEN "OK" << END << "] ----------" << std::endl;
+	setHeaderTest("2011-01-01,0", ",");					setHeaderTest("2011-01-01 | 0", " | ");
+	setHeaderTest("2011-01-01,0", ",");					setHeaderTest("2011-01-01 | 0", " | ");
+	setHeaderTest("2011-01-01,0.5", ",");					setHeaderTest("2011-01-01 | 0.5", " | ");
+
+	setHeaderTest("2011-01-01,0.000000000000000000000000000000000000005", ",");
+	setHeaderTest("2011-01-01 | 0.000000000000000000000000000000000000005", " | ");
+
+	setHeaderTest("2011-01-01,999999999999999999999990.000000000000000000000000000000000000005", ",");
+	setHeaderTest("2011-01-01 | 999999999999999999999990.000000000000000000000000000000000000005", " | ");
+
+	setHeaderTest("2011-01-01,999999999999999999999999999999999999999999999999999999999999999", ",");
+	setHeaderTest("2011-01-01 | 999999999999999999999999999999999999999999999999999999999999999", " | ");
+	std::cout << std::endl;
+
+	std::cout << "---------- [" << RED "NG" << END << "] ----------" << std::endl;
+	setHeaderTest("2011-01-01", ",");						setHeaderTest("2011-01-01", " | ");
+	setHeaderTest("2011-01-01,", ",");						setHeaderTest("2011-01-01 | ", " | ");
+	setHeaderTest("2011-01-01 ,", ",");					setHeaderTest("2011-01-01  | ", " | ");
+	setHeaderTest("2011-01-01, ", ",");					setHeaderTest("2011-01-01 |  ", " | ");
+	setHeaderTest("2011-01-01 , ", ",");					setHeaderTest("2011-01-01  |  ", " | ");
+	setHeaderTest("2011-01-01,a", ",");					setHeaderTest("2011-01-01 | a", " | ");
+	setHeaderTest("2011-01-01, 0a", ",");					setHeaderTest("2011-01-01 |  0a", " | ");
+	setHeaderTest("2011-01-01,0.5 2011-01-01,0.5", ",");	setHeaderTest("2011-01-01 | 0.5 2011-01-01 | 0.5", " | ");
+
+	setHeaderTest("2011-01-01,-999999999999999999999999999999999999999999999999999999999999999", ",");
+	setHeaderTest("2011-01-01 | -999999999999999999999999999999999999999999999999999999999999999", " | ");
+
+	setHeaderTest("2011-01-01 ,0.5", ",");					setHeaderTest("2011-01-01  | 0.5", " | ");
+	setHeaderTest("2011-01-01, 0.5", ",");					setHeaderTest("2011-01-01 |  0.5", " | ");
+	setHeaderTest("2011-01-01 , 0.5", ",");				setHeaderTest("2011-01-01  |  0.5", " | ");
+	setHeaderTest("     2011-01-01,0.5", ",");				setHeaderTest("     2011-01-01 | 0.5", " | ");
+	setHeaderTest("2011-01-01     ,0.5", ",");				setHeaderTest("2011-01-01      | 0.5", " | ");
+	setHeaderTest("2011-01-01,     0.5", ",");				setHeaderTest("2011-01-01 |      0.5", " | ");
+	setHeaderTest("2011-01-01,0.5     ", ",");				setHeaderTest("2011-01-01 | 0.5     ", " | ");
+	setHeaderTest("", ",");								setHeaderTest("", " | ");
+	setHeaderTest(" ", ",");								setHeaderTest(" ", " | ");
+	setHeaderTest(", 0.5", ",");							setHeaderTest(" |  0.5", " | ");
+	setHeaderTest(" , 0.5", ",");							setHeaderTest("  |  0.5", " | ");
+	setHeaderTest(",2011-01-01,0.5", ",");					setHeaderTest(" | 2011-01-01 | 0.5", " | ");
+	setHeaderTest("2011-01-01,,0.5", ",");					setHeaderTest("2011-01-01 |  | 0.5", " | ");
+	setHeaderTest("2011-01-01,0.5,", ",");					setHeaderTest("2011-01-01 | 0.5 | ", " | ");
+	setHeaderTest("2011-01-01, ,0.5", ",");					setHeaderTest("2011-01-01 |   | 0.5", " | ");
+	setHeaderTest(",", ",");					setHeaderTest(" | ", " | ");
+	setHeaderTest(",,", ",");					setHeaderTest(" |  | ", " | ");
+	setHeaderTest(",,,", ",");					setHeaderTest(" |  |  | ", " | ");
+	// setHeaderTest("2011-01-01,0.5", ",");					setHeaderTest("2011-01-01 | 0.5", " | ");
+	std::cout << std::endl;
 
 	std::cout << " [parseLine(); TEST]" << std::endl;
 	std::cout << "---------- [" << GREEN "OK" << END << "] ----------" << std::endl;
@@ -192,15 +269,20 @@ int	main(int argc, char *argv[])
 		std::cout << "Error: " << RED << "could not open file." << END << std::endl;
 		return (1);
 	}
-	// check extend.(.txt)
 	std::string	line;
+	// set header
+	std::getline(fd, line, '\n');
+	// set record
 	while (std::getline(fd, line, '\n')) {
 		if (fd.fail()) {
 			std::cout << "Error: " << RED << "Failed getline." << END << std::endl;
+			fd.close();
 			return (1);
 		}
 		std::cout << line << std::endl;
 	}
+	fd.close();
+	// check extend.(.txt)
 	return (0);
 }
 
