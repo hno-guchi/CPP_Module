@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/17 15:14:08 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:43:45 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,72 +60,72 @@ static void	validationDate(const std::string& date)
     char				delimiter;
 
 	if (!(iss >> year)) {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 	if (!(iss >> delimiter) || delimiter != '-') {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 
 	int	month(0);
 	if (!(iss >> month)) {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 	if (!(iss >> delimiter) || delimiter != '-') {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 
 	int	day(0);
 	if (!(iss >> day)) {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 
 	if (year < 2009 || month < 1 || day < 1) {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 	if (12 < month) {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 	// isOverBeginTime
 	if ((1900 + this->beginTime_->tm_year) < year) {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 	if ((1900 + this->beginTime_->tm_year) == year && (1 + this->beginTime_->tm_mon) < month) {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 	if ((1900 + this->beginTime_->tm_year) == year && (1 + this->beginTime_->tm_mon) == month && this->beginTime_->tm_mday < day) {
-		throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+		throw BitcoinExchange::ValidErr("Bad date format.");
 	}
 
 	// isOverLastDay
 	if (month == 4 || month == 6 || month == 9 || month == 11) {
 		if (30 < day) {
-			throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+			throw BitcoinExchange::ValidErr("Bad date format.");
 		}
 	}
 	if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
 		if (31 < day) {
-			throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+			throw BitcoinExchange::ValidErr("Bad date format.");
 		}
 	}
 	if (month == 2) {
 		if (year % 4 != 0) {
 			if (28 < day) {
-				throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+				throw BitcoinExchange::ValidErr("Bad date format.");
 			}
 		}
 		else if (year % 100 != 0) {
 			if (29 < day) {
-				throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+				throw BitcoinExchange::ValidErr("Bad date format.");
 			}
 		}
 		else if (year % 400 != 0) {
 			if (28 < day) {
-				throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+				throw BitcoinExchange::ValidErr("Bad date format.");
 			}
 		}
 		else {
 			if (29 < day) {
-				throw BitcoinExchange::ValidErr("Bad date format. => " + date);
+				throw BitcoinExchange::ValidErr("Bad date format.");
 			}
 		}
 	}
