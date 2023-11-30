@@ -2,25 +2,16 @@
 #include <map>
 #include <list>
 
-static void	create(std::map<std::string, std::string> &map)
-{
-	map["name"] = "John";
-	map["age"] = "21";
-	map["city"] = "New York";
-}
-
-static void	addMap(std::list<std::map<std::string, std::string> > &list, std::map<std::string, std::string> &map)
-{
-	list.push_back(map);
-}
-
 static void	add(std::list<std::map<std::string, std::string> > &list)
 {
 	for	(int i = 0; i < 5; i++) {
 		std::map<std::string, std::string>	map;
 
-		create(map);
-		addMap(list, map);
+		map["name"] = "John";
+		map["age"] = "21";
+		map["city"] = "New York";
+
+		list.push_back(map);
 	}
 }
 
