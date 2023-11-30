@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/29 14:17:12 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:20:07 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,28 @@ Csv::Csv(const std::string& fileName, const bool isHeader) :
 #ifdef DEBUG
 	debugMessage("Csv", HAS_ARG_CONSTRUCT);
 #endif // DEBUG
+	try {
+		std::ifstream	fd(this->fileName_);
+
+		if (fd.fail() || fd.eof()) {
+			throw Csv::FatalErr("Failed std::ifstream().");
+		}
+		if (this->isHeader_) {
+			// this->setHeader(fd, ",");
+			std::string		line("");
+
+			std::getline(fd, line, '\n');
+			if (fd.fail()) {
+				throw Csv::FatalErr("Failed std::getline().");
+			}
+			this->setHeader(line, ",");
+		}
+		this->setRecord(fd, ",");
+		fd.close();
+	}
+	catch (const std::exception& e) {
+		throw ;
+	}
 }
 
 Csv::~Csv()
@@ -35,17 +57,22 @@ const std::string&	Csv::getFileName() const
 	return (this->fileName_);
 }
 
-const size_t	Csv::getCountField() const
+size_t	Csv::getCountField() const
 {
 	return (this->countField_);
 }
 
-const bool	Csv::getIsHeader() const
+bool	Csv::getIsHeader() const
 {
 	return (this->isHeader_);
 }
 
-static void	getField(std::string& field, std::string& line, const std::string& delimiter)
+const std::map<size_t, std::string>	Csv::getHeader() const
+{
+	return (this->header_);
+}
+
+void	Csv::getField(std::string& field, std::string& line, const std::string& delimiter)
 {
 	if (line.empty()) {
 		// throw Csv::ValidErr("Empty field.");
@@ -74,13 +101,13 @@ static void	getField(std::string& field, std::string& line, const std::string& d
 		// 	throw Csv::ValidErr("Bad line format.");
 		// }
 
-		if (field.empty()) {
-			throw Csv::ValidErr("Empty field.");
-		}
+		// if (field.empty()) {
+		// 	throw Csv::ValidErr("Empty field.");
+		// }
 
-		if (field.find(' ') != std::string::npos) {
-			throw Csv::ValidErr("Bad field format.");
-		}
+		// if (field.find(' ') != std::string::npos) {
+		// 	throw Csv::ValidErr("Bad field format.");
+		// }
 	}
 	catch (const std::exception& e) {
 		throw ;
@@ -89,46 +116,57 @@ static void	getField(std::string& field, std::string& line, const std::string& d
 
 void	Csv::setHeader(std::string line, const std::string& delimiter)
 {
-	size_t		i(0);
-	std::string	field("");
 	try {
+		size_t		i(0);
+		std::string	field("");
+
 		while (!line.empty()) {
 			getField(field, line, delimiter);
 			this->header_[i] = field;
 			i += 1;
-			// std::cout << field << std::endl;
 		}
+		this->countField_ = i;
 	}
 	catch (const std::exception& e) {
 		throw ;
 	}
 }
 
-void	Csv::setRecord(const std::string& fileName)
+void	Csv::setRecord(std::ifstream& fd, const std::string& delimiter)
 {
 	try {
-		std::ifstream	fd(fileName);
+		std::string	line("");
 
-		if (fd.fail() || fd.eof()) {
-			throw Csv::FatalErr("Failed std::ifstream().");
-		}
-		std::string		line("");
-		if (this->isHeader_) {
-			std::getline(fd, line, '\n');
-			if (fd.fail()) {
-				throw Csv::FatalErr("Failed std::getline().");
+		while (std::getline(fd, line, '\n')) {
+			size_t	i(0);
+			if (this->isHeader_) {
+				std::map<std::string, std::string>	record;
+				while (!line.empty()) {
+					std::string	field("");
+					getField(field, line, delimiter);
+					if (i >= this->countField_) {
+						throw Csv::ValidErr("Bad line format.");
+					}
+					record[this->header_[i]] = field;
+					i += 1;
+				}
+				this->recordKeyString_.push_back(record);
 			}
-			this->setHeader(line, ",");
+			else {
+				std::map<size_t, std::string>	record;
+				while (!line.empty()) {
+					std::string	field("");
+
+					getField(field, line, delimiter);
+					record[i] = field;
+					i += 1;
+				}
+				this->recordKeySize_t_.push_back(record);
+			}
 		}
-		if (this->header_.size() != this->countField_) {
-			throw Csv::ValidErr("Bad header format.");
+		if (!fd.eof() && fd.fail()) {
+			throw Csv::FatalErr("Failed std::getline().");
 		}
-		// while (std::getline(fd, line, '\n')) {
-		// 	std::map<size_t, std::string> fields;
-		// 	tokenize(fields, line, ",");
-		// 	parseFields(fields);
-		// 	addData(fields);
-		// }
 	}
 	catch (const std::exception& e) {
 		throw ;
@@ -139,8 +177,12 @@ void	Csv::setRecord(const std::string& fileName)
 Csv::FatalErr::FatalErr(const std::string& msg) : std::logic_error(msg) {}
 Csv::ValidErr::ValidErr(const std::string& msg) : std::logic_error(msg) {}
 
-// GETTER
-// const std::map<size_t, std::string>	Csv::getHeader() const
-// {
-// 	return (this->header_);
-// }
+void	Csv::debugPrint() const
+{
+	for (std::list<std::map<std::string, std::string> >::const_iterator itr = this->recordKeyString_.begin(); itr != this->recordKeyString_.end(); itr++) {
+		for (std::map<std::string, std::string>::const_iterator itr2 = (*itr).begin(); itr2 != (*itr).end(); itr2++) {
+			std::cout << itr2->first << ": " << itr2->second << std::endl;
+		}
+		std::cout << std::endl;
+	}
+}

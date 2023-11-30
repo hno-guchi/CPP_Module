@@ -6,14 +6,31 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/17 14:20:14 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:29:58 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "BitcoinExchange.hpp"
+// #include "BitcoinExchange.hpp"
 #include "color.hpp"
 
 # ifdef TEST
+
+#ifdef CSV
+
+#include "Csv.hpp"
+
+int	main()
+{
+	Csv	csv("data.csv", true);
+
+	csv.debugPrint();
+#ifdef LEAKS
+	system("leaks -q btc");
+#endif // LEAKS
+}
+
+#else // CSV
+
 
 static void	printHeader(const std::map<size_t, std::string>& header)
 {
@@ -254,6 +271,8 @@ int	main()
 #endif // LEAKS
 }
 
+#endif // CSV
+
 # else // TEST
 
 int	main(int argc, char *argv[])
@@ -265,21 +284,24 @@ int	main(int argc, char *argv[])
 	// BitcoinExchange Class
 	// Read csv file.
 	std::ifstream	fd(argv[1]);
-	if (!fd.is_open()) {
-		std::cout << "Error: " << RED << "could not open file." << END << std::endl;
+	if (fd.fail() || fd.eof()) {
+		std::cout << "Error: " << RED << "failed open file or eof." << END << std::endl;
 		return (1);
 	}
-	std::string	line;
+	std::string	line("");
 	// set header
-	std::getline(fd, line, '\n');
+	// std::getline(fd, line, '\n');
 	// set record
 	while (std::getline(fd, line, '\n')) {
-		if (fd.fail()) {
-			std::cout << "Error: " << RED << "Failed getline." << END << std::endl;
-			fd.close();
-			return (1);
-		}
+		// if (fd.fail()) {
+		// 	std::cout << "Error: " << RED << "Failed getline." << END << std::endl;
+		// 	fd.close();
+		// 	return (1);
+		// }
 		std::cout << line << std::endl;
+	}
+	if (fd.fail()) {
+		std::cout << "Error: " << RED << "Failed getline." << END << std::endl;
 	}
 	fd.close();
 	// check extend.(.txt)

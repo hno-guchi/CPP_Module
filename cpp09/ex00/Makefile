@@ -7,7 +7,8 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 DEBUGFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
 SRCS = main.cpp debugMessage.cpp \
-	   BitcoinExchange.cpp
+	   Csv.cpp
+# BitcoinExchange.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -69,6 +70,12 @@ test:
 test_leaks: CXXFLAGS += -DTEST -DLEAKS
 test_leaks: re
 test_leaks:
+	./$(NAME)
+
+.PHONY: csv
+csv: CXXFLAGS += -DTEST -DLEAKS -DCSV -DDEBUG
+csv: re
+csv:
 	./$(NAME)
 
 -include $(DEPENDS)
