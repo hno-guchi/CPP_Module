@@ -4,12 +4,9 @@
 
 static void	printInt(const std::string& str, const std::vector<int>& vec) {
 	std::cout << str << ": " << std::flush;
-	for (size_t i = 0; i < vec.size(); i++) {
-		if (vec[i] < 10) {
-			std::cout << " " << std::flush;
-		}
-		std::cout << vec[i] << std::flush;
-		if (i + 1 < vec.size()) {
+	for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); it++) {
+		std::cout << *it << std::flush;
+		if ((it + 1) != vec.end()) {
 			std::cout << ", " << std::flush;
 		}
 	}
@@ -35,25 +32,40 @@ static void	printPair(const std::string& str, const std::vector<std::pair<int, i
 	std::cout << std::endl;
 }
 
+int	jacobsthalNumber(int n) {
+	if (n == 0) {
+		return (0);
+	}
+	if (n == 1) {
+		return (1);
+	}
+
+	int	twoPrev = 0;
+	int	onePrev = 1;
+	int	numN = 0;
+	for (int i = 2; i <= n; i++) {
+		numN = onePrev + 2 * twoPrev;
+		twoPrev = onePrev;
+		onePrev = numN;
+	}
+	return (numN);
+}
+
 std::vector<int>	sort(std::vector<int> vec) {
-	std::vector<int>	sorted;
+	if (vec.size() == 0 || vec.size() == 1) {
+		return (vec);
+	}
 	if (vec.size() == 2) {
 		if (vec[0] > vec[1]) {
-			sorted.push_back(vec[1]);
-			sorted.push_back(vec[0]);
-		} else {
-			sorted.push_back(vec[0]);
-			sorted.push_back(vec[1]);
+			std::swap(vec[0], vec[1]);
 		}
-		return (sorted);
+		return (vec);
 	}
 	std::vector<std::pair<int, int> >	pair;
 	std::vector<int>					large;
-	std::vector<int>					small;
 	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it += 2) {
 		if ((it + 1) == vec.end()) {
 			pair.push_back(std::make_pair(-1, *it));
-			small.push_back(pair.back().second);
 			break;
 		}
 		if (*it > *(it + 1)) {
@@ -62,73 +74,96 @@ std::vector<int>	sort(std::vector<int> vec) {
 			pair.push_back(std::make_pair(*(it + 1), *it));
 		}
 		large.push_back(pair.back().first);
-		small.push_back(pair.back().second);
 	}
 	printPair("pair ", pair);
 	printInt("large", large);
-	printInt("small", small);
 	std::cout << std::endl;
 
-	sorted = sort(large);
+	std::vector<int>	sorted = sort(large);
 
 	std::cout << std::endl;
 	printInt("sorted", sorted);
-	std::vector<int>	rSmall;
+	std::vector<int>	small;
 	for (std::vector<int>::iterator it = sorted.begin(); it != sorted.end(); it++) {
 		for (std::vector<std::pair<int, int> >::iterator pIt = pair.begin(); pIt != pair.end(); pIt++) {
 			if (*it == pIt->first) {
-				rSmall.push_back(pIt->second);
+				small.push_back(pIt->second);
 				break;
 			}
 		}
 	}
 	if (pair[pair.size() - 1].first == -1) {
-		rSmall.push_back(pair[pair.size() - 1].second);
+		small.push_back(pair[pair.size() - 1].second);
 	}
-	printInt("rSmall", rSmall);
-	sorted.insert(sorted.begin(), *(rSmall.begin()));
-	// Jacobsthal number
-	for (std::vector<int>::iterator it = rSmall.end() - 1; it != rSmall.begin(); it--) {
-		// Binary search
-		for (std::vector<int>::iterator sIt = sorted.begin(); sIt != sorted.end(); sIt++) {
-			if (*sIt >= *it) {
-				sorted.insert(sIt, *it);
+	printInt("small", small);
+	sorted.insert(sorted.begin(), *(small.begin()));
+	int n = 1;
+	std::vector<int>::iterator	beginIt = small.begin() + 1;
+	while (beginIt != small.end()) {
+		// Jacobsthal number
+		std::vector<int>::iterator	endIt = beginIt;
+		for (; endIt != (small.end() - 1); endIt++) {
+			if ((endIt - beginIt) == ((jacobsthalNumber(n) * 2) - 1)) {
+				n += 1;
 				break;
 			}
 		}
+		std::vector<int>::iterator it = endIt;
+		while (1) {
+			// Binary search
+			std::vector<int>::iterator	left = sorted.begin();
+			std::vector<int>::iterator	right = sorted.end();
+			if (sorted.size() != 1 && sorted.size() != 2) {
+				std::vector<int>::iterator	middle = left + ((right - left) / 2);
+				if (*it < *middle) {
+					right = middle;
+				} else {
+					left = middle;
+				}
+			}
+			for (; left != right; left++) {
+				if (*it < *left) {
+					sorted.insert(left, *it);
+					break;
+				}
+			}
+			if (it == beginIt) {
+				break;
+			}
+			it -= 1;
+		}
+		beginIt = endIt + 1;
 	}
-	printInt("sorted", sorted);
-	std::cout << std::endl;
+	// printInt("sorted", sorted);
+	// std::cout << std::endl;
 	return (sorted);
 }
 
 int main() {
-	std::vector<int>	vec;
-	vec.push_back(3);
-	vec.push_back(17);
-	vec.push_back(8);
-	vec.push_back(14);
-	vec.push_back(4);
-	vec.push_back(11);
-	vec.push_back(15);
-	vec.push_back(1);
-	vec.push_back(16);
-	vec.push_back(5);
-	vec.push_back(18);
-	vec.push_back(20);
-	vec.push_back(12);
-	vec.push_back(9);
-	vec.push_back(10);
-	vec.push_back(2);
-	vec.push_back(6);
-	vec.push_back(19);
-	vec.push_back(7);
-	vec.push_back(13);
-	vec.push_back(0);
+	std::vector<int>	before;
+	before.push_back(17);
+	before.push_back(3);
+	before.push_back(8);
+	before.push_back(14);
+	before.push_back(4);
+	before.push_back(11);
+	before.push_back(15);
+	before.push_back(1);
+	before.push_back(16);
+	before.push_back(5);
+	before.push_back(18);
+	before.push_back(20);
+	before.push_back(12);
+	before.push_back(9);
+	before.push_back(10);
+	before.push_back(2);
+	before.push_back(6);
+	before.push_back(19);
+	before.push_back(7);
+	before.push_back(13);
+	before.push_back(0);
 
-	printInt("vec", vec);
-	std::cout << "----------------" << std::endl;
-	std::vector<int>	result = sort(vec);
-	std::cout << "----------------" << std::endl;
-	printInt("result", result);
+	std::vector<int>	after = sort(before);
+	printInt("Before", before);
+	printInt("After ", after);
 }
