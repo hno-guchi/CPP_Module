@@ -6,7 +6,7 @@ NAME = PmergeMe
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 FSANITIZEFLAGS = -g -fsanitize=address -DDEBUG
-SRCS = PmergeMe.cpp
+SRCS = main.cpp PmergeMe.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))

@@ -1,8 +1,15 @@
 #include <iostream>
 #include <utility>
 #include <vector>
+#include "./PmergeMe.hpp"
+#include "./color.hpp"
 
-static void	printInt(const std::string& str, const std::vector<int>& vec) {
+void	fatalError(const std::string& prefix, const std::string& message) {
+	std::cout << RED << prefix << ": " << message << END << std::endl;
+	exit(1);
+}
+
+void	printInt(const std::string& str, const std::vector<int>& vec) {
 	std::cout << str << ": " << std::flush;
 	for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); it++) {
 		std::cout << *it << std::flush;
@@ -32,6 +39,15 @@ static void	printPair(const std::string& str, const std::vector<std::pair<int, i
 	std::cout << std::endl;
 }
 
+void	printRange(const std::string& prefix, std::vector<int>::const_iterator begin, std::vector<int>::const_iterator end) {
+	std::cout << prefix << ": " << std::flush;
+	for (; begin != end; begin++) {
+		std::cout << *begin << ", "<< std::flush;
+	}
+	std::cout << *end << std::endl;
+	// std::cout << std::endl;
+}
+
 int	jacobsthalNumber(int n) {
 	if (n == 0) {
 		return (0);
@@ -51,7 +67,7 @@ int	jacobsthalNumber(int n) {
 	return (numN);
 }
 
-std::vector<int>	sort(std::vector<int> vec) {
+std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
 	if (vec.size() == 0 || vec.size() == 1) {
 		return (vec);
 	}
@@ -68,10 +84,10 @@ std::vector<int>	sort(std::vector<int> vec) {
 			pair.push_back(std::make_pair(-1, *it));
 			break;
 		}
-		if (*it > *(it + 1)) {
-			pair.push_back(std::make_pair(*it, *(it + 1)));
-		} else {
+		if (*it < *(it + 1)) {
 			pair.push_back(std::make_pair(*(it + 1), *it));
+		} else {
+			pair.push_back(std::make_pair(*it, *(it + 1)));
 		}
 		large.push_back(pair.back().first);
 	}
@@ -79,10 +95,11 @@ std::vector<int>	sort(std::vector<int> vec) {
 	printInt("large", large);
 	std::cout << std::endl;
 
-	std::vector<int>	sorted = sort(large);
+	std::vector<int>	sorted = mergeInsertionSort(large);
 
 	std::cout << std::endl;
 	printInt("sorted", sorted);
+	// smallの作成
 	std::vector<int>	small;
 	for (std::vector<int>::iterator it = sorted.begin(); it != sorted.end(); it++) {
 		for (std::vector<std::pair<int, int> >::iterator pIt = pair.begin(); pIt != pair.end(); pIt++) {
@@ -95,12 +112,15 @@ std::vector<int>	sort(std::vector<int> vec) {
 	if (pair[pair.size() - 1].first == -1) {
 		small.push_back(pair[pair.size() - 1].second);
 	}
-	printInt("small", small);
+	printInt("small ", small);
+	// Insert sortの開始
+	// 最初の要素を挿入
 	sorted.insert(sorted.begin(), *(small.begin()));
 	int n = 1;
 	std::vector<int>::iterator	beginIt = small.begin() + 1;
 	while (beginIt != small.end()) {
 		// Jacobsthal number
+		// 挿入要素の範囲を指定(small)
 		std::vector<int>::iterator	endIt = beginIt;
 		for (; endIt != (small.end() - 1); endIt++) {
 			if ((endIt - beginIt) == ((jacobsthalNumber(n) * 2) - 1)) {
@@ -108,22 +128,51 @@ std::vector<int>	sort(std::vector<int> vec) {
 				break;
 			}
 		}
-		std::vector<int>::iterator it = endIt;
+		std::cout << *endIt << std::endl;
+		// printRange("target", beginIt, endIt);
+		// Binary search
+		std::vector<int>::iterator	it = endIt;
 		while (1) {
-			// Binary search
-			std::vector<int>::iterator	left = sorted.begin();
-			std::vector<int>::iterator	right = sorted.end();
+			// Binary searchの範囲を指定する。
+			// left = largeの先頭要素と一致するイテレータ。
+			// right = pairから*itに対応するlargeの要素と一致するイテレータ。
+			// middle = left + ((right - left) / 2);
+			size_t	left = 0;
+			for (std::vector<int>::iterator	lIt = sorted.begin(); lIt != sorted.end(); lIt++) {
+				if (large.front() == (*lIt)) {
+					break;
+				}
+				left += 1;
+			}
+			size_t	right = sorted.size() - 1;
+			// std::vector<int>::iterator	right = sorted.end() - 1;
+			for (std::vector<std::pair<int, int> >::iterator pIt = pair.begin(); pIt != pair.end(); pIt++) {
+				if (pIt->second != *it) {
+					continue;
+				}
+				for (std::vector<int>::iterator	rIt = sorted.end() - 1; rIt != sorted.begin(); rIt--) {
+					if (pIt->first == (*rIt)) {
+						break;
+					}
+					right -= 1;
+				}
+				break;
+			}
+			size_t	middle = left + ((right - left) / 2);
+			std::vector<int>::iterator	lIt = sorted.begin() + left;
+			std::vector<int>::iterator	rIt = sorted.begin() + right;
+			std::vector<int>::iterator	midIt = lIt + middle;
 			if (sorted.size() != 1 && sorted.size() != 2) {
-				std::vector<int>::iterator	middle = left + ((right - left) / 2);
-				if (*it < *middle) {
-					right = middle;
+				if (*it < *midIt) {
+					rIt = midIt;
 				} else {
-					left = middle;
+					lIt = midIt;
 				}
 			}
-			for (; left != right; left++) {
-				if (*it < *left) {
-					sorted.insert(left, *it);
+			// printRange("binary", left, right);
+			for (; lIt != rIt; lIt++) {
+				if (*it <= *lIt) {
+					sorted.insert(lIt, *it);
 					break;
 				}
 			}
@@ -134,36 +183,7 @@ std::vector<int>	sort(std::vector<int> vec) {
 		}
 		beginIt = endIt + 1;
 	}
-	// printInt("sorted", sorted);
-	// std::cout << std::endl;
+	printInt("sorted", sorted);
+	std::cout << std::endl;
 	return (sorted);
-}
-
-int main() {
-	std::vector<int>	before;
-	before.push_back(17);
-	before.push_back(3);
-	before.push_back(8);
-	before.push_back(14);
-	before.push_back(4);
-	before.push_back(11);
-	before.push_back(15);
-	before.push_back(1);
-	before.push_back(16);
-	before.push_back(5);
-	before.push_back(18);
-	before.push_back(20);
-	before.push_back(12);
-	before.push_back(9);
-	before.push_back(10);
-	before.push_back(2);
-	before.push_back(6);
-	before.push_back(19);
-	before.push_back(7);
-	before.push_back(13);
-	before.push_back(0);
-
-	std::vector<int>	after = sort(before);
-	printInt("Before", before);
-	printInt("After ", after);
 }
