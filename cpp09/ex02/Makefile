@@ -5,7 +5,7 @@
 NAME = PmergeMe
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
-DEBUGFLAGS = -g -fsanitize=address -DDEBUG
+FSANITIZEFLAGS = -g -fsanitize=address -DDEBUG
 SRCS = PmergeMe.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
@@ -39,13 +39,13 @@ fclean: clean
 .PHONY:re
 re: fclean all
 
-.PHONY: debug
-debug: fclean
-debug: CXXFLAGS = $(DEBUGFLAGS)
-debug: $(OBJS_DIR)
-debug: $(OBJS)
-debug:
-	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+.PHONY: fsanitize
+fsanitize: fclean
+fsanitize: CXXFLAGS = $(FSANITIZEFLAGS)
+fsanitize: $(OBJS_DIR)
+fsanitize: $(OBJS)
+fsanitize:
+	$(CXX) $(FSANITIZEFLAGS) -o $(NAME) $(OBJS)
 
 .PHONY: leaks
 leaks: CXXFLAGS += -DLEAKS
