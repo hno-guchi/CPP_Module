@@ -45,7 +45,8 @@ fsanitize: CXXFLAGS = $(FSANITIZEFLAGS)
 fsanitize: $(OBJS_DIR)
 fsanitize: $(OBJS)
 fsanitize:
-	$(CXX) $(FSANITIZEFLAGS) -o $(NAME) $(OBJS)
+	$(CXX) $(FSANITIZEFLAGS) -c Int.cpp -o $(OBJS_DIR)/Int.o
+	$(CXX) $(FSANITIZEFLAGS) -o $(NAME) $(OBJS) $(OBJS_DIR)/Int.o
 
 .PHONY: leaks
 leaks: CXXFLAGS += -DLEAKS

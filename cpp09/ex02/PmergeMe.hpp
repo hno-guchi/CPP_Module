@@ -5,6 +5,10 @@
 #include <vector>
 #include <string>
 
+extern int	CntPairCompare;
+extern int	CntRecvCompare;
+extern int	CntBinaryInsertCompare;
+
 void				fatalError(const std::string& prefix, const std::string& message);
 void				printInt(const std::string& str, const std::vector<int>& vec);
 std::vector<int>	mergeInsertionSort(std::vector<int> vec);
