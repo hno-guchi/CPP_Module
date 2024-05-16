@@ -91,14 +91,14 @@ std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
 		}
 		large.push_back(pair.back().first);
 	}
-	printPair("pair ", pair);
-	printInt("large", large);
-	std::cout << std::endl;
+	// printPair("pair ", pair);
+	// printInt("large", large);
+	// std::cout << std::endl;
 
 	std::vector<int>	sorted = mergeInsertionSort(large);
 
-	std::cout << std::endl;
-	printInt("sorted", sorted);
+	// std::cout << std::endl;
+	// printInt("sorted", sorted);
 	// smallの作成
 	std::vector<int>	small;
 	for (std::vector<int>::iterator it = sorted.begin(); it != sorted.end(); it++) {
@@ -112,7 +112,7 @@ std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
 	if (pair[pair.size() - 1].first == -1) {
 		small.push_back(pair[pair.size() - 1].second);
 	}
-	printInt("small ", small);
+	// printInt("small ", small);
 	// Insert sortの開始
 	// 最初の要素を挿入
 	sorted.insert(sorted.begin(), *(small.begin()));
@@ -128,39 +128,42 @@ std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
 				break;
 			}
 		}
-		std::cout << *endIt << std::endl;
 		// printRange("target", beginIt, endIt);
 		// Binary search
 		std::vector<int>::iterator	it = endIt;
+		// std::cout << "it: " << *it << std::endl;
 		while (1) {
 			// Binary searchの範囲を指定する。
 			// left = largeの先頭要素と一致するイテレータ。
 			// right = pairから*itに対応するlargeの要素と一致するイテレータ。
 			// middle = left + ((right - left) / 2);
 			size_t	left = 0;
+			size_t	right = 0;
 			for (std::vector<int>::iterator	lIt = sorted.begin(); lIt != sorted.end(); lIt++) {
 				if (large.front() == (*lIt)) {
 					break;
 				}
 				left += 1;
 			}
-			size_t	right = sorted.size() - 1;
-			// std::vector<int>::iterator	right = sorted.end() - 1;
 			for (std::vector<std::pair<int, int> >::iterator pIt = pair.begin(); pIt != pair.end(); pIt++) {
 				if (pIt->second != *it) {
 					continue;
+				}
+				if (pIt->first == -1) {
+					break;
 				}
 				for (std::vector<int>::iterator	rIt = sorted.end() - 1; rIt != sorted.begin(); rIt--) {
 					if (pIt->first == (*rIt)) {
 						break;
 					}
-					right -= 1;
+					right += 1;
 				}
 				break;
 			}
-			size_t	middle = left + ((right - left) / 2);
-			std::vector<int>::iterator	lIt = sorted.begin() + left;
-			std::vector<int>::iterator	rIt = sorted.begin() + right;
+			size_t	middle = left + (((sorted.size() - right) - left) / 2);
+			// std::cout << "left: " << left << ", right: " << right << ", middle: " << middle << std::endl;
+			std::vector<int>::iterator	lIt = sorted.begin();
+			std::vector<int>::iterator	rIt = sorted.end();
 			std::vector<int>::iterator	midIt = lIt + middle;
 			if (sorted.size() != 1 && sorted.size() != 2) {
 				if (*it < *midIt) {
@@ -176,6 +179,9 @@ std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
 					break;
 				}
 			}
+			if (lIt == rIt) {
+				sorted.insert(lIt, *it);
+			}
 			if (it == beginIt) {
 				break;
 			}
@@ -183,7 +189,7 @@ std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
 		}
 		beginIt = endIt + 1;
 	}
-	printInt("sorted", sorted);
-	std::cout << std::endl;
+	// printInt("sorted", sorted);
+	// std::cout << std::endl;
 	return (sorted);
 }
