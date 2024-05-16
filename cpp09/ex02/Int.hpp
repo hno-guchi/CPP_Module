@@ -2,90 +2,45 @@
 # define INT_HPP
 
 #include <iostream>
-
-// 静的メンバ変数の定義
-int Int::comparisonCount = 0;
+#include <string>
+#include <vector>
 
 class Int {
  private:
-	 int		value;
-	 static int	comparisonCount;  // 比較演算子が呼び出された回数を記録する静的メンバ変数
+	 int		value_;
+	 // 比較演算子が呼び出された回数を記録する静的メンバ変数
+	 static int	comparisonCount_;
 
  public:
 	 // CONSTRUCTOR & DESTRUCTOR
-	 Int(int val = 0) : value(val) {}
-	 Int(const Int& other) : value(other.value) {}
-	 ~Int() {}
+	 explicit Int(int value = 0);
+	 Int(const Int& other);
+	 ~Int();
 
 	 // Overload operators
-	 Int& operator=(const Int& other) {
-		 if (this != &other) {
-			 value = other.value;
-		 }
-		 return *this;
-	 }
-	 Int operator+(const Int& other) const {
-		 return Int(value + other.value);
-	 }
-	Int operator-(const Int& other) const {
-		return Int(value - other.value);
-	}
-	Int operator*(const Int& other) const {
-		return Int(value * other.value);
-	}
-	Int operator/(const Int& other) const {
-		if (other.value == 0) {
-			throw std::runtime_error("Division by zero");
-		}
-		return Int(value / other.value);
-	}
-	// Comparison operators
-	bool operator==(const Int& other) const {
-		comparisonCount++;
-		return value == other.value;
-	}
-	bool operator!=(const Int& other) const {
-		comparisonCount++;
-		return value != other.value;
-	}
-	bool operator>(const Int& other) const {
-		comparisonCount++;
-		return value > other.value;
-	}
-	bool operator<(const Int& other) const {
-		comparisonCount++;
-		return value < other.value;
-	}
-	bool operator>=(const Int& other) const {
-		comparisonCount++;
-		return value >= other.value;
-	}
-	bool operator<=(const Int& other) const {
-		comparisonCount++;
-		return value <= other.value;
-	}
-	friend std::ostream& operator<<(std::ostream& os, const Int& obj) {
-		os << obj.value;
-		return os;
-	}
-	friend std::istream& operator>>(std::istream& is, Int& obj) {
-		is >> obj.value;
-		return is;
-	}
-
-	// Getter & Setter
-	int	getValue() const {
-		return value;
-	}
-	void setValue(int val) {
-		value = val;
-	}
-	static int getComparisonCount() {
-		return comparisonCount;
-	}
-	static void resetComparisonCount() {
-		comparisonCount = 0;
-	}
+	 Int&	operator=(const Int& other);
+	 Int	operator+(const Int& other) const;
+	 Int	operator-(const Int& other) const;
+	 Int	operator*(const Int& other) const;
+	 Int	operator/(const Int& other) const;
+	 // Comparison operators
+	 bool	operator==(const Int& other) const;
+	 bool	operator!=(const Int& other) const;
+	 bool	operator>(const Int& other) const;
+	 bool	operator<(const Int& other) const;
+	 bool	operator>=(const Int& other) const;
+	 bool	operator<=(const Int& other) const;
+	 // Getter & Setter
+	 int	getValue() const;
+	 void	setValue(int value);
+	 static int					getComparisonCount();
+	 static void				resetComparisonCount();
+	 static int					convertStringToInt(const std::string& str);
+	 static bool				isDuplicated(const std::vector<Int>& vec, int num);
+	 static std::vector<Int>	createVectorInt(int argc, char** argv);
 };
+
+std::ostream&	operator<<(std::ostream& os, const Int& obj);
+// std::istream&	operator>>(std::istream& is, Int& obj);
 
 #endif  // INT_HPP
