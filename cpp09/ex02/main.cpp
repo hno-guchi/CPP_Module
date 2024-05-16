@@ -59,22 +59,17 @@ int main(int argc, char** argv) {
 			fatalError("Error", "No arguments");
 		}
 		std::vector<int>	before = createVectorInt(argc, argv);
-		printInt("Before", before);
+		// printInt("Before", before);
 		std::vector<int>	after = mergeInsertionSort(before);
-		printInt("After ", after);
+		// printInt("After ", after);
 #ifdef DEBUG
 		std::sort(before.begin(), before.end());
-		printInt("sort()", before);
+		// printInt("sort()", before);
 		if (before != after) {
 			fatalError("Error", "Not sorted");
 		} else {
-			std::cout << "[" << GREEN << "OK" << END << "]" << std::endl;
+			std::cout << "(" << before.size() << ")[" << GREEN << "OK" << END << "]" << std::flush;
 		}
-		// for (size_t i = 0; i < before.size(); i++) {
-		// 	if (before[i] != after[i]) {
-		// 		fatalError("Error", "Not sorted");
-		// 	}
-		// }
 #endif  // DEBUG
 	} catch (const std::exception& e) {
 		fatalError("Error", e.what());
