@@ -50,7 +50,7 @@ void	printRange(const std::string& prefix, std::vector<int>::const_iterator begi
 	// std::cout << std::endl;
 }
 
-int	jacobsthalNumber(int n) {
+size_t	jacobsthalNumber(size_t n) {
 	if (n == 0) {
 		return (0);
 	}
@@ -58,10 +58,10 @@ int	jacobsthalNumber(int n) {
 		return (1);
 	}
 
-	int	twoPrev = 0;
-	int	onePrev = 1;
-	int	numN = 0;
-	for (int i = 2; i <= n; i++) {
+	size_t	twoPrev = 0;
+	size_t	onePrev = 1;
+	size_t	numN = 0;
+	for (size_t i = 2; i <= n; i++) {
 		numN = onePrev + 2 * twoPrev;
 		twoPrev = onePrev;
 		onePrev = numN;
@@ -155,7 +155,7 @@ CONTAINER	mergeInsertionSort(CONTAINER container) {
 	// Insert sortの開始
 	// 最初の要素を挿入
 	sorted.insert(sorted.begin(), *(small.begin()));
-	int n = 1;
+	size_t	n = 1;
 	typename CONTAINER::iterator	beginIt = small.begin();
 	while (beginIt != small.end()) {
 		// Jacobsthal number
