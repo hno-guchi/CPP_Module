@@ -1,10 +1,12 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include <deque>
 #include <list>
 #include "./PmergeMe.hpp"
 #include "./color.hpp"
+
+PmergeMe::PmergeMe() {}
+PmergeMe::~PmergeMe() {}
 
 void	fatalError(const std::string& prefix, const std::string& message) {
 	std::cout << RED << prefix << ": " << message << END << std::endl;
@@ -220,5 +222,9 @@ CONTAINER	mergeInsertionSort(CONTAINER container) {
 }
 
 template std::vector<int> mergeInsertionSort(std::vector<int> container);
-template std::deque<int> mergeInsertionSort(std::deque<int> container);
 template std::list<int> mergeInsertionSort(std::list<int> container);
+
+#ifdef DEBUG
+#include <deque>
+template std::deque<int> mergeInsertionSort(std::deque<int> container);
+#endif  // DEBUG

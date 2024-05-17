@@ -109,13 +109,6 @@ int Int::convertStringToInt(const std::string& str) {
 	}
 }
 
-// template void	Int::createContainer(std::vector<Int>* container, int argc, char** argv);
-// template void	Int::createContainer(std::list<Int>* container, int argc, char** argv);
-// template void	Int::createContainer(std::deque<Int>* container, int argc, char** argv);
-// template bool	Int::isDuplicate(const std::vector<Int>& container, int num) {
-// template bool	Int::isDuplicate(const std::list<Int>& container, int num) {
-// template bool	Int::isDuplicate(const std::deque<Int>& container, int num) {
-
 // #include <algorithm>
 //
 // int main(int argc, char** argv) {
