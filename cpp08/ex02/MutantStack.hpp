@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/01 18:59:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:15:49 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stack>
 #include <list>
 #include <vector>
-#include "debugMessage.hpp"
+#include "./debugMessage.hpp"
 
 template <typename TYPE>
 class MutantStack : public std::stack<TYPE> {

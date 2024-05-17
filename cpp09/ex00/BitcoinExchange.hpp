@@ -6,34 +6,32 @@
 /*   By: hnoguchi <hnoguch@42tokyo.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:51:17 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/17 15:14:29 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:28:38 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BITCOINEXCHANGE_HPP
 # define BITCOINEXCHANGE_HPP
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <string>
 #include <sstream>
 #include <stdexcept>
-#include <map>
-#include "color.hpp"
+#include "./color.hpp"
 
 class BitcoinExchange {
-private:
-	// std::ifstream					fd_;
-	std::string							fileName_;
-	std::tm*							beginTime_;
-	const size_t						countField_;
-	const bool							isHeader_;
-	// std::map<size_t, std::string>	delimiterList_;
-	std::map<size_t, std::string>	csvHeader_;
-	// std::map<std::string, double>	csvRecord_;
+ private:
+	std::string						fileName_;
+	std::tm*						beginTime_;
+	std::list<std::string>			header_;
+	std::list<std::map<size_t, std::string> >	records_;
 
-public:
+ public:
 	// CONSTRUCTOR
-	BitcoinExchange(const std::string& fileName = "data.csv");
+	explicit BitcoinExchange(const std::string& fileName = "data.csv");
 	// BitcoinExchange(const BitcoinExchange& src);
 	// DESTRUCTOR
 	~BitcoinExchange();
@@ -43,23 +41,23 @@ public:
 	// const std::string&		getFileName() const;
 	// const std::ifstream&	getFd() const;
 	// SETTER
+	// EXCEPTION
+	class FatalErr : public std::logic_error {
+	public:
+		explicit FatalErr(const std::string& msg = "Fatal error.");
+	};
+	class ValidErr : public std::logic_error {
+	public:
+		explicit ValidErr(const std::string& msg = "Validation error.");
+	};
 #ifdef TEST
 	// GETTER
 	const std::map<size_t, std::string>	getCsvHeader() const;
 	void	validationDate(const std::string& date) const;
 	void	parseLine(std::string line, const std::string& delimiter) const;
 	void	setHeader(std::string line, const std::string& delimiter);
-#endif // TEST
-
-	// EXCEPTION
-	class FatalErr : public std::logic_error {
-	public:
-		FatalErr(const std::string& msg = "Fatal error.");
-	};
-	class ValidErr : public std::logic_error {
-	public:
-		ValidErr(const std::string& msg = "Validation error.");
-	};
+	void	setCsvData(const std::string& fileName);
+#endif  // TEST
 };
 
 #endif

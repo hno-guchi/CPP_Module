@@ -21,9 +21,10 @@ static int convertStringToInt(const std::string& str) {
 	}
 }
 
-static bool	isDuplicated(const std::vector<int>& vec, int num) {
+template <typename CONTAINER>
+static bool	isDuplicated(const CONTAINER& container, int num) {
 	try {
-		for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); it++) {
+		for (typename CONTAINER::const_iterator it = container.begin(); it != container.end(); it++) {
 			if (*it == num) {
 				return (true);
 				// throw std::invalid_argument("Duplicated number");
@@ -35,21 +36,20 @@ static bool	isDuplicated(const std::vector<int>& vec, int num) {
 	}
 }
 
-std::vector<int>	createVectorInt(int argc, char** argv) {
+template <typename CONTAINER>
+void	createContainer(CONTAINER* container, int argc, char** argv) {
 	try {
-		std::vector<int>	ret;
 		for (int i = 1; i < argc; i++) {
 			int	num = convertStringToInt(argv[i]);
 			if (num < 0) {
 				throw std::invalid_argument("Negative number");
 			}
-			if (isDuplicated(ret, num)) {
+			if (isDuplicated(*container, num)) {
 				continue;
 				// throw std::invalid_argument("Duplicated number");
 			}
-			ret.push_back(num);
+			container->push_back(num);
 		}
-		return (ret);
 	} catch (const std::exception& e) {
 		throw;
 	}
@@ -62,8 +62,16 @@ int main(int argc, char** argv) {
 		if (argc == 1) {
 			fatalError("Error", "No arguments");
 		}
-		std::vector<int>	before = createVectorInt(argc, argv);
-		std::vector<int>	after = mergeInsertionSort(before);
+		std::vector<int>	beforeVector;
+		std::deque<int>		beforeDeque;
+		std::list<int>		beforeList;
+
+		createContainer(&beforeVector, argc, argv);
+		createContainer(&beforeDeque, argc, argv);
+		createContainer(&beforeList, argc, argv);
+		std::vector<int>	afterVector = mergeInsertionSort(beforeVector);
+		std::vector<int>	after = mergeInsertionSort(beforeDeque);
+		std::vector<int>	after = mergeInsertionSort(beforeList);
 		printInt("Before", before);
 		printInt("After ", after);
 	} catch (const std::exception& e) {
@@ -84,13 +92,13 @@ int main(int argc, char** argv) {
 		if (argc == 1) {
 			fatalError("Error", "No arguments");
 		}
-		std::vector<int>	before = createVectorInt(argc, argv);
+		std::vector<int>	before; createContainer(&before, argc, argv);
 		std::vector<int>	after = mergeInsertionSort(before);
 		std::sort(before.begin(), before.end());
-		if (before != after) {
-			fatalError("Error", "Not sorted");
-		} else {
+		if (before == after) {
 			std::cout << "(" << before.size() << ")[" << GREEN << "OK" << END << "]" << std::flush;
+		} else {
+			fatalError("Error", "Not sorted");
 		}
 		std::vector<Int>	beforeInt = Int::createVectorInt(argc, argv);
 		std::sort(beforeInt.begin(), beforeInt.end());

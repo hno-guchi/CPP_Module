@@ -6,20 +6,19 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/30 15:20:07 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:00:56 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Csv.hpp"
-#include "debugMessage.hpp"
+#include "./Csv.hpp"
+#include "./debugMessage.hpp"
 
 // CONSTRUCTOR
 Csv::Csv(const std::string& fileName, const bool isHeader) :
-	fileName_(fileName), isHeader_(isHeader), countField_(0)
-{
+	fileName_(fileName), isHeader_(isHeader), countField_(0) {
 #ifdef DEBUG
 	debugMessage("Csv", HAS_ARG_CONSTRUCT);
-#endif // DEBUG
+#endif  // DEBUG
 	try {
 		std::ifstream	fd(this->fileName_);
 
@@ -40,43 +39,38 @@ Csv::Csv(const std::string& fileName, const bool isHeader) :
 		fd.close();
 	}
 	catch (const std::exception& e) {
-		throw ;
+		throw;
 	}
 }
 
-Csv::~Csv()
-{
+Csv::~Csv() {
 #ifdef DEBUG
 	debugMessage("Csv", DESTRUCT);
-#endif // DEBUG
+#endif  // DEBUG
 }
 
 // GETTER
-const std::string&	Csv::getFileName() const
-{
+const std::string&	Csv::getFileName() const {
 	return (this->fileName_);
 }
 
-size_t	Csv::getCountField() const
-{
+size_t	Csv::getCountField() const {
 	return (this->countField_);
 }
 
-bool	Csv::getIsHeader() const
-{
+bool	Csv::getIsHeader() const {
 	return (this->isHeader_);
 }
 
-const std::map<size_t, std::string>	Csv::getHeader() const
-{
+const std::map<size_t, std::string>	Csv::getHeader() const {
 	return (this->header_);
 }
 
-void	Csv::getField(std::string& field, std::string& line, const std::string& delimiter)
-{
+void	Csv::getField(std::string& field, std::string& line, \
+		const std::string& delimiter) {
 	if (line.empty()) {
 		// throw Csv::ValidErr("Empty field.");
-		return ;
+		return;
 	}
 	try {
 		// if (line == delimiter) {
@@ -86,14 +80,13 @@ void	Csv::getField(std::string& field, std::string& line, const std::string& del
 		if (pos == std::string::npos) {
 			field = line.substr(0);
 			line = "";
-		}
+		// }
 		// else if (pos == 0) {
 		// 	throw Csv::ValidErr("Bad line format.");
 		// }
-		else if (pos == line.size() - delimiter.size()) {
+		} else if (pos == line.size() - delimiter.size()) {
 			throw Csv::ValidErr("Bad line format.");
-		}
-		else {
+		} else {
 			field = line.substr(0, pos);
 			line = line.substr(pos + delimiter.size());
 		}
@@ -110,12 +103,11 @@ void	Csv::getField(std::string& field, std::string& line, const std::string& del
 		// }
 	}
 	catch (const std::exception& e) {
-		throw ;
+		throw;
 	}
 }
 
-void	Csv::setHeader(std::string line, const std::string& delimiter)
-{
+void	Csv::setHeader(std::string line, const std::string& delimiter) {
 	try {
 		size_t		i(0);
 		std::string	field("");
@@ -128,12 +120,11 @@ void	Csv::setHeader(std::string line, const std::string& delimiter)
 		this->countField_ = i;
 	}
 	catch (const std::exception& e) {
-		throw ;
+		throw;
 	}
 }
 
-void	Csv::setRecord(std::ifstream& fd, const std::string& delimiter)
-{
+void	Csv::setRecord(std::ifstream& fd, const std::string& delimiter) {
 	try {
 		std::string	line("");
 
@@ -151,8 +142,7 @@ void	Csv::setRecord(std::ifstream& fd, const std::string& delimiter)
 					i += 1;
 				}
 				this->recordKeyString_.push_back(record);
-			}
-			else {
+			} else {
 				std::map<size_t, std::string>	record;
 				while (!line.empty()) {
 					std::string	field("");
@@ -169,7 +159,7 @@ void	Csv::setRecord(std::ifstream& fd, const std::string& delimiter)
 		}
 	}
 	catch (const std::exception& e) {
-		throw ;
+		throw;
 	}
 }
 
@@ -177,8 +167,7 @@ void	Csv::setRecord(std::ifstream& fd, const std::string& delimiter)
 Csv::FatalErr::FatalErr(const std::string& msg) : std::logic_error(msg) {}
 Csv::ValidErr::ValidErr(const std::string& msg) : std::logic_error(msg) {}
 
-void	Csv::debugPrint() const
-{
+void	Csv::debugPrint() const {
 	for (std::list<std::map<std::string, std::string> >::const_iterator itr = this->recordKeyString_.begin(); itr != this->recordKeyString_.end(); itr++) {
 		for (std::map<std::string, std::string>::const_iterator itr2 = (*itr).begin(); itr2 != (*itr).end(); itr2++) {
 			std::cout << itr2->first << ": " << itr2->second << std::endl;

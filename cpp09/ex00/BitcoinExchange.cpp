@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/17 16:43:45 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:14:32 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,32 +238,40 @@ static void	setHeader(std::string line, const std::string& delimiter)
 	}
 }
 
-/*
- * getCsvData()
- * {
- * try {
- * std::ifstream	fd();
- * std::string		line("");
- *
- * std::getline(fd, line, '\n');
- * tokenize(this->csvHeader_, line, ",");
- * 	if (this->csvHeader_.empty()) {
- * 		throw BitcoinExchange::ValidErr("Empty header.");
- * }
- * if (this->csvHeader_.size() != 2) {
- * 		throw BitcoinExchange::ValidErr("Bad header format.");
- * }
- * while (std::getline(fd, line, '\n')) {
- * std::map<size_t, std::string> fields;
- * tokenize(fields, line, ",");
- * parseFields(fields);
- * addData(fields);
- * }
- * }
- * catch (const std::exception& e) {
- * throw ;
- * }
- */
+#ifdef TEST
+void	BitcoinExchange::setCsvData(const std::string& fileName)
+#else
+void	setCsvData(const std::string& fileName)
+#endif // TEST
+{
+	try {
+		std::ifstream	fd(fileName);
+
+		if (fd.fail() || fd.eof()) {
+			throw BitcoinExchange::FatalErr("Failed std::ifstream().");
+		}
+		std::string		line("");
+		if (this->isHeader_) {
+			std::getline(fd, line, '\n');
+			if (fd.fail()) {
+				throw BitcoinExchange::FatalErr("Failed std::getline().");
+			}
+			this->setHeader(line, ",");
+		}
+		if (this->csvHeader_.size() != this->countField_) {
+			throw BitcoinExchange::ValidErr("Bad header format.");
+		}
+		// while (std::getline(fd, line, '\n')) {
+		// 	std::map<size_t, std::string> fields;
+		// 	tokenize(fields, line, ",");
+		// 	parseFields(fields);
+		// 	addData(fields);
+		// }
+	}
+	catch (const std::exception& e) {
+		throw ;
+	}
+}
 
 // EXCEPTION
 BitcoinExchange::ValidErr::ValidErr(const std::string& msg) : std::logic_error(msg) {}
