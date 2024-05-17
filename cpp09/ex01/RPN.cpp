@@ -6,12 +6,12 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/10 17:47:17 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:55:59 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RPN.hpp"
-#include "debugMessage.hpp"
+#include "./RPN.hpp"
+#include "./debugMessage.hpp"
 
 // debug
 // static void	printBuff(const std::deque<long>& buf);
@@ -19,23 +19,20 @@
 const std::string	RPN::operations_ = "+-/*";
 
 // CONSTRUCTER
-RPN::RPN()
-{
+RPN::RPN() {
 #ifdef DEBUG
 	debugMessage("RPN", DEFAULT_CONSTRUCT);
-#endif // DEBUG
+#endif  // DEBUG
 }
 
 // DESTRUCTER
-RPN::~RPN()
-{
+RPN::~RPN() {
 #ifdef DEBUG
 	debugMessage("RPN", DESTRUCT);
-#endif // DEBUG
+#endif  // DEBUG
 }
 
-static void	multiplication(std::deque<long>& buf)
-{
+static void	multiplication(std::deque<long>& buf) {
 	long	b = buf.front();
 	buf.pop_front();
 	long	a = buf.front();

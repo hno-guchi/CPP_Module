@@ -1,6 +1,8 @@
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <deque>
+#include <list>
 #include "./PmergeMe.hpp"
 #include "./color.hpp"
 
@@ -20,7 +22,7 @@ void	printInt(const std::string& str, const std::vector<int>& vec) {
 	std::cout << std::endl;
 }
 
-static void	printPair(const std::string& str, const std::vector<std::pair<int, int> >& vec) {
+void	printPair(const std::string& str, const std::vector<std::pair<int, int> >& vec) {
 	std::cout << str << ": " << std::flush;
 	for (size_t i = 0; i < vec.size(); i++) {
 		std::cout << "[" << std::flush;
@@ -67,43 +69,78 @@ int	jacobsthalNumber(int n) {
 	return (numN);
 }
 
-std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
-	if (vec.size() < 2) {
-		return (vec);
+template <typename ITERATOR>
+size_t	getDistance(ITERATOR begin, ITERATOR end) {
+	size_t	dist = 0;
+	for (; begin != end; begin++) {
+		dist += 1;
 	}
-	if (vec.size() == 2) {
-		CntRecvCompare += 1;
-		if (vec[0] > vec[1]) {
-			std::swap(vec[0], vec[1]);
+	return (dist);
+}
+
+template <typename ITERATOR>
+ITERATOR	getBackIterator(ITERATOR end) {
+	end--;
+	return (end);
+}
+
+template <typename ITERATOR>
+ITERATOR	getMiddleIterator(ITERATOR left, ITERATOR right) {
+	try {
+		size_t	n = getDistance(left, right) / 2;
+
+		for (size_t i = 0; i < n; i++) {
+			left++;
 		}
-		return (vec);
+		return (left);
+	} catch (std::exception& e) {
+		throw;
+	}
+}
+
+template <typename CONTAINER>
+CONTAINER	mergeInsertionSort(CONTAINER container) {
+	if (container.size() < 2) {
+		return (container);
+	}
+	if (container.size() == 2) {
+		CntRecvCompare += 1;
+		// if (container[0] > container[1]) {
+		if (container.front() > container.back()) {
+			// std::swap(container[0], container[1]);
+			std::swap(container.front(), container.back());
+		}
+		return (container);
 	}
 	std::vector<std::pair<int, int> >	pair;
-	std::vector<int>					large;
-	for (std::vector<int>::iterator		it = vec.begin(); it != vec.end(); it += 2) {
-		if ((it + 1) == vec.end()) {
+	CONTAINER							large;
+	for (typename CONTAINER::iterator it = container.begin(); it != container.end(); it++) {
+		typename CONTAINER::iterator nextIt = it;
+		nextIt++;
+		if (nextIt == container.end()) {
 			pair.push_back(std::make_pair(-1, *it));
 			break;
 		}
 		CntPairCompare += 1;
-		if (*it < *(it + 1)) {
-			pair.push_back(std::make_pair(*(it + 1), *it));
+		if (*it < *nextIt) {
+			pair.push_back(std::make_pair(*nextIt, *it));
 		} else {
-			pair.push_back(std::make_pair(*it, *(it + 1)));
+			pair.push_back(std::make_pair(*it, *nextIt));
 		}
 		large.push_back(pair.back().first);
+		it = nextIt;
 	}
 	// printPair("pair ", pair);
 	// printInt("large", large);
 	// std::cout << std::endl;
 
-	std::vector<int>	sorted = mergeInsertionSort(large);
+	CONTAINER	sorted = mergeInsertionSort(large);
 
 	// std::cout << std::endl;
 	// printInt("sorted", sorted);
 	// smallの作成
-	std::vector<int>	small;
-	for (std::vector<int>::iterator it = sorted.begin(); it != sorted.end(); it++) {
+	CONTAINER	small;
+	for (typename CONTAINER::iterator it = sorted.begin(); it != sorted.end(); it++) {
 		for (std::vector<std::pair<int, int> >::iterator pIt = pair.begin(); pIt != pair.end(); pIt++) {
 			if (*it == pIt->first) {
 				small.push_back(pIt->second);
@@ -119,27 +156,29 @@ std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
 	// 最初の要素を挿入
 	sorted.insert(sorted.begin(), *(small.begin()));
 	int n = 1;
-	std::vector<int>::iterator	beginIt = small.begin();
+	typename CONTAINER::iterator	beginIt = small.begin();
 	while (beginIt != small.end()) {
 		// Jacobsthal number
 		// 挿入要素の範囲を指定(small)
-		std::vector<int>::iterator	endIt = beginIt + 1;
+		typename CONTAINER::iterator	endIt = beginIt;
+		endIt++;
 		if (endIt == small.end()) {
 			break;
 		}
-		for (; endIt != (small.end() - 1); endIt++) {
-			if ((endIt - beginIt) == (jacobsthalNumber(n) * 2)) {
+		// TODO(hnoguchi): あとでチェック
+		for (; endIt != getBackIterator(small.end()); endIt++) {
+			if (getDistance(beginIt, endIt) == (jacobsthalNumber(n) * 2)) {
 				break;
 			}
 		}
 		n += 1;
 		// printRange("target", beginIt, endIt);
 		// Binary search
-		std::vector<int>::iterator	it = endIt;
+		typename CONTAINER::iterator	it = endIt;
 		// std::cout << "it: " << *it << std::endl;
 		while (it != beginIt) {
-			std::vector<int>::iterator leftIt = sorted.begin();
-			std::vector<int>::iterator rightIt = sorted.end();
+			typename CONTAINER::iterator leftIt = sorted.begin();
+			typename CONTAINER::iterator rightIt = sorted.end();
 			for (std::vector<std::pair<int, int> >::iterator pIt = pair.begin(); pIt != pair.end(); pIt++) {
 				if (pIt->second != *it) {
 					continue;
@@ -147,27 +186,31 @@ std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
 				if (pIt->first == -1) {
 					break;
 				}
-				for (std::vector<int>::iterator rit = sorted.end() - 1; rit != sorted.begin(); rit--) {
-					// right += 1;
-					rightIt -= 1;
+				// for (typename CONTAINER::iterator rit = sorted.end() - 1; rit != sorted.begin(); rit--) {
+				for (typename CONTAINER::iterator rit = getBackIterator(sorted.end()); rit != sorted.begin(); rit--) {
+					rightIt--;
 					if (pIt->first == (*rit)) {
 						break;
 					}
 				}
 				break;
 			}
-			while (leftIt < rightIt) {
-				std::vector<int>::iterator	midIt = leftIt + ((rightIt - leftIt) / 2);
+			// while (leftIt < rightIt) {
+			while (getDistance(leftIt, sorted.end()) > getDistance(rightIt, sorted.end())) {
+				// typename CONTAINER::iterator	midIt = leftIt + ((rightIt - leftIt) / 2);
+				typename CONTAINER::iterator	midIt = getMiddleIterator(leftIt, rightIt);
 				CntBinaryInsertCompare += 1;
 				if (*it < *midIt) {
 					rightIt = midIt;
 				} else {
-					leftIt = midIt + 1;
+					leftIt = midIt;
+					leftIt++;
 				}
 			}
 			sorted.insert(leftIt, *it);
 			// printRange("binary", left, right);
-			it -= 1;
+			// it -= 1;
+			it--;
 		}
 		beginIt = endIt;
 	}
@@ -175,3 +218,7 @@ std::vector<int>	mergeInsertionSort(std::vector<int> vec) {
 	// std::cout << std::endl;
 	return (sorted);
 }
+
+template std::vector<int> mergeInsertionSort(std::vector<int> container);
+template std::deque<int> mergeInsertionSort(std::deque<int> container);
+template std::list<int> mergeInsertionSort(std::list<int> container);

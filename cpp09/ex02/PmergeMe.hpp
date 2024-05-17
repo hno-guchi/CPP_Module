@@ -2,16 +2,23 @@
 # define PMERGEME_HPP
 
 #include <iostream>
+// #include <deque>
 #include <vector>
+// #include <list>
 #include <string>
 
 extern int	CntPairCompare;
 extern int	CntRecvCompare;
 extern int	CntBinaryInsertCompare;
 
-void				fatalError(const std::string& prefix, const std::string& message);
-void				printInt(const std::string& str, const std::vector<int>& vec);
-std::vector<int>	mergeInsertionSort(std::vector<int> vec);
+void	fatalError(const std::string& prefix, const std::string& message);
+void	printInt(const std::string& str, const std::vector<int>& vec);
+void	printPair(const std::string& str, const std::vector<std::pair<int, int> >& vec);
+int		jacobsthalNumber(int n);
+
+template <typename CONTAINER>
+CONTAINER	mergeInsertionSort(CONTAINER container);
+
 
 // class PmergeMe {
 //  private:

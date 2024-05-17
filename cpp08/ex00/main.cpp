@@ -6,17 +6,16 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:49:09 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/10/25 18:26:51 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:11:47 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
-#include "color.hpp"
-#include "easyfind.hpp"
+#include "./color.hpp"
+#include "./easyfind.hpp"
 
-int	main()
-{
+int	main() {
 	// COMPILE ERROR
 	// std::vector<int>	vec = {8, 4, 5, 9};
 	std::cout << GREEN << "========== std::vector<int> ==========" << END << std::endl;
@@ -26,8 +25,7 @@ int	main()
 		std::cout << "val is [" << i << "] | " << std::flush;
 		if (easyfind(vecI, i) == vecI.end()) {
 			std::cout << RED << "Not value." << END << std::endl;
-		}
-		else {
+		} else {
 			std::cout << "Exist value." << std::endl;
 		}
 	}
@@ -39,8 +37,7 @@ int	main()
 		std::cout << "val is [" << i << "] | " << std::flush;
 		if (easyfind(vecF, i) == vecF.end()) {
 			std::cout << RED << "Not value." << END << std::endl;
-		}
-		else {
+		} else {
 			std::cout << "Exist value." << std::endl;
 		}
 	}
