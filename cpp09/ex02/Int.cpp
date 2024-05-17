@@ -109,39 +109,12 @@ int Int::convertStringToInt(const std::string& str) {
 	}
 }
 
-bool	Int::isDuplicated(const std::vector<Int>& vec, int num) {
-	try {
-		for (std::vector<Int>::const_iterator it = vec.begin(); it != vec.end(); it++) {
-			if (it->getValue() == num) {
-				return (true);
-				// throw std::invalid_argument("Duplicated number");
-			}
-		}
-		return (false);
-	} catch (const std::exception& e) {
-		throw;
-	}
-}
-
-std::vector<Int>	Int::createVectorInt(int argc, char** argv) {
-	try {
-		std::vector<Int>	ret;
-		for (int i = 1; i < argc; i++) {
-			Int	num(Int::convertStringToInt(argv[i]));
-			if (num.getValue() < 0) {
-				throw std::invalid_argument("Negative number");
-			}
-			if (isDuplicated(ret, num.getValue())) {
-				continue;
-				// throw std::invalid_argument("Duplicated number");
-			}
-			ret.push_back(num);
-		}
-		return (ret);
-	} catch (const std::exception& e) {
-		throw;
-	}
-}
+// template void	Int::createContainer(std::vector<Int>* container, int argc, char** argv);
+// template void	Int::createContainer(std::list<Int>* container, int argc, char** argv);
+// template void	Int::createContainer(std::deque<Int>* container, int argc, char** argv);
+// template bool	Int::isDuplicate(const std::vector<Int>& container, int num) {
+// template bool	Int::isDuplicate(const std::list<Int>& container, int num) {
+// template bool	Int::isDuplicate(const std::deque<Int>& container, int num) {
 
 // #include <algorithm>
 //

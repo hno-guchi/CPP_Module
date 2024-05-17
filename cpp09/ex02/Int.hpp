@@ -33,14 +33,18 @@ class Int {
 	 // Getter & Setter
 	 int	getValue() const;
 	 void	setValue(int value);
-	 static int					getComparisonCount();
-	 static void				resetComparisonCount();
-	 static int					convertStringToInt(const std::string& str);
-	 static bool				isDuplicated(const std::vector<Int>& vec, int num);
-	 static std::vector<Int>	createVectorInt(int argc, char** argv);
+	 static int		getComparisonCount();
+	 static void	resetComparisonCount();
+	 static int		convertStringToInt(const std::string& str);
+	 template <typename CONTAINER>
+	 static bool	isDuplicate(const CONTAINER& container, int num);
+	 template <typename CONTAINER>
+	 static void	createContainer(CONTAINER* container, int argc, char** argv);
 };
 
 std::ostream&	operator<<(std::ostream& os, const Int& obj);
 // std::istream&	operator>>(std::istream& is, Int& obj);
+
+#include "./Int.tpp"
 
 #endif  // INT_HPP

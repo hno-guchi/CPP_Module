@@ -1,5 +1,3 @@
-// #include <ctime>
-#include <deque>
 #include <iomanip>
 #include <list>
 #include <sstream>
@@ -27,7 +25,7 @@ static int convertStringToInt(const std::string& str) {
 }
 
 template <typename CONTAINER>
-static bool	isDuplicated(const CONTAINER& container, int num) {
+static bool	isDuplicate(const CONTAINER& container, int num) {
 	try {
 		for (typename CONTAINER::const_iterator it = container.begin(); it != container.end(); it++) {
 			if (*it == num) {
@@ -49,7 +47,7 @@ void	createContainer(CONTAINER* container, int argc, char** argv) {
 			if (num < 0) {
 				throw std::invalid_argument("Negative number");
 			}
-			if (isDuplicated(*container, num)) {
+			if (isDuplicate(*container, num)) {
 				continue;
 				// throw std::invalid_argument("Duplicated number");
 			}
@@ -67,18 +65,24 @@ int main(int argc, char** argv) {
 		if (argc == 1) {
 			fatalError("Error", "No arguments");
 		}
-		std::vector<int>	beforeVector;
-		std::deque<int>		beforeDeque;
-		std::list<int>		beforeList;
+		std::vector<int>	beforeVect;
+		createContainer(&beforeVect, argc, argv);
+		std::clock_t		startVect = std::clock();
+		std::vector<int>	afterVect = mergeInsertionSort(beforeVect);
+		std::clock_t		finishVect = std::clock();
 
-		createContainer(&beforeVector, argc, argv);
-		createContainer(&beforeDeque, argc, argv);
+		std::list<int>		beforeList;
 		createContainer(&beforeList, argc, argv);
-		std::vector<int>	afterVector = mergeInsertionSort(beforeVector);
-		std::Deque<int>	afterDeque = mergeInsertionSort(beforeDeque);
-		std::List<int>	afterList = mergeInsertionSort(beforeList);
-		printInt("Before", before);
-		printInt("After ", after);
+		std::clock_t		startList = std::clock();
+		std::list<int>		afterList = mergeInsertionSort(beforeList);
+		std::clock_t		finishList = std::clock();
+
+		printInt("Before", beforeVect);
+		printInt("After ", afterVect);
+		double	vectTime = static_cast<double>(finishVect - startVect) / CLOCKS_PER_SEC * 1000.0;
+		double	listTime = static_cast<double>(finishList - startList) / CLOCKS_PER_SEC * 1000.0;
+		std::cout << "Time to process a range of " << GREEN << beforeVect.size() << END << " elements with std::vector<int> : " << GREEN << vectTime << END << " ms" << std::endl;
+		std::cout << "Time to process a range of " << GREEN << beforeList.size() << END << " elements with std::list<int>   : " << GREEN << listTime << END << " ms" << std::endl;
 	} catch (const std::exception& e) {
 		fatalError("Error", e.what());
 	}
@@ -90,6 +94,7 @@ int main(int argc, char** argv) {
 #ifdef DEBUG
 
 #include <algorithm>
+#include <deque>
 #include "./Int.hpp"
 
 int main(int argc, char** argv) {
@@ -98,10 +103,10 @@ int main(int argc, char** argv) {
 			fatalError("Error", "No arguments");
 		}
 		std::cout << "__________________________________________________" << std::endl;
-
 		std::cout << "Vector: " << std::flush;
 
-		std::vector<int>	beforeVector;	createContainer(&beforeVector, argc, argv);
+		std::vector<int>	beforeVector;
+		createContainer(&beforeVector, argc, argv);
 
 		std::clock_t		startVector = std::clock();
 		std::vector<int>	afterVector = mergeInsertionSort(beforeVector);
@@ -116,8 +121,10 @@ int main(int argc, char** argv) {
 			std::cout << "(" << beforeVector.size() << ") [" << RED << "NG" << END << "]" << std::flush;
 			// fatalError("Error", "Not sorted");
 		}
-		std::vector<Int>	beforeInt = Int::createVectorInt(argc, argv);
-		std::sort(beforeInt.begin(), beforeInt.end());
+		std::vector<Int>	beforeVecInt;
+		Int::createContainer(&beforeVecInt, argc, argv);
+		Int::resetComparisonCount();
+		std::sort(beforeVecInt.begin(), beforeVecInt.end());
 		std::cout << " Merge: (" << MAGENTA << CntPairCompare + CntRecvCompare + CntBinaryInsertCompare << END << ") | (" << MAGENTA << Int::getComparisonCount() << END << ") :std::sort();" << std::endl;
 
 
@@ -127,7 +134,8 @@ int main(int argc, char** argv) {
 		CntRecvCompare = 0;
 		CntBinaryInsertCompare = 0;
 
-		std::deque<int>		beforeDeque;	createContainer(&beforeDeque, argc, argv);
+		std::deque<int>		beforeDeque;
+		createContainer(&beforeDeque, argc, argv);
 
 		std::clock_t		startDeque = std::clock();
 		std::deque<int>		afterDeque = mergeInsertionSort(beforeDeque);
@@ -142,10 +150,11 @@ int main(int argc, char** argv) {
 			std::cout << "(" << beforeDeque.size() << ") [" << RED << "NG" << END << "]" << std::flush;
 			// fatalError("Error", "Not sorted");
 		}
-		// std::vector<Int>	beforeInt = Int::createVectorInt(argc, argv);
-		// std::sort(beforeInt.begin(), beforeInt.end());
-		std::cout << " Merge: (" << MAGENTA << CntPairCompare + CntRecvCompare + CntBinaryInsertCompare << END << ")" << std::endl;
-		// | (" << MAGENTA << Int::getComparisonCount() << END << ") :std::sort();" << std::endl;
+		std::deque<Int>	beforeDeqInt;
+		Int::createContainer(&beforeDeqInt, argc, argv);
+		Int::resetComparisonCount();
+		std::sort(beforeDeqInt.begin(), beforeDeqInt.end());
+		std::cout << " Merge: (" << MAGENTA << CntPairCompare + CntRecvCompare + CntBinaryInsertCompare << END << ") | (" << MAGENTA << Int::getComparisonCount() << END << ") :std::sort();" << std::endl;
 
 
 
@@ -162,27 +171,28 @@ int main(int argc, char** argv) {
 		std::clock_t		finishList = std::clock();
 
 		// std::clock_t		startSortList = std::clock();
-		// std::sort(beforeList.begin(), beforeList.end());
+		beforeList.sort();
 		// std::clock_t		finishSortList = std::clock();
 
-		beforeList.sort();
 		if (beforeList == afterList) {
 			std::cout << "(" << beforeList.size() << ") [" << GREEN << "OK" << END << "]" << std::flush;
 		} else {
 			std::cout << "(" << beforeList.size() << ") [" << RED << "NG" << END << "]" << std::flush;
 			// fatalError("Error", "Not sorted");
 		}
-		// std::vector<Int>	beforeInt = Int::createVectorInt(argc, argv);
-		// std::sort(beforeInt.begin(), beforeInt.end());
-		std::cout << " Merge: (" << MAGENTA << CntPairCompare + CntRecvCompare + CntBinaryInsertCompare << END << ")" << std::endl;
-		// | (" << MAGENTA << Int::getComparisonCount() << END << ") :std::sort();" << std::endl;
+		std::list<Int>	beforeListInt; Int::createContainer(&beforeListInt, argc, argv);
+		Int::resetComparisonCount();
+		beforeListInt.sort();
+		std::cout << " Merge: (" << MAGENTA << CntPairCompare + CntRecvCompare + CntBinaryInsertCompare << END << ") | (" << MAGENTA << Int::getComparisonCount() << END << ") :std::sort();" << std::endl;
+
 
 
 		std::setprecision(6);
 		double vecTime = static_cast<double>(finishVector - startVector) / CLOCKS_PER_SEC * 1000.0;
 		double deqTime = static_cast<double>(finishDeque - startDeque) / CLOCKS_PER_SEC * 1000.0;
 		double lisTime = static_cast<double>(finishList - startList) / CLOCKS_PER_SEC * 1000.0;
-		std::cout << "VECTOR " << vecTime << " ms | DEQUE " << deqTime << " ms | LIST " << lisTime << " ms" << std::endl;
+		std::cout << std::endl;
+		std::cout << "VECTOR " << YELLOW << vecTime << END << " ms | DEQUE " << YELLOW << deqTime << END << " ms | LIST " << YELLOW << lisTime << END << " ms" << std::endl;
 		std::cout << "--------------------------------------------------" << std::endl;
 	} catch (const std::exception& e) {
 		fatalError("Error", e.what());
