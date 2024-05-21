@@ -1,62 +1,9 @@
 #include <iomanip>
 #include <list>
-#include <sstream>
+// #include <sstream>
 #include <vector>
 #include "./PmergeMe.hpp"
 #include "./color.hpp"
-
-int	CntPairCompare = 0;
-int	CntRecvCompare = 0;
-int	CntBinaryInsertCompare = 0;
-
-static int convertStringToInt(const std::string& str) {
-	try {
-		std::stringstream	ss(str);
-		int					ret;
-
-		ss >> ret;
-		if (ss.fail()) {
-			throw std::runtime_error("Failed to convertStringToInt();");
-		}
-		return (ret);
-	} catch (const std::exception& e) {
-		throw;
-	}
-}
-
-template <typename CONTAINER>
-static bool	isDuplicate(const CONTAINER& container, int num) {
-	try {
-		for (typename CONTAINER::const_iterator it = container.begin(); it != container.end(); it++) {
-			if (*it == num) {
-				return (true);
-				// throw std::invalid_argument("Duplicated number");
-			}
-		}
-		return (false);
-	} catch (const std::exception& e) {
-		throw;
-	}
-}
-
-template <typename CONTAINER>
-void	createContainer(CONTAINER* container, int argc, char** argv) {
-	try {
-		for (int i = 1; i < argc; i++) {
-			int	num = convertStringToInt(argv[i]);
-			if (num < 0) {
-				throw std::invalid_argument("Negative number");
-			}
-			if (isDuplicate(*container, num)) {
-				continue;
-				// throw std::invalid_argument("Duplicated number");
-			}
-			container->push_back(num);
-		}
-	} catch (const std::exception& e) {
-		throw;
-	}
-}
 
 #ifndef DEBUG
 
@@ -65,24 +12,15 @@ int main(int argc, char** argv) {
 		if (argc == 1) {
 			fatalError("Error", "No arguments");
 		}
-		std::vector<int>	beforeVect;
-		createContainer(&beforeVect, argc, argv);
-		std::clock_t		startVect = std::clock();
-		std::vector<int>	afterVect = mergeInsertionSort(beforeVect);
-		std::clock_t		finishVect = std::clock();
+		PmergeMe<std::vector<int> >	vector(argc, argv);
+		vector.sort();
+		vector.printResult();
+		vector.printMsTime("std::vector<int>");
 
-		std::list<int>		beforeList;
-		createContainer(&beforeList, argc, argv);
-		std::clock_t		startList = std::clock();
-		std::list<int>		afterList = mergeInsertionSort(beforeList);
-		std::clock_t		finishList = std::clock();
-
-		printInt("Before", beforeVect);
-		printInt("After ", afterVect);
-		double	vectTime = static_cast<double>(finishVect - startVect) / CLOCKS_PER_SEC * 1000.0;
-		double	listTime = static_cast<double>(finishList - startList) / CLOCKS_PER_SEC * 1000.0;
-		std::cout << "Time to process a range of " << GREEN << beforeVect.size() << END << " elements with std::vector<int> : " << GREEN << vectTime << END << " ms" << std::endl;
-		std::cout << "Time to process a range of " << GREEN << beforeList.size() << END << " elements with std::list<int>   : " << GREEN << listTime << END << " ms" << std::endl;
+		PmergeMe<std::list<int> >	list(argc, argv);
+		list.sort();
+		// list.printResult();
+		list.printMsTime("std::list<int>  ");
 	} catch (const std::exception& e) {
 		fatalError("Error", e.what());
 	}
@@ -102,97 +40,87 @@ int main(int argc, char** argv) {
 		if (argc == 1) {
 			fatalError("Error", "No arguments");
 		}
+
+		std::clock_t				start;
+		std::clock_t				finish;
+		double						time(0.0);
+
 		std::cout << "__________________________________________________" << std::endl;
 		std::cout << "Vector: " << std::flush;
+		PmergeMe<std::vector<int> >	vector(argc, argv);
+		vector.sort();
+		std::vector<int>			vec = vector.getBefore();
+		start = std::clock();
+		std::sort(vec.begin(), vec.end());
+		finish = std::clock();
 
-		std::vector<int>	beforeVector;
-		createContainer(&beforeVector, argc, argv);
-
-		std::clock_t		startVector = std::clock();
-		std::vector<int>	afterVector = mergeInsertionSort(beforeVector);
-		std::clock_t		finishVector = std::clock();
-
-		// std::clock_t		startSortVec = std::clock();
-		std::sort(beforeVector.begin(), beforeVector.end());
-		// std::clock_t		finishSortVec = std::clock();
-		if (beforeVector == afterVector) {
-			std::cout << "(" << beforeVector.size() << ") [" << GREEN << "OK" << END << "]" << std::flush;
+		if (vec == vector.getAfter()) {
+			std::cout << "(" << vector.getBefore().size() << ") [" << GREEN << "OK" << END << "]" << std::flush;
 		} else {
-			std::cout << "(" << beforeVector.size() << ") [" << RED << "NG" << END << "]" << std::flush;
+			std::cout << "(" << vector.getBefore().size() << ") [" << RED << "NG" << END << "]" << std::flush;
 			// fatalError("Error", "Not sorted");
 		}
-		std::vector<Int>	beforeVecInt;
-		Int::createContainer(&beforeVecInt, argc, argv);
+
+		std::vector<Int>	vectorInt;
+		Int::createContainer(&vectorInt, argc, argv);
 		Int::resetComparisonCount();
-		std::sort(beforeVecInt.begin(), beforeVecInt.end());
-		std::cout << " Merge: (" << MAGENTA << CntPairCompare + CntRecvCompare + CntBinaryInsertCompare << END << ") | (" << MAGENTA << Int::getComparisonCount() << END << ") :std::sort();" << std::endl;
+		std::sort(vectorInt.begin(), vectorInt.end());
+
+		time = static_cast<double>(finish - start) / CLOCKS_PER_SEC * 1000.0;
+		std::cout << " PmergeMe: [" << vector.getMsTime() << "] ms (" << MAGENTA << vector.getCompareCount() << END << ") | (" << MAGENTA << Int::getComparisonCount() << END << ") [" << time << "] ms :std::sort();" << std::endl;
 
 
 
 		std::cout << "Deque : " << std::flush;
-		CntPairCompare = 0;
-		CntRecvCompare = 0;
-		CntBinaryInsertCompare = 0;
+		PmergeMe<std::deque<int> >	deque(argc, argv);
+		deque.sort();
+		std::deque<int>				deq = deque.getBefore();
+		start = std::clock();
+		std::sort(deq.begin(), deq.end());
+		finish = std::clock();
 
-		std::deque<int>		beforeDeque;
-		createContainer(&beforeDeque, argc, argv);
-
-		std::clock_t		startDeque = std::clock();
-		std::deque<int>		afterDeque = mergeInsertionSort(beforeDeque);
-		std::clock_t		finishDeque = std::clock();
-
-		// std::clock_t		startSortDeque = std::clock();
-		std::sort(beforeDeque.begin(), beforeDeque.end());
-		// std::clock_t		finishSortDeque = std::clock();
-		if (beforeDeque == afterDeque) {
-			std::cout << "(" << beforeDeque.size() << ") [" << GREEN << "OK" << END << "]" << std::flush;
+		if (deq == deque.getAfter()) {
+			std::cout << "(" << deque.getBefore().size() << ") [" << GREEN << "OK" << END << "]" << std::flush;
 		} else {
-			std::cout << "(" << beforeDeque.size() << ") [" << RED << "NG" << END << "]" << std::flush;
+			std::cout << "(" << deque.getBefore().size() << ") [" << RED << "NG" << END << "]" << std::flush;
 			// fatalError("Error", "Not sorted");
 		}
-		std::deque<Int>	beforeDeqInt;
-		Int::createContainer(&beforeDeqInt, argc, argv);
+		std::deque<Int>	dequeInt;
+		Int::createContainer(&dequeInt, argc, argv);
 		Int::resetComparisonCount();
-		std::sort(beforeDeqInt.begin(), beforeDeqInt.end());
-		std::cout << " Merge: (" << MAGENTA << CntPairCompare + CntRecvCompare + CntBinaryInsertCompare << END << ") | (" << MAGENTA << Int::getComparisonCount() << END << ") :std::sort();" << std::endl;
+		std::sort(dequeInt.begin(), dequeInt.end());
+		time = static_cast<double>(finish - start) / CLOCKS_PER_SEC * 1000.0;
+		std::cout << " PmergeMe: [" << deque.getMsTime() << "] ms (" << MAGENTA << deque.getCompareCount() << END << ") | (" << MAGENTA << Int::getComparisonCount() << END << ") [" << time << "] ms :std::sort();" << std::endl;
 
 
 
 
 		std::cout << "List  : " << std::flush;
-		CntPairCompare = 0;
-		CntRecvCompare = 0;
-		CntBinaryInsertCompare = 0;
+		PmergeMe<std::list<int> >	list(argc, argv);
+		list.sort();
+		std::list<int>				li = list.getBefore();
+		start = std::clock();
+		li.sort();
+		finish = std::clock();
 
-		std::list<int>		beforeList; createContainer(&beforeList, argc, argv);
-
-		std::clock_t		startList = std::clock();
-		std::list<int>		afterList = mergeInsertionSort(beforeList);
-		std::clock_t		finishList = std::clock();
-
-		// std::clock_t		startSortList = std::clock();
-		beforeList.sort();
-		// std::clock_t		finishSortList = std::clock();
-
-		if (beforeList == afterList) {
-			std::cout << "(" << beforeList.size() << ") [" << GREEN << "OK" << END << "]" << std::flush;
+		if (li == list.getAfter()) {
+			std::cout << "(" << list.getBefore().size() << ") [" << GREEN << "OK" << END << "]" << std::flush;
 		} else {
-			std::cout << "(" << beforeList.size() << ") [" << RED << "NG" << END << "]" << std::flush;
+			std::cout << "(" << list.getBefore().size() << ") [" << RED << "NG" << END << "]" << std::flush;
 			// fatalError("Error", "Not sorted");
 		}
-		std::list<Int>	beforeListInt; Int::createContainer(&beforeListInt, argc, argv);
+		std::list<Int>	listInt;
+		Int::createContainer(&listInt, argc, argv);
 		Int::resetComparisonCount();
-		beforeListInt.sort();
-		std::cout << " Merge: (" << MAGENTA << CntPairCompare + CntRecvCompare + CntBinaryInsertCompare << END << ") | (" << MAGENTA << Int::getComparisonCount() << END << ") :std::sort();" << std::endl;
+		listInt.sort();
+		time = static_cast<double>(finish - start) / CLOCKS_PER_SEC * 1000.0;
+		std::cout << " PmergeMe: [" << list.getMsTime() << "] ms (" << MAGENTA << list.getCompareCount() << END << ") | (" << MAGENTA << Int::getComparisonCount() << END << ") [" << time << "] ms :std::sort();" << std::endl;
 
 
 
 		std::setprecision(6);
-		double vecTime = static_cast<double>(finishVector - startVector) / CLOCKS_PER_SEC * 1000.0;
-		double deqTime = static_cast<double>(finishDeque - startDeque) / CLOCKS_PER_SEC * 1000.0;
-		double lisTime = static_cast<double>(finishList - startList) / CLOCKS_PER_SEC * 1000.0;
 		std::cout << std::endl;
-		std::cout << "VECTOR " << YELLOW << vecTime << END << " ms | DEQUE " << YELLOW << deqTime << END << " ms | LIST " << YELLOW << lisTime << END << " ms" << std::endl;
+		std::cout << "VECTOR " << YELLOW << vector.getMsTime() << END << " ms | DEQUE " << YELLOW << deque.getMsTime() << END << " ms | LIST " << YELLOW << list.getMsTime() << END << " ms" << std::endl;
 		std::cout << "--------------------------------------------------" << std::endl;
 	} catch (const std::exception& e) {
 		fatalError("Error", e.what());
