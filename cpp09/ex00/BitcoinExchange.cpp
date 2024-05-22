@@ -1,286 +1,118 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hnoguchi <hnoguchi@42tokyo.jp>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 14:48:41 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/28 16:14:32 by hnoguchi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "./BitcoinExchange.hpp"
 
-#include "BitcoinExchange.hpp"
-#include "debugMessage.hpp"
-
-static std::tm*	getTime()
-{
-	std::time_t	current = std::time(NULL);
-	if (current == -1) {
-		throw BitcoinExchange::FatalErr("Failed std::time().");
-	}
-
-	std::tm*	ptr = std::localtime(&current);
-	if (ptr == NULL) {
-		throw BitcoinExchange::FatalErr("Failed std::localtime().");
-	}
-	return (ptr);
+void	fatalError(const std::string& msg) {
+	std::cerr << RED << "fatal error: " << END << msg << std::endl;
+	exit(1);
 }
 
-// CONSTRUCTOR
-BitcoinExchange::BitcoinExchange(const std::string& fileName) :
-	fileName_(fileName), countField_(2), isHeader_(true)
-{
-#ifdef DEBUG
-	debugMessage("BitcoinExchange", HAS_ARG_CONSTRUCT);
-#endif // DEBUG
-	try {
-		this->beginTime_ = getTime();
+static bool	isValue(const std::string &str) {
+	if (str.empty()) {
+		return (false);
 	}
-	catch (const std::exception& e) {
-		std::cout << RED << e.what() << END << std::endl;
+	std::locale					l = std::locale::classic();
+	std::string::const_iterator	it = str.begin();
+	if (!std::isdigit(*it, l)) {
+		return (false);
 	}
+	it++;
+	bool	dot = false;
+	for (; it != str.end(); it++) {
+		if (*it == '.' && dot) {
+			return (false);
+		} else if (*it == '.' && (it + 1) == str.end()) {
+			return (false);
+		} else if (*it == '.') {
+			dot = true;
+			continue;
+		}
+		if (!std::isdigit(*it, l)) {
+			return (false);
+		}
+	}
+	return (true);
 }
 
-BitcoinExchange::~BitcoinExchange()
-{
-#ifdef DEBUG
-	debugMessage("BitcoinExchange", DESTRUCT);
-#endif // DEBUG
-}
+// static bool	isFuncString(const std::string &str, bool (*func)(const char)) {
+// 	return (std::find_if(str.begin(), str.end(), func) == str.end());
+// }
 
-#ifdef TEST
-void	BitcoinExchange::validationDate(const std::string& date) const
-#else
-static void	validationDate(const std::string& date)
-#endif // TEST
-{
-	std::istringstream	iss(date);
-	int					year(0);
-    char				delimiter;
+// CONSTRUCTOR & DESTRUCTOR
+BitcoinExchange::BitcoinExchange(const std::string& fileName) : Csv(fileName) {}
+BitcoinExchange::~BitcoinExchange() {}
 
-	if (!(iss >> year)) {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-	if (!(iss >> delimiter) || delimiter != '-') {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-
-	int	month(0);
-	if (!(iss >> month)) {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-	if (!(iss >> delimiter) || delimiter != '-') {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-
-	int	day(0);
-	if (!(iss >> day)) {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-
-	if (year < 2009 || month < 1 || day < 1) {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-	if (12 < month) {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-	// isOverBeginTime
-	if ((1900 + this->beginTime_->tm_year) < year) {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-	if ((1900 + this->beginTime_->tm_year) == year && (1 + this->beginTime_->tm_mon) < month) {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-	if ((1900 + this->beginTime_->tm_year) == year && (1 + this->beginTime_->tm_mon) == month && this->beginTime_->tm_mday < day) {
-		throw BitcoinExchange::ValidErr("Bad date format.");
-	}
-
-	// isOverLastDay
-	if (month == 4 || month == 6 || month == 9 || month == 11) {
-		if (30 < day) {
-			throw BitcoinExchange::ValidErr("Bad date format.");
-		}
-	}
-	if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
-		if (31 < day) {
-			throw BitcoinExchange::ValidErr("Bad date format.");
-		}
-	}
-	if (month == 2) {
-		if (year % 4 != 0) {
-			if (28 < day) {
-				throw BitcoinExchange::ValidErr("Bad date format.");
-			}
-		}
-		else if (year % 100 != 0) {
-			if (29 < day) {
-				throw BitcoinExchange::ValidErr("Bad date format.");
-			}
-		}
-		else if (year % 400 != 0) {
-			if (28 < day) {
-				throw BitcoinExchange::ValidErr("Bad date format.");
-			}
-		}
-		else {
-			if (29 < day) {
-				throw BitcoinExchange::ValidErr("Bad date format.");
-			}
-		}
-	}
-    std::cout << "Year: " << year << ", Month: " << month << ", Day: " << day << std::endl;
-}
-
-static void	getField(std::string& field, std::string& line, const std::string& delimiter)
-{
-	if (line.empty()) {
-		throw BitcoinExchange::ValidErr("Empty field.");
-		// return ;
+int	main(int argc, char** argv) {
+	if (argc != 2) {
+		fatalError("Usage: ./btc [input file name]");
 	}
 	try {
-		// if (line == delimiter) {
-		// 	throw BitcoinExchange::ValidErr("Bad line format.");
-		// }
-		size_t	pos = line.find(delimiter);
-		if (pos == std::string::npos) {
-			field = line.substr(0);
-			line = "";
+		BitcoinExchange	btc("data.csv");
+		std::ifstream	fd(argv[1]);
+		if (!fd.eof() && fd.fail()) {
+			throw std::runtime_error("Failed std::ifstream()");
 		}
-		// else if (pos == 0) {
-		// 	throw BitcoinExchange::ValidErr("Bad line format.");
-		// }
-		else if (pos == line.size() - delimiter.size()) {
-			throw BitcoinExchange::ValidErr("Bad line format.");
+		if (fd.eof()) {
+			throw std::runtime_error("Empty file.");
 		}
-		else {
-			field = line.substr(0, pos);
-			line = line.substr(pos + delimiter.size());
+		std::string	line("");
+		std::string	delimiter(" | ");
+		std::getline(fd, line, '\n');
+		if (!fd.eof() && fd.fail()) {
+			throw std::runtime_error("Failed std::getline().");
 		}
-		// if (line == delimiter) {
-		// 	throw BitcoinExchange::ValidErr("Bad line format.");
-		// }
-
-		if (field.empty()) {
-			throw BitcoinExchange::ValidErr("Empty field.");
+		while (std::getline(fd, line, '\n')) {
+				if (line.empty()) {
+					std::cout << RED << "Valid error: Empty line." << END << std::endl;
+					continue;
+				}
+				std::string	dateStr = line.substr(0, line.find(delimiter));
+				if (dateStr.empty()) {
+					std::cout << RED << "Valid error: Empty date." << END << std::endl;
+					continue;
+				}
+				if (line.find(delimiter) == std::string::npos) {
+					std::cout << RED << "Valid error: Failed to find delimiter. => " << END << "[" << dateStr << "]" << std::endl;
+					continue;
+				}
+				if (line.find(delimiter) + delimiter.size() >= line.size()) {
+					std::cout << RED << "Valid error: Failed to find value. => " << END << "[" << dateStr << "]" << std::endl;
+					continue;
+				}
+				time_t	date(0);
+				try {
+					date = btc.getUnixTimeStampFromStr(dateStr);
+				} catch (const std::exception& e) {
+					std::cout << RED << "Valid error: " << e.what() << " => " << END << "[" << dateStr << "]" << std::endl;
+					continue;
+				}
+				std::string	valueStr = line.substr(line.find(delimiter) + delimiter.size());
+				if (!isValue(valueStr)) {
+					std::cout << RED << "Valid error: not a number. => " << END << "[" << valueStr << "]" << std::endl;
+					continue;
+				}
+				float	value(0.0);
+				try {
+					value = btc.getFloatFromStr(valueStr);
+				} catch (const std::exception& e) {
+					std::cout << RED << "Valid error: " << e.what() << " => " << "[" << valueStr << "]" << std::endl;
+					continue;
+				}
+				if (value < 0.0) {
+					std::cout << RED << "Valid error: not a positive number. => " << END << "[" << valueStr << "]" << std::endl;
+					continue;
+				} else if (value > 1000.0) {
+					std::cout << RED << "Valid error: too large a number. => " << END << "[" << valueStr << "]" << std::endl;
+					continue;
+				}
+				std::cout << date << "," << value << std::endl;
 		}
-
-		if (field.find(' ') != std::string::npos) {
-			throw BitcoinExchange::ValidErr("Bad field format.");
+		if (!fd.eof() && fd.fail()) {
+			throw std::runtime_error("Failed std::getline().");
 		}
-	}
-	catch (const std::exception& e) {
-		throw ;
-	}
-}
-
-#ifdef TEST
-void	BitcoinExchange::parseLine(std::string line, const std::string& delimiter) const
-#else
-static void	parseLine(std::string line, const std::string& delimiter)
-#endif // TEST
-{
-	std::string	date("");
-	std::string	strValue("");
-
-	try {
-		// TODO: refactoring
-		getField(date, line, delimiter);
-		getField(strValue, line, delimiter);
-		if (!line.empty()) {
-			throw BitcoinExchange::ValidErr("Bad line format.");
+		fd.close();
+		if (!fd.eof() && fd.fail()) {
+			throw std::runtime_error("Failed std::ifstream::close().");
 		}
-		double	doubleValue(0.0);
-		// getValue(doubleValue, strValue);
-		std::istringstream	iss(strValue);
-		if (!(iss >> doubleValue)) {
-			throw BitcoinExchange::ValidErr("Bad value.");
-		}
-		if (!iss.eof()) {
-			throw BitcoinExchange::ValidErr("Bad format.");
-		}
-		if (doubleValue < 0) {
-			throw BitcoinExchange::ValidErr("not a positive number.");
-		}
-		// if (delimiter == " | ") {
-		// 	if (1000 < valueDouble) {
-		// 		throw BitcoinExchange::ValidErr("too large a number.");
-		// 	}
-		// }
-		std::map<std::string, double>	dateValueMap;
-		dateValueMap[date] = doubleValue;
-		std::cout << date << ": [" << GREEN << dateValueMap[date] << END << "]" << std::endl;
-		// std::map<std::string, std::tm>	dateTmMap;
-	}
-	catch (const std::exception& e) {
-		throw ;
+	} catch (const std::exception& e) {
+		fatalError(e.what());
 	}
 }
-
-#ifdef TEST
-void	BitcoinExchange::setHeader(std::string line, const std::string& delimiter)
-#else
-static void	setHeader(std::string line, const std::string& delimiter)
-#endif // TEST
-{
-	size_t		i(0);
-	std::string	field("");
-	try {
-		while (!line.empty()) {
-			getField(field, line, delimiter);
-			this->csvHeader_[i] = field;
-			i += 1;
-			// std::cout << field << std::endl;
-		}
-	}
-	catch (const std::exception& e) {
-		throw ;
-	}
-}
-
-#ifdef TEST
-void	BitcoinExchange::setCsvData(const std::string& fileName)
-#else
-void	setCsvData(const std::string& fileName)
-#endif // TEST
-{
-	try {
-		std::ifstream	fd(fileName);
-
-		if (fd.fail() || fd.eof()) {
-			throw BitcoinExchange::FatalErr("Failed std::ifstream().");
-		}
-		std::string		line("");
-		if (this->isHeader_) {
-			std::getline(fd, line, '\n');
-			if (fd.fail()) {
-				throw BitcoinExchange::FatalErr("Failed std::getline().");
-			}
-			this->setHeader(line, ",");
-		}
-		if (this->csvHeader_.size() != this->countField_) {
-			throw BitcoinExchange::ValidErr("Bad header format.");
-		}
-		// while (std::getline(fd, line, '\n')) {
-		// 	std::map<size_t, std::string> fields;
-		// 	tokenize(fields, line, ",");
-		// 	parseFields(fields);
-		// 	addData(fields);
-		// }
-	}
-	catch (const std::exception& e) {
-		throw ;
-	}
-}
-
-// EXCEPTION
-BitcoinExchange::ValidErr::ValidErr(const std::string& msg) : std::logic_error(msg) {}
-BitcoinExchange::FatalErr::FatalErr(const std::string& msg) : std::logic_error(msg) {}
-
-# ifdef TEST
-// GETTER
-const std::map<size_t, std::string>	BitcoinExchange::getCsvHeader() const
-{
-	return (this->csvHeader_);
-}
-#endif // TEST

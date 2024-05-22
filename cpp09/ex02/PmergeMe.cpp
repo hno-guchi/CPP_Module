@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <utility>
 #include <vector>
@@ -374,6 +375,7 @@ void	PmergeMe<CONTAINER>::printPairs(const std::string& str, const std::vector<s
 
 template <typename CONTAINER>
 void	PmergeMe<CONTAINER>::printMsTime(const std::string& type) const {
+	// std::cout << std::fixed << std::setprecision(5);
 	std::cout << "Time to process a range of " << GREEN << this->before_.size() << END << " elements with " << type << " : " << GREEN << this->msTime_ << END << " ms" << std::endl;
 }
 
