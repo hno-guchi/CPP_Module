@@ -5,10 +5,8 @@
 NAME = btc
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
-DEBUGFLAGS = -g -fsanitize=undefined -fsanitize=integer -fsanitize=address
-SRCS = main.cpp debugMessage.cpp \
-	   Csv.cpp
-# BitcoinExchange.cpp
+DEBUGFLAGS = -g -fsanitize=address
+SRCS = BitcoinExchange.cpp Csv.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -37,6 +35,7 @@ clean:
 .PHONY:fclean
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) debug
 
 .PHONY:re
 re: fclean all
@@ -47,7 +46,7 @@ debug: CXXFLAGS = $(DEBUGFLAGS)
 debug: $(OBJS_DIR)
 debug: $(OBJS)
 debug:
-	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
+	$(CXX) $(DEBUGFLAGS) -o debug $(OBJS)
 
 .PHONY: leaks
 leaks: CXXFLAGS += -DLEAKS
