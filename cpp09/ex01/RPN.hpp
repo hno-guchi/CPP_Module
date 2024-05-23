@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   RPN.hpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 10:03:14 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/10 17:41:25 by hnoguchi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef RPN_HPP
 # define RPN_HPP
 
@@ -18,28 +6,35 @@
 #include <deque>
 #include <algorithm>
 #include <stdexcept>
+#include <string>
 
 class RPN {
-private:
-	static const std::string	operations_;
+ private:
+	 const std::string	operations_;
 
-public:
-	// CONSTRUCTOR
-	RPN();
-	// DESUTRUCTOR
-	~RPN();
+	 long	multiplication(long a, long b) const;
+	 long	division(long a, long b) const;
+	 long	subtraction(long a, long b) const;
+	 long	addition(long a, long b) const;
+	 long	getNumber(std::deque<long>* buf) const;
+	 void	calculate(const char operation, std::deque<long>* buf) const;
+	 char	getToken(const std::string& str, std::string::const_iterator& it, const std::locale l) const;
 
-	void	execute(std::string str) const;
-
-	// EXCEPTION
-	class InvalidArg : public std::invalid_argument {
-	public:
-		InvalidArg(const std::string& msg = "Invalid argument.");
-	};
-	class OverInt : public std::out_of_range {
-	public:
-		OverInt(const std::string& msg = "Over INT_MAX or under INT_MIN.");
-	};
+ public:
+	 // CONSTRUCTOR & DESUTRUCTOR
+	 RPN();
+	 ~RPN();
+	 // MEMBER FUNCTION
+	 void	execute(const std::string& str) const;
+// EXCEPTION
+class InvalidArg : public std::invalid_argument {
+ public:
+	 explicit InvalidArg(const std::string& msg = "Invalid argument.");
+};
+class OverInt : public std::out_of_range {
+ public:
+	 explicit OverInt(const std::string& msg = "Over INT_MAX or under INT_MIN.");
+};
 };
 
 #endif

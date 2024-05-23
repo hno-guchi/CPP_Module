@@ -1,20 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 10:12:46 by hnoguchi          #+#    #+#             */
-/*   Updated: 2023/11/08 16:21:23 by hnoguchi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "./RPN.hpp"
+#include "./color.hpp"
 
-#include "RPN.hpp"
-#include "color.hpp"
-
-int	main(int argc, char *argv[])
-{
+int	main(int argc, char **argv) {
 	if (argc != 2) {
 		std::cout << RED << "Please give a single argument." << END << std::endl;
 		return (1);

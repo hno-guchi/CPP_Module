@@ -1,171 +1,156 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   RPN.cpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 09:47:02 by hnoguchi          #+#    #+#             */
-/*   Updated: 2024/05/17 11:55:59 by hnoguchi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "./RPN.hpp"
-#include "./debugMessage.hpp"
 
 // debug
 // static void	printBuff(const std::deque<long>& buf);
 
-const std::string	RPN::operations_ = "+-/*";
+// CONSTRUCTER & DESTRUCTER
+RPN::RPN() : operations_("+-/*") {}
+RPN::~RPN() {}
 
-// CONSTRUCTER
-RPN::RPN() {
-#ifdef DEBUG
-	debugMessage("RPN", DEFAULT_CONSTRUCT);
-#endif  // DEBUG
-}
-
-// DESTRUCTER
-RPN::~RPN() {
-#ifdef DEBUG
-	debugMessage("RPN", DESTRUCT);
-#endif  // DEBUG
-}
-
-static void	multiplication(std::deque<long>& buf) {
-	long	b = buf.front();
-	buf.pop_front();
-	long	a = buf.front();
-	buf.pop_front();
-	long	result = a * b;
-	if (result < INT_MIN || INT_MAX < result) {
-		throw RPN::OverInt();
+long	RPN::multiplication(long a, long b) const {
+	try {
+		long	result = a * b;
+		if (result < INT_MIN || INT_MAX < result) {
+			throw RPN::OverInt();
+		}
+		return (result);
+	} catch (const std::exception& e) {
+		throw;
 	}
-	buf.push_front(result);
 }
 
-static void	division(std::deque<long>& buf)
-{
-	long	b = buf.front();
-	buf.pop_front();
-	long	a = buf.front();
-	buf.pop_front();
-	if (b == 0) {
-		throw RPN::InvalidArg("Occurs Zero division.");
+long	RPN::division(long a, long b) const {
+	try {
+		if (b == 0) {
+			throw RPN::InvalidArg("Occurs Zero division.");
+		}
+		long	result = a / b;
+		if (result < INT_MIN || INT_MAX < result) {
+			throw RPN::OverInt();
+		}
+		return (result);
+	} catch (const std::exception& e) {
+		throw;
 	}
-	long	result = a / b;
-	if (result < INT_MIN || INT_MAX < result) {
-		throw RPN::OverInt();
-	}
-	buf.push_front(result);
 }
 
-static void	subtraction(std::deque<long>& buf)
-{
-	long	b = buf.front();
-	buf.pop_front();
-	long	a = buf.front();
-	buf.pop_front();
-	long	result = a - b;
-	if (result < INT_MIN || INT_MAX < result) {
-		throw RPN::OverInt();
+long	RPN::subtraction(long a, long b) const {
+	try {
+		long	result = a - b;
+		if (result < INT_MIN || INT_MAX < result) {
+			throw RPN::OverInt();
+		}
+		return (result);
+	} catch (const std::exception& e) {
+		throw;
 	}
-	buf.push_front(result);
 }
 
-static void	addition(std::deque<long>& buf)
-{
-	long	b = buf.front();
-	buf.pop_front();
-	long	a = buf.front();
-	buf.pop_front();
-	long	result = a + b;
-	if (result < INT_MIN || INT_MAX < result) {
-		throw RPN::OverInt();
+long	RPN::addition(long a, long b) const {
+	try {
+		long	result = a + b;
+		if (result < INT_MIN || INT_MAX < result) {
+			throw RPN::OverInt();
+		}
+		return (result);
+	} catch (const std::exception& e) {
+		throw;
 	}
-	buf.push_front(result);
 }
 
-static void	calculate(const char operation, std::deque<long>& buff)
-{
-	if (buff.size() < 2) {
+long	RPN::getNumber(std::deque<long>* buf) const {
+	try {
+		long num = buf->front();
+		buf->pop_front();
+		return (num);
+	} catch (const std::exception& e) {
+		throw;
+	}
+}
+
+void	RPN::calculate(const char operation, std::deque<long>* buf) const {
+	if (buf->size() < 2) {
 		throw RPN::InvalidArg("Not enough numbers.");
 	}
 	try {
+		long b = this->getNumber(buf);
+		long a = this->getNumber(buf);
+		long result(0);
 		switch (operation) {
 			case '+':
-				addition(buff);
+				result = this->addition(a, b);
 				break;
 			case '-':
-				subtraction(buff);
+				result = this->subtraction(a, b);
 				break;
 			case '/':
-				division(buff);
+				result = this->division(a, b);
 				break;
 			case '*':
-				multiplication(buff);
+				result = this->multiplication(a, b);
 				break;
 			default:
 				throw RPN::InvalidArg("Wrong operation.");
 		}
+		buf->push_front(result);
 	}
 	catch(const std::exception& e) {
-		throw ;
+		throw;
 	}
 }
 
-static std::string	getToken(std::string& str, std::string::iterator& itr, const std::locale& l)
-{
-	std::string	token;
+char	RPN::getToken(const std::string& str, std::string::const_iterator& it, const std::locale l) const {
+	try {
+		std::string	token;
 
-	for (; !std::isspace(*itr, l); itr++) {
-		token += static_cast<char>(*itr);
-		if ((itr + 1) == str.end()) {
-			break ;
+		for (; !std::isspace(*it, l); it++) {
+			token += static_cast<char>(*it);
+			if ((it + 1) == str.end()) {
+				break;
+			}
 		}
+		if (token.size() != 1) {
+			throw RPN::InvalidArg("Only use 0 ~ 9 or +, -, *, /.");
+		}
+		return (static_cast<char>(token[0]));
+	} catch (const std::exception& e) {
+		throw;
 	}
-	if (token.size() != 1) {
-		throw RPN::InvalidArg("Only use 0 ~ 9 or +, -, *, /.");
-	}
-	return (token);
 }
 
 // SUBJECT FUNC
-void	RPN::execute(std::string str) const
-{
+void	RPN::execute(const std::string& str) const {
 	if (str.empty()) {
 		throw RPN::InvalidArg("Empty argument.");
 	}
 
-	std::deque<long>	buff;
+	std::deque<long>	buf;
 	std::locale			l = std::locale::classic();
 	try {
-		for (std::string::iterator itr = str.begin(); itr != str.end(); itr++) {
-			if (std::isspace(*itr, l)) {
-				continue ;
+		for (std::string::const_iterator it = str.begin(); it != str.end(); it++) {
+			if (std::isspace(*it, l)) {
+				continue;
 			}
 
-			std::string	token = getToken(str, itr, l);
+			char	token = this->getToken(str, it, l);
 
-			if (std::isdigit(static_cast<char>(token[0]), l)) {
-				buff.push_front(static_cast<char>(token[0]) - '0');
-			}
-			else if (this->operations_.find(token[0]) != this->operations_.npos) {
-				calculate(static_cast<char>(token[0]), buff);
-			}
-			else {
+			if (std::isdigit(token, l)) {
+				buf.push_front(token - '0');
+			} else if (this->operations_.find(token) != this->operations_.npos) {
+				this->calculate(token, &buf);
+			} else {
 				throw RPN::InvalidArg("Non digit or operations(+-*/).");
 			}
 		}
-		if (buff.size() != 1) {
+		if (buf.size() != 1) {
 			throw RPN::InvalidArg("Wrong format.");
 		}
 	}
 	catch (const std::exception& e) {
-		throw ;
+		throw;
 	}
-	// printBuff(buff);
-	std::cout << buff.front() << std::endl;
+	// printBuff(buf);
+	std::cout << buf.front() << std::endl;
 }
 
 // EXCEPTION
