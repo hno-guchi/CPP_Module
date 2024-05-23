@@ -32,21 +32,13 @@ static bool	isValue(const std::string &str) {
 	return (true);
 }
 
-// static bool	isFuncString(const std::string &str, bool (*func)(const char)) {
-// 	return (std::find_if(str.begin(), str.end(), func) == str.end());
-// }
-
 // CONSTRUCTOR & DESTRUCTOR
 BitcoinExchange::BitcoinExchange(const std::string& fileName) : Csv(fileName) {}
 BitcoinExchange::~BitcoinExchange() {}
 
-int	main(int argc, char** argv) {
-	if (argc != 2) {
-		fatalError("Usage: ./btc [input file name]");
-	}
+void	BitcoinExchange::printResult(const std::string& fileName) {
 	try {
-		BitcoinExchange	btc("data.csv");
-		std::ifstream	fd(argv[1]);
+		std::ifstream	fd(fileName.c_str());
 		if (!fd.eof() && fd.fail()) {
 			throw std::runtime_error("Failed std::ifstream()");
 		}
@@ -79,7 +71,7 @@ int	main(int argc, char** argv) {
 				}
 				time_t	date(0);
 				try {
-					date = btc.getUnixTimeStampFromStr(dateStr);
+					date = this->getUnixTimeStampFromStr(dateStr);
 				} catch (const std::exception& e) {
 					std::cout << RED << "Valid error: " << e.what() << " => " << END << "[" << dateStr << "]" << std::endl;
 					continue;
@@ -91,7 +83,7 @@ int	main(int argc, char** argv) {
 				}
 				float	value(0.0);
 				try {
-					value = btc.getFloatFromStr(valueStr);
+					value = this->getFloatFromStr(valueStr);
 				} catch (const std::exception& e) {
 					std::cout << RED << "Valid error: " << e.what() << " => " << "[" << valueStr << "]" << std::endl;
 					continue;
@@ -103,7 +95,31 @@ int	main(int argc, char** argv) {
 					std::cout << RED << "Valid error: too large a number. => " << END << "[" << valueStr << "]" << std::endl;
 					continue;
 				}
-				std::cout << date << "," << value << std::endl;
+				std::map<time_t, float>::const_iterator	it = this->getRecords().lower_bound(date);
+				if (it == this->getRecords().end()) {
+					std::cout << RED << "Valid error: Date out of range. => " << END << "[" << dateStr << "]" << std::endl;
+					continue;
+				}
+				if (it == this->getRecords().begin()) {
+					if (date < it->first) {
+						std::cout << RED << "Valid error: Date out of range. => " << END << "[" << dateStr << "]" << std::endl;
+						continue;
+					}
+				} else if (it->first == date) {
+				} else {
+					std::map<time_t, float>::const_iterator	prevIt = it;
+					prevIt--;
+					if ((it->first - date) > (date - prevIt->first)) {
+						it = prevIt;
+					}
+				}
+				float	result = value * it->second;
+				try {
+					std::cout << this->getDateStrFromUnixTimeStamp(date) << " => " << value << " = " << result << std::endl;
+				} catch (const std::exception& e) {
+					std::cout << RED << "Fatal error: Csv::getDateStrFromUnixTimeStamp();" << END << std::endl;
+					continue;
+				}
 		}
 		if (!fd.eof() && fd.fail()) {
 			throw std::runtime_error("Failed std::getline().");
@@ -112,6 +128,19 @@ int	main(int argc, char** argv) {
 		if (!fd.eof() && fd.fail()) {
 			throw std::runtime_error("Failed std::ifstream::close().");
 		}
+	} catch (const std::exception& e) {
+		throw;
+	}
+}
+
+int	main(int argc, char** argv) {
+	if (argc != 2) {
+		fatalError("Usage: ./btc [input file name]");
+	}
+	try {
+		BitcoinExchange	btc("data.csv");
+
+		btc.printResult(argv[1]);
 	} catch (const std::exception& e) {
 		fatalError(e.what());
 	}

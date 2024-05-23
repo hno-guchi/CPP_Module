@@ -24,6 +24,7 @@ class Csv {
 	 const std::string&	getFileName() const;
 	 bool				getIsHeader() const;
 	 const std::string&	getDelimiter() const;
+	 const std::map<time_t, float>&	getRecords() const;
 
 	 time_t				getUnixTimeStampFromStr(const std::string& str);
 	 float				getFloatFromStr(const std::string& str);
