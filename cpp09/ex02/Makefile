@@ -39,14 +39,14 @@ fclean: clean
 .PHONY:re
 re: fclean all
 
-.PHONY: fsanitize
-fsanitize: fclean
-fsanitize: CXXFLAGS = $(FSANITIZEFLAGS)
-fsanitize: $(OBJS_DIR)
-fsanitize: $(OBJS)
-fsanitize:
+.PHONY: debug
+debug: fclean
+debug: CXXFLAGS = $(FSANITIZEFLAGS)
+debug: $(OBJS_DIR)
+debug: $(OBJS)
+debug:
 	$(CXX) $(FSANITIZEFLAGS) -c Int.cpp -o $(OBJS_DIR)/Int.o
-	$(CXX) $(FSANITIZEFLAGS) -o $(NAME) $(OBJS) $(OBJS_DIR)/Int.o
+	$(CXX) $(FSANITIZEFLAGS) -o debug $(OBJS) $(OBJS_DIR)/Int.o
 
 .PHONY: leaks
 leaks: CXXFLAGS += -DLEAKS

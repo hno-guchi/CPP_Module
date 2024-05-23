@@ -24,6 +24,9 @@ int main(int argc, char** argv) {
 	} catch (const std::exception& e) {
 		fatalError("Error", e.what());
 	}
+#ifdef LEAKS
+	system("leaks -q PmergeMe");
+#endif  // LEAKS
 	return (0);
 }
 

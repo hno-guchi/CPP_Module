@@ -62,7 +62,7 @@ debug:
 	./debug ./test/input.txt
 
 .PHONY: leaks
-leaks: CXXFLAGS += -DLEAKS
+leaks: CXXFLAGS += -DLEAKS -DDEBUG
 leaks: re
 leaks:
 	./$(NAME) ./test/ERR_00_invalid_date.txt
