@@ -44,6 +44,10 @@ const std::string&	Csv::getDelimiter() const {
 	return (this->delimiter_);
 }
 
+const std::map<time_t, float>&	Csv::getRecords() const {
+	return (this->records_);
+}
+
 time_t Csv::getUnixTimeStampFromStr(const std::string& str) {
 	try {
 		struct tm	tm;
@@ -99,7 +103,6 @@ void	Csv::setRecords(std::ifstream* fd, const std::string& delimiter) {
 }
 
 // DEBUG
-
 std::string	Csv::getDateStrFromUnixTimeStamp(const time_t date) const {
 	try {
 		struct tm	*tm = localtime(&date);

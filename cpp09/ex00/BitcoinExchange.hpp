@@ -18,9 +18,10 @@ class BitcoinExchange : public Csv {
 	 // std::map<time_t, std::string> >	records_;
 
  public:
-	// CONSTRUCTOR & DESTRUCTOR
-	explicit BitcoinExchange(const std::string& fileName = "data.csv");
-	~BitcoinExchange();
+	 // CONSTRUCTOR & DESTRUCTOR
+	 explicit BitcoinExchange(const std::string& fileName = "data.csv");
+	 ~BitcoinExchange();
+	 void	printResult(const std::string& fileName);
 	// GETTER & SETTER
 	// const std::string&		getFileName() const;
 	// const std::ifstream&	getFd() const;
