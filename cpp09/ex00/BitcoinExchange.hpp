@@ -9,38 +9,44 @@
 #include <sstream>
 #include <stdexcept>
 #include "./color.hpp"
-#include "./Csv.hpp"
 
-class BitcoinExchange : public Csv {
+class BitcoinExchange {
  private:
-	 // std::string						fileName_;
-	 // std::tm*						beginTime_;
-	 // std::map<time_t, std::string> >	records_;
+	 const std::string			fileName_;
+	 const std::string			delimiter_;
+	 const std::string			dateFormat_;
+	 std::map<time_t, float>	records_;
+
+	 bool			isValue(const std::string &str);
+	 time_t			getUnixTimeStampFromStr(const std::string& str);
+	 float			getFloatFromStr(const std::string& str);
+	 std::string	getDateStrFromUnixTimeStamp(const time_t date) const;
+	 void			setRecords(std::ifstream* fd, const std::string& delimiter);
+	 std::string	getDateFromLine(const std::string& line);
+	 float			getValueFromLine(const std::string& line);
+	 float			getRateFromDate(const std::string& dateStr);
+	 void			printResult(const std::string& date, const float value, const float rate);
 
  public:
 	 // CONSTRUCTOR & DESTRUCTOR
 	 explicit BitcoinExchange(const std::string& fileName = "data.csv");
 	 ~BitcoinExchange();
-	 void	printResult(const std::string& fileName);
-	// GETTER & SETTER
-	// const std::string&		getFileName() const;
-	// const std::ifstream&	getFd() const;
+
+	 // GETTER & SETTER
+	 const std::string&				getFileName() const;
+	 const std::string&				getDelimiter() const;
+	 const std::map<time_t, float>&	getRecords() const;
+
+	 // MEMBER FUNCTION
+	 void	printResults(const std::string& fileName);
+	// DEBUG
+	void	debugPrint() const;
+
 	// EXCEPTION
-	// class FatalErr : public std::logic_error {
-	// public:
-	// 	explicit FatalErr(const std::string& msg = "Fatal error.");
-	// };
-	// class ValidErr : public std::logic_error {
-	// public:
-	// 	explicit ValidErr(const std::string& msg = "Validation error.");
-	// };
-#ifdef DEBUG
-	// const std::map<size_t, std::string>	getCsvHeader() const;
-	// void	validationDate(const std::string& date) const;
-	// void	parseLine(std::string line, const std::string& delimiter) const;
-	// void	setHeader(std::string line, const std::string& delimiter);
-	// void	setCsvData(const std::string& fileName);
-#endif  // DEBUG
+class ValidErr : public std::logic_error {
+ public:
+	 explicit ValidErr(const std::string& msg = "valid error.");
+};
 };
 
 void	fatalError(const std::string& msg);
