@@ -5,8 +5,8 @@
 NAME = btc
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
-DEBUGFLAGS = -g -fsanitize=address
-SRCS = BitcoinExchange.cpp Csv.cpp
+DEBUGFLAGS = -g -fsanitize=address -DDEBUG
+SRCS = main.cpp BitcoinExchange.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -47,34 +47,57 @@ debug: $(OBJS_DIR)
 debug: $(OBJS)
 debug:
 	$(CXX) $(DEBUGFLAGS) -o debug $(OBJS)
+	./debug ./test/ERR_00_invalid_date.txt
+	./debug ./test/ERR_01_invalid_value.txt
+	./debug ./test/ERR_02_invalid_delim.txt
+	./debug ./test/ERR_03_only_empty_line.txt
+	./debug ./test/ERR_04_only_empty_lines.txt
+	./debug ./test/ERR_05_exist_empty_line_in_head.txt
+	./debug ./test/ERR_06_exist_empty_lines_in_head.txt
+	./debug ./test/ERR_07_date_out_of_range.txt
+	./debug ./test/OK_00_empty_file.txt
+	./debug ./test/OK_01_not_exist_record.txt
+	./debug ./test/OK_02_not_exist_header.txt
+	./debug ./test/OK_03_exist_empty_lines_in_between_line.txt
+	./debug ./test/input.txt
 
 .PHONY: leaks
 leaks: CXXFLAGS += -DLEAKS
 leaks: re
+leaks:
+	./$(NAME) ./test/ERR_00_invalid_date.txt
+	./$(NAME) ./test/ERR_01_invalid_value.txt
+	./$(NAME) ./test/ERR_02_invalid_delim.txt
+	./$(NAME) ./test/ERR_03_only_empty_line.txt
+	./$(NAME) ./test/ERR_04_only_empty_lines.txt
+	./$(NAME) ./test/ERR_05_exist_empty_line_in_head.txt
+	./$(NAME) ./test/ERR_06_exist_empty_lines_in_head.txt
+	./$(NAME) ./test/ERR_07_date_out_of_range.txt
+	./$(NAME) ./test/OK_00_empty_file.txt
+	./$(NAME) ./test/OK_01_not_exist_record.txt
+	./$(NAME) ./test/OK_02_not_exist_header.txt
+	./$(NAME) ./test/OK_03_exist_empty_lines_in_between_line.txt
+	./$(NAME) ./test/input.txt
+
+.PHONY: test
+test: re
+test:
+	./$(NAME) ./test/ERR_00_invalid_date.txt
+	./$(NAME) ./test/ERR_01_invalid_value.txt
+	./$(NAME) ./test/ERR_02_invalid_delim.txt
+	./$(NAME) ./test/ERR_03_only_empty_line.txt
+	./$(NAME) ./test/ERR_04_only_empty_lines.txt
+	./$(NAME) ./test/ERR_05_exist_empty_line_in_head.txt
+	./$(NAME) ./test/ERR_06_exist_empty_lines_in_head.txt
+	./$(NAME) ./test/ERR_07_date_out_of_range.txt
+	./$(NAME) ./test/OK_00_empty_file.txt
+	./$(NAME) ./test/OK_01_not_exist_record.txt
+	./$(NAME) ./test/OK_02_not_exist_header.txt
+	./$(NAME) ./test/OK_03_exist_empty_lines_in_between_line.txt
+	./$(NAME) ./test/input.txt
 
 .PHONY: lldb
 lldb: CXXFLAGS += -g -O0
 lldb: re
-
-.PHONY: test
-test: fclean
-test: CXXFLAGS = $(DEBUGFLAGS) -DTEST
-test: $(OBJS_DIR)
-test: $(OBJS)
-test:
-	$(CXX) $(DEBUGFLAGS) -o $(NAME) $(OBJS)
-	./$(NAME)
-
-.PHONY: test_leaks
-test_leaks: CXXFLAGS += -DTEST -DLEAKS
-test_leaks: re
-test_leaks:
-	./$(NAME)
-
-.PHONY: csv
-csv: CXXFLAGS += -DTEST -DLEAKS -DCSV -DDEBUG
-csv: re
-csv:
-	./$(NAME)
 
 -include $(DEPENDS)
