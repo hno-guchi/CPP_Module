@@ -3,7 +3,7 @@
 #include "./BitcoinExchange.hpp"
 
 void	fatalError(const std::string& msg) {
-	std::cerr << RED << "fatal error: " << END << msg << std::endl;
+	std::cout << RED << "fatal error: " << END << msg << std::endl;
 	exit(1);
 }
 
@@ -11,6 +11,16 @@ void	fatalError(const std::string& msg) {
 BitcoinExchange::BitcoinExchange(const std::string& fileName)
 	: fileName_(fileName), delimiter_(" | "), dateFormat_("%Y-%m-%d") {
 	try {
+		time_t	now = std::time(NULL);
+		if (now < 0) {
+			throw std::runtime_error("Failed std::time().");
+		}
+		time_t	date = this->getUnixTimeStampFromStructTm(std::localtime(&now));
+		if (date < 0) {
+			throw std::runtime_error("Failed std::localtime().");
+		}
+		this->beginTime_ = date;
+
 		std::ifstream	fd(this->fileName_);
 
 		if (fd.fail() || fd.eof()) {
@@ -62,6 +72,27 @@ bool	BitcoinExchange::isValue(const std::string &str) {
 	return (true);
 }
 
+time_t	BitcoinExchange::getUnixTimeStampFromStructTm(struct tm* tm) {
+	try {
+		if (tm == NULL) {
+			throw std::invalid_argument("Invalid arg getUnixTimeStampFromStructTm().");
+		}
+		tm->tm_hour = 0;
+		tm->tm_min = 0;
+		tm->tm_sec = 0;
+		tm->tm_isdst = -1;
+
+		time_t	date = std::mktime(tm);
+
+		if (date < 0) {
+			throw std::runtime_error("Failed std::mktime().");
+		}
+		return (date);
+	} catch (const std::exception& e) {
+		throw;
+	}
+}
+
 time_t	BitcoinExchange::getUnixTimeStampFromStr(const std::string& str) {
 	try {
 		struct tm	tm;
@@ -70,11 +101,12 @@ time_t	BitcoinExchange::getUnixTimeStampFromStr(const std::string& str) {
 		if (strptime(str.c_str(), this->dateFormat_.c_str(), &tm) == NULL) {
 			throw std::runtime_error("Failed strptime(). => [" + str + "]");
 		}
-		tm.tm_hour = 0;
-		tm.tm_min = 0;
-		tm.tm_sec = 0;
-		tm.tm_isdst = -1;
-		return (std::mktime(&tm));
+		time_t	date = this->getUnixTimeStampFromStructTm(&tm);
+
+		if (date > this->beginTime_) {
+			throw std::runtime_error("Failed getUnixTimeStampFromStructTm(). => [" + str + "]");
+		}
+		return (date);
 	} catch (const std::exception& e) {
 		throw;
 	}
@@ -90,20 +122,6 @@ float	BitcoinExchange::getFloatFromStr(const std::string& str) {
 			throw std::runtime_error("Failed std::stringstream::operator>>(). => [" + str + "]");
 		}
 		return (value);
-	} catch (const std::exception& e) {
-		throw;
-	}
-}
-
-std::string	BitcoinExchange::getDateStrFromUnixTimeStamp(const time_t date) const {
-	try {
-		struct tm	*tm = localtime(&date);
-		char		buffer[11] = {0};
-
-		if (strftime(buffer, sizeof(buffer)/sizeof(buffer[0]), this->dateFormat_.c_str(), tm) == 0) {
-			throw std::runtime_error("Failed strftime().");
-		}
-		return (std::string(buffer));
 	} catch (const std::exception& e) {
 		throw;
 	}
@@ -191,12 +209,8 @@ float	BitcoinExchange::getRateFromDate(const std::string& dateStr) {
 			if (date < it->first) {
 				throw BitcoinExchange::ValidErr("Date out of range. => [" + dateStr + "]");
 			}
-		} else if (it->first != date) {
-			std::map<time_t, float>::const_iterator	prevIt = it;
-			prevIt--;
-			if ((it->first - date) > (date - prevIt->first)) {
-				it = prevIt;
-			}
+		} else {
+			it--;
 		}
 		return (it->second);
 	} catch (const std::exception& e) {
@@ -253,9 +267,6 @@ void	BitcoinExchange::printResults(const std::string& fileName) {
 			throw std::runtime_error("Failed std::getline().");
 		}
 		fd.close();
-		// if (!fd.eof() && fd.fail()) {
-		// 	throw std::runtime_error("Failed std::ifstream::close().");
-		// }
 	} catch (const std::exception& e) {
 		throw;
 	}
@@ -265,6 +276,23 @@ void	BitcoinExchange::printResults(const std::string& fileName) {
 BitcoinExchange::ValidErr::ValidErr(const std::string& msg) : std::logic_error(msg) {}
 
 // DEBUG
+std::string	BitcoinExchange::getDateStrFromUnixTimeStamp(const time_t date) const {
+	try {
+		if (date < 0) {
+			throw std::invalid_argument("Invalid arg getDateStrFromUnixTimeStamp().");
+		}
+		struct tm	*tm = localtime(&date);
+		char		buf[11] = {0};
+
+		if (strftime(buf, sizeof(buf)/sizeof(buf[0]), this->dateFormat_.c_str(), tm) == 0) {
+			throw std::runtime_error("Failed strftime().");
+		}
+		return (std::string(buf));
+	} catch (const std::exception& e) {
+		throw;
+	}
+}
+
 void	BitcoinExchange::debugPrint() const {
 	try {
 		std::cout << "date,exchange_rate" << std::endl;
