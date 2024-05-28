@@ -12,12 +12,12 @@ int main(int argc, char** argv) {
 		if (argc == 1) {
 			fatalError("Error", "No arguments");
 		}
-		PmergeMe<std::vector<int> >	vector(argc, argv);
+		PmergeMe<std::vector<int>, std::vector<std::pair<int, int> > >	vector(argc, argv);
 		vector.sort();
 		vector.printResult();
 		vector.printMsTime("std::vector<int>");
 
-		PmergeMe<std::list<int> >	list(argc, argv);
+		PmergeMe<std::list<int>, std::list<std::pair<int, int> > >	list(argc, argv);
 		list.sort();
 		// list.printResult();
 		list.printMsTime("std::list<int>  ");
@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
 
 		std::cout << "__________________________________________________" << std::endl;
 		std::cout << "Vector: " << std::flush;
-		PmergeMe<std::vector<int> >	vector(argc, argv);
+		PmergeMe<std::vector<int>, std::vector<std::pair<int, int> > >	vector(argc, argv);
 		vector.sort();
 		std::vector<int>			vec = vector.getBefore();
 		start = std::clock();
@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
 
 
 		std::cout << "Deque : " << std::flush;
-		PmergeMe<std::deque<int> >	deque(argc, argv);
+		PmergeMe<std::deque<int>, std::deque<std::pair<int, int> > >	deque(argc, argv);
 		deque.sort();
 		std::deque<int>				deq = deque.getBefore();
 		start = std::clock();
@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
 
 
 		std::cout << "List  : " << std::flush;
-		PmergeMe<std::list<int> >	list(argc, argv);
+		PmergeMe<std::list<int>, std::list<std::pair<int, int> > >	list(argc, argv);
 		list.sort();
 		std::list<int>				li = list.getBefore();
 		start = std::clock();

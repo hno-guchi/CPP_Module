@@ -13,8 +13,8 @@ void	fatalError(const std::string& subject, const std::string& message) {
 }
 
 // CONSTRUCTOR & DESTRUCTOR
-template <typename CONTAINER>
-PmergeMe<CONTAINER>::PmergeMe(int argc, char **argv) : compareCount_(0), msTime_(0.0) {
+template <typename INTCONT, typename PAIRCONT>
+PmergeMe<INTCONT, PAIRCONT>::PmergeMe(int argc, char **argv) : compareCount_(0), msTime_(0.0) {
 	try {
 		this->createContainer(argc, argv);
 	} catch (std::exception& e) {
@@ -22,11 +22,11 @@ PmergeMe<CONTAINER>::PmergeMe(int argc, char **argv) : compareCount_(0), msTime_
 	}
 }
 
-template <typename CONTAINER>
-PmergeMe<CONTAINER>::~PmergeMe() {}
+template <typename INTCONT, typename PAIRCONT>
+PmergeMe<INTCONT, PAIRCONT>::~PmergeMe() {}
 
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::createContainer(int argc, char** argv) {
+template <typename INTCONT, typename PAIRCONT>
+void	PmergeMe<INTCONT, PAIRCONT>::createContainer(int argc, char** argv) {
 	try {
 		for (int i = 1; i < argc; i++) {
 			int	num = this->convertStringToInt(argv[i]);
@@ -44,10 +44,10 @@ void	PmergeMe<CONTAINER>::createContainer(int argc, char** argv) {
 	}
 }
 
-template <typename CONTAINER>
-bool	PmergeMe<CONTAINER>::isDuplicate(int num) {
+template <typename INTCONT, typename PAIRCONT>
+bool	PmergeMe<INTCONT, PAIRCONT>::isDuplicate(int num) {
 	try {
-		for (typename CONTAINER::const_iterator it = this->before_.begin(); it != this->before_.end(); it++) {
+		for (typename INTCONT::const_iterator it = this->before_.begin(); it != this->before_.end(); it++) {
 			if (*it == num) {
 				return (true);
 				// throw std::invalid_argument("Duplicated number");
@@ -59,8 +59,8 @@ bool	PmergeMe<CONTAINER>::isDuplicate(int num) {
 	}
 }
 
-template <typename CONTAINER>
-int	PmergeMe<CONTAINER>::convertStringToInt(const std::string& str) {
+template <typename INTCONT, typename PAIRCONT>
+int	PmergeMe<INTCONT, PAIRCONT>::convertStringToInt(const std::string& str) {
 	try {
 		std::stringstream	ss(str);
 		int					ret;
@@ -76,33 +76,33 @@ int	PmergeMe<CONTAINER>::convertStringToInt(const std::string& str) {
 }
 
 // GETTER
-template <typename CONTAINER>
-const CONTAINER&	PmergeMe<CONTAINER>::getBefore() const {
+template <typename INTCONT, typename PAIRCONT>
+const INTCONT&	PmergeMe<INTCONT, PAIRCONT>::getBefore() const {
 	return (this->before_);
 }
 
-template <typename CONTAINER>
-const CONTAINER&	PmergeMe<CONTAINER>::getAfter() const {
+template <typename INTCONT, typename PAIRCONT>
+const INTCONT&	PmergeMe<INTCONT, PAIRCONT>::getAfter() const {
 	return (this->after_);
 }
 
-template <typename CONTAINER>
-size_t	PmergeMe<CONTAINER>::getCompareCount() const {
+template <typename INTCONT, typename PAIRCONT>
+size_t	PmergeMe<INTCONT, PAIRCONT>::getCompareCount() const {
 	return (this->compareCount_);
 }
 
-template <typename CONTAINER>
-double	PmergeMe<CONTAINER>::getMsTime() const {
+template <typename INTCONT, typename PAIRCONT>
+double	PmergeMe<INTCONT, PAIRCONT>::getMsTime() const {
 	return (this->msTime_);
 }
 
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::resetCompareCount() {
+template <typename INTCONT, typename PAIRCONT>
+void	PmergeMe<INTCONT, PAIRCONT>::resetCompareCount() {
 	this->compareCount_ = 0;
 }
 
-template <typename CONTAINER>
-size_t	PmergeMe<CONTAINER>::getJacobsthalNumber(size_t* n) {
+template <typename INTCONT, typename PAIRCONT>
+size_t	PmergeMe<INTCONT, PAIRCONT>::getJacobsthalNumber(size_t* n) {
 	if (*n == 0) {
 		return (0);
 	}
@@ -122,8 +122,8 @@ size_t	PmergeMe<CONTAINER>::getJacobsthalNumber(size_t* n) {
 	return (numN);
 }
 
-template <typename CONTAINER>
-size_t	PmergeMe<CONTAINER>::getDistance(typename CONTAINER::const_iterator begin, typename CONTAINER::const_iterator end) {
+template <typename INTCONT, typename PAIRCONT>
+size_t	PmergeMe<INTCONT, PAIRCONT>::getDistance(typename INTCONT::const_iterator begin, typename INTCONT::const_iterator end) {
 	size_t	dist = 0;
 	for (; begin != end; begin++) {
 		dist += 1;
@@ -131,14 +131,14 @@ size_t	PmergeMe<CONTAINER>::getDistance(typename CONTAINER::const_iterator begin
 	return (dist);
 }
 
-template <typename CONTAINER>
-typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::getBackIterator(typename CONTAINER::const_iterator end) {
+template <typename INTCONT, typename PAIRCONT>
+typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::getBackIterator(typename INTCONT::const_iterator end) {
 	end--;
 	return (end);
 }
 
-template <typename CONTAINER>
-typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::getMiddleIterator(typename CONTAINER::const_iterator left, typename CONTAINER::const_iterator right) {
+template <typename INTCONT, typename PAIRCONT>
+typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::getMiddleIterator(typename INTCONT::const_iterator left, typename INTCONT::const_iterator right) {
 	try {
 		size_t	n = this->getDistance(left, right) / 2;
 
@@ -151,12 +151,12 @@ typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::getMiddleIterator(typena
 	}
 }
 
-template <typename CONTAINER>
-std::vector<std::pair<int, int> >	PmergeMe<CONTAINER>::createPairs(CONTAINER container) {
+template <typename INTCONT, typename PAIRCONT>
+PAIRCONT	PmergeMe<INTCONT, PAIRCONT>::createPairs(INTCONT container) {
 	try {
-		std::vector<std::pair<int, int> >	pairs;
-		for (typename CONTAINER::iterator it = container.begin(); it != container.end(); it++) {
-			typename CONTAINER::iterator nextIt = it;
+		PAIRCONT	pairs;
+		for (typename INTCONT::iterator it = container.begin(); it != container.end(); it++) {
+			typename INTCONT::iterator nextIt = it;
 			nextIt++;
 			if (nextIt == container.end()) {
 				pairs.push_back(std::make_pair(-1, *it));
@@ -176,11 +176,11 @@ std::vector<std::pair<int, int> >	PmergeMe<CONTAINER>::createPairs(CONTAINER con
 	}
 }
 
-template <typename CONTAINER>
-CONTAINER	PmergeMe<CONTAINER>::getLarges(const std::vector<std::pair<int, int> >& pairs) {
+template <typename INTCONT, typename PAIRCONT>
+INTCONT	PmergeMe<INTCONT, PAIRCONT>::getLarges(const PAIRCONT& pairs) {
 	try {
-		CONTAINER	larges;
-		for (std::vector<std::pair<int, int> >::const_iterator it = pairs.begin(); it != pairs.end(); it++) {
+		INTCONT	larges;
+		for (typename PAIRCONT::const_iterator it = pairs.begin(); it != pairs.end(); it++) {
 			if (it->first != -1) {
 				larges.push_back(it->first);
 			}
@@ -191,20 +191,20 @@ CONTAINER	PmergeMe<CONTAINER>::getLarges(const std::vector<std::pair<int, int> >
 	}
 }
 
-template <typename CONTAINER>
-CONTAINER	PmergeMe<CONTAINER>::getSmalls(const std::vector<std::pair<int, int> >& pairs, const CONTAINER& sorted) {
+template <typename INTCONT, typename PAIRCONT>
+INTCONT	PmergeMe<INTCONT, PAIRCONT>::getSmalls(const PAIRCONT& pairs, const INTCONT& sorted) {
 	try {
-		CONTAINER	smalls;
-		for (typename CONTAINER::const_iterator sortedIt = sorted.begin(); sortedIt != sorted.end(); sortedIt++) {
-			for (std::vector<std::pair<int, int> >::const_iterator pairsIt = pairs.begin(); pairsIt != pairs.end(); pairsIt++) {
+		INTCONT	smalls;
+		for (typename INTCONT::const_iterator sortedIt = sorted.begin(); sortedIt != sorted.end(); sortedIt++) {
+			for (typename PAIRCONT::const_iterator pairsIt = pairs.begin(); pairsIt != pairs.end(); pairsIt++) {
 				if (*sortedIt == pairsIt->first) {
 					smalls.push_back(pairsIt->second);
 					break;
 				}
 			}
 		}
-		if (pairs[pairs.size() - 1].first == -1) {
-			smalls.push_back(pairs[pairs.size() - 1].second);
+		if (pairs.back().first == -1) {
+			smalls.push_back(pairs.back().second);
 		}
 		return (smalls);
 	} catch (std::exception& e) {
@@ -212,10 +212,10 @@ CONTAINER	PmergeMe<CONTAINER>::getSmalls(const std::vector<std::pair<int, int> >
 	}
 }
 
-template <typename CONTAINER>
-typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::selectInsertionRange(size_t* n, const CONTAINER& smalls, typename CONTAINER::const_iterator begin) {
+template <typename INTCONT, typename PAIRCONT>
+typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::selectInsertionRange(size_t* n, const INTCONT& smalls, typename INTCONT::const_iterator begin) {
 	try {
-		typename CONTAINER::const_iterator	end = begin;
+		typename INTCONT::const_iterator	end = begin;
 		end++;
 		if (end == smalls.end()) {
 			return (end);
@@ -231,11 +231,11 @@ typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::selectInsertionRange(siz
 	}
 }
 
-template <typename CONTAINER>
-typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::getRightIterator(const std::vector<std::pair<int, int> >& pairs, const CONTAINER& sorted, int target) {
+template <typename INTCONT, typename PAIRCONT>
+typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::getRightIterator(const PAIRCONT& pairs, const INTCONT& sorted, int target) {
 	try {
-		typename CONTAINER::const_iterator					right = sorted.end();
-		std::vector<std::pair<int, int> >::const_iterator	pairsIt = pairs.begin();
+		typename INTCONT::const_iterator	right = sorted.end();
+		typename PAIRCONT::const_iterator	pairsIt = pairs.begin();
 		for (; pairsIt != pairs.end(); pairsIt++) {
 			if (pairsIt->second == target) {
 				break;
@@ -247,7 +247,7 @@ typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::getRightIterator(const s
 		if (pairsIt->first == -1) {
 			return (right);
 		}
-		for (typename CONTAINER::const_iterator sortedIt = getBackIterator(sorted.end()); sortedIt != sorted.begin(); sortedIt--) {
+		for (typename INTCONT::const_iterator sortedIt = getBackIterator(sorted.end()); sortedIt != sorted.begin(); sortedIt--) {
 			right--;
 			if (pairsIt->first == (*sortedIt)) {
 				break;
@@ -259,13 +259,13 @@ typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::getRightIterator(const s
 	}
 }
 
-template <typename CONTAINER>
-typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::getSortPosition(const std::vector<std::pair<int, int> >& pairs, const CONTAINER& sorted, int target) {
+template <typename INTCONT, typename PAIRCONT>
+typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::getSortPosition(const PAIRCONT& pairs, const INTCONT& sorted, int target) {
 	try {
-		typename CONTAINER::const_iterator	left = sorted.begin();
-		typename CONTAINER::const_iterator	right = this->getRightIterator(pairs, sorted, target);
+		typename INTCONT::const_iterator	left = sorted.begin();
+		typename INTCONT::const_iterator	right = this->getRightIterator(pairs, sorted, target);
 		while (this->getDistance(left, sorted.end()) > this->getDistance(right, sorted.end())) {
-			typename CONTAINER::const_iterator	middle = this->getMiddleIterator(left, right);
+			typename INTCONT::const_iterator	middle = this->getMiddleIterator(left, right);
 			this->compareCount_ += 1;
 			if (target < *middle) {
 				right = middle;
@@ -281,8 +281,8 @@ typename CONTAINER::const_iterator	PmergeMe<CONTAINER>::getSortPosition(const st
 	}
 }
 
-template <typename CONTAINER>
-CONTAINER	PmergeMe<CONTAINER>::mergeInsertionSort(CONTAINER container) {
+template <typename INTCONT, typename PAIRCONT>
+INTCONT	PmergeMe<INTCONT, PAIRCONT>::mergeInsertionSort(INTCONT container) {
 	try {
 		if (container.size() < 2) {
 			return (container);
@@ -294,30 +294,30 @@ CONTAINER	PmergeMe<CONTAINER>::mergeInsertionSort(CONTAINER container) {
 			}
 			return (container);
 		}
-		std::vector<std::pair<int, int> >	pairs = this->createPairs(container);
-		CONTAINER							larges = this->getLarges(pairs);
+		PAIRCONT	pairs = this->createPairs(container);
+		INTCONT		larges = this->getLarges(pairs);
 		// printPairs("pairs", pairs); printContainer("larges", larges); std::cout << std::endl;
 
-		CONTAINER							sorted = this->mergeInsertionSort(larges);
+		INTCONT		sorted = this->mergeInsertionSort(larges);
 		// std::cout << std::endl; printContainer("sorted", sorted);
 
-		CONTAINER							smalls = this->getSmalls(pairs, sorted);
+		INTCONT		smalls = this->getSmalls(pairs, sorted);
 		// printContainer("smalls", smalls);
 
 		sorted.insert(sorted.begin(), *(smalls.begin()));
 		size_t	n = 1;
-		typename CONTAINER::const_iterator	end;
-		for (typename CONTAINER::const_iterator	begin = smalls.begin(); begin != smalls.end(); begin = end) {
+		typename INTCONT::const_iterator	end;
+		for (typename INTCONT::const_iterator	begin = smalls.begin(); begin != smalls.end(); begin = end) {
 			end = this->selectInsertionRange(&n, smalls, begin);
 			if (end == smalls.end()) {
 				break;
 			}
 
-			typename CONTAINER::const_iterator	target = end;
+			typename INTCONT::const_iterator	target = end;
 			// std::cout << "target: " << *target << std::endl;
 			while (target != begin) {
 				// Binary search
-				typename CONTAINER::const_iterator	sortPos = this->getSortPosition(pairs, sorted, *target);
+				typename INTCONT::const_iterator	sortPos = this->getSortPosition(pairs, sorted, *target);
 				sorted.insert(sortPos, *target);
 				target--;
 			}
@@ -329,8 +329,8 @@ CONTAINER	PmergeMe<CONTAINER>::mergeInsertionSort(CONTAINER container) {
 	}
 }
 
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::sort() {
+template <typename INTCONT, typename PAIRCONT>
+void	PmergeMe<INTCONT, PAIRCONT>::sort() {
 	try {
 		std::clock_t	start = std::clock();
 		this->after_ = this->mergeInsertionSort(this->before_);
@@ -342,17 +342,17 @@ void	PmergeMe<CONTAINER>::sort() {
 }
 
 // DEBUG
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::printContainer(const std::string& subject, const CONTAINER& container) const {
+template <typename INTCONT, typename PAIRCONT>
+void	PmergeMe<INTCONT, PAIRCONT>::printContainer(const std::string& subject, const INTCONT& container) const {
 	std::cout << subject << ": " << std::flush;
-	for (typename CONTAINER::const_iterator it = container.begin(); it != container.end(); it++) {
+	for (typename INTCONT::const_iterator it = container.begin(); it != container.end(); it++) {
 		std::cout << *it << " " << std::flush;
 	}
 	std::cout << std::endl;
 }
 
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::printRange(const std::string& subject, typename CONTAINER::const_iterator begin, typename CONTAINER::const_iterator end) const {
+template <typename INTCONT, typename PAIRCONT>
+void	PmergeMe<INTCONT, PAIRCONT>::printRange(const std::string& subject, typename INTCONT::const_iterator begin, typename INTCONT::const_iterator end) const {
 	std::cout << subject << ": " << std::flush;
 	for (; begin != end; begin++) {
 		std::cout << *begin << ", "<< std::flush;
@@ -361,10 +361,10 @@ void	PmergeMe<CONTAINER>::printRange(const std::string& subject, typename CONTAI
 }
 
 // DEBUG
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::printPairs(const std::string& str, const std::vector<std::pair<int, int> >& pairs) const {
+template <typename INTCONT, typename PAIRCONT>
+void	PmergeMe<INTCONT, PAIRCONT>::printPairs(const std::string& str, const PAIRCONT& pairs) const {
 	std::cout << str << ": " << std::flush;
-	for (std::vector<std::pair<int, int> >::const_iterator it = pairs.begin(); it != pairs.end(); it++) {
+	for (typename PAIRCONT::const_iterator it = pairs.begin(); it != pairs.end(); it++) {
 		std::cout << "[" << it->first << ", " << it->second << "]" << std::flush;
 		if (it != pairs.end()) {
 			std::cout << ", " << std::flush;
@@ -373,22 +373,22 @@ void	PmergeMe<CONTAINER>::printPairs(const std::string& str, const std::vector<s
 	std::cout << std::endl;
 }
 
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::printMsTime(const std::string& type) const {
+template <typename INTCONT, typename PAIRCONT>
+void	PmergeMe<INTCONT, PAIRCONT>::printMsTime(const std::string& type) const {
 	// std::cout << std::fixed << std::setprecision(5);
 	std::cout << "Time to process a range of " << GREEN << this->before_.size() << END << " elements with " << type << " : " << GREEN << this->msTime_ << END << " ms" << std::endl;
 }
 
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::printResult() const {
+template <typename INTCONT, typename PAIRCONT>
+void	PmergeMe<INTCONT, PAIRCONT>::printResult() const {
 	this->printContainer("Before", this->before_);
 	this->printContainer("After ", this->after_);
 }
 
-template class PmergeMe<std::vector<int> >;
-template class PmergeMe<std::list<int> >;
+template class PmergeMe<std::vector<int>, std::vector<std::pair<int, int> > >;
+template class PmergeMe<std::list<int>, std::list<std::pair<int, int> > >;
 
 #ifdef DEBUG
 #include <deque>
-template class PmergeMe<std::deque<int> >;
+template class PmergeMe<std::deque<int>, std::deque<std::pair<int, int> > >;
 #endif  // DEBUG
