@@ -35,6 +35,7 @@ clean:
 .PHONY:fclean
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) debug
 
 .PHONY:re
 re: fclean all
