@@ -7,11 +7,6 @@
 #include "./PmergeMe.hpp"
 #include "./color.hpp"
 
-void	fatalError(const std::string& subject, const std::string& message) {
-	std::cout << RED << subject << ": " << message << END << std::endl;
-	exit(1);
-}
-
 // CONSTRUCTOR & DESTRUCTOR
 template <typename INTCONT, typename PAIRCONT>
 PmergeMe<INTCONT, PAIRCONT>::PmergeMe(int argc, char **argv) : compareCount_(0), msTime_(0.0) {
@@ -34,8 +29,9 @@ void	PmergeMe<INTCONT, PAIRCONT>::createContainer(int argc, char** argv) {
 				throw std::invalid_argument("Negative number");
 			}
 			if (this->isDuplicate(num)) {
-				continue;
+				// std::cout << "Ignore duplicate number: " << num << std::endl;
 				// throw std::invalid_argument("Duplicated number");
+				continue;
 			}
 			this->before_.push_back(num);
 		}
@@ -123,28 +119,9 @@ size_t	PmergeMe<INTCONT, PAIRCONT>::getJacobsthalNumber(size_t* n) {
 }
 
 template <typename INTCONT, typename PAIRCONT>
-size_t	PmergeMe<INTCONT, PAIRCONT>::getDistance(typename INTCONT::const_iterator begin, typename INTCONT::const_iterator end) {
-	size_t	dist = 0;
-	for (; begin != end; begin++) {
-		dist += 1;
-	}
-	return (dist);
-}
-
-template <typename INTCONT, typename PAIRCONT>
-typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::getBackIterator(typename INTCONT::const_iterator end) {
-	end--;
-	return (end);
-}
-
-template <typename INTCONT, typename PAIRCONT>
 typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::getMiddleIterator(typename INTCONT::const_iterator left, typename INTCONT::const_iterator right) {
 	try {
-		size_t	n = this->getDistance(left, right) / 2;
-
-		for (size_t i = 0; i < n; i++) {
-			left++;
-		}
+		std::advance(left, std::distance(left, right) / 2);
 		return (left);
 	} catch (std::exception& e) {
 		throw;
@@ -220,8 +197,9 @@ typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::selectInsertionRan
 		if (end == smalls.end()) {
 			return (end);
 		}
-		for (; end != this->getBackIterator(smalls.end()); end++) {
-			if (this->getDistance(begin, end) == (this->getJacobsthalNumber(n) * 2)) {
+		typename INTCONT::const_iterator	lastIt = smalls.end();
+		for (lastIt--; end != lastIt; end++) {
+			if (static_cast<size_t>(std::distance(begin, end)) == (this->getJacobsthalNumber(n) * 2)) {
 				break;
 			}
 		}
@@ -234,7 +212,6 @@ typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::selectInsertionRan
 template <typename INTCONT, typename PAIRCONT>
 typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::getRightIterator(const PAIRCONT& pairs, const INTCONT& sorted, int target) {
 	try {
-		typename INTCONT::const_iterator	right = sorted.end();
 		typename PAIRCONT::const_iterator	pairsIt = pairs.begin();
 		for (; pairsIt != pairs.end(); pairsIt++) {
 			if (pairsIt->second == target) {
@@ -242,12 +219,14 @@ typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::getRightIterator(c
 			}
 		}
 		if (pairsIt == pairs.end()) {
-			return (right);
+			return (sorted.end());
 		}
 		if (pairsIt->first == -1) {
-			return (right);
+			return (sorted.end());
 		}
-		for (typename INTCONT::const_iterator sortedIt = getBackIterator(sorted.end()); sortedIt != sorted.begin(); sortedIt--) {
+		typename INTCONT::const_iterator	sortedIt = sorted.end();
+		typename INTCONT::const_iterator	right = sorted.end();
+		for (sortedIt--; sortedIt != sorted.begin(); sortedIt--) {
 			right--;
 			if (pairsIt->first == (*sortedIt)) {
 				break;
@@ -264,17 +243,28 @@ typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::getSortPosition(co
 	try {
 		typename INTCONT::const_iterator	left = sorted.begin();
 		typename INTCONT::const_iterator	right = this->getRightIterator(pairs, sorted, target);
-		while (this->getDistance(left, sorted.end()) > this->getDistance(right, sorted.end())) {
-			typename INTCONT::const_iterator	middle = this->getMiddleIterator(left, right);
-			this->compareCount_ += 1;
-			if (target < *middle) {
-				right = middle;
-			} else {
-				left = middle;
+		if (std::distance(left, right) < 3) {
+			while (left != right) {
+				this->compareCount_ += 1;
+				if (target < *left) {
+					return (left);
+				}
 				left++;
 			}
+			return (left);
+		} else {
+			while (std::distance(left, sorted.end()) > std::distance(right, sorted.end())) {
+				typename INTCONT::const_iterator	middle = this->getMiddleIterator(left, right);
+				this->compareCount_ += 1;
+				if (target < *middle) {
+					right = middle;
+				} else {
+					left = middle;
+					left++;
+				}
+			}
+			// this->printRange("binary", left, right);
 		}
-		// this->printRange("binary", left, right);
 		return (left);
 	} catch (std::exception& e) {
 		throw;

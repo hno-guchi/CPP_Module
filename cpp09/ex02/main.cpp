@@ -5,6 +5,11 @@
 #include "./PmergeMe.hpp"
 #include "./color.hpp"
 
+void	fatalError(const std::string& subject, const std::string& message) {
+	std::cout << RED << subject << ": " << message << END << std::endl;
+	exit(1);
+}
+
 #ifndef DEBUG
 
 int main(int argc, char** argv) {
