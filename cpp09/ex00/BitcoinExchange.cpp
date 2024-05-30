@@ -2,11 +2,6 @@
 #include <sstream>
 #include "./BitcoinExchange.hpp"
 
-void	fatalError(const std::string& msg) {
-	std::cout << RED << "fatal error: " << END << msg << std::endl;
-	exit(1);
-}
-
 // CONSTRUCTOR & DESTRUCTOR
 BitcoinExchange::BitcoinExchange(const std::string& fileName)
 	: fileName_(fileName), delimiter_(" | "), dateFormat_("%Y-%m-%d") {
@@ -28,15 +23,11 @@ BitcoinExchange::BitcoinExchange(const std::string& fileName)
 		}
 		std::string	line("");
 
-		std::getline(fd, line, '\n');
+		std::getline(fd, line);
 		if (fd.fail()) {
 			throw std::runtime_error("Failed std::getline().");
 		}
 		this->setRecords(&fd, ",");
-		fd.close();
-		if (!fd.eof() && fd.fail()) {
-			throw std::runtime_error("Failed std::ifstream::close().");
-		}
 	}
 	catch (const std::exception& e) {
 		throw;
@@ -112,10 +103,10 @@ time_t	BitcoinExchange::getUnixTimeStampFromStr(const std::string& str) {
 	}
 }
 
-float	BitcoinExchange::getFloatFromStr(const std::string& str) {
+double	BitcoinExchange::getFloatFromStr(const std::string& str) {
 	try {
 		std::stringstream	ss(str);
-		float				value;
+		double				value;
 
 		ss >> value;
 		if (!ss.eof() && ss.fail()) {
@@ -131,12 +122,12 @@ void	BitcoinExchange::setRecords(std::ifstream* fd, const std::string& delimiter
 	try {
 		std::string	line("");
 
-		while (std::getline(*fd, line, '\n')) {
+		while (std::getline(*fd, line)) {
 			std::string	dateStr = line.substr(0, line.find(delimiter));
 			std::string	valueStr = line.substr(line.find(delimiter) + delimiter.size());
 
 			time_t	date = this->getUnixTimeStampFromStr(dateStr);
-			float	value = this->getFloatFromStr(valueStr);
+			double	value = this->getFloatFromStr(valueStr);
 			this->records_[date] = value;
 		}
 		if (!fd->eof() && fd->fail()) {
@@ -158,7 +149,7 @@ const std::string&	BitcoinExchange::getDelimiter() const {
 	return (this->delimiter_);
 }
 
-const std::map<time_t, float>&	BitcoinExchange::getRecords() const {
+const std::map<time_t, double>&	BitcoinExchange::getRecords() const {
 	return (this->records_);
 }
 
@@ -166,13 +157,13 @@ std::string	BitcoinExchange::getDateFromLine(const std::string& line) {
 	try {
 		std::string	dateStr = line.substr(0, line.find(this->delimiter_));
 		if (dateStr.empty()) {
-			throw BitcoinExchange::ValidErr("Empty date.");
+			throw std::invalid_argument("Empty date.");
 		}
 		if (line.find(this->delimiter_) == std::string::npos) {
-			throw BitcoinExchange::ValidErr("Failed to find delimiter. => [" + dateStr + "]");
+			throw std::invalid_argument("Failed to find delimiter. => [" + dateStr + "]");
 		}
 		if (line.find(this->delimiter_) + this->delimiter_.size() >= line.size()) {
-			throw BitcoinExchange::ValidErr("Failed to find value. => [" + dateStr + "]");
+			throw std::invalid_argument("Failed to find value. => [" + dateStr + "]");
 		}
 		return (dateStr);
 	} catch (const std::exception& e) {
@@ -180,17 +171,17 @@ std::string	BitcoinExchange::getDateFromLine(const std::string& line) {
 	}
 }
 
-float	BitcoinExchange::getValueFromLine(const std::string& line) {
+double	BitcoinExchange::getValueFromLine(const std::string& line) {
 	try {
 		std::string	valueStr = line.substr(line.find(this->delimiter_) + this->delimiter_.size());
 		if (!isValue(valueStr)) {
-			throw BitcoinExchange::ValidErr("Exist Not digit char. => [" + valueStr + "]");
+			throw std::invalid_argument("Exist Not digit char. => [" + valueStr + "]");
 		}
-		float	value = this->getFloatFromStr(valueStr);
+		double	value = this->getFloatFromStr(valueStr);
 		if (value < 0.0) {
-			throw BitcoinExchange::ValidErr("Not a positive number. => [" + valueStr + "]");
+			throw std::invalid_argument("Not a positive number. => [" + valueStr + "]");
 		} else if (value > 1000.0) {
-			throw BitcoinExchange::ValidErr("Too large a number. => [" + valueStr + "]");
+			throw std::invalid_argument("Too large a number. => [" + valueStr + "]");
 		}
 		return (value);
 	} catch (const std::exception& e) {
@@ -198,18 +189,19 @@ float	BitcoinExchange::getValueFromLine(const std::string& line) {
 	}
 }
 
-float	BitcoinExchange::getRateFromDate(const std::string& dateStr) {
+double	BitcoinExchange::getRateFromDate(const std::string& dateStr) {
 	try {
 		time_t	date = this->getUnixTimeStampFromStr(dateStr);
-		std::map<time_t, float>::const_iterator	it = this->getRecords().lower_bound(date);
+		std::map<time_t, double>::const_iterator	it = this->getRecords().lower_bound(date);
 		if (it == this->getRecords().end()) {
-			throw BitcoinExchange::ValidErr("Date out of range. => [" + dateStr + "]");
+			throw std::out_of_range("Date out of range. => [" + dateStr + "]");
 		}
 		if (it == this->getRecords().begin()) {
 			if (date < it->first) {
-				throw BitcoinExchange::ValidErr("Date out of range. => [" + dateStr + "]");
+				throw std::out_of_range("Date out of range. => [" + dateStr + "]");
 			}
-		} else {
+		}
+		if (it->first != date) {
 			it--;
 		}
 		return (it->second);
@@ -218,10 +210,13 @@ float	BitcoinExchange::getRateFromDate(const std::string& dateStr) {
 	}
 }
 
-void	BitcoinExchange::printResult(const std::string& date, const float value, const float rate) {
+void	BitcoinExchange::printResult(const std::string& date, const double value, const double rate) {
 	try {
-		float	result = value * rate;
-		std::cout << date << " => " << value << " = " << result << std::endl;
+		double	result = value * rate;
+		std::cout << date << " => " << value << " = " << std::flush;
+		std::fixed(std::cout);
+		std::cout << std::setprecision(3);
+		std::cout << result << std::endl;
 	} catch (const std::exception& e) {
 		std::cout << RED << "Fatal error: Csv::printResult();" << END << std::endl;
 	}
@@ -232,48 +227,40 @@ void	BitcoinExchange::printResults(const std::string& fileName) {
 	try {
 		std::ifstream	fd(fileName.c_str());
 		if (!fd.eof() && fd.fail()) {
-			fd.close();
 			throw std::runtime_error("Failed std::ifstream()");
 		}
 		if (fd.eof()) {
-			fd.close();
 			throw std::runtime_error("Empty file.");
 		}
 		std::string	line("");
-		std::getline(fd, line, '\n');
+		std::getline(fd, line);
 		if (!fd.eof() && fd.fail()) {
-			fd.close();
 			throw std::runtime_error("Failed std::getline().");
 		}
-		while (std::getline(fd, line, '\n')) {
+		while (std::getline(fd, line)) {
 			try {
 				if (line.empty()) {
-					throw BitcoinExchange::ValidErr("Empty line.");
+					throw std::invalid_argument("Empty line.");
 				}
 #ifdef DEBUG
 				std::cout << "[" << YELLOW << line << END << "]   " << std::flush;
 #endif  // DEBUG
 				std::string	date = this->getDateFromLine(line);
-				float		value = this->getValueFromLine(line);
-				float		rate = this->getRateFromDate(date);
+				double		value = this->getValueFromLine(line);
+				double		rate = this->getRateFromDate(date);
 				this->printResult(date, value, rate);
 			} catch (const std::exception& e) {
-				std::cout << RED << "Valid error: " << END << e.what() << std::endl;
+				std::cout << RED << "Error: " << END << e.what() << std::endl;
 				continue;
 			}
 		}
 		if (!fd.eof() && fd.fail()) {
-			fd.close();
 			throw std::runtime_error("Failed std::getline().");
 		}
-		fd.close();
 	} catch (const std::exception& e) {
 		throw;
 	}
 }
-
-// EXCEPTION
-BitcoinExchange::ValidErr::ValidErr(const std::string& msg) : std::logic_error(msg) {}
 
 // DEBUG
 std::string	BitcoinExchange::getDateStrFromUnixTimeStamp(const time_t date) const {
@@ -296,7 +283,7 @@ std::string	BitcoinExchange::getDateStrFromUnixTimeStamp(const time_t date) cons
 void	BitcoinExchange::debugPrint() const {
 	try {
 		std::cout << "date,exchange_rate" << std::endl;
-		for (std::map<time_t, float>::const_iterator it = this->records_.begin(); it != this->records_.end(); it++) {
+		for (std::map<time_t, double>::const_iterator it = this->records_.begin(); it != this->records_.end(); it++) {
 			std::cout << std::fixed << std::setprecision(2);
 			std::cout << this->getDateStrFromUnixTimeStamp(it->first) << "," << it->second << std::endl;
 		}
