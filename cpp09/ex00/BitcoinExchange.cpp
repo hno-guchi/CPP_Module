@@ -34,9 +34,6 @@ BitcoinExchange::BitcoinExchange(const std::string& fileName)
 	}
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange& rhs) { this->operator=(rhs); }
-BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& rhs) { (void)rhs; return (*this); }
-
 BitcoinExchange::~BitcoinExchange() {}
 
 bool	BitcoinExchange::isValue(const std::string &str) {
@@ -158,15 +155,15 @@ const std::map<time_t, double>&	BitcoinExchange::getRecords() const {
 
 std::string	BitcoinExchange::getDateFromLine(const std::string& line) {
 	try {
+		if (line.find(this->delimiter_) == std::string::npos) {
+			throw std::invalid_argument("Failed to find delimiter. => [" + line + "]");
+		}
+		if (line.find(this->delimiter_) + this->delimiter_.size() >= line.size()) {
+			throw std::invalid_argument("Failed to find value. => [" + line + "]");
+		}
 		std::string	dateStr = line.substr(0, line.find(this->delimiter_));
 		if (dateStr.empty()) {
 			throw std::invalid_argument("Empty date.");
-		}
-		if (line.find(this->delimiter_) == std::string::npos) {
-			throw std::invalid_argument("Failed to find delimiter. => [" + dateStr + "]");
-		}
-		if (line.find(this->delimiter_) + this->delimiter_.size() >= line.size()) {
-			throw std::invalid_argument("Failed to find value. => [" + dateStr + "]");
 		}
 		return (dateStr);
 	} catch (const std::exception& e) {
