@@ -34,6 +34,9 @@ BitcoinExchange::BitcoinExchange(const std::string& fileName)
 	}
 }
 
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& rhs) { this->operator=(rhs); }
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& rhs) { (void)rhs; return (*this); }
+
 BitcoinExchange::~BitcoinExchange() {}
 
 bool	BitcoinExchange::isValue(const std::string &str) {
@@ -214,9 +217,9 @@ void	BitcoinExchange::printResult(const std::string& date, const double value, c
 	try {
 		double	result = value * rate;
 		std::cout << date << " => " << value << " = " << std::flush;
-		std::fixed(std::cout);
-		std::cout << std::setprecision(3);
+		std::cout << std::fixed << std::setprecision(3);
 		std::cout << result << std::endl;
+		std::cout << std::defaultfloat << std::setprecision(1);
 	} catch (const std::exception& e) {
 		std::cout << RED << "Fatal error: Csv::printResult();" << END << std::endl;
 	}

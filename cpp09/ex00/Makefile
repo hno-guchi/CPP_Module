@@ -5,7 +5,7 @@
 NAME = btc
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
-DEBUGFLAGS = -g -fsanitize=address -DDEBUG
+DEBUGFLAGS = -g -fsanitize=address,undefined,integer -DDEBUG
 SRCS = main.cpp BitcoinExchange.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
@@ -59,6 +59,7 @@ debug:
 	./debug ./test/OK_01_not_exist_record.txt
 	./debug ./test/OK_02_not_exist_header.txt
 	./debug ./test/OK_03_exist_empty_lines_in_between_line.txt
+	./debug ./test/OK_04_csv_and_txt_the_same_date.txt
 	./debug ./test/input.txt
 
 .PHONY: leaks
@@ -77,6 +78,7 @@ leaks:
 	./$(NAME) ./test/OK_01_not_exist_record.txt
 	./$(NAME) ./test/OK_02_not_exist_header.txt
 	./$(NAME) ./test/OK_03_exist_empty_lines_in_between_line.txt
+	./$(NAME) ./test/OK_04_csv_and_txt_the_same_date.txt
 	./$(NAME) ./test/input.txt
 
 .PHONY: test
@@ -94,6 +96,7 @@ test:
 	./$(NAME) ./test/OK_01_not_exist_record.txt
 	./$(NAME) ./test/OK_02_not_exist_header.txt
 	./$(NAME) ./test/OK_03_exist_empty_lines_in_between_line.txt
+	./$(NAME) ./test/OK_04_csv_and_txt_the_same_date.txt
 	./$(NAME) ./test/input.txt
 
 .PHONY: lldb

@@ -17,6 +17,10 @@ class BitcoinExchange {
 	 time_t						beginTime_;
 	 std::map<time_t, double>	records_;
 
+	 // CONSTRUCTOR & COPY OPERATOR
+	 explicit BitcoinExchange(const BitcoinExchange& rhs);
+	 BitcoinExchange& operator=(const BitcoinExchange& rhs);
+
 	 bool			isValue(const std::string &str);
 	 time_t			getUnixTimeStampFromStructTm(struct tm* tm);
 	 time_t			getUnixTimeStampFromStr(const std::string& str);
