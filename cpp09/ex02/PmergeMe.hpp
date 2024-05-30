@@ -26,8 +26,8 @@ class PmergeMe {
 	 INTCONT							getLarges(const PAIRCONT& pairs);
 	 INTCONT							getSmalls(const PAIRCONT& pairs, const INTCONT& sorted);
 	 typename INTCONT::const_iterator	getMiddleIterator(typename INTCONT::const_iterator left, typename INTCONT::const_iterator right);
-	 size_t								getJacobsthalNumber(size_t* n);
-	 typename INTCONT::const_iterator	selectInsertionRange(size_t* n, const INTCONT& smalls, typename INTCONT::const_iterator begin);
+	 size_t								getJacobsthalNumber(size_t n);
+	 typename INTCONT::const_iterator	selectInsertionRange(size_t n, const INTCONT& smalls, typename INTCONT::const_iterator begin);
 	 typename INTCONT::const_iterator	getRightIterator(const PAIRCONT& pairs, const INTCONT& sorted, int target);
 	 typename INTCONT::const_iterator	getSortPosition(const PAIRCONT& pairs, const INTCONT& sorted, int target);
 	 INTCONT							mergeInsertionSort(INTCONT container);

@@ -98,23 +98,22 @@ void	PmergeMe<INTCONT, PAIRCONT>::resetCompareCount() {
 }
 
 template <typename INTCONT, typename PAIRCONT>
-size_t	PmergeMe<INTCONT, PAIRCONT>::getJacobsthalNumber(size_t* n) {
-	if (*n == 0) {
+size_t	PmergeMe<INTCONT, PAIRCONT>::getJacobsthalNumber(size_t n) {
+	if (n == 0) {
 		return (0);
 	}
-	if (*n == 1) {
+	if (n == 1) {
 		return (1);
 	}
 
 	size_t	twoPrev = 0;
 	size_t	onePrev = 1;
 	size_t	numN = 0;
-	for (size_t i = 2; i <= *n; i++) {
+	for (size_t i = 2; i <= n; i++) {
 		numN = onePrev + 2 * twoPrev;
 		twoPrev = onePrev;
 		onePrev = numN;
 	}
-	*n += 1;
 	return (numN);
 }
 
@@ -190,7 +189,7 @@ INTCONT	PmergeMe<INTCONT, PAIRCONT>::getSmalls(const PAIRCONT& pairs, const INTC
 }
 
 template <typename INTCONT, typename PAIRCONT>
-typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::selectInsertionRange(size_t* n, const INTCONT& smalls, typename INTCONT::const_iterator begin) {
+typename INTCONT::const_iterator	PmergeMe<INTCONT, PAIRCONT>::selectInsertionRange(size_t n, const INTCONT& smalls, typename INTCONT::const_iterator begin) {
 	try {
 		typename INTCONT::const_iterator	end = begin;
 		end++;
@@ -298,7 +297,8 @@ INTCONT	PmergeMe<INTCONT, PAIRCONT>::mergeInsertionSort(INTCONT container) {
 		size_t	n = 1;
 		typename INTCONT::const_iterator	end;
 		for (typename INTCONT::const_iterator	begin = smalls.begin(); begin != smalls.end(); begin = end) {
-			end = this->selectInsertionRange(&n, smalls, begin);
+			end = this->selectInsertionRange(n, smalls, begin);
+			n++;
 			if (end == smalls.end()) {
 				break;
 			}
