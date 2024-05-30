@@ -1,17 +1,36 @@
 #include "./RPN.hpp"
 
-// debug
-// static void	printBuff(const std::deque<long>& buf);
+const std::string	RPN::operations_ = "+-/*";
 
-// CONSTRUCTER & DESTRUCTER
-RPN::RPN() : operations_("+-/*") {}
-RPN::~RPN() {}
-
-long	RPN::multiplication(long a, long b) const {
+long	RPN::multiplication(long a, long b) {
 	try {
+		if (a == 0 || b == 0) {
+			return (0);
+		}
+		if (a > 0) {
+			if (b > 0) {
+				if (a > std::numeric_limits<int>::max() / b) {
+					throw std::out_of_range("Over Int.");
+				}
+			} else {
+				if (b < std::numeric_limits<int>::min() / a) {
+					throw std::out_of_range("Over Int.");
+				}
+			}
+		} else {
+			if (b > 0) {
+				if (a < std::numeric_limits<int>::min() / b) {
+					throw std::out_of_range("Over Int.");
+				}
+			} else {
+				if (a != 0 && b < std::numeric_limits<int>::max() / a) {
+					throw std::out_of_range("Over Int.");
+				}
+			}
+        }
 		long	result = a * b;
-		if (result < INT_MIN || INT_MAX < result) {
-			throw RPN::OverInt();
+		if (result < std::numeric_limits<int>::min() || std::numeric_limits<int>::max() < result) {
+			throw std::out_of_range("Over Int.");
 		}
 		return (result);
 	} catch (const std::exception& e) {
@@ -19,14 +38,17 @@ long	RPN::multiplication(long a, long b) const {
 	}
 }
 
-long	RPN::division(long a, long b) const {
+long	RPN::division(long a, long b) {
 	try {
 		if (b == 0) {
-			throw RPN::InvalidArg("Occurs Zero division.");
+			throw std::invalid_argument("Occurs Zero division.");
+		}
+		if (a == std::numeric_limits<int>::min() && b == -1) {
+			throw std::out_of_range("Over Int.");
 		}
 		long	result = a / b;
-		if (result < INT_MIN || INT_MAX < result) {
-			throw RPN::OverInt();
+		if (result < std::numeric_limits<int>::min() || std::numeric_limits<int>::max() < result) {
+			throw std::out_of_range("Over Int.");
 		}
 		return (result);
 	} catch (const std::exception& e) {
@@ -34,11 +56,20 @@ long	RPN::division(long a, long b) const {
 	}
 }
 
-long	RPN::subtraction(long a, long b) const {
+long	RPN::subtraction(long a, long b) {
 	try {
+		if (b > 0) {
+			if (a < std::numeric_limits<int>::min() + b) {
+				throw std::out_of_range("Over Int.");
+			}
+		} else {
+			if (a > std::numeric_limits<int>::max() + b) {
+				throw std::out_of_range("Over Int.");
+			}
+    	}
 		long	result = a - b;
-		if (result < INT_MIN || INT_MAX < result) {
-			throw RPN::OverInt();
+		if (result < std::numeric_limits<int>::min() || std::numeric_limits<int>::max() < result) {
+			throw std::out_of_range("Over Int.");
 		}
 		return (result);
 	} catch (const std::exception& e) {
@@ -46,11 +77,20 @@ long	RPN::subtraction(long a, long b) const {
 	}
 }
 
-long	RPN::addition(long a, long b) const {
+long	RPN::addition(long a, long b) {
 	try {
+		if (b > 0) {
+			if (a > std::numeric_limits<int>::max() - b) {
+				throw std::out_of_range("Over Int.");
+			}
+		} else {
+			if (a < std::numeric_limits<int>::min() - b) {
+				throw std::out_of_range("Over Int.");
+			}
+		}
 		long	result = a + b;
-		if (result < INT_MIN || INT_MAX < result) {
-			throw RPN::OverInt();
+		if (result < std::numeric_limits<int>::min() || std::numeric_limits<int>::max() < result) {
+			throw std::out_of_range("Over Int.");
 		}
 		return (result);
 	} catch (const std::exception& e) {
@@ -58,39 +98,42 @@ long	RPN::addition(long a, long b) const {
 	}
 }
 
-long	RPN::getNumber(std::deque<long>* buf) const {
+long	RPN::getNumber(std::deque<long>* buf) {
 	try {
 		long num = buf->front();
 		buf->pop_front();
+		if (num < std::numeric_limits<int>::min() || num > std::numeric_limits<int>::max()) {
+			throw std::out_of_range("Over Int.");
+		}
 		return (num);
 	} catch (const std::exception& e) {
 		throw;
 	}
 }
 
-void	RPN::calculate(const char operation, std::deque<long>* buf) const {
+void	RPN::calculate(const char operation, std::deque<long>* buf) {
 	if (buf->size() < 2) {
-		throw RPN::InvalidArg("Not enough numbers.");
+		throw std::invalid_argument("Not enough numbers.");
 	}
 	try {
-		long b = this->getNumber(buf);
-		long a = this->getNumber(buf);
+		long b = RPN::getNumber(buf);
+		long a = RPN::getNumber(buf);
 		long result(0);
 		switch (operation) {
 			case '+':
-				result = this->addition(a, b);
+				result = RPN::addition(a, b);
 				break;
 			case '-':
-				result = this->subtraction(a, b);
+				result = RPN::subtraction(a, b);
 				break;
 			case '/':
-				result = this->division(a, b);
+				result = RPN::division(a, b);
 				break;
 			case '*':
-				result = this->multiplication(a, b);
+				result = RPN::multiplication(a, b);
 				break;
 			default:
-				throw RPN::InvalidArg("Wrong operation.");
+				throw std::invalid_argument("Wrong operation.");
 		}
 		buf->push_front(result);
 	}
@@ -99,7 +142,7 @@ void	RPN::calculate(const char operation, std::deque<long>* buf) const {
 	}
 }
 
-char	RPN::getToken(const std::string& str, std::string::const_iterator& it, const std::locale l) const {
+char	RPN::getToken(const std::string& str, std::string::const_iterator& it, const std::locale l) {
 	try {
 		std::string	token;
 
@@ -110,7 +153,7 @@ char	RPN::getToken(const std::string& str, std::string::const_iterator& it, cons
 			}
 		}
 		if (token.size() != 1) {
-			throw RPN::InvalidArg("Only use 0 ~ 9 or +, -, *, /.");
+			throw std::invalid_argument("Only use 0 ~ 9 or +, -, *, /.");
 		}
 		return (static_cast<char>(token[0]));
 	} catch (const std::exception& e) {
@@ -119,9 +162,9 @@ char	RPN::getToken(const std::string& str, std::string::const_iterator& it, cons
 }
 
 // SUBJECT FUNC
-void	RPN::execute(const std::string& str) const {
+void	RPN::execute(const std::string& str) {
 	if (str.empty()) {
-		throw RPN::InvalidArg("Empty argument.");
+		throw std::invalid_argument("Empty argument.");
 	}
 
 	std::deque<long>	buf;
@@ -132,18 +175,18 @@ void	RPN::execute(const std::string& str) const {
 				continue;
 			}
 
-			char	token = this->getToken(str, it, l);
+			char	token = RPN::getToken(str, it, l);
 
 			if (std::isdigit(token, l)) {
 				buf.push_front(token - '0');
-			} else if (this->operations_.find(token) != this->operations_.npos) {
-				this->calculate(token, &buf);
+			} else if (RPN::operations_.find(token) != RPN::operations_.npos) {
+				RPN::calculate(token, &buf);
 			} else {
-				throw RPN::InvalidArg("Non digit or operations(+-*/).");
+				throw std::invalid_argument("Non digit or operations(+-*/).");
 			}
 		}
 		if (buf.size() != 1) {
-			throw RPN::InvalidArg("Wrong format.");
+			throw std::invalid_argument("Wrong format.");
 		}
 	}
 	catch (const std::exception& e) {
@@ -153,30 +196,25 @@ void	RPN::execute(const std::string& str) const {
 	std::cout << buf.front() << std::endl;
 }
 
-// EXCEPTION
-RPN::InvalidArg::InvalidArg(const std::string& msg) : std::invalid_argument(msg) {}
-RPN::OverInt::OverInt(const std::string& msg) : std::out_of_range(msg) {}
-
-// debug
-// static void	printBuff(const std::deque<long>& buf)
-// {
-// 	if (buf.empty()) {
-// 		return ;
-// 	}
-// 	long	i = 0;
-// 	for (std::deque<long>::const_iterator itr = buf.begin(); itr != buf.end(); itr++) {
-// 		std::cout << "[" << i << "]" << std::flush;
-// 		if ((itr + 1) != buf.end()) {
-// 			std::cout << " -> " << std::flush;
-// 		}
-// 		i += 1;
-// 	}
-// 	std:: cout << std::endl;
-// 	for (std::deque<long>::const_iterator itr = buf.begin(); itr != buf.end(); itr++) {
-// 		std::cout << "[" << *itr << "]" << std::flush;
-// 		if ((itr + 1) != buf.end()) {
-// 			std::cout << " -> " << std::flush;
-// 		}
-// 	}
-// 	std:: cout << std::endl;
-// }
+// DEBUG
+void	RPN::printBuff(const std::deque<long>& buf) {
+	if (buf.empty()) {
+		return;
+	}
+	long	i = 0;
+	for (std::deque<long>::const_iterator itr = buf.begin(); itr != buf.end(); itr++) {
+		std::cout << "[" << i << "]" << std::flush;
+		if ((itr + 1) != buf.end()) {
+			std::cout << " -> " << std::flush;
+		}
+		i += 1;
+	}
+	std:: cout << std::endl;
+	for (std::deque<long>::const_iterator itr = buf.begin(); itr != buf.end(); itr++) {
+		std::cout << "[" << *itr << "]" << std::flush;
+		if ((itr + 1) != buf.end()) {
+			std::cout << " -> " << std::flush;
+		}
+	}
+	std:: cout << std::endl;
+}

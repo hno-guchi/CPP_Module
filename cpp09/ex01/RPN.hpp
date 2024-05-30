@@ -8,33 +8,37 @@
 #include <stdexcept>
 #include <string>
 
+#ifdef DEBUG
+#define long int
+#endif  // DEBUG
+
 class RPN {
  private:
-	 const std::string	operations_;
+	 static const std::string	operations_;
 
-	 long	multiplication(long a, long b) const;
-	 long	division(long a, long b) const;
-	 long	subtraction(long a, long b) const;
-	 long	addition(long a, long b) const;
-	 long	getNumber(std::deque<long>* buf) const;
-	 void	calculate(const char operation, std::deque<long>* buf) const;
-	 char	getToken(const std::string& str, std::string::const_iterator& it, const std::locale l) const;
+	 static long	multiplication(long a, long b);
+	 static long	division(long a, long b);
+	 static long	subtraction(long a, long b);
+	 static long	addition(long a, long b);
+	 static long	getNumber(std::deque<long>* buf);
+	 static void	calculate(const char operation, std::deque<long>* buf);
+	 static char	getToken(const std::string& str, std::string::const_iterator& it, const std::locale l);
 
- public:
 	 // CONSTRUCTOR & DESUTRUCTOR
 	 RPN();
 	 ~RPN();
+
+	 // DEBUG
+	 void	printBuff(const std::deque<long>& buf);
+
+ public:
 	 // MEMBER FUNCTION
-	 void	execute(const std::string& str) const;
-// EXCEPTION
-class InvalidArg : public std::invalid_argument {
- public:
-	 explicit InvalidArg(const std::string& msg = "Invalid argument.");
-};
-class OverInt : public std::out_of_range {
- public:
-	 explicit OverInt(const std::string& msg = "Over INT_MAX or under INT_MIN.");
-};
+	 static void	execute(const std::string& str);
+	 // DEBUG CALUCULATE_TEST
+	 // static long	multiplication(long a, long b);
+	 // static long	division(long a, long b);
+	 // static long	subtraction(long a, long b);
+	 // static long	addition(long a, long b);
 };
 
 #endif
