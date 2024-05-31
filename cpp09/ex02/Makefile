@@ -46,7 +46,6 @@ debug: CXXFLAGS = $(FSANITIZEFLAGS)
 debug: $(OBJS_DIR)
 debug: $(OBJS)
 debug:
-	$(CXX) $(FSANITIZEFLAGS) -c deque.cpp -o $(OBJS_DIR)/deque.o
 	$(CXX) $(FSANITIZEFLAGS) -c Int.cpp -o $(OBJS_DIR)/Int.o
 	$(CXX) $(FSANITIZEFLAGS) -o debug $(OBJS) $(OBJS_DIR)/Int.o
 

@@ -24,7 +24,7 @@ class BitcoinExchange {
 	 bool			isValue(const std::string &str);
 	 time_t			getUnixTimeStampFromStructTm(struct tm* tm);
 	 time_t			getUnixTimeStampFromStr(const std::string& str);
-	 double			getFloatFromStr(const std::string& str);
+	 double			getDoubleFromStr(const std::string& str);
 	 void			setRecords(std::ifstream* fd, const std::string& delimiter);
 	 std::string	getDateFromLine(const std::string& line);
 	 double			getValueFromLine(const std::string& line);

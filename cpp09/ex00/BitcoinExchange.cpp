@@ -103,7 +103,7 @@ time_t	BitcoinExchange::getUnixTimeStampFromStr(const std::string& str) {
 	}
 }
 
-double	BitcoinExchange::getFloatFromStr(const std::string& str) {
+double	BitcoinExchange::getDoubleFromStr(const std::string& str) {
 	try {
 		std::stringstream	ss(str);
 		double				value;
@@ -127,7 +127,7 @@ void	BitcoinExchange::setRecords(std::ifstream* fd, const std::string& delimiter
 			std::string	valueStr = line.substr(line.find(delimiter) + delimiter.size());
 
 			time_t	date = this->getUnixTimeStampFromStr(dateStr);
-			double	value = this->getFloatFromStr(valueStr);
+			double	value = this->getDoubleFromStr(valueStr);
 			this->records_[date] = value;
 		}
 		if (!fd->eof() && fd->fail()) {
@@ -177,7 +177,7 @@ double	BitcoinExchange::getValueFromLine(const std::string& line) {
 		if (!isValue(valueStr)) {
 			throw std::invalid_argument("Exist Not digit char. => [" + valueStr + "]");
 		}
-		double	value = this->getFloatFromStr(valueStr);
+		double	value = this->getDoubleFromStr(valueStr);
 		if (value < 0.0) {
 			throw std::invalid_argument("Not a positive number. => [" + valueStr + "]");
 		} else if (value > 1000.0) {
