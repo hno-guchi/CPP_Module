@@ -14,7 +14,7 @@ bool	Int::isDuplicate(const CONTAINER& container, int num) {
 }
 
 template <typename CONTAINER>
-void	Int::createContainer(CONTAINER* container, int argc, char** argv) {
+void	Int::setValues(CONTAINER* container, int argc, char** argv) {
 	try {
 		for (int i = 1; i < argc; i++) {
 			Int	num(Int::convertStringToInt(argv[i]));
