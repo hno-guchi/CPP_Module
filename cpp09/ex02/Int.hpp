@@ -39,7 +39,7 @@ class Int {
 	 template <typename CONTAINER>
 	 static bool	isDuplicate(const CONTAINER& container, int num);
 	 template <typename CONTAINER>
-	 static void	createContainer(CONTAINER* container, int argc, char** argv);
+	 static void	setValues(CONTAINER* container, int argc, char** argv);
 };
 
 std::ostream&	operator<<(std::ostream& os, const Int& obj);

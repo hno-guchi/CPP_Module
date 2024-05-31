@@ -6,7 +6,7 @@ NAME = PmergeMe
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic-errors -MMD -MP
 FSANITIZEFLAGS = -g -fsanitize=address -DDEBUG
-SRCS = main.cpp PmergeMe.cpp
+SRCS = main.cpp PmergeMe.cpp vector.cpp list.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.cpp=%.o))
 OBJS_DIR = ./objs
 DEPENDS = $(addprefix $(OBJS_DIR)/, $(OBJS:%.o=%.d))
@@ -46,6 +46,7 @@ debug: CXXFLAGS = $(FSANITIZEFLAGS)
 debug: $(OBJS_DIR)
 debug: $(OBJS)
 debug:
+	$(CXX) $(FSANITIZEFLAGS) -c deque.cpp -o $(OBJS_DIR)/deque.o
 	$(CXX) $(FSANITIZEFLAGS) -c Int.cpp -o $(OBJS_DIR)/Int.o
 	$(CXX) $(FSANITIZEFLAGS) -o debug $(OBJS) $(OBJS_DIR)/Int.o
 
